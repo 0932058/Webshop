@@ -6,3 +6,12 @@ a{
     color: black;
     font-size: 2em;
 }
+.textBars{
+    text-align:center;
+    color:black
+}
+.Formbar{
+    text-align:center;
+    color:red;
+    border-right-color:cadetblue;
+}
