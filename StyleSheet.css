@@ -1,8 +1,4 @@
-﻿body
-{
-
-}
-a{
+﻿a{
     color: white;
 	background-color: #124f1b;
 	padding: 0.1em;
@@ -27,6 +23,7 @@ nav{
 	padding: 1em;
 	margin: 1em;
 	background-color: #4df967;
+	display: block;
 
 }
 nav form{
@@ -36,9 +33,18 @@ section{
 	padding: 1em;
 	margin: 1em;
 	background-color: #4df967;
+	display: inline-block;
 }
-
-.ProductItem{
+.Product{
+	padding: 1em;
+	margin: 0.5em;
+	display: inline-block;
+	width: 15em;
+}
+.Product img{
+	height: 15em;
+}
+.CartProductItem{
 	padding: 0.5em;
 	border-style: solid;
 	border-color: white;
@@ -46,7 +52,7 @@ section{
 	margin:0.1em;
 	height: 20em;
 }
-.ProductPart{
+.CartProductPart{
 	display: inline;
 }
 
@@ -58,4 +64,7 @@ section{
     text-align:center;
     color:red;
     border-right-color:cadetblue;
+}
+.Zijbalk{
+float: left;
 }
