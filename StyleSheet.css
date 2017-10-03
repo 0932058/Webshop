@@ -60,6 +60,17 @@ section{
 	height: 15em;
 }
 
+.OrderedProduct{
+	padding: 0.5em;
+	border-style: solid;
+	border-color: white;
+	border-width: 0.5em;
+	margin:0.1em;
+	height: auto;
+}
+.OrderedtProduct img{
+	height: 15em;
+}
 .textBars{
     text-align:center;
     color:black
