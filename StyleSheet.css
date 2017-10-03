@@ -3,9 +3,53 @@
 
 }
 a{
-    color: black;
+    color: white;
+	background-color: #124f1b;
+	padding: 0.1em;
+	margin: 0.1em;
     font-size: 2em;
 }
+h1{
+	color: white;
+	background-color: #124f1b;
+	padding: 0.1em;
+	margin: 0.1em;
+    font-size: 4em;
+}
+h2{
+	color: white;
+	background-color: #124f1b;
+	padding: 0.1em;
+	margin: 0.1em;
+    font-size: 2em;
+}
+nav{
+	padding: 1em;
+	margin: 1em;
+	background-color: #4df967;
+
+}
+nav form{
+	display: inline;
+}
+section{
+	padding: 1em;
+	margin: 1em;
+	background-color: #4df967;
+}
+
+.ProductItem{
+	padding: 0.5em;
+	border-style: solid;
+	border-color: white;
+	border-width: 0.5em;
+	margin:0.1em;
+	height: 20em;
+}
+.ProductPart{
+	display: inline;
+}
+
 .textBars{
     text-align:center;
     color:black
