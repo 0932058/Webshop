@@ -3,21 +3,21 @@
 	background-color: #124f1b;
 	padding: 0.1em;
 	margin: 0.1em;
-    font-size: 2em;
+    font-size: 1.5em;
 }
 h1{
 	color: white;
 	background-color: #124f1b;
 	padding: 0.1em;
 	margin: 0.1em;
-    font-size: 4em;
+    font-size: 3em;
 }
 h2{
 	color: white;
 	background-color: #124f1b;
 	padding: 0.1em;
 	margin: 0.1em;
-    font-size: 2em;
+    font-size: 1.5em;
 }
 nav{
 	padding: 1em;
@@ -44,16 +44,20 @@ section{
 .Product img{
 	height: 15em;
 }
-.CartProductItem{
+.CartProduct{
 	padding: 0.5em;
 	border-style: solid;
 	border-color: white;
 	border-width: 0.5em;
 	margin:0.1em;
-	height: 20em;
+	height: auto;
 }
-.CartProductPart{
+.CartProduct h2{
 	display: inline;
+}
+
+.CartProduct img{
+	height: 15em;
 }
 
 .textBars{
