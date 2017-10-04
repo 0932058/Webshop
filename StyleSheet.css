@@ -86,3 +86,7 @@ section{
 .Zijbalk{
 float: left;
 }
+.CheckoutForm{
+    margin: 1em;
+    display: inline-block
+}
