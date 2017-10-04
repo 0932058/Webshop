@@ -129,3 +129,7 @@ float: left;
     padding: 0.3em;
     margin: 1em;
 }
+.ProfielInfo{
+    display:inline-block;
+    white-space: pre-line;
+}
