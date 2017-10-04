@@ -1,20 +1,23 @@
-﻿a{
+﻿body{
+    background-color: #232B2B;
+}
+
+a{
     color: white;
-	background-color: #124f1b;
 	padding: 0.1em;
 	margin: 0.1em;
     font-size: 1.5em;
 }
 h1{
 	color: white;
-	background-color: #124f1b;
+    border-radius: 5px;
 	padding: 0.1em;
 	margin: 0.1em;
     font-size: 3em;
 }
 h2{
 	color: white;
-	background-color: #124f1b;
+    border-radius: 5px;
 	padding: 0.1em;
     width: auto;
     font-size: 1.5em;
@@ -22,9 +25,9 @@ h2{
 nav{
 	padding: 1em;
 	margin: 1em;
-	background-color: #4df967;
+	background-color: #DC3D24;
+    border-radius: 5px;
 	display: block;
-
 }
 nav form{
 	display: inline;
@@ -32,7 +35,8 @@ nav form{
 section{
 	padding: 1em;
 	margin: 1em;
-	background-color: #4df967;
+	background-color: #DC3D24;
+    border-radius: 5px;
 	display: inline-block;
 }
 .Product{
