@@ -1,12 +1,18 @@
 ﻿body{
     background-color: #232B2B;
 }
-
-a{
+a, button{
     color: white;
 	padding: 0.1em;
 	margin: 0.1em;
     font-size: 1.5em;
+    text-decoration: none;
+}
+a:hover{
+    color: #222930;
+}
+button{
+    color: black;
 }
 h1{
 	color: white;
