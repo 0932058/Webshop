@@ -1,7 +1,7 @@
 ﻿body{
     background-color: #232B2B;
 }
-a, button{
+a{
     color: white;
 	padding: 0.1em;
 	margin: 0.1em;
@@ -15,7 +15,18 @@ input{
     margin-bottom: 10px;
 }
 button{
+    background-color: #232B2B;
+    border-radius: 10px;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border: 2px solid white;
+}
+button:hover{
     color: black;
+    background-color: white;
 }
 h1{
 	color: white;
@@ -98,4 +109,27 @@ float: left;
 .CheckoutForm{
     margin: 1em;
     display: inline-block
+}
+.Productinfo {
+    display: inline-block;
+    width: 50em;
+}
+#Console_type {
+    position: absolute;
+    display: inline-block;
+    padding-left: 20em;
+}
+#Console_type_foto {
+    height: 3em;
+}
+#Product_foto img {
+    height: 15em;
+}
+.item_buttons {
+    padding: 0.3em;
+    margin: 1em;
+}
+.ProfielInfo{
+    display:inline-block;
+    white-space: pre-line;
 }
