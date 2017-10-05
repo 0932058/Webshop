@@ -4,8 +4,7 @@
 a{
     color: white;
 	padding: 0.1em;
-	margin: 0.1em;
-    font-size: 1.5em;
+	margin: 0.1em; 
     text-decoration: none;
 }
 a:hover{
@@ -27,6 +26,9 @@ button{
 button:hover{
     color: black;
     background-color: white;
+}
+button:active{
+    background-color: #DC3D24;
 }
 h1{
 	color: white;
