@@ -14,6 +14,7 @@
 }
 
 var array1 = [new ProductLink("DOOM", "\"Images/doom-cover-new.jpg\"", "\"ConsoleChoiceDoom.html\""), new ProductLink("Call of Duty: Advanced Warfare", "\"Images/COD-AW-cover.jpg\"", "\"ConsoleChoiceAW.html\""), new ProductLink("PlayerUnknown's Battlegrounds", "\"Images/PUBG-cover.jpg\"", "\"ConsoleChoiceBATTLE.html\""), new ProductLink("Xbox console", "\"Images/Xbox.jpeg\"", "\"XBoX.html\"")]
+
 document.getElementById("search1").innerHTML = array1[0].makelink();
 
 document.getElementById("search2").innerHTML = array1[1].makelink();
