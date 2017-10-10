@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+    <script>
+            var winkelWagen = [];
+            function winkelWagenZgtbr(){
+                var productTabel=document.getElementById("productTabel");
+                while(productTabel.rows.length>0) {
+                    productTabel.deleteRow(0);
+                }
+                var prijsTotaal=0;
+                for(var product in winkelWagen){
+                    var row=productTabel.insertRow();
+                    var cellNaam = row.insertCell(0);
+                    var cellBeschrijving = row.insertCell(1);
+                    var cellPrijs = row.insertCell(2);
+                    cellPrijs.align="right";
+                    cellNaam.innerHTML = winkelWagen[product].Naam;
+                    cellBeschrijving.innerHTML = winkelWagen[product].Beschrijving;
+                    cellPrijs.innerHTML = winkelWagen[product].Prijs;
+                    prijsTotaal+=winkelWagen[product].Prijs;
+                }
+                document.getElementById("mand_totaal").innerHTML=prijsTotaal;
+            }
+
+            function inMand(naam,beschrijving,prijs){
+               var eenProduct = {};
+               eenProduct.Naam=naam;
+               eenProduct.Beschrijving=beschrijving;
+               eenProduct.Prijs=prijs;
+               winkelWagen.push(eenProduct);
+               winkelWagenZgtbr();
+
+            }
+
+    </script>
+    <table cellpadding="4" cellspacing="4" border="1">
+        <tr>
+            <td valign="top">
+                <table cellpadding="4" cellspacing="4" border="0">
+                    <thead>
+                        <tr>
+                            <td colspan="2">
+                                Normie shop winkelmand alpha
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                PS console
+                            </td>
+                            <td>
+                                <input type="button" value="in de mand" onclick="inMand('Playstation','Game console',400)" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Game
+                            </td>
+                            <td>
+                                <input type="button" value="in de mand" onclick="inMand('Game PS','Playstation Game',60)" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                XBoX Console
+                            </td>
+                            <td>
+                                <input type="button" value="in de mand" onclick="inMand('XBoX','Normie console',123456)" />
+                            </td>
+                        </tr>
+                    </tbody>
+
+                </table>
+            </td>
+            <td valign="top">
+                <table cellpadding="4" cellspacing="4" border="1" id="gesorteerdTbl">
+                    <thead>
+                        <tr>
+                            <td>
+                                Naam
+                            </td>
+                            <td>
+                                Omschrijving
+                            </td>
+                            <td>
+                                Prijs
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody id="productTabel"></tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="3" align="right" id="mand_totaal"></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </td>
+        </tr>
+    </table>
+</html>
