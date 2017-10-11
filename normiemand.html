@@ -10,7 +10,6 @@
                 var itemAantal=0;
                 var prijsTotaal=0;
                 for (var product in winkelWagen) {
-                    itemAantal =+ (productTabel.rows.length + 1);
                     var row=productTabel.insertRow();
                     var cellNaam = row.insertCell(0);
                     var cellBeschrijving = row.insertCell(1);
@@ -21,7 +20,7 @@
                     cellBeschrijving.innerHTML = winkelWagen[product].Beschrijving;
                     cellPrijs.innerHTML = winkelWagen[product].Prijs;
                     prijsTotaal += winkelWagen[product].Prijs;
-                    
+                    itemAantal =+ (productTabel.rows.length + 1);
                 }
                 document.getElementById("mand_totaal").innerHTML = prijsTotaal;
                 document.getElementById("mand_aantal").innerHTML = itemAantal; 
@@ -37,7 +36,9 @@
 
             }
             //Hier nog een functie om dingen uit de mand te halen..
-            //function uitMand(){}
+            //function uitMand(){
+            //product =-1
+            //}
 
     </script>
     <table cellpadding="4" cellspacing="4" border="1">
