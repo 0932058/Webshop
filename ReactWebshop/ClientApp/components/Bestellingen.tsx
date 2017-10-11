@@ -1,57 +1,46 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
 
-interface WinkelmandState {
-    Storage: string | null;
+interface BestellingenProps{
 }
-
-class codGame{
+interface BestellingenState{
+}
+class BestellingenGame{
+    name: string;
     price: Number;
-
-    constructor(){
-        this.price = 50;
+    category: string;
+    orderdate: Date | null
+    status: string | null
+    image: any | null
+    constructor(name: string, price: number, category: string, orderdate: Date| null, status: string| null, image: any| null ){
+        this.name = name;
+        this.price = price;
+        this.category = category;
+        this.orderdate = orderdate;
+        this.status = status;
+        this.image = image;
     }
 }
 
-export class Winkelmand extends React.Component<RouteComponentProps<{}>, WinkelmandState> {
-    constructor(){
+export class Bestellingen extends React.Component<RouteComponentProps<{}>, BestellingenState> {
+    constructor(props: BestellingenProps){
         super();
-
-        var game = new codGame();
-
-
-        this.add = this.add.bind(this);
-        this.retrieve = this.retrieve.bind(this);
-        localStorage.setItem('wenslijst', JSON.stringify({list: [game] }));
+        //localStorage.setItem('wenslijst', JSON.stringify({list: [game] }));
     }
 
-    add(){
-        var Storage = localStorage.getItem("works");
-
-        this.setState({
-            Storage
-        });
-    }
-
-    retrieve(){
-        return this.state.Storage;
-    }
-
+  
     public render() {
 
-        var voorbeeld = JSON.parse(String(localStorage.getItem('wenslijst')));
+        var bestellingen = JSON.parse(String(localStorage.getItem('wenslijst')));
 
-        voorbeeld.list[0].price = 20;
+        //voorbeeld.list[0].price = 20;
 
-        localStorage.setItem('wenslijst', JSON.stringify(voorbeeld));
-        
-        voorbeeld = JSON.parse(String(localStorage.getItem('wenslijst')));
-
-        return <div>
-            
+        return <div className={"Orders"}>      
                 <div>
-                    <h1>{ voorbeeld.list[0].price }</h1>
+                    Test45353535
+                    <h1>{ bestellingen.list[0] }</h1>
                 </div>
             </div>;
     }
 }
+export default Bestellingen;
