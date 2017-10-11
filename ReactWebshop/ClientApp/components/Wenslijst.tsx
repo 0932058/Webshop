@@ -73,8 +73,8 @@ export class Wenslijst extends React.Component<RouteComponentProps<{}>, Winkelma
         <h1>Wenslijst</h1>
  
         <div className="CartProduct">
-            
-                <a href= ><img src= style="height: 15em;"/></a>
+            {/* Commented out because of an error - Stefan}
+             {/* <a href= ""><img src={} style="height: 15em;"/></a> </img> */}
             <h2 className="CartProductPart">Doom 2016</h2>
             <a href="Product1pagina" className="CartProductPart">Naar product</a>           
             <a href="Winkelmand.html">In winkelmand</a>

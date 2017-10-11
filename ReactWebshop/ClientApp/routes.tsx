@@ -6,7 +6,7 @@ import { Wenslijst } from './components/Wenslijst';
 import { Winkelmand } from './components/Winkelmand';
 
 export const routes = <Layout>
-    <Route exact path='/' component={ Bestellingen } />
+    <Route exact path='/' component={Bestellingen} />
     <Route path='/Wenslijst' component={ Wenslijst } />
     <Route path='/WInkelmand' component={ Winkelmand } />
 </Layout>;
