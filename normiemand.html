@@ -1,25 +1,30 @@
 <!DOCTYPE html>
 <html>
-    <script>
+    <script type="text/javascript">
             var winkelWagen = [];
             function winkelWagenZgtbr(){
                 var productTabel=document.getElementById("productTabel");
                 while(productTabel.rows.length>0) {
                     productTabel.deleteRow(0);
                 }
+                var itemAantal=0;
                 var prijsTotaal=0;
-                for(var product in winkelWagen){
+                for (var product in winkelWagen) {
+                    itemAantal =+ (productTabel.rows.length + 1);
                     var row=productTabel.insertRow();
                     var cellNaam = row.insertCell(0);
                     var cellBeschrijving = row.insertCell(1);
                     var cellPrijs = row.insertCell(2);
+                    var cellitemAantal = row.insertCell(3)
                     cellPrijs.align="right";
                     cellNaam.innerHTML = winkelWagen[product].Naam;
                     cellBeschrijving.innerHTML = winkelWagen[product].Beschrijving;
                     cellPrijs.innerHTML = winkelWagen[product].Prijs;
-                    prijsTotaal+=winkelWagen[product].Prijs;
+                    prijsTotaal += winkelWagen[product].Prijs;
+                    
                 }
-                document.getElementById("mand_totaal").innerHTML=prijsTotaal;
+                document.getElementById("mand_totaal").innerHTML = prijsTotaal;
+                document.getElementById("mand_aantal").innerHTML = itemAantal; 
             }
 
             function inMand(naam,beschrijving,prijs){
@@ -88,12 +93,20 @@
                             <td>
                                 Prijs
                             </td>
+                            <td>
+                                Aantal
+                            </td>
+                            <td>
+                                Verwijder
+                            </td>
                         </tr>
                     </thead>
                     <tbody id="productTabel"></tbody>
                     <tfoot>
                         <tr>
                             <td colspan="3" align="right" id="mand_totaal"></td>
+                            <td colspan="4" allign="left" id="mand_aantal"></td>
+                                
                         </tr>
                     </tfoot>
                 </table>
