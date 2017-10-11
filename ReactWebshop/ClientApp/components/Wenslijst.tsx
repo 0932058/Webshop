@@ -39,20 +39,16 @@ export class Winkelmand extends React.Component<RouteComponentProps<{}>, Winkelm
 
     public render() {
 
-        //hier wordt de value van wenslijst naar string gecast om vervolgens naar een JSON object te worden gecast
         var voorbeeld = JSON.parse(String(localStorage.getItem('wenslijst')));
 
-        //zo pas je een attribuut van een instantie in de lijst aan
         voorbeeld.list[0].price = 20;
 
-        //hier wordt de lijst weer teruggezet naar de localstorage
         localStorage.setItem('wenslijst', JSON.stringify(voorbeeld));
         
         voorbeeld = JSON.parse(String(localStorage.getItem('wenslijst')));
 
-
-        //stop al de html voor je site hierin, je hoeft geen sidebalk etc erin te gooien, dat staat ergens anders
         return <div>
+            
                 <div>
                     <h1>{ voorbeeld.list[0].price }</h1>
                 </div>
