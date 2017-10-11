@@ -13,7 +13,7 @@ class codGame{
     }
 }
 
-export class Wenslijst extends React.Component<RouteComponentProps<{}>, WinkelmandState> {
+export class Winkelmand extends React.Component<RouteComponentProps<{}>, WinkelmandState> {
     constructor(){
         super();
 
