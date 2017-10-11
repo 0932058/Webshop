@@ -11,7 +11,7 @@ export class Winkelmand extends React.Component<RouteComponentProps<{}>, Winkelm
 
         this.add = this.add.bind(this);
         this.retrieve = this.retrieve.bind(this);
-        this.state = { Storage: "doesnt work" }
+        localStorage.setItem('wenslijst', JSON.stringify({list: [{price: 50}] }));
     }
 
     add(){
@@ -28,10 +28,11 @@ export class Winkelmand extends React.Component<RouteComponentProps<{}>, Winkelm
 
     public render() {
 
+        var voorbeeld = JSON.parse(String(localStorage.getItem('wenslijst')));
+;
         return <div>
-                <button onClick={this.add}></button>
                 <div>
-                    <h1>{ this.state.Storage }</h1>
+                    <h1>{ voorbeeld.list[0].price }</h1>
                 </div>
             </div>;
     }
