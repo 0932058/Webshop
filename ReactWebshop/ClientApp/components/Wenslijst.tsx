@@ -70,7 +70,11 @@ export class Wenslijst extends React.Component<RouteComponentProps<{}>, Wenslijs
 
     createStorageAndState(){
         var games = JSON.parse(String(localStorage.getItem('Wenslijst')));
-        localStorage.setItem('Wenslijst', JSON.stringify(games));
+        if(games.list === null){
+            localStorage.setItem('Wenslijst', JSON.stringify({list: []}));
+        }else{
+            localStorage.setItem('Wenslijst', JSON.stringify(games));
+        }
     }
 
     ConvertJson() : any{
@@ -82,7 +86,6 @@ export class Wenslijst extends React.Component<RouteComponentProps<{}>, Wenslijs
     componentWillMount(){
         this.createStorageAndState();
         this.ConvertJson();
-
     }
 
     render() {
