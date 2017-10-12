@@ -29,8 +29,8 @@ export class Wenslijst extends React.Component<RouteComponentProps<{}>, Wenslijs
     addGameToStorage() {
         var games = JSON.parse(String(localStorage.getItem('Wenslijst')));
         var gamesList: WenslijstGame[] = games.list;
-        var game: WenslijstGame = {name: "GTA V", console: "Xbox", price: 60, category: "Games", orderdate: Date.now(), status:"Onderweg",
-        image: "http://gamesofpc.com/wp-content/uploads/2015/02/GTA-5-Download.jpg"}
+        var game: WenslijstGame = {name: "DOOM", console: "Xbox", price: 60, category: "Games", orderdate: Date.now(), status:"Onderweg",
+        image: "Images/doom-cover-new.jpg"}
         
         var game2: WenslijstGame = {name: "Call of duty Infinite Warfare",console: "Xbox ", price: 55, category: "Games", orderdate: Date.now(), status:"Bezorgd",
         image: "https://www.gamestop.com/common/images/lbox/125879b.jpg"}
@@ -69,19 +69,8 @@ export class Wenslijst extends React.Component<RouteComponentProps<{}>, Wenslijs
     }
 
     createStorageAndState(){
-        var game: WenslijstGame = {name: "GTA V", console: "Xbox", price: 60, category: "Games", orderdate: Date.now(), status:"Onderweg",
-        image: "http://gamesofpc.com/wp-content/uploads/2015/02/GTA-5-Download.jpg"}
-        
-        var game2: WenslijstGame = {name: "Call of duty Infinite Warfare",console: "Xbox ", price: 55, category: "Games", orderdate: Date.now(), status:"Bezorgd",
-        image: "https://www.gamestop.com/common/images/lbox/125879b.jpg"}
-        
-        var game3: WenslijstGame = {name: "GTA 3",console: "Playstation 2", price: 50, category: "Games", orderdate: Date.now(), 
-       status:"Onderweg", image:"https://www.lukiegames.com/assets/images/XBOX/xbox_grand_theft_auto_iii-110214.jpg"}
-        
-       var game4: WenslijstGame = {name: "Fifa 16",console: "Xbox", price: 55, category: "Games", orderdate: Date.now(),
-        status:"Onderweg", image:"https://www.instant-gaming.com/images/products/836/271x377/836.jpg"}
-        
-        localStorage.setItem('Wenslijst', JSON.stringify({list: [game, game2] }));
+        var games = JSON.parse(String(localStorage.getItem('Wenslijst')));
+        localStorage.setItem('Wenslijst', JSON.stringify(games));
     }
 
     ConvertJson() : any{
@@ -99,12 +88,13 @@ export class Wenslijst extends React.Component<RouteComponentProps<{}>, Wenslijs
     render() {
         return <div className={"Wenslijst"}>
                 <h1>Wenslijst</h1>
+                <button onClick={ this.addGameToStorage }> Test Items Toevoegen </button>
                 {this.state.games.map(game => (
                   <div>
                    <li> <img src={game.image}  height={300}/> </li>
                    <div> <h2> {game.name} </h2> </div>
                    <div> <h2> Prijs: {game.price} </h2></div>
-                   <div> _________________________ </div>
+                   <button onClick={() => {this.removeGameFromStorage(game.name)} }> remove this item</button>
                    </div>
                 ))}
             </div>;
