@@ -8,44 +8,44 @@ export class ZijMenu extends React.Component<{}, {}> {
             <ul>
                 <li>
                 <NavLink to={ '/' } exact activeClassName='active'className='LinksSide'>
-                                <span ></span> Xbox
-                            </NavLink>
+                    Xbox
+                </NavLink>
                 </li>
                 <li>
                 <NavLink to={ '/' } exact activeClassName='active' className='LinksSide'>
-                                <span ></span> Playstation
-                            </NavLink>
+                   Playstation
+                </NavLink>
                 </li>
             </ul>
             <h2>Games</h2>
             <ul>
                 <li>
                 <NavLink to={ '/' } exact activeClassName='Active'className='LinksSide'>
-                                <span ></span> Actie
-                            </NavLink>
+                    <span ></span> Actie
+                </NavLink>
                 </li>
                 <li>
                 <NavLink to={ '/' } exact activeClassName='Avontuur'className='LinksSide'>
-                                <span ></span> Xbox
-                            </NavLink>
+                    <span ></span> Xbox
+                </NavLink>
                 </li>
                 <li>
                 <NavLink to={ '/' } exact activeClassName='active'className='LinksSide'>
-                                <span ></span> BattleRoyal
-                            </NavLink>
+                    BattleRoyal
+                </NavLink>
                 </li>
             </ul>
             <h2>Accessoires</h2>
             <ul>
                 <li>
                 <NavLink to={ '/' } exact activeClassName='active'className='LinksSide'>
-                                <span ></span> Headsets
-                            </NavLink>
+                    Headsets
+                </NavLink>
                 </li>
                 <li>
                 <NavLink to={ '/' } exact activeClassName='active'className='LinksSide'>
-                                <span ></span>Race-Wheels
-                            </NavLink>
+                    Race-Wheels
+                </NavLink>
                 </li>
             </ul>
         </nav>;

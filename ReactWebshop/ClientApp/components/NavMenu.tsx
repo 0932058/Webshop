@@ -5,19 +5,19 @@ export class NavMenu extends React.Component<{}, {}> {
     public render() {
         return <nav className="homebalk">
                             <NavLink to={ '/' } exact activeClassName='active' className='LinksNav'>
-                                <span ></span> Home
+                                Home
                             </NavLink>
                             <NavLink to={ '/' } exact activeClassName='active'className='LinksNav'>
-                                <span ></span> Profiel
+                                Profiel
                             </NavLink>
                             <NavLink to={ '/' } exact activeClassName='active'className='LinksNav'>
-                                <span ></span> Login
+                                Login
                             </NavLink>
                             <NavLink to={ '/' } exact activeClassName='active'className='LinksNav'>
-                                <span ></span>Registreer
+                                Registreer
                             </NavLink>
-            <NavLink to={ '/Winkelmand' } exact activeClassName='active'className='LinksNav'>
-                                <span ></span> Winkelmand
+                            <NavLink to={ '/Winkelmand' } exact activeClassName='active'className='LinksNav'>
+                                    Winkelmand
                             </NavLink>
             <form><input type="text" name="SearchString"/></form>
             <a href="Zoeken.html"><button>Zoeken</button></a>
