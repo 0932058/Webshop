@@ -3,6 +3,7 @@ body{
 }
 /*keeps the text behind the home and side balk and in the middle */
 .Winkelmand,
+.ProductPage,
 .Wenslijst,
 .Orders{
     padding-top: 10em;

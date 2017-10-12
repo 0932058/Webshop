@@ -7,8 +7,8 @@ export class NavMenu extends React.Component<{}, {}> {
                             <NavLink to={ '/' } exact activeClassName='active' className='LinksNav'>
                                 Home
                             </NavLink>
-                            <NavLink to={ '/' } exact activeClassName='active'className='LinksNav'>
-                                Profiel
+                            <NavLink to={ '/ProductPage' } exact activeClassName='active'className='LinksNav'>
+                                ProductPage
                             </NavLink>
                             <NavLink to={ '/' } exact activeClassName='active'className='LinksNav'>
                                 Bestellingen

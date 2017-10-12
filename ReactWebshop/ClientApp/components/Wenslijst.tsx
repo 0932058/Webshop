@@ -87,7 +87,7 @@ export class Wenslijst extends React.Component<RouteComponentProps<{}>, Wenslijs
     }
 
     createStorageAndState(){
-        localStorage.setItem('Wenslijst', JSON.stringify({list: []}));
+        //localStorage.setItem('Wenslijst', JSON.stringify({list: []}));
     }
 
     ConvertJson() : any{
