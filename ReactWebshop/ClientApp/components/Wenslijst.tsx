@@ -99,12 +99,13 @@ export class Wenslijst extends React.Component<RouteComponentProps<{}>, Wenslijs
     render() {
         return <div className={"Wenslijst"}>
                 <h1>Wenslijst</h1>
+                <button onClick={ this.addGameToStorage }> Test Items Toevoegen </button>
                 {this.state.games.map(game => (
                   <div>
                    <li> <img src={game.image}  height={300}/> </li>
                    <div> <h2> {game.name} </h2> </div>
                    <div> <h2> Prijs: {game.price} </h2></div>
-                   <div> _________________________ </div>
+                   <button onClick={() => {this.removeGameFromStorage(game.name)} }> remove this item</button>
                    </div>
                 ))}
             </div>;
