@@ -11,10 +11,10 @@ export class NavMenu extends React.Component<{}, {}> {
                                 Profiel
                             </NavLink>
                             <NavLink to={ '/' } exact activeClassName='active'className='LinksNav'>
-                                Login
+                                Bestellingen
                             </NavLink>
-                            <NavLink to={ '/' } exact activeClassName='active'className='LinksNav'>
-                                Registreer
+                            <NavLink to={ '/Wenslijst' } exact activeClassName='active'className='LinksNav'>
+                                Wenslijst
                             </NavLink>
                             <NavLink to={ '/Winkelmand' } exact activeClassName='active'className='LinksNav'>
                                     Winkelmand
