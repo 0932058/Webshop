@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
 import Img from 'react-image';
-import { BestellingenGame } from './Bestellingen'
+import { BestellingenGame } from './Bestellingen';
+import { Link, NavLink } from 'react-router-dom';
 
 interface WenslijstState{ 
     games: BestellingenGame[] 
@@ -101,8 +102,11 @@ export class Wenslijst extends React.Component<RouteComponentProps<{}>, Wenslijs
                    <li> <img src={game.image}  height={300}/> </li>
                    <div> <h2> {game.name} </h2> </div>
                    <div> <h2> Prijs: {game.price} </h2></div>
-                   <button onClick={() => {this.removeGameFromStorage(game.name)} }> remove this item</button>
+                   <button onClick={() => {this.removeGameFromStorage(game.name)} }> Remove this item</button>
                    <button onClick={() => {this.addToShoppingCart(game.name)}}>Toevoegen aan Winkelmand</button>
+                   <NavLink to={ '/ProductPage' }>
+                   <button>Naar productpagina</button>
+                   </NavLink>
                    </div>
                 ))}
             </div>;
