@@ -1,19 +1,10 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
 import Img from 'react-image';
+import { BestellingenGame } from './Bestellingen'
 
 interface WenslijstState{ 
     games: BestellingenGame[] 
-}
-
-type BestellingenGame = {
-    name:string,
-    console: string,
-    price: number,
-    category:string,
-    orderdate: number | null,
-    status: string | null,
-    image: string
 }
 
 export class Wenslijst extends React.Component<RouteComponentProps<{}>, WenslijstState> {
