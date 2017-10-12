@@ -20,16 +20,16 @@ export class Wenslijst extends React.Component<RouteComponentProps<{}>, Wenslijs
     addGameToStorage() {
         var games = JSON.parse(String(localStorage.getItem('Wenslijst')));
         var gamesList: BestellingenGame[] = games.list;
-        var game: BestellingenGame = {name: "DOOM", console: "Xbox", price: 60, category: "Games", orderdate: Date.now(), status:"Onderweg",
+        var game: BestellingenGame = {name: "DOOM", console: "Xbox", price: 60, category: "Games", orderdate: "DD-MM-JJJJ", status:"Onderweg",
         image: "Images/doom-cover-new.jpg"}
         
-        var game2: BestellingenGame = {name: "Call of duty Infinite Warfare",console: "Xbox ", price: 55, category: "Games", orderdate: Date.now(), status:"Bezorgd",
+        var game2: BestellingenGame = {name: "Call of duty Infinite Warfare",console: "Xbox ", price: 55, category: "Games", orderdate: "DD-MM-JJJJ", status:"Bezorgd",
         image: "https://www.gamestop.com/common/images/lbox/125879b.jpg"}
         
-        var game3: BestellingenGame = {name: "GTA 3",console: "Playstation 2", price: 50, category: "Games", orderdate: Date.now(), 
+        var game3: BestellingenGame = {name: "GTA 3",console: "Playstation 2", price: 50, category: "Games", orderdate: "DD-MM-JJJJ", 
        status:"Onderweg", image:"https://www.lukiegames.com/assets/images/XBOX/xbox_grand_theft_auto_iii-110214.jpg"}
         
-       var game4: BestellingenGame = {name: "Fifa 16",console: "Xbox", price: 55, category: "Games", orderdate: Date.now(),
+       var game4: BestellingenGame = {name: "Fifa 16",console: "Xbox", price: 55, category: "Games", orderdate: "DD-MM-JJJJ",
         status:"Onderweg", image:"https://www.instant-gaming.com/images/products/836/271x377/836.jpg"}
         
         gamesList.push(game);
