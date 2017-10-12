@@ -1,9 +1,17 @@
 body{
     background-color: #232B2B;
 }
+.Winkelmand,
+.Orders{
+    padding-top:9em;
+    padding-left: -3em;
+    display: block;
+    z-index: -5;
+}
 a:hover{
     color: #222930;
     text-decoration: none;
+    
 }
 .LinksNav{
     color: #FFFFFF;
@@ -40,10 +48,12 @@ h2{
 .homebalk{
     position: fixed; 
     padding-right: 40em;
+    z-index: 1;
 }
 .Zijbalk{
     margin-top:10em;
     position: fixed;
+
 }
 .Links:active{
     text-decoration: none;  

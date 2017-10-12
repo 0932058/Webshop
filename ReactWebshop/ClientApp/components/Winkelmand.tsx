@@ -77,7 +77,7 @@ export class Winkelmand extends React.Component<RouteComponentProps<{}>, Winkelm
     }
 
     componentWillMount(){
-        /*this.createStorageAndState();*/
+        this.createStorageAndState();
         this.ConvertJson()
 
     }
