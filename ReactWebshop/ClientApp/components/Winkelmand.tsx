@@ -80,12 +80,12 @@ export class Winkelmand extends React.Component<RouteComponentProps<{}>, Winkelm
     }
 
     createStorageAndState(){
-        var game: BestellingenGame = {name: "GTA V", console: "Xbox", price: 60, category: "Games", orderdate: Date.now(), status:"Onderweg",
-        image: "http://gamesofpc.com/wp-content/uploads/2015/02/GTA-5-Download.jpg"}
-        var game2: BestellingenGame = {name: "GTA V", console: "Xbox", price: 60, category: "Games", orderdate: Date.now(), status:"Onderweg",
-        image: "http://gamesofpc.com/wp-content/uploads/2015/02/GTA-5-Download.jpg"}
-
-        localStorage.setItem('winkelmand', JSON.stringify({list: [game, game2] }));
+        var games = JSON.parse(String(localStorage.getItem('winkelmand')));
+        if(games.list === null){
+            localStorage.setItem('winkelmand', JSON.stringify({list: []}));
+        }else{
+            localStorage.setItem('winkelmand', JSON.stringify(games));
+        }
     }
 
     ConvertJson() : any{
@@ -97,6 +97,8 @@ export class Winkelmand extends React.Component<RouteComponentProps<{}>, Winkelm
     componentWillMount(){
         this.createStorageAndState();
         this.ConvertJson()
+
+        localStorage.setItem('bestellingen', JSON.stringify({list: []}));
     }
 
     render() {

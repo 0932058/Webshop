@@ -25,6 +25,12 @@ export class Bestellingen extends React.Component<RouteComponentProps<{}>, Beste
     }
     //Adds games to the local storage
     CreateGamesAndLocalStorage(){
+        var games = JSON.parse(String(localStorage.getItem('bestellingen')));
+        if(games.list === null){
+            localStorage.setItem('bestellingen', JSON.stringify( {list: []} ));
+        }else{
+            localStorage.setItem('bestellingen', JSON.stringify(games));
+        }
     }
     ConvertJson() : any{
         //hier wordt de value van wenslijst naar string gecast om vervolgens naar een JSON object te worden gecast
