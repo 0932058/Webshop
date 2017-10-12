@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
 import { BestellingenGame } from './Bestellingen'
+import * as moment from 'moment';
 
 interface WinkelmandProps{
 }
@@ -25,13 +26,13 @@ export class Winkelmand extends React.Component<RouteComponentProps<{}>, Winkelm
         var games = JSON.parse(String(localStorage.getItem('winkelmand')));
         var gamesList: BestellingenGame[] = games.list;
         
-        var game: BestellingenGame = {name: "GTA V", console: "Xbox", price: 60, category: "Games", orderdate: Date.now(), status:"Onderweg",
+        var game: BestellingenGame = {name: "GTA V", console: "Xbox", price: 60, category: "Games", orderdate: moment().format("MMM Do YY"), status:"Onderweg",
         image: "http://gamesofpc.com/wp-content/uploads/2015/02/GTA-5-Download.jpg"}
-       var game2: BestellingenGame = {name: "Call of duty Infinite Warfare",console: "Xbox ", price: 55, category: "Games", orderdate: Date.now(), status:"Bezorgd",
+       var game2: BestellingenGame = {name: "Call of duty Infinite Warfare",console: "Xbox ", price: 55, category: "Games", orderdate: moment().format("MMM Do YY"), status:"Bezorgd",
         image: "https://www.gamestop.com/common/images/lbox/125879b.jpg"}
-       var game3: BestellingenGame = {name: "GTA 3",console: "Playstation 2", price: 50, category: "Games", orderdate: Date.now(), 
+       var game3: BestellingenGame = {name: "GTA 3",console: "Playstation 2", price: 50, category: "Games", orderdate: moment().format("MMM Do YY"), 
        status:"Onderweg", image:"https://www.lukiegames.com/assets/images/XBOX/xbox_grand_theft_auto_iii-110214.jpg"}
-       var game4: BestellingenGame = {name: "Fifa 16",console: "Xbox", price: 55, category: "Games", orderdate: Date.now(),
+       var game4: BestellingenGame = {name: "Fifa 16",console: "Xbox", price: 55, category: "Games", orderdate: moment().format("MMM Do YY"),
         status:"Onderweg", image:"https://www.instant-gaming.com/images/products/836/271x377/836.jpg"}
 
         gamesList.push(game);
@@ -80,12 +81,8 @@ export class Winkelmand extends React.Component<RouteComponentProps<{}>, Winkelm
     }
 
     createStorageAndState(){
-        var games = JSON.parse(String(localStorage.getItem('winkelmand')));
-        if(games.list === null){
-            localStorage.setItem('winkelmand', JSON.stringify({list: []}));
-        }else{
-            localStorage.setItem('winkelmand', JSON.stringify(games));
-        }
+        localStorage.setItem('winkelmand', JSON.stringify({list: []}));
+       
     }
 
     ConvertJson() : any{

@@ -11,7 +11,7 @@ export type BestellingenGame = {
     console: string,
     price: number,
     category:string,
-    orderdate: number | null,
+    orderdate: string | null,
     status: string | null,
     image: string
 }
