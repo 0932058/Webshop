@@ -3,39 +3,24 @@ import { Link, NavLink } from 'react-router-dom';
 
 export class NavMenu extends React.Component<{}, {}> {
     public render() {
-        return <div className='main-nav'>
-                <div className='navbar navbar-inverse'>
-                <div className='navbar-header'>
-                    <button type='button' className='navbar-toggle' data-toggle='collapse' data-target='.navbar-collapse'>
-                        <span className='sr-only'>Toggle navigation</span>
-                        <span className='icon-bar'></span>
-                        <span className='icon-bar'></span>
-                        <span className='icon-bar'></span>
-                    </button>
-                    <Link className='navbar-brand' to={ '/' }>reactTwo</Link>
-                </div>
-                <div className='clearfix'></div>
-                <div className='navbar-collapse collapse'>
-                    <ul className='nav navbar-nav'>
-                        <li>
-                            <NavLink to={ '/' } exact activeClassName='active'>
-                                <span className='glyphicon glyphicon-home'></span> Bestellingen
+        return <nav className="homebalk">
+                            <NavLink to={ '/' } exact activeClassName='active' className='LinksNav'>
+                                <span ></span> Home
                             </NavLink>
-                        </li>
-                        <li>
-                            <NavLink to={ '/Wenslijst' } activeClassName='active'>
-                                <span className='glyphicon glyphicon-education'></span> Wenslijst
+                            <NavLink to={ '/' } exact activeClassName='active'className='LinksNav'>
+                                <span ></span> Profiel
                             </NavLink>
-                        </li>
-                        <li>
-                            <NavLink to={ '/Winkelmand' } activeClassName='active'>
-                                <span className='glyphicon glyphicon-th-list'></span> Winkelmand
+                            <NavLink to={ '/' } exact activeClassName='active'className='LinksNav'>
+                                <span ></span> Login
                             </NavLink>
-                        </li>
-
-                    </ul>
-                </div>
-            </div>
-        </div>;
+                            <NavLink to={ '/' } exact activeClassName='active'className='LinksNav'>
+                                <span ></span>Registreer
+                            </NavLink>
+            <NavLink to={ '/Winkelmand' } exact activeClassName='active'className='LinksNav'>
+                                <span ></span> Winkelmand
+                            </NavLink>
+            <form><input type="text" name="SearchString"/></form>
+            <a href="Zoeken.html"><button>Zoeken</button></a>
+        </nav>;
     }
 }
