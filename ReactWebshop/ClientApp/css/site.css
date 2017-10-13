@@ -9,9 +9,20 @@ body{
     padding-top: 10em;
     margin-left: -4.5em;
     z-index: -5;
-
-
 }
+
+.Order{
+    width:300px;
+    border: 2px solid rgb(0, 0, 0);
+    padding: 5px;
+    margin: 20px; 
+}
+.NoOrder{
+    padding-top: 10em;
+    margin-left: -4.5em;
+    z-index: -5;
+}
+
 .Orders-texst{
     background-color: #DC3D24;
     padding-left:8em;

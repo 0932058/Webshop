@@ -5,9 +5,9 @@ import * as consoleTable from "./ConsoleTable";
 
 //The seperate database entities have been put in an array to simulate a database
 
-let gameTableData: game[] = [gameTable.game1,gameTable.game2,gameTable.game3,gameTable.game4,gameTable.game5,gameTable.game6,gameTable.game7,
+export let gameTableData: game[] = [gameTable.game1,gameTable.game2,gameTable.game3,gameTable.game4,gameTable.game5,gameTable.game6,gameTable.game7,
     gameTable.game8,gameTable.game9,gameTable.game10]
 
-let accountsTableData: account[] = [accountsTable.user1]
+export let accountsTableData: account[] = [accountsTable.user1]
 
-let consoleTableData: console[] = [consoleTable.console1, consoleTable.console2, consoleTable.console3, consoleTable.console4]
+export let consoleTableData: console[] = [consoleTable.console1, consoleTable.console2, consoleTable.console3, consoleTable.console4]
