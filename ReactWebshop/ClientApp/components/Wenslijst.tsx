@@ -85,7 +85,10 @@ export class Wenslijst extends React.Component<RouteComponentProps<{}>, Wenslijs
     ConvertJson() : any{
         //hier wordt de value van wenslijst naar string gecast om vervolgens naar een JSON object te worden gecast
         var games = JSON.parse(String(localStorage.getItem('Wenslijst')));    
-        this.setState({games: games.list})
+        if(games != null){
+            this.setState({games: games.list})
+        }
+    
     }
 
     componentWillMount(){

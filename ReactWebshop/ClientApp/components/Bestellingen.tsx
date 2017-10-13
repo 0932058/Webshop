@@ -34,8 +34,10 @@ export class Bestellingen extends React.Component<RouteComponentProps<{}>, Beste
     }
     ConvertJson() : any{
         //hier wordt de value van wenslijst naar string gecast om vervolgens naar een JSON object te worden gecast
-        var games = JSON.parse(String(localStorage.getItem('bestellingen')));    
-        this.setState({games: games.list})     
+        var games = JSON.parse(String(localStorage.getItem('bestellingen')));       
+        if(games != null){
+            this.setState({games: games.list})     
+        }  
     }
     //This will get called when the component gets mounted (loaded)
     componentWillMount(){
