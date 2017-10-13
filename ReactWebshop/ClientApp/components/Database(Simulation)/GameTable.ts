@@ -1,9 +1,10 @@
-import {category} from './Categories'
+import {category} from './TableTypes'
 import {consoleType} from "./ConsoleTable";
+import {game} from "./TableTypes";
 
 //The games table
 
-enum genreCategory{
+export enum genreCategory{
     action = "action",
     shooter = "shooter",
     fantasy = "fantasy",
@@ -12,12 +13,12 @@ enum genreCategory{
     fight = "fight"
 }
 
-enum orderstatus{
+export enum orderstatus{
     inBehandeling = "in behandeling",
     onderweg = "onderweg",
     bezorgd = "bezorgd"
 }
-enum age{
+export enum age{
     _3 = "3+",
     _7 = "7+",
     _12 = "12+",
@@ -25,20 +26,7 @@ enum age{
     _18 = "18+"
 }
 
-export type game = {
-    pk: number,
-    name:string,
-    description: string,
-    console: consoleType,
-    price: number,
-    genreCategory: genreCategory,
-    category: category,
-    orderdate: string | null, //order related attributes are null in the beginning, their value gets changed when an order is amde
-    orderStatus: orderstatus | null,
-    onProductPage: boolean | null,
-    age: age
-    image: string
-}
+
 
 export let game1: game = {
     pk: 1,

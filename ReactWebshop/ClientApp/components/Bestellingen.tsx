@@ -1,20 +1,13 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
 import Img from 'react-image'
+import {game} from "./Database(Simulation)/TableTypes";
 
 interface BestellingenState{
-    games: BestellingenGame[] 
+    games: game[] 
 }
 //React reacts bad to self created classes, that is why a type is created
-export type BestellingenGame = {
-    name:string,
-    console: string,
-    price: number,
-    category:string,
-    orderdate: string | null,
-    status: string | null,
-    image: string
-}
+
 
 export class Bestellingen extends React.Component<RouteComponentProps<{}>, BestellingenState> {
     constructor(){

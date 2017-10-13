@@ -1,4 +1,5 @@
-import {category} from './Categories'
+import {category} from './TableTypes'
+import {console} from "./TableTypes";
 
 //The consoles table
 
@@ -8,14 +9,7 @@ export enum consoleType{
     xbox360 = "Xbox 360",
     playstation3 = "Playstation 3"
 }
-export type console = {
-    pk: number,
-    name: string,
-    consoleType: consoleType,
-    description: string,
-    memory: string,
-    image: string
-}
+
 export let console1: console = {
     pk: 1,
     name: "Playstation 3 super slim",
