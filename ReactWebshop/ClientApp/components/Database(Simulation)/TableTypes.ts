@@ -3,9 +3,9 @@ import {consoleType} from "./ConsoleTable";
 import {genreCategory, orderstatus, age} from "./GameTable";
 
 export enum category{
-    consoles,
-    games,
-    accessoires
+    consoles = "consoles",
+    games = "games",
+    accessoires = "accessoires"
 }
 export type account = {
     pk: number,
@@ -23,7 +23,8 @@ export type console = {
     consoleType: consoleType,
     description: string,
     memory: string,
-    image: string
+    image: string,
+    ammountAvailable: number
 }
 export type game = {
     pk: number,
@@ -36,6 +37,7 @@ export type game = {
     orderdate: string | null, //order related attributes are null in the beginning, their value gets changed when an order is amde
     orderStatus: orderstatus | null,
     onProductPage: boolean | null,
-    age: age
-    image: string
+    age: age,
+    image: string,
+    ammountAvailable: number
 }

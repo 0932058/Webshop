@@ -10,6 +10,13 @@ body{
     margin-left: -4.5em;
     z-index: -5;
 }
+.product{
+    width:700px;
+    border: 1px solid rgb(0, 0, 0);
+    padding: 5px;
+    margin:5 px;
+
+}
 
 .Order{
     width:300px;
