@@ -13,4 +13,4 @@
 # To run the program
 - Go to the main directory: ReactWebShop
 - Start CMD or powershell in that directory
-- Type the command: dotnet start
+- Type the command: dotnet run
