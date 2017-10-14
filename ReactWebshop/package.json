@@ -32,6 +32,7 @@
     "webpack-hot-middleware": "2.18.2"
   },
   "dependencies": {
+    "linqts": "^1.10.0",
     "moment": "^2.19.1",
     "react-image": "^1.0.1"
   }
