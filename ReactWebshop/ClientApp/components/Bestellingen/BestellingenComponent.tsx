@@ -7,11 +7,11 @@ interface BestellingenState{
     orders: order[] 
 }
 interface BestellingenProps{
-    image: string,
-    name: string,
-    price: number,
-    orderDate: string | null
-    status: string | null
+    image: string | any
+    name: string | any
+    price: number | any
+    orderDate: string | null | any
+    status: string | null | any
 }
 export class BestellingenComponent extends React.Component<BestellingenProps, BestellingenState> {
     constructor(props: any){
