@@ -1,7 +1,8 @@
-import {console,game,account} from "./TableTypes";
+import {console,game,account, order} from "./TableTypes";
 import * as gameTable from "./GameTable";
 import * as accountsTable from "./AccountsTable";
 import * as consoleTable from "./ConsoleTable";
+import * as orderTable from "./OrdersTable";
 
 //The seperate database entities have been put in an array to simulate a database
 
@@ -11,3 +12,5 @@ export let gameTableData: game[] = [gameTable.game1,gameTable.game2,gameTable.ga
 export let accountsTableData: account[] = [accountsTable.user1]
 
 export let consoleTableData: console[] = [consoleTable.console1, consoleTable.console2, consoleTable.console3, consoleTable.console4]
+
+export let orderTabledata: order[] = [orderTable.order1]

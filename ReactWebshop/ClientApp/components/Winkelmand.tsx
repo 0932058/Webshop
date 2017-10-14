@@ -1,11 +1,12 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
-import { BestellingenGame } from './Bestellingen'
+import {game}  from './Database(Simulation)/TableTypes';
+
 interface WinkelmandProps{
 }
 
 interface WinkelmandState{ 
-    games: BestellingenGame[] 
+    games: game[] 
 }
 
 export class Winkelmand extends React.Component<RouteComponentProps<{}>, WinkelmandState> {
@@ -22,21 +23,21 @@ export class Winkelmand extends React.Component<RouteComponentProps<{}>, Winkelm
 
     addGameToStorage() {
         var games = JSON.parse(String(localStorage.getItem('winkelmand')));
-        var gamesList: BestellingenGame[] = games.list;
+        var gamesList: game[] = games.list;
         
-        var game: BestellingenGame = {name: "GTA V", console: "Xbox", price: 60, category: "Games", orderdate: "MMM Do YY", status:"Onderweg",
-        image: "http://gamesofpc.com/wp-content/uploads/2015/02/GTA-5-Download.jpg"}
-       var game2: BestellingenGame = {name: "Call of duty Infinite Warfare",console: "Xbox ", price: 55, category: "Games", orderdate: "MMM Do YY", status:"Bezorgd",
-        image: "https://www.gamestop.com/common/images/lbox/125879b.jpg"}
-       var game3: BestellingenGame = {name: "GTA 3",console: "Playstation 2", price: 50, category: "Games", orderdate: "MMM Do YY", 
-       status:"Onderweg", image:"https://www.lukiegames.com/assets/images/XBOX/xbox_grand_theft_auto_iii-110214.jpg"}
-       var game4: BestellingenGame = {name: "Fifa 16",console: "Xbox", price: 55, category: "Games", orderdate: "MMM Do YY",
-        status:"Onderweg", image:"https://www.instant-gaming.com/images/products/836/271x377/836.jpg"}
+    //     var game: BestellingenGame = {name: "GTA V", console: "Xbox", price: 60, category: "Games", orderdate: "MMM Do YY", status:"Onderweg",
+    //     image: "http://gamesofpc.com/wp-content/uploads/2015/02/GTA-5-Download.jpg"}
+    //    var game2: BestellingenGame = {name: "Call of duty Infinite Warfare",console: "Xbox ", price: 55, category: "Games", orderdate: "MMM Do YY", status:"Bezorgd",
+    //     image: "https://www.gamestop.com/common/images/lbox/125879b.jpg"}
+    //    var game3: BestellingenGame = {name: "GTA 3",console: "Playstation 2", price: 50, category: "Games", orderdate: "MMM Do YY", 
+    //    status:"Onderweg", image:"https://www.lukiegames.com/assets/images/XBOX/xbox_grand_theft_auto_iii-110214.jpg"}
+    //    var game4: BestellingenGame = {name: "Fifa 16",console: "Xbox", price: 55, category: "Games", orderdate: "MMM Do YY",
+    //     status:"Onderweg", image:"https://www.instant-gaming.com/images/products/836/271x377/836.jpg"}
 
-        gamesList.push(game);
-        gamesList.push(game2);
-        gamesList.push(game3);
-        gamesList.push(game4);
+    //     gamesList.push(game);
+    //     gamesList.push(game2);
+    //     gamesList.push(game3);
+    //     gamesList.push(game4);
 
         localStorage.setItem('winkelmand', JSON.stringify({list: gamesList }));
         
@@ -44,36 +45,36 @@ export class Winkelmand extends React.Component<RouteComponentProps<{}>, Winkelm
     }
 
     addWinkelmandToBestellingen() {
-        localStorage.setItem('bestellingen', JSON.stringify({list: []}));
-        var bestellingen = JSON.parse(String(localStorage.getItem('bestellingen')));
-        var winkelmand = JSON.parse(String(localStorage.getItem('winkelmand')));
+        // localStorage.setItem('bestellingen', JSON.stringify({list: []}));
+        // var bestellingen = JSON.parse(String(localStorage.getItem('bestellingen')));
+        // var winkelmand = JSON.parse(String(localStorage.getItem('winkelmand')));
 
-        var winkelmandList: BestellingenGame[] = winkelmand.list;
-        var bestellingenList: BestellingenGame[] = bestellingen.list;
+        // var winkelmandList: BestellingenGame[] = winkelmand.list;
+        // var bestellingenList: BestellingenGame[] = bestellingen.list;
         
-        winkelmandList.map(item => {
-            bestellingenList.push(item);
-        });
+        // winkelmandList.map(item => {
+        //     bestellingenList.push(item);
+        // });
 
-        localStorage.setItem('bestellingen', JSON.stringify({list: bestellingenList}));
+        // localStorage.setItem('bestellingen', JSON.stringify({list: bestellingenList}));
 
-        localStorage.setItem('winkelmand', JSON.stringify({list: []}));
-        this.ConvertJson();
+        // localStorage.setItem('winkelmand', JSON.stringify({list: []}));
+        // this.ConvertJson();
     }
 
     removeGameFromStorage(name: String){
         var games = JSON.parse(String(localStorage.getItem('winkelmand')));
-        var gamesList: BestellingenGame[] = games.list;
+        // var gamesList: BestellingenGame[] = games.list;
 
-        var newList: BestellingenGame[] = []; 
+        // var newList: BestellingenGame[] = []; 
 
-        gamesList.map(item => {
-            if(item.name !== name){
-                newList.push(item);
-            }
-        });
+        // gamesList.map(item => {
+        //     if(item.name !== name){
+        //         newList.push(item);
+        //     }
+        // });
 
-        localStorage.setItem('winkelmand', JSON.stringify({list: newList }));
+        // localStorage.setItem('winkelmand', JSON.stringify({list: newList }));
         
         this.ConvertJson();
     }

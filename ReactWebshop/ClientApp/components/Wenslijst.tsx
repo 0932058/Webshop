@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
 import Img from 'react-image';
-import { BestellingenGame } from './Bestellingen';
+import { game } from "./Database(Simulation)/TableTypes";
 import { Link, NavLink } from 'react-router-dom';
 
 interface WenslijstState{ 
-    games: BestellingenGame[] 
+    games: game[] 
 }
 
 export class Wenslijst extends React.Component<RouteComponentProps<{}>, WenslijstState> {
@@ -20,42 +20,42 @@ export class Wenslijst extends React.Component<RouteComponentProps<{}>, Wenslijs
     }
     addGameToStorage() {
         var games = JSON.parse(String(localStorage.getItem('Wenslijst')));
-        var gamesList: BestellingenGame[] = games.list;
-        var game: BestellingenGame = {name: "DOOM", console: "Xbox", price: 60, category: "Games", orderdate: "DD-MM-JJJJ", status:"Onderweg",
-        image: "Images/doom-cover-new.jpg"}
+    //     var gamesList: BestellingenGame[] = games.list;
+    //     var game: BestellingenGame = {name: "DOOM", console: "Xbox", price: 60, category: "Games", orderdate: "DD-MM-JJJJ", status:"Onderweg",
+    //     image: "Images/doom-cover-new.jpg"}
         
-        var game2: BestellingenGame = {name: "Call of duty Infinite Warfare",console: "Xbox ", price: 55, category: "Games", orderdate: "DD-MM-JJJJ", status:"Bezorgd",
-        image: "https://www.gamestop.com/common/images/lbox/125879b.jpg"}
+    //     var game2: BestellingenGame = {name: "Call of duty Infinite Warfare",console: "Xbox ", price: 55, category: "Games", orderdate: "DD-MM-JJJJ", status:"Bezorgd",
+    //     image: "https://www.gamestop.com/common/images/lbox/125879b.jpg"}
         
-        var game3: BestellingenGame = {name: "GTA 3",console: "Playstation 2", price: 50, category: "Games", orderdate: "DD-MM-JJJJ", 
-       status:"Onderweg", image:"https://www.lukiegames.com/assets/images/XBOX/xbox_grand_theft_auto_iii-110214.jpg"}
+    //     var game3: BestellingenGame = {name: "GTA 3",console: "Playstation 2", price: 50, category: "Games", orderdate: "DD-MM-JJJJ", 
+    //    status:"Onderweg", image:"https://www.lukiegames.com/assets/images/XBOX/xbox_grand_theft_auto_iii-110214.jpg"}
         
-       var game4: BestellingenGame = {name: "Fifa 16",console: "Xbox", price: 55, category: "Games", orderdate: "DD-MM-JJJJ",
-        status:"Onderweg", image:"https://www.instant-gaming.com/images/products/836/271x377/836.jpg"}
+    //    var game4: BestellingenGame = {name: "Fifa 16",console: "Xbox", price: 55, category: "Games", orderdate: "DD-MM-JJJJ",
+    //     status:"Onderweg", image:"https://www.instant-gaming.com/images/products/836/271x377/836.jpg"}
         
-        gamesList.push(game);
-        gamesList.push(game2);
-        gamesList.push(game3);
-        gamesList.push(game4);
+    //     gamesList.push(game);
+    //     gamesList.push(game2);
+    //     gamesList.push(game3);
+    //     gamesList.push(game4);
 
-        localStorage.setItem('Wenslijst', JSON.stringify({list: gamesList }));
+    //     localStorage.setItem('Wenslijst', JSON.stringify({list: gamesList }));
         
         this.ConvertJson();
     }
 
     removeGameFromStorage(name: String){
         var games = JSON.parse(String(localStorage.getItem('Wenslijst')));
-        var gamesList: BestellingenGame[] = games.list;
+        // var gamesList: BestellingenGame[] = games.list;
 
-        var newList: BestellingenGame[] = []; 
+        // var newList: BestellingenGame[] = []; 
 
-        gamesList.map(item => {
-            if(item.name !== name){
-                newList.push(item);
-            }
-        });
+        // gamesList.map(item => {
+        //     if(item.name !== name){
+        //         newList.push(item);
+        //     }
+        // });
 
-        localStorage.setItem('Wenslijst', JSON.stringify({list: newList }));
+        // localStorage.setItem('Wenslijst', JSON.stringify({list: newList }));
         
         this.ConvertJson();
     }
@@ -64,15 +64,15 @@ export class Wenslijst extends React.Component<RouteComponentProps<{}>, Wenslijs
         var Winkelmand = JSON.parse(String(localStorage.getItem('winkelmand')));
         var Wenslijst = JSON.parse(String(localStorage.getItem('Wenslijst')));
 
-        var WenslijstList: BestellingenGame[] = Wenslijst.list;
-        var WinkelmandList: BestellingenGame[] = Winkelmand.list;
+        // var WenslijstList: BestellingenGame[] = Wenslijst.list;
+        // var WinkelmandList: BestellingenGame[] = Winkelmand.list;
         
-        WenslijstList.map(item => {
-            if(item.name === name)
-            {WinkelmandList.push(item);}
-        });
+        // WenslijstList.map(item => {
+        //     if(item.name === name)
+        //     {WinkelmandList.push(item);}
+        // });
 
-        localStorage.setItem('winkelmand', JSON.stringify({list: WinkelmandList}));
+        // localStorage.setItem('winkelmand', JSON.stringify({list: WinkelmandList}));
         
         this.removeGameFromStorage(name);
         this.ConvertJson();
