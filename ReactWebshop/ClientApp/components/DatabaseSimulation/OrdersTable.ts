@@ -1,5 +1,5 @@
 import {order} from "./TableTypes";
-import {gameTableData, accountsTableData} from "./TablesInArray";
+import {gameTableData, accountsTableData} from "ClientApp/components/DatabaseSimulation/FakeDatabase"
 
 export let order1: order = {
     pk: 1,

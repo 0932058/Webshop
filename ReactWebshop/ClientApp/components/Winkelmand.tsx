@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
-import {game}  from './Database(Simulation)/TableTypes';
+import {game}  from './DatabaseSimulation/TableTypes';
 
 interface WinkelmandProps{
 }

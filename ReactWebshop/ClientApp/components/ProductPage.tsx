@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
-import {game} from "./Database(Simulation)/TableTypes";
-import {gameTableData} from "./Database(Simulation)/TablesInArray";
-import {consoleType} from "./Database(Simulation)/ConsoleTable";
+import {game} from "./DatabaseSimulation/TableTypes";
+import {gameTableData} from "./DatabaseSimulation/FakeDatabase";
+import {consoleType} from "./DatabaseSimulation/ConsoleTable";
 
 interface ProductPageState{
     game: game | null;
