@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
 import Img from 'react-image';
-import { game } from "./DatabaseSimulation/TableTypes";
+import { game } from "../DatabaseSimulation/TableTypes";
 import { Link, NavLink } from 'react-router-dom';
 
 interface WenslijstState{ 

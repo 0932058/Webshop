@@ -77,9 +77,7 @@ export class BestellingenContainer extends React.Component<RouteComponentProps<{
                     <BestellingenComponent key={index} image={order.image} name={order.name}
                     price={order.price} orderDate={order.orderDate} orderStatus={order.orderStatus}/>)
                 :
-                <div className={"Order"}>
-                <h1> Loading... </h1>
-                </div>
+                <h1> Loading the orders... </h1>           
             }
             </div> 
 

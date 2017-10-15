@@ -36,7 +36,7 @@ export let game1: game = {
     age: age._12,
     ammountAvailable: 100
 }
-export let game2: game = {
+export let game2: game = { 
     pk: 2,
     name: "Gta 5", 
     description: "The next big gta game, shooting, driving cars and going for a mission",

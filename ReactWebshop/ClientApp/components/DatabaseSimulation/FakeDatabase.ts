@@ -1,4 +1,4 @@
-import {console,game,account, order} from "./TableTypes";
+import {console,game,account, order,wishList, shoppingCart} from "./TableTypes";
 import * as gameTable from "./GameTable";
 import * as accountsTable from "./AccountsTable";
 import * as consoleTable from "./ConsoleTable";
@@ -16,3 +16,8 @@ export let accountsTableData  = new List<account>([accountsTable.user1])
 export let consoleTableData = new List<console>([consoleTable.console1, consoleTable.console2, consoleTable.console3, consoleTable.console4])
 
 export let orderTabledata = new List<order>([orderTable.order1,orderTable.order2,orderTable.order3,orderTable.order4,orderTable.order5])
+
+export let wishListData = new List<wishList>([])
+
+export let shoppingCartdata = new List<shoppingCart>([])
+

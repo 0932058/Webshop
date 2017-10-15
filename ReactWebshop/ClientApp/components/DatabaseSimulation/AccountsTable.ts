@@ -10,7 +10,7 @@ export let user1: account = {
     email: "pietje.piet@live.nl",
     username: "pieterman",
     password: "test123",
-    wishList: null,
-    shoppingCart: null,
+    wishListFK: 1,
+    shoppingCartFK: 1,
     orderFK: order1.pk
 }
