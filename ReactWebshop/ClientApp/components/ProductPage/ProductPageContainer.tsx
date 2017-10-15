@@ -39,20 +39,7 @@ export class ProductPage extends React.Component<RouteComponentProps<{}>, Produc
         else{
             foundWishList.ForEach(wishlist => wishlist.productFK.push(this.state.product.pk))
         }
-        
-      
-
-        //If the user is not logged in then this code below will be activated
-
-        // var wenslijst = JSON.parse(String(localStorage.getItem('Wenslijst')));
-        // var wenslijstList: game[] = wenslijst.list;
-        
-        // if(this.state.game != null)   {
-        //     wenslijstList.push(this.state.game);
-        // }
-        // localStorage.setItem('Wenslijst', JSON.stringify({list: wenslijstList}));
     }
-     //shopping cart PK and account manually inserted, this can be changed later that it checks the logged in user's PK.
     AddProductToWinkelmand(){
         this.NotificationAlert(true);
         let loggedInUserPK = 1; 
@@ -65,17 +52,6 @@ export class ProductPage extends React.Component<RouteComponentProps<{}>, Produc
         else{
             foundShoppingCart.ForEach(shoppingCart => shoppingCart.productFK.push(this.state.product.pk))
         }
-
-            //If the user is not logged in then this code below will be activated
-        // var wenslijst = JSON.parse(String(localStorage.getItem('winkelmand')));
-
-        // var wenslijstList: game[] = wenslijst.list;
-        // if(this.state.game != null){
-        //     wenslijstList.push(this.state.game);
-        // }
-        
-
-        // localStorage.setItem('winkelmand', JSON.stringify({list: wenslijstList}));
     }  
     NotificationAlert(isForTheShoppingcart: boolean){
         if(shoppingCartdata){

@@ -71,8 +71,9 @@ export interface StorageState{
      return productWithOrderInfo;
     }
 
-    RemoveItemFromStorage(event: any){
-        //TODO implement this
+    RemoveItemFromStorage(pk: number, category: category){
+        this.state.storageProducts.Where(order => order.pk == pk && order.productForeignKeyReference == category);
+        
         
     }
     abstract render ();

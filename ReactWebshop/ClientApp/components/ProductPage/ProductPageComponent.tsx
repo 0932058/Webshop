@@ -20,14 +20,6 @@ export class ProductPageComponent extends React.Component<ProductPageProps, Prod
         this.state = {product: this.props.product}; //Game inserted from array to test the page layout
 
     }
-    AddProductToWishlist(){
-        this.props.AddProductToWishlist();
-
-    }
-    AddProductToWinkelmand(){
-        this.props.AddProductToWinkelMand();
-
-    }
     render() {
         return <div  className={"ProductPage"}>      
                 <h1>{this.state.product.name} - {this.state.product.console}</h1>
