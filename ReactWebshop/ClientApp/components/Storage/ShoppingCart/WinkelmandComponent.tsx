@@ -11,8 +11,9 @@ interface WinkelmandState{
 }
 
 export class WinkelMandComponent extends React.Component<WinkelmandProps, WinkelmandState> {
-    constructor(){
-        super();
+    constructor(props: any){
+        super(props);
+        console.log("ENTERED!")
     }
     render(){
         return <div className={"Winkelmand"}>                  

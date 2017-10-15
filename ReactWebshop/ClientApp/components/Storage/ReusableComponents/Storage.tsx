@@ -16,21 +16,23 @@ export interface StorageState{
  export abstract class AbstractStorage  extends React.Component<RouteComponentProps<{}>, StorageState> {
     constructor(){
         super();
-        this.GetCustomerStorageProducts = this.GetCustomerStorageProducts.bind(this);    
+        this.GetCustomerStorageProducts = this.GetCustomerStorageProducts.bind(this);   
+        this.GetProductThatMatchesOrder = this.GetProductThatMatchesOrder.bind(this);
         this.RemoveItemFromStorage = this.RemoveItemFromStorage.bind(this);
         this.LoopThroughStorage = this.LoopThroughStorage.bind(this);
-        console.log(shoppingCartdata.Count());
     
     }
     componentWillMount(){
         let loadData : () => void = () => 
         this.GetCustomerStorageProducts(this.state.customerID, this.state.isShoppingCart).then(foundorders => this.setState({storageProducts: foundorders}))
-        this.LoopThroughStorage();
+        .then(this.LoopThroughStorage)
+        loadData();
     }     
 
-    GetCustomerStorageProducts(customerID: number, iShoppingCart: boolean) : Promise<List<storage>>{
-        var storage;
-        if(iShoppingCart){
+    GetCustomerStorageProducts(customerID: number, isShoppingCart: boolean) : Promise<List<storage>>{
+        console.log("Entered!")
+        var storage = new List<any>();
+        if(isShoppingCart){
              storage = shoppingCartdata.Where(shoppingCart => shoppingCart.pk == customerID)
         }
         else{
@@ -51,6 +53,7 @@ export interface StorageState{
       this.setState({foundStorageProduct: foundProduct})
      }  
     GetProductThatMatchesOrder(storage: storage, productType: category){
+        console.log(productType)
         var foundProduct;
         switch(productType){
             case(category.accessoires):

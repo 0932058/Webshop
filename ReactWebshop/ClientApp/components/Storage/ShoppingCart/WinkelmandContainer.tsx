@@ -12,25 +12,21 @@ export class Winkelmand extends AbstractStorage {
     constructor(){
         super();
         this.state = {foundStorageProduct: new List<product>(), storageProducts: new List<storage>(), customerID:1, isShoppingCart:true, loaded:false}
-        console.log(shoppingCartdata.Count());
-        shoppingCartdata.ForEach(function(wut){
-            console.log(wut)
-        }
-        )}
-
+    }
     render() {
         return (
         <div>
             {this.state.foundStorageProduct.ToArray().map((storageProduct,index) =>
             <WinkelMandComponent shoppingCartProduct={storageProduct} RemoveItemFromStorage={this.RemoveItemFromStorage}/>
-            )
-            
+            )         
         }</div>
 
         )}
 }
 
-{/* //JSON related files
+{
+    
+    /* //JSON related files
 
 // var games = JSON.parse(String(localStorage.getItem('winkelmand')));
 // var gamesList: game[] = games.list;
