@@ -7,6 +7,7 @@ export enum category{
     games = "games",
     accessoires = "accessoires"
 }
+export enum foreignKeyReference{}
 
 export type account = {
     pk: number,
@@ -27,7 +28,8 @@ export type console = {
     description: string,
     memory: string,
     image: string,
-    ammountAvailable: number
+    ammountAvailable: number,
+    price: number
 }
 export type game = {
     pk: number,
@@ -46,6 +48,7 @@ export type order =  {
     pk: number,
     accountFK: number,
     productFK: number,
+    productForeignKeyReference: category,
     orderdate: string | null, 
     statusOfOrder:  null | string
 }

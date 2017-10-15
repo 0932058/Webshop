@@ -3,7 +3,7 @@
     "baseUrl": ".",
     "module": "es2015",
     "moduleResolution": "node",
-    "target": "es5",
+    "target": "es6", //es5 last used
     "jsx": "react",
     "sourceMap": true,
     "skipDefaultLibCheck": true,
@@ -11,6 +11,7 @@
     "types": ["webpack-env"],
     "strictNullChecks": false,
     "noImplicitAny": false
+
   },
   "exclude": [
       "bin",

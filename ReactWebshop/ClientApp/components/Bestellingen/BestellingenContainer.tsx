@@ -2,52 +2,88 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
 import Img from 'react-image';
-import {game, order} from "../DatabaseSimulation/TableTypes"
-import {orderTabledata, gameTableData} from "../DatabaseSimulation/FakeDatabase";
+import {game, order, console, category} from "../DatabaseSimulation/TableTypes"
+import {orderTabledata, gameTableData,consoleTableData} from "../DatabaseSimulation/FakeDatabase";
 import {BestellingenComponent} from "./BestellingenComponent";
 import {List} from "linqts";
 
-
 interface BestellingenContainerState{
-    orders: List<order>
-    joinedTable: List<any>
+    orders: List<order> //The order of the customers without the products combined 
+    orderAndProductCombined: List<any>  //Customer order information and product information combined
+    loaded: boolean; //In case the orders are not loaded, a load text appears on screen
 }
 export class BestellingenContainer extends React.Component<RouteComponentProps<{}>, BestellingenContainerState> {
     constructor(){
         super();
         this.GetCustomerOrders = this.GetCustomerOrders.bind(this);
-        this.CreateJoinTable = this.CreateJoinTable.bind(this);
-        this.state = {orders: new List<order>(), joinedTable: new List<any>()}
+        this.LoopThroughOrders = this.LoopThroughOrders.bind(this);
+        this.GetProductThatMatchesOrder = this.GetProductThatMatchesOrder.bind(this);
+        this.state = {orders: new List<order>(), orderAndProductCombined: new List<any>(), loaded: false}
     }
+    //loadData method is an async operation, the program counter continues while the items are being fetched from the database
+    //GetCustomersOrders is given as argument the PK of the customer who is logged in
     componentWillMount(){
-        this.GetCustomerOrders(1); //Customer id gets loaded, depended on the customer that is logged in. 
+        let loadData : () => void = () =>
+        this.GetCustomerOrders(1).then(foundOrders => this.setState({orders: foundOrders}))
+        .then(this.LoopThroughOrders)
+        .catch(loadData)
+        loadData();
     }
-    GetCustomerOrders(customerID: number){
+    //Gets the orders of the customer
+    GetCustomerOrders(customerID: number): Promise<List<order>>{
         var foundOrders = orderTabledata.Where(order => order.accountFK == customerID);
-        this.setState({orders: foundOrders})       
+        return Promise.resolve<List<order>>(foundOrders);
    }  
-   CreateJoinTable(){
-       let joinedOrderAndProduct;
-        var query = orderTabledata.Join(gameTableData, order => order.productFK, product => product.pk,
-            (order,product) => ({image: product.image, name: product.name, price: product.price, 
-                orderDate: order.orderdate, orderStatus: order.statusOfOrder}))
-                this.setState({joinedTable: query}) 
-                } 
-    render() {
+   //The orders are going to get looped through, this is to get both the order and product information combined
+   LoopThroughOrders(){
+       //the: "this" keyword is not seen in the foreach block, that is why the methods are being replicated 
+    let GetProductThatMatchesOrder: (order:order, category1: category) => any =
+     (order:order,category1: category) => this.GetProductThatMatchesOrder(order,category1);
+       let orders: List<any> = new List<any>(); //the combined order and product info get stored in this list
+       this.state.orders.ForEach(function(order){
+            var foundOrder = GetProductThatMatchesOrder(order, order.productForeignKeyReference)
+            orders.Add(foundOrder)
+        }
+    )
+     this.setState({orderAndProductCombined: orders, loaded:true})
+    }  
+    //Combines the product and the order information
+   GetProductThatMatchesOrder(order: order, productType: category){
+       var foundProduct;
+       switch(productType){
+           case(category.accessoires):
+            break;
+            case(category.consoles):
+            console.log("CONSOLE!")
+            foundProduct = consoleTableData.Where(console => console.pk == order.productFK);
+            break;
+            case(category.games):
+            foundProduct = gameTableData.Where(game => game.pk == order.productFK);
+            break;
+       }
+       //converted to array to get items by index
+       var foundProductToArray = foundProduct.ToArray();
+       var productWithOrderInfo = {image: foundProductToArray[0].image, name:  foundProductToArray[0].name, price:  foundProductToArray[0].price, 
+    orderDate: order.orderdate, orderStatus: order.statusOfOrder}
+    return productWithOrderInfo;
+   }
+    render() {   
+        //Converted to get the Map function
+        var listconverted = this.state.orderAndProductCombined.ToArray()
         return ( 
             <div>
-                Hello
-                {this.state.joinedTable.ForEach(customerOrder => {
-                    <BestellingenComponent key ={customerOrder.pk} image={customerOrder.image} name={customerOrder.name}
-                    price={customerOrder.price} orderDate={customerOrder.orderDate} status={customerOrder.orderStatus}/>
-               
-                })
+                {this.state.loaded? 
+                listconverted.map((order,index) => 
+                    <BestellingenComponent key={index} image={order.image} name={order.name}
+                    price={order.price} orderDate={order.orderDate} orderStatus={order.orderStatus}/>)
+                :
+                <div className={"Order"}>
+                <h1> Loading... </h1>
+                </div>
             }
-             </div>
-            
-        )}
-        
-           
+            </div> 
 
-}
+        );
+    }
+}           
 export default BestellingenContainer;

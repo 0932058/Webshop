@@ -15,4 +15,4 @@ export let accountsTableData  = new List<account>([accountsTable.user1])
 
 export let consoleTableData = new List<console>([consoleTable.console1, consoleTable.console2, consoleTable.console3, consoleTable.console4])
 
-export let orderTabledata = new List<order>([orderTable.order1])
+export let orderTabledata = new List<order>([orderTable.order1,orderTable.order2,orderTable.order3,orderTable.order4,orderTable.order5])
