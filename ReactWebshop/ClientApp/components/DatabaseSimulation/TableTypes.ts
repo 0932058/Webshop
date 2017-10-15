@@ -24,6 +24,7 @@ export type console = {
     name: string,
     console: consoleType,
     description: string,
+    category: category,
     memory: string,
     image: string,
     ammountAvailable: number,
@@ -54,11 +55,16 @@ export type order =  {
 export type wishList = {
     pk: number,
     accountFK: number,
+    productForeignKeyReference: category,
     productFK: number[],
 }
 export type shoppingCart = {
     pk: number,
     accountFK: number,
+    productForeignKeyReference: category,
     productFK: number[]
 }
 export type product = game & {kind:"game"} | console & {kind:"console"}
+
+export type storage = wishList & {kind: "wishList" | shoppingCart & {kind:"shoppingCart"}
+}

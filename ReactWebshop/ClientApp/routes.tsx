@@ -2,8 +2,8 @@ import * as React from 'react';
 import { Route } from 'react-router-dom';
 import { Layout } from './components/Layout';
 import {BestellingenContainer} from './components/Bestellingen/BestellingenContainer';
-import { Wenslijst } from './components/Wenslijst/Wenslijst';
-import { Winkelmand } from './components/ShoppingCart/Winkelmand';
+import { Wenslijst } from './components/Storage/Wenslijst/Wenslijst';
+import { Winkelmand } from './components/Storage/ShoppingCart/WinkelmandContainer';
 import { ProductPage } from './components/ProductPage/ProductPageContainer';
 import { Home } from './components/Home';
 

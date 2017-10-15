@@ -27,10 +27,11 @@ export class ProductPage extends React.Component<RouteComponentProps<{}>, Produc
         this.CheckChoosenConsole().then(consoleImage => this.setState({consoleImage: consoleImage, loaded: true}))
     }
     //wishlist PK and account manually inserted, this can be changed later that it checks the logged in user's PK.
+    //See how to add the foreign key reference
     AddProductToWishList(){
         this.NotificationAlert(false);
         let loggedInUserPK = 1; 
-        var wishlistItem: wishList = {pk:1 , accountFK: loggedInUserPK, productFK: [this.state.product.pk]}
+        var wishlistItem: wishList = {pk:1 , accountFK: loggedInUserPK, productFK: [this.state.product.pk],productForeignKeyReference: null}
         var foundWishList = wishListData.Where(wishlist => wishlist.accountFK == loggedInUserPK )
         if(foundWishList.Count() == 0){
             wishListData.Add(wishlistItem)
@@ -55,10 +56,11 @@ export class ProductPage extends React.Component<RouteComponentProps<{}>, Produc
     AddProductToWinkelmand(){
         this.NotificationAlert(true);
         let loggedInUserPK = 1; 
-        var shoppingCartItem: shoppingCart = {pk:1 , accountFK: loggedInUserPK, productFK: [this.state.product.pk]}
+        var shoppingCartItem: shoppingCart = {pk:1 , accountFK: loggedInUserPK, productFK: [this.state.product.pk], productForeignKeyReference: this.state.product.category}
         var foundShoppingCart = shoppingCartdata.Where(shoppingCart => shoppingCart.accountFK == loggedInUserPK )
-        if(foundShoppingCart.Count() == 0){
-            wishListData.Add(shoppingCartItem)
+        if(foundShoppingCart.Count() <= 0 || foundShoppingCart == null || foundShoppingCart == undefined){
+            console.log("ADDING")
+            shoppingCartdata.Add(shoppingCartItem)
         }
         else{
             foundShoppingCart.ForEach(shoppingCart => shoppingCart.productFK.push(this.state.product.pk))
