@@ -17,10 +17,9 @@ export class Winkelmand extends AbstractStorage {
         return (
         <div>
             {this.state.foundStorageProduct.ToArray().map((storageProduct,index) =>
-            <WinkelMandComponent shoppingCartProduct={storageProduct} RemoveItemFromStorage={this.RemoveItemFromStorage}/>
+            <WinkelMandComponent key={index} shoppingCartProduct={storageProduct} RemoveItemFromStorage={this.RemoveItemFromStorage}/>
             )         
         }</div>
-
         )}
 }
 
@@ -61,4 +60,15 @@ export class Winkelmand extends AbstractStorage {
 
 //     // localStorage.setItem('winkelmand', JSON.stringify({list: []}));
 //     // this.ConvertJson();
+
+            //If the user is not logged in then this code below will be activated
+        // var wenslijst = JSON.parse(String(localStorage.getItem('winkelmand')));
+
+        // var wenslijstList: game[] = wenslijst.list;
+        // if(this.state.game != null){
+        //     wenslijstList.push(this.state.game);
+        // }
+        
+
+        // localStorage.setItem('winkelmand', JSON.stringify({list: wenslijstList}));
 // */}
