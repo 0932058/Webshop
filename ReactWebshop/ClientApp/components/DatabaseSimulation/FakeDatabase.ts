@@ -19,7 +19,7 @@ export let consoleTableData = new List<console>([consoleTable.console1, consoleT
 
 export let orderTabledata = new List<order>([orderTable.order1,orderTable.order2,orderTable.order3,orderTable.order4,orderTable.order5])
 
-export let wishListData = new List<wishList>([wishListTable.wishListItem1, wishListTable.wishListItem2, wishListTable.wishListItem3])
+export let wishListData = new List<wishList>([wishListTable.wishListItem1, wishListTable.wishListItem2, wishListTable.wishListItem3, wishListTable.wishListItem4, wishListTable.wishListItem5])
 
 export let shoppingCartdata = new List<shoppingCart>([shoppingCartTable.shoppingCartItem1, shoppingCartTable.shoppingCartItem2,
 shoppingCartTable.shoppingCartItem3, shoppingCartTable.shoppingCartItem4, shoppingCartTable.shoppingCartItem5, shoppingCartTable.shoppingCartItem6])

@@ -80,7 +80,7 @@ export interface StorageState{
             alert("Shopping cart" + alertText);
         }
         else{
-            alert("Wishlist item + " + alertText);
+            alert("Wishlist item " + alertText);
         }
         
     }
