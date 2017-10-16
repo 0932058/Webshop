@@ -6,6 +6,7 @@ import { WensLijstContainer } from './components/Storage/Wenslijst/WensLijstCont
 import { Winkelmand } from './components/Storage/ShoppingCart/WinkelmandContainer';
 import { ProductPage } from './components/ProductPage/ProductPageContainer';
 import { Home } from './components/Home';
+import {GamesContainer} from "./components/Categories/Games/GamesContainer";
 
 export const routes = <Layout>
     <Route exact path='/' component={Home} />
@@ -13,4 +14,5 @@ export const routes = <Layout>
     <Route path='/Winkelmand' component={ Winkelmand } />
     <Route path='/ProductPage' component={ ProductPage } />
     <Route path='/Bestellingen' component={ BestellingenContainer } />
+    <Route path="/Games/." component={GamesContainer}/>
 </Layout>;

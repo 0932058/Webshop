@@ -20,20 +20,36 @@ export class ZijMenu extends React.Component<{}, {}> {
             <h2>Games</h2>
             <ul>
                 <li>
-                <NavLink to={ '/' } exact activeClassName='Active'className='LinksSide'>
-                    <span ></span> Actie
+                <NavLink to={ '/Games/Action' } exact activeClassName='Active'className='LinksSide'>
+                    Action
                 </NavLink>
                 </li>
                 <li>
-                <NavLink to={ '/' } exact activeClassName='Avontuur'className='LinksSide'>
-                    <span ></span> Xbox
+                <NavLink to={ '/Games/Shooter' } exact activeClassName='Avontuur'className='LinksSide'>
+                    Shooter
                 </NavLink>
                 </li>
                 <li>
-                <NavLink to={ '/' } exact activeClassName='active'className='LinksSide'>
-                    BattleRoyal
+                <NavLink to={ '/Games/Fantasy' } exact activeClassName='active'className='LinksSide'>
+                    Fantasy
                 </NavLink>
                 </li>
+                <li>
+                <NavLink to={ '/Games/Sport' } exact activeClassName='active'className='LinksSide'>
+                    Sport
+                </NavLink>
+                </li>
+                <li>
+                <NavLink to={ '/Games/Sandbox' } exact activeClassName='active'className='LinksSide'>
+                    Sandbox
+                </NavLink>
+                </li>
+                <li>
+                <NavLink to={ '/Games/Fight' } exact activeClassName='active'className='LinksSide'>
+                    Fight
+                </NavLink>
+                </li>
+                
             </ul>
             <h2>Accessoires</h2>
             <ul>
