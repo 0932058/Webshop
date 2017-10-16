@@ -10,15 +10,15 @@ export let order1: order = {
     statusOfOrder: "In behandeling"
 }
 export let order2: order = {
-    pk: 1,
+    pk: 2,
     accountFK: 1, 
-    productFK: 2, 
-    productForeignKeyReference: category.consoles,
+    productFK: 1, 
+    productForeignKeyReference: category.games,
     orderdate: "5 Oktober 2017",
     statusOfOrder: "In behandling"
 }
 export let order3: order = {
-    pk: 1,
+    pk: 3,
     accountFK: 1, 
     productFK: 3, 
     productForeignKeyReference: category.consoles,
@@ -26,7 +26,7 @@ export let order3: order = {
     statusOfOrder: "Bezorgd"
 }
 export let order4: order = {
-    pk: 1,
+    pk: 4,
     accountFK: 1, 
     productFK: 4,
     productForeignKeyReference: category.consoles,
@@ -34,7 +34,7 @@ export let order4: order = {
     statusOfOrder: "In behandeling"
 }
 export let order5: order = {
-    pk: 1,
+    pk: 5,
     accountFK: 1, 
     productFK: 5, 
     productForeignKeyReference: category.games,
