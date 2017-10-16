@@ -20,8 +20,8 @@ export interface StorageState{
     componentWillMount(){
 
     }
-    LoadItems(){
-        switch(this.state.clickedOnCategory)
-    }
+    // LoadItems(){
+    //     switch(this.state.clickedOnCategory)
+    // }
 }
-export default AbstractCategory;
+//export default AbstractCategory;
