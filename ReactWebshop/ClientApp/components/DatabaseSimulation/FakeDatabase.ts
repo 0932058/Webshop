@@ -17,7 +17,7 @@ export let consoleTableData = new List<console>([consoleTable.console1, consoleT
 
 export let orderTabledata = new List<order>([orderTable.order1,orderTable.order2,orderTable.order3,orderTable.order4,orderTable.order5])
 
-export let wishListData = new List<wishList>([])
+export let wishListData = new List<wishList>()
 
-export let shoppingCartdata = new List<shoppingCart>([])
+export let shoppingCartdata = new List<shoppingCart>()
 

@@ -7,6 +7,11 @@ export enum category{
     games = "games",
     accessoires = "accessoires"
 }
+export enum storageCategory{
+    wishlist = "wishlist",
+    shoppingCart = "shopping Cart"
+}
+
 export type account = {
     pk: number,
     firstName:string,
@@ -56,15 +61,14 @@ export type wishList = {
     pk: number,
     accountFK: number,
     productForeignKeyReference: category,
-    productFK: number[],
+    productFK: number,
 }
 export type shoppingCart = {
     pk: number,
     accountFK: number,
     productForeignKeyReference: category,
-    productFK: number[]
+    productFK: number
 }
-export type product = game & {kind:"game"} | console & {kind:"console"}
+export type product = game & {categoryKind: category.games} | console & {categoryKind: category.consoles}
 
-export type storage = wishList & {kind: "wishList" | shoppingCart & {kind:"shoppingCart"}
-}
+export type storage = wishList & {categoryKind: storageCategory.wishlist} | shoppingCart & {categoryKind: storageCategory.shoppingCart}

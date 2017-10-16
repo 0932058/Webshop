@@ -59,10 +59,10 @@ export interface StorageState{
             case(category.accessoires):
              break;
              case(category.consoles):
-             foundProduct = consoleTableData.Where(console => new List(storage.productFK).Contains(console.pk));
+             foundProduct = consoleTableData.Where(console => console.pk == storage.pk);
              break;
              case(category.games):
-             foundProduct = gameTableData.Where(game =>  new List(storage.productFK).Contains(game.pk));
+             foundProduct = gameTableData.Where(game =>  game.pk == storage.pk);
              break;
         }
         //converted to array to get items by index

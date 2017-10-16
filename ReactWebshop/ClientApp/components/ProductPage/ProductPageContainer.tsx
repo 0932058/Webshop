@@ -1,66 +1,62 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
-import {game, wishList,shoppingCart, console, product} from "../DatabaseSimulation/TableTypes";
+import {game, wishList,shoppingCart, console, product, category, storage, storageCategory} from "../DatabaseSimulation/TableTypes";
 import {gameTableData, wishListData, shoppingCartdata, consoleTableData} from "../DatabaseSimulation/FakeDatabase";
 import {consoleType} from "../DatabaseSimulation/ConsoleTable";
 import {ProductPageComponent} from "./ProductPageComponent";
+import {List} from "linqts";
 
 //The product page
 
 interface ProductPageState{
-    product: product
+    product: string;
     consoleImage: string;
     loaded: boolean;
 }
-export class ProductPage extends React.Component<RouteComponentProps<{}>, ProductPageState> {
+export class ProductPage extends React.Component<RouteComponentProps<{}>, ProductPageState>{
     constructor(){
         super();
-        this.AddProductToWishList = this.AddProductToWishList.bind(this);
-        this.AddProductToWinkelmand = this.AddProductToWinkelmand.bind(this);
         this.CheckChoosenConsole = this.CheckChoosenConsole.bind(this)
+        this.AddToStorage = this.AddToStorage.bind(this);
+        this.StorageAddHandler = this.StorageAddHandler.bind(this);
         this.NotificationAlert = this.NotificationAlert.bind(this);
-        this.state = {product: consoleTableData.ElementAt(3) as product, consoleImage: "", loaded: false}; 
-        //Game inserted from game database to test the page layout
+        var ProductsToShow = new List<product>();
+        this.state = {product: JSON.stringify(gameTableData.ElementAt(1)), consoleImage: "", loaded: false}; 
     }
     //The console image will be loaded
     componentWillMount(){
-        this.CheckChoosenConsole().then(consoleImage => this.setState({consoleImage: consoleImage, loaded: true}))
+        this.CheckChoosenConsole().then(consoleImage => this.setState({consoleImage: consoleImage, loaded: true}))     
     }
+    StorageAddHandler(isShoppingCart: boolean){
+        this.AddToStorage(this.state.product, 1, isShoppingCart);
+    }
+
     //wishlist PK and account manually inserted, this can be changed later that it checks the logged in user's PK.
     //See how to add the foreign key reference
-    AddProductToWishList(){
-        this.NotificationAlert(false);
-        let loggedInUserPK = 1; 
-        var wishlistItem: wishList = {pk:1 , accountFK: loggedInUserPK, productFK: [this.state.product.pk],productForeignKeyReference: null}
-        var foundWishList = wishListData.Where(wishlist => wishlist.accountFK == loggedInUserPK )
-        if(foundWishList.Count() == 0){
-            wishListData.Add(wishlistItem)
+    AddToStorage(productObjectAsString: string, loggedInUser: number, isShoppingcart: boolean ){
+         var product = JSON.parse(productObjectAsString);
+
+        var productToAddToStorage: storage;
+        productToAddToStorage = {pk: wishListData.Count() + 1, accountFK: loggedInUser, productFK: product.pk,
+        productForeignKeyReference: product.category, categoryKind: storageCategory.shoppingCart} 
+
+        if(productToAddToStorage.categoryKind == storageCategory.shoppingCart){
+            shoppingCartdata.Add(productToAddToStorage)
         }
         else{
-            foundWishList.ForEach(wishlist => wishlist.productFK.push(this.state.product.pk))
+            wishListData.Add(productToAddToStorage);
         }
-    }
-    AddProductToWinkelmand(){
-        this.NotificationAlert(true);
-        let loggedInUserPK = 1; 
-        var shoppingCartItem: shoppingCart = {pk:1 , accountFK: loggedInUserPK, productFK: [this.state.product.pk], productForeignKeyReference: this.state.product.category}
-        var foundShoppingCart = shoppingCartdata.Where(shoppingCart => shoppingCart.accountFK == loggedInUserPK )
-        if(foundShoppingCart.Count() <= 0 || foundShoppingCart == null || foundShoppingCart == undefined){
-            console.log("ADDING")
-            shoppingCartdata.Add(shoppingCartItem)
-        }
-        else{
-            foundShoppingCart.ForEach(shoppingCart => shoppingCart.productFK.push(this.state.product.pk))
-        }
-    }  
-    NotificationAlert(isForTheShoppingcart: boolean){
+        this.NotificationAlert(product, isShoppingcart);
+    } 
+    NotificationAlert(product: product, isForTheShoppingcart: boolean){
         if(shoppingCartdata){
-            alert(this.state.product.name + " has been added to ShoppingCart!")
+            alert(product.name + " has been added to ShoppingCart!")
         }
         else{
-            alert(this.state.product.name + " has been added to WishList!")
+            alert(product.name + " has been added to WishList!")
         }
     }
+
     CheckChoosenConsole() : Promise<string>{
         var xbox360Image = "https://www.blogcdn.com/www.joystiq.com/media/2012/09/xbox360logo.jpg"
         var xboxOneImage = "https://cdn.worldvectorlogo.com/logos/xbox-one-2.svg"
@@ -68,7 +64,7 @@ export class ProductPage extends React.Component<RouteComponentProps<{}>, Produc
         var playstation4Image = "https://www.geek.com/wp-content/uploads/2013/02/PlayStation4_logo.jpg"
         var consoleImage = ""
 
-        switch(this.state.product.console){
+        switch(JSON.parse(this.state.product).console){
             case(consoleType.xbox360):
                 consoleImage = xbox360Image;
             case(consoleType.xboxOne):
@@ -84,8 +80,8 @@ export class ProductPage extends React.Component<RouteComponentProps<{}>, Produc
         return ( 
             <div>
                 {this.state.loaded ? 
-                <ProductPageComponent product={this.state.product} consoleImage={this.state.consoleImage}
-                AddProductToWinkelMand={this.AddProductToWinkelmand} AddProductToWishlist={this.AddProductToWishList}/>    
+                <ProductPageComponent  product={this.state.product} consoleImage={this.state.consoleImage}
+                AddProductToStorage={this.StorageAddHandler}/>    
                 :
                 <div> Loading... </div>
                 }

@@ -39,7 +39,7 @@ export class BestellingenContainer extends React.Component<RouteComponentProps<{
    LoopThroughOrders(){
        var foundGames = this.state.orders.Where(o => o.productForeignKeyReference == category.games).Join(gameTableData, order => order.productFK, game => game.pk, (o,g) =>  ({image: g.image, name: g.name, price: g.price, orderDate: o.orderdate, orderStatus: o.statusOfOrder})); 
        var foundConsoles = this.state.orders.Where(o => o.productForeignKeyReference == category.consoles).Join(consoleTableData, order => order.productFK, game => game.pk, (o,g) =>  ({image: g.image, name: g.name, price: g.price, orderDate: o.orderdate, orderStatus: o.statusOfOrder})); 
-       var productsCombined = foundGames.Concat(foundConsoles).ToList()
+       var productsCombined = foundGames.Concat(foundConsoles).ToList() // combines the games and consoles
        this.setState({orderAndProductCombined: productsCombined, loaded: true})
    }
     render() {   
