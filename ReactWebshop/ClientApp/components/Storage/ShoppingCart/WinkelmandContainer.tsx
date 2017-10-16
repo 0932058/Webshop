@@ -12,15 +12,19 @@ import {WinkelMandComponent} from "./WinkelmandComponent";
 export class Winkelmand extends AbstractStorage {
     constructor(){
         super();    
-        this.state = {storageProducts: new List<storage>(), convertedStorageProducts: new List<product>(),customerID:1, isShoppingCart:true, loaded:false}
+        this.state = {storageProducts: new List<storage>(), convertedStorageProducts: new List<product>(),customerID:1, isShoppingCart:true, loaded:false, totalPrice: 0}
     }
     render() {
         return (
         <div>
+            <h1>Winkelmand</h1>
             {this.state.convertedStorageProducts.ToArray().map((storageProduct,index) =>
-            <WinkelMandComponent key={index} shoppingCartProduct={storageProduct} RemoveItemFromStorage={this.RemoveItemFromStorage}/>
-            )         
-        }</div>
+            <WinkelMandComponent key={index} shoppingCartProduct={storageProduct} RemoveItemFromStorage={this.RemoveItemFromStorage}/>)  
+            }
+            <h1> Total items: {this.state.convertedStorageProducts.Count()}</h1>
+            <h1> Total Price: €{this.state.totalPrice.toFixed(2)}</h1>
+            <h1> <button> Finalize order </button> </h1>
+            </div>          
         )}
 }
 

@@ -3,6 +3,8 @@ import * as gameTable from "./GameTable";
 import * as accountsTable from "./AccountsTable";
 import * as consoleTable from "./ConsoleTable";
 import * as orderTable from "./OrdersTable";
+import * as wishListTable from "./WishlistTable";
+import * as shoppingCartTable from "./ShoppingCartItem";
 import {List} from "linqts";
 
 //The seperate database entities have been put in an array to simulate a database
@@ -17,7 +19,8 @@ export let consoleTableData = new List<console>([consoleTable.console1, consoleT
 
 export let orderTabledata = new List<order>([orderTable.order1,orderTable.order2,orderTable.order3,orderTable.order4,orderTable.order5])
 
-export let wishListData = new List<wishList>()
+export let wishListData = new List<wishList>([wishListTable.wishListItem1, wishListTable.wishListItem2, wishListTable.wishListItem3])
 
-export let shoppingCartdata = new List<shoppingCart>()
+export let shoppingCartdata = new List<shoppingCart>([shoppingCartTable.shoppingCartItem1, shoppingCartTable.shoppingCartItem2,
+shoppingCartTable.shoppingCartItem3, shoppingCartTable.shoppingCartItem4, shoppingCartTable.shoppingCartItem5, shoppingCartTable.shoppingCartItem6])
 
