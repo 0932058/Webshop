@@ -5,8 +5,7 @@ import {gameTableData} from "../DatabaseSimulation/FakeDatabase";
 import {consoleType} from "../DatabaseSimulation/ConsoleTable";
 
 interface ProductPageState{
-    product: product;
- 
+    product: string; 
 }
 interface ProductPageProps{
     product: string
@@ -16,39 +15,35 @@ interface ProductPageProps{
 export class ProductPageComponent extends React.Component<ProductPageProps, ProductPageState> {
     constructor(props: ProductPageProps){
         super(props);
-        this.HandleStorageAddClick = this.HandleStorageAddClick.bind(this);
-        var parsedProduct = JSON.parse(this.props.product)
-      
-        
-        this.state = {product: parsedProduct}
-
+        this.HandleStorageAddClick = this.HandleStorageAddClick.bind(this);    
+        this.state = {product: this.props.product} //The product is a string but gets converted in the render method
     }
     HandleStorageAddClick(event: any, isShoppingcart: boolean){
         this.props.AddProductToStorage(isShoppingcart);
     }
-    //TODO make it show more information on the screen
+    //The objects have to be parsed to json because this.state doesn't allow an single object in the state
     render() {
         return <div  className={"Product"}>      
-                <h1>{this.state.product.name} - {this.state.product.console}</h1>
+                <h1>{JSON.parse(this.state.product).name} - {JSON.parse(this.state.product).console}</h1>
                 <div>   
                   <li> <img src={this.props.consoleImage}  width={300} height={50} /> </li>          
-                   <li> <img src={this.state.product.image}  height={500}/> </li>                                     
-                   <div> <h2> Description: {this.state.product.description} </h2></div>
-                   <div> <h2> Price: €{this.state.product.price.toFixed(2)} </h2></div>
+                   <li> <img src={JSON.parse(this.state.product).image}  height={500}/> </li>                                     
+                   <div> <h2> Description: {JSON.parse(this.state.product).description} </h2></div>
+                   <div> <h2> Price: €{JSON.parse(this.state.product).price.toFixed(2)} </h2></div>
                 
-                   {/* {this.state.product.category == category.games?
+                   {JSON.parse(this.state.product).category == category.games?
                    <div>
-                   <div> <h2> Age: {this.state.product.} </h2></div>
-                   <div> <h2> Genre: {this.state.product} </h2></div>
-                   <div> <h2> Category: {this.state.product.category} </h2></div>  
-                   <div> <h2> Console: {this.state.product.console} </h2></div>     
+                   <div> <h2> Age: {JSON.parse(this.state.product).age} </h2></div>
+                   <div> <h2> Genre: {JSON.parse(this.state.product).genreCategory} </h2></div>
+                   <div> <h2> Category: {JSON.parse(this.state.product).category} </h2></div>  
+                   <div> <h2> Console: {JSON.parse(this.state.product).console} </h2></div>     
                    </div>
                    :         
                    <div>
-                   <div> <h2> Memory: {this.state.product} </h2></div>  
-                   <div> <h2> Console: {this.state.product.console} </h2></div>     
+                   <div> <h2> Memory: {JSON.parse(this.state.product).memory} </h2></div>  
+                   <div> <h2> Console: {JSON.parse(this.state.product).console} </h2></div>     
                    </div>    
-                   } */}
+                   }
                 </div>
                 <h2>
                 <button  onClick= { (e:any) => this.HandleStorageAddClick(e, false)}> Add to wishlist</button>

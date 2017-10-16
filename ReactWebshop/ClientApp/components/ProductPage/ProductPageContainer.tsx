@@ -20,7 +20,7 @@ export class ProductPage extends React.Component<RouteComponentProps<{}>, Produc
         this.AddToStorage = this.AddToStorage.bind(this);
         this.StorageAddHandler = this.StorageAddHandler.bind(this);
         this.NotificationAlert = this.NotificationAlert.bind(this);
-        this.state = {product: JSON.stringify(gameTableData.ElementAt(1)), consoleImage: "", loaded: false}; 
+        this.state = {product: JSON.stringify(gameTableData.ElementAt(3)), consoleImage: "", loaded: false}; 
     }
     //The console image will be loaded
     componentWillMount(){
@@ -48,8 +48,8 @@ export class ProductPage extends React.Component<RouteComponentProps<{}>, Produc
         }
         this.NotificationAlert(product, isShoppingcart);
     } 
+    //Notifcation pop up when user adds an item to the wishlist or shopping cart
     NotificationAlert(product: product, isForTheShoppingcart: boolean){
-      
         if(isForTheShoppingcart){
             alert(product.name + " has been added to ShoppingCart!")
         }
@@ -57,7 +57,7 @@ export class ProductPage extends React.Component<RouteComponentProps<{}>, Produc
             alert(product.name + " has been added to Wishlist!")
         }
     }
-
+    //Depending on the category of the product, the console header gets displayed
     CheckChoosenConsole() : Promise<string>{
         var xbox360Image = "https://www.blogcdn.com/www.joystiq.com/media/2012/09/xbox360logo.jpg"
         var xboxOneImage = "https://cdn.worldvectorlogo.com/logos/xbox-one-2.svg"
@@ -68,13 +68,18 @@ export class ProductPage extends React.Component<RouteComponentProps<{}>, Produc
         switch(JSON.parse(this.state.product).console){
             case(consoleType.xbox360):
                 consoleImage = xbox360Image;
+                break;
             case(consoleType.xboxOne):
                 consoleImage = xboxOneImage;
+                break;
             case(consoleType.playstation3):
                 consoleImage = playstation3Image;
+                break;
             case(consoleType.playstation4):
                 consoleImage = playstation4Image
+                break;
         }
+
         return Promise.resolve(consoleImage);
     }
     render() {   
