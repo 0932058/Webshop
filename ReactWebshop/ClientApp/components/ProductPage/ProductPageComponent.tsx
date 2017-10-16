@@ -18,12 +18,15 @@ export class ProductPageComponent extends React.Component<ProductPageProps, Prod
         super(props);
         this.HandleStorageAddClick = this.HandleStorageAddClick.bind(this);
         var parsedProduct = JSON.parse(this.props.product)
+      
+        
         this.state = {product: parsedProduct}
 
     }
     HandleStorageAddClick(event: any, isShoppingcart: boolean){
         this.props.AddProductToStorage(isShoppingcart);
     }
+    //TODO make it show more information on the screen
     render() {
         return <div  className={"Product"}>      
                 <h1>{this.state.product.name} - {this.state.product.console}</h1>
@@ -32,10 +35,10 @@ export class ProductPageComponent extends React.Component<ProductPageProps, Prod
                    <li> <img src={this.state.product.image}  height={500}/> </li>                                     
                    <div> <h2> Description: {this.state.product.description} </h2></div>
                    <div> <h2> Price: €{this.state.product.price.toFixed(2)} </h2></div>
-
-                   {/* {this.state.product.categoryKind == category.games? 
+                
+                   {/* {this.state.product.category == category.games?
                    <div>
-                   <div> <h2> Age: {this.state.product.age} </h2></div>
+                   <div> <h2> Age: {this.state.product.} </h2></div>
                    <div> <h2> Genre: {this.state.product} </h2></div>
                    <div> <h2> Category: {this.state.product.category} </h2></div>  
                    <div> <h2> Console: {this.state.product.console} </h2></div>     

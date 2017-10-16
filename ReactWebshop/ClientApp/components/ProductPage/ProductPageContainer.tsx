@@ -9,8 +9,8 @@ import {List} from "linqts";
 //The product page
 
 interface ProductPageState{
-    product: string;
-    consoleImage: string;
+    product: string; //the product to show is an JSON object because this.state doesn't allow a single object
+    consoleImage: string; //The consoleimge that will be shown on the header
     loaded: boolean;
 }
 export class ProductPage extends React.Component<RouteComponentProps<{}>, ProductPageState>{
@@ -20,25 +20,25 @@ export class ProductPage extends React.Component<RouteComponentProps<{}>, Produc
         this.AddToStorage = this.AddToStorage.bind(this);
         this.StorageAddHandler = this.StorageAddHandler.bind(this);
         this.NotificationAlert = this.NotificationAlert.bind(this);
-        var ProductsToShow = new List<product>();
         this.state = {product: JSON.stringify(gameTableData.ElementAt(1)), consoleImage: "", loaded: false}; 
     }
     //The console image will be loaded
     componentWillMount(){
         this.CheckChoosenConsole().then(consoleImage => this.setState({consoleImage: consoleImage, loaded: true}))     
     }
+    //The child component (ProductPageComponent) will come into this method when a button is clicked
     StorageAddHandler(isShoppingCart: boolean){
         this.AddToStorage(this.state.product, 1, isShoppingCart);
     }
-
     //wishlist PK and account manually inserted, this can be changed later that it checks the logged in user's PK.
-    //See how to add the foreign key reference
     AddToStorage(productObjectAsString: string, loggedInUser: number, isShoppingcart: boolean ){
-         var product = JSON.parse(productObjectAsString);
+         var product = JSON.parse(productObjectAsString); //the product is parsed to an object to bypass React's this.state rules
 
-        var productToAddToStorage: storage;
-        productToAddToStorage = {pk: wishListData.Count() + 1, accountFK: loggedInUser, productFK: product.pk,
-        productForeignKeyReference: product.category, categoryKind: storageCategory.shoppingCart} 
+         //Depending if the paramter Isshoppingcart, a different type of pk and categorykind is choosen
+        var productToAddToStorage = {pk: isShoppingcart? shoppingCartdata.Count()+ 1 : wishListData.Count() + 1, 
+        accountFK: loggedInUser, productFK: product.pk, productForeignKeyReference: product.category, 
+    categoryKind: isShoppingcart? storageCategory.shoppingCart : storageCategory.wishlist} 
+ 
 
         if(productToAddToStorage.categoryKind == storageCategory.shoppingCart){
             shoppingCartdata.Add(productToAddToStorage)
@@ -49,11 +49,12 @@ export class ProductPage extends React.Component<RouteComponentProps<{}>, Produc
         this.NotificationAlert(product, isShoppingcart);
     } 
     NotificationAlert(product: product, isForTheShoppingcart: boolean){
-        if(shoppingCartdata){
+      
+        if(isForTheShoppingcart){
             alert(product.name + " has been added to ShoppingCart!")
         }
         else{
-            alert(product.name + " has been added to WishList!")
+            alert(product.name + " has been added to Wishlist!")
         }
     }
 

@@ -4,7 +4,7 @@ import {product, category}  from '../../DatabaseSimulation/TableTypes';
 
 interface WinkelmandProps{
     shoppingCartProduct: product;
-    RemoveItemFromStorage(fk:number, category:category);
+    RemoveItemFromStorage(productToRemove:product, category:category);
 }
 
 interface WinkelmandState{   
@@ -17,7 +17,7 @@ export class WinkelMandComponent extends React.Component<WinkelmandProps, Winkel
        
     }
     RemoveItemFromStorage(){
-        this.props.RemoveItemFromStorage(this.props.shoppingCartProduct.pk, this.props.shoppingCartProduct.category)
+        this.props.RemoveItemFromStorage(this.props.shoppingCartProduct, this.props.shoppingCartProduct.category)
     }
     render(){
         return <div className={"Winkelmand"}>                  

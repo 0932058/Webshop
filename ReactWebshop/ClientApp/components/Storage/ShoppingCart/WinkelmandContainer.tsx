@@ -11,12 +11,12 @@ import {WinkelMandComponent} from "./WinkelmandComponent";
 export class Winkelmand extends AbstractStorage {
     constructor(){
         super();
-        this.state = {foundStorageProduct: new List<product>(), storageProducts: new List<storage>(), customerID:1, isShoppingCart:true, loaded:false}
+        this.state = {storageProducts: new List<storage>(), convertedStorageProducts: new List<product>(),customerID:1, isShoppingCart:true, loaded:false}
     }
     render() {
         return (
         <div>
-            {this.state.foundStorageProduct.ToArray().map((storageProduct,index) =>
+            {this.state.convertedStorageProducts.ToArray().map((storageProduct,index) =>
             <WinkelMandComponent key={index} shoppingCartProduct={storageProduct} RemoveItemFromStorage={this.RemoveItemFromStorage}/>
             )         
         }</div>

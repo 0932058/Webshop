@@ -8,7 +8,7 @@ import {List} from "linqts";
 
 export interface StorageState{
     storageProducts: List<storage>;
-    foundStorageProduct: List<product>;
+    convertedStorageProducts: List<product>;
     customerID: number;
     isShoppingCart:boolean;
     loaded: boolean 
@@ -17,64 +17,48 @@ export interface StorageState{
     constructor(){
         super();
         this.GetCustomerStorageProducts = this.GetCustomerStorageProducts.bind(this);   
-        this.GetProductThatMatchesOrder = this.GetProductThatMatchesOrder.bind(this);
-        this.RemoveItemFromStorage = this.RemoveItemFromStorage.bind(this);
         this.LoopThroughStorage = this.LoopThroughStorage.bind(this);
-    
+        this.RemoveItemFromStorage = this.RemoveItemFromStorage.bind(this);
     }
     componentWillMount(){
+        console.log("WILL MOUNT")
         let loadData : () => void = () => 
         this.GetCustomerStorageProducts(this.state.customerID, this.state.isShoppingCart).then(foundorders => this.setState({storageProducts: foundorders}))
         .then(this.LoopThroughStorage)
         loadData();
     }     
-
     GetCustomerStorageProducts(customerID: number, isShoppingCart: boolean) : Promise<List<storage>>{
-        console.log("Entered!")
         var storage = new List<any>();
         if(isShoppingCart){
-             storage = shoppingCartdata.Where(shoppingCart => shoppingCart.pk == customerID)
+             storage = shoppingCartdata.Where(shoppingCart => shoppingCart.accountFK == customerID)
         }
         else{
-            storage = wishListData.Where(wishListData => wishListData.pk == customerID)
+            storage = wishListData.Where(wishListData => wishListData.accountFK == customerID)
         }
         return Promise.resolve<List<storage>>(storage);
     }
     LoopThroughStorage(){
-     var foundProduct = new List<any>();
-     let GetProductThatMatchesOrder: (order:storage, category1: category) => any =
-      (order:storage,category1: category) => this.GetProductThatMatchesOrder(order,category1);
-        let orders: List<any> = new List<any>(); 
-        this.state.storageProducts.ForEach(function(storageProduct){
-             var foundStorageProduct = GetProductThatMatchesOrder(storageProduct, storageProduct.productForeignKeyReference)
-             foundProduct.Add(foundStorageProduct)
-         }
-     )
-      this.setState({foundStorageProduct: foundProduct})
-     }  
-    GetProductThatMatchesOrder(storage: storage, productType: category){
-        console.log(productType)
-        var foundProduct;
-        switch(productType){
-            case(category.accessoires):
-             break;
-             case(category.consoles):
-             foundProduct = consoleTableData.Where(console => console.pk == storage.pk);
-             break;
-             case(category.games):
-             foundProduct = gameTableData.Where(game =>  game.pk == storage.pk);
-             break;
-        }
-        //converted to array to get items by index
-        var foundProductToArray = foundProduct.ToArray();
-        var productWithOrderInfo = {image: foundProductToArray[0].image, name:  foundProductToArray[0].name, price:  foundProductToArray[0].price}
-     return productWithOrderInfo;
+        var foundGames = this.state.storageProducts.Where(storage => storage.productForeignKeyReference == category.games).Join(gameTableData, storage => storage.productFK, game => game.pk, (storage1,game1) => game1);
+        var foundConsoles = this.state.storageProducts.Where(storage => storage.productForeignKeyReference == category.consoles).Join(consoleTableData, storage => storage.productFK, consoleEntity => consoleEntity.pk, (storage1,console1) =>  console1);
+        var productsCombined = foundGames.Concat(foundConsoles).ToList() // combines the games and consoles
+        this.setState({convertedStorageProducts: productsCombined, loaded: true})
     }
+    RemoveItemFromStorage(productToRemove: product ,category: category){
+        //Customerpk is this.state
 
-    RemoveItemFromStorage(pk: number, category: category){
-        this.state.storageProducts.Where(order => order.pk == pk && order.productForeignKeyReference == category);
-        
-        
+        var updatedListWithRemovedItem = this.state.convertedStorageProducts.RemoveAll(game => game.pk == productToRemove.pk);
+        console.log(shoppingCartdata.Count());
+        if(this.state.isShoppingCart){
+            shoppingCartdata.RemoveAll(shoppingcart => shoppingcart.accountFK == this.state.customerID &&
+                shoppingcart.productFK == productToRemove.pk);    
+        }
+        else{
+            wishListData.RemoveAll(  wishListD =>   wishListD.accountFK == this.state.customerID &&
+                wishListD.productFK == productToRemove.pk); 
+        }
+     
+        this.setState({convertedStorageProducts:updatedListWithRemovedItem}) //To make the page re-render, to remove the product
+    
     }
     abstract render ();
 
