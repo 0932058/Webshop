@@ -7,10 +7,11 @@ import {List} from "linqts";
 import {AbstractStorage,StorageState} from "../ReusableComponents/Storage";
 import {WinkelMandComponent} from "./WinkelmandComponent";
 
+//Container for the winkelmand
 
 export class Winkelmand extends AbstractStorage {
     constructor(){
-        super();
+        super();    
         this.state = {storageProducts: new List<storage>(), convertedStorageProducts: new List<product>(),customerID:1, isShoppingCart:true, loaded:false}
     }
     render() {
