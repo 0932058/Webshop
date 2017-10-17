@@ -4,7 +4,7 @@ import {console} from "./TableTypes";
 //The consoles table
 
 export enum consoleType{
-    xboxOne = "Xbox One",
+    xboxone = "Xbox One",
     playstation4 = "Playstation 4",
     xbox360 = "Xbox 360",
     playstation3 = "Playstation 3"
@@ -46,7 +46,7 @@ export let console3: console = {
 export let console4: console = {
     pk: 4,
     name: "Xbox one",
-    console: consoleType.xboxOne,
+    console: consoleType.xboxone,
     description: "The xbox one in it's full glory",
     memory: "500GB",
     image: "https://i5.walmartimages.com/asr/ba224f43-000b-4966-b542-826bbb79f110_1.9e96259ce0161ada5f9ce7d14e0db4f2.jpeg?odnHeight=450&odnWidth=450&odnBg=FFFFFF",

@@ -6,9 +6,11 @@ import {consoleType} from "../DatabaseSimulation/ConsoleTable";
 import {ProductPageComponent} from "./ProductPageComponent";
 import {List} from "linqts";
 
+
+
 //The product page
 interface ProductPageProps{
-    clickedOnGame: game;
+    clickedOnProduct: game | console; 
 }
 
 interface ProductPageState{
@@ -23,7 +25,7 @@ export class ProductPage extends React.Component<ProductPageProps, ProductPageSt
         this.AddToStorage = this.AddToStorage.bind(this);
         this.StorageAddHandler = this.StorageAddHandler.bind(this);
         this.NotificationAlert = this.NotificationAlert.bind(this);    
-        this.state = {product: JSON.stringify(this.props.clickedOnGame), consoleImage: "", loaded: false}; 
+        this.state = {product: JSON.stringify(this.props.clickedOnProduct), consoleImage: "", loaded: false}; 
     }
     //The console image will be loaded
     componentWillMount(){
@@ -72,7 +74,7 @@ export class ProductPage extends React.Component<ProductPageProps, ProductPageSt
             case(consoleType.xbox360):
                 consoleImage = xbox360Image;
                 break;
-            case(consoleType.xboxOne):
+            case(consoleType.xboxone):
                 consoleImage = xboxOneImage;
                 break;
             case(consoleType.playstation3):
