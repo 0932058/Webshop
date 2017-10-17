@@ -7,20 +7,23 @@ import {ProductPageComponent} from "./ProductPageComponent";
 import {List} from "linqts";
 
 //The product page
+interface ProductPageProps{
+    clickedOnGame: game;
+}
 
 interface ProductPageState{
     product: string; //the product to show is an JSON object because this.state doesn't allow a single object
     consoleImage: string; //The consoleimge that will be shown on the header
     loaded: boolean;
 }
-export class ProductPage extends React.Component<RouteComponentProps<{}>, ProductPageState>{
-    constructor(){
-        super();
+export class ProductPage extends React.Component<ProductPageProps, ProductPageState>{
+    constructor(props: ProductPageProps){
+        super(props);
         this.CheckChoosenConsole = this.CheckChoosenConsole.bind(this)
         this.AddToStorage = this.AddToStorage.bind(this);
         this.StorageAddHandler = this.StorageAddHandler.bind(this);
-        this.NotificationAlert = this.NotificationAlert.bind(this);
-        this.state = {product: JSON.stringify(gameTableData.ElementAt(3)), consoleImage: "", loaded: false}; 
+        this.NotificationAlert = this.NotificationAlert.bind(this);    
+        this.state = {product: JSON.stringify(this.props.clickedOnGame), consoleImage: "", loaded: false}; 
     }
     //The console image will be loaded
     componentWillMount(){
@@ -95,3 +98,4 @@ export class ProductPage extends React.Component<RouteComponentProps<{}>, Produc
         );
     }
 }           
+export default ProductPage;
