@@ -9,7 +9,7 @@ import { Home } from './components/Home';
 import {GamesContainer} from "./components/Categories/Games/GamesContainer";
 import {ConsolesContainer} from "./components/Categories/Consoles/ConsoleContainer";
 import {AccessoiresContainer} from "./components/Categories/Accessoires/AccessoiresContainer";
-
+import {SearchContainer} from "./components/Search/SearchContainer";
 
 //Productpage won't be accesed in the menu tabs 
 {/* <Route path='/ProductPage' component={ ProductPage } /> */}
