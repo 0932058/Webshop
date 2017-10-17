@@ -2,6 +2,9 @@
 import {consoleType} from "./ConsoleTable";
 import {genreCategory, age} from "./GameTable";
 
+export type subCategory = consoleType | genreCategory
+
+
 export enum category{
     consoles = "consoles",
     games = "games",

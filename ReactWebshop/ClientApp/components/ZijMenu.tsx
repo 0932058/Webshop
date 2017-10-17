@@ -6,14 +6,24 @@ export class ZijMenu extends React.Component<{}, {}> {
         return <nav className="Zijbalk">
             <h2>Consoles</h2>
             <ul>
-                <li>
-                <NavLink to={ '/' } exact activeClassName='active'className='LinksSide'>
-                    Xbox
+            <li>
+                <NavLink to={ '/Consoles/Xbox360' } exact activeClassName='active' className='LinksSide'>
+                   Xbox 360
                 </NavLink>
                 </li>
                 <li>
-                <NavLink to={ '/' } exact activeClassName='active' className='LinksSide'>
-                   Playstation
+                <NavLink to={ '/Consoles/XboxOne' } exact activeClassName='active'className='LinksSide'>
+                    Xbox One
+                </NavLink>
+                </li>
+                <li>
+                <NavLink to={ '/Consoles/Playstation3' } exact activeClassName='active' className='LinksSide'>
+                   Playstation 3
+                </NavLink>
+                </li>
+                <li>
+                <NavLink to={ '/Consoles/Playstation4' } exact activeClassName='active' className='LinksSide'>
+                   Playstation 4
                 </NavLink>
                 </li>
             </ul>
