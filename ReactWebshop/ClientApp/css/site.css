@@ -22,7 +22,7 @@ body{
     padding-top: 3cm;
 }
 .Game{
-    padding-top: 1cm;
+    padding-top: 3cm;
 }
 .Console{
     padding-top: 3cm;
@@ -31,13 +31,11 @@ body{
     padding-top: 3cm;
 
 }
-.Search{
-    padding-left: 500px;
-    left: 500px;
+.Searches{
+    padding-top: 5cm;
 }
-.Search{
-    padding-top: 150px;
-    top:150;
+.SearchButton{
+    align-content: center
 }
 
 
