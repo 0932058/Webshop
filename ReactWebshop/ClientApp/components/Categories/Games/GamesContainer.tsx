@@ -16,7 +16,7 @@ export class GamesContainer  extends React.Component<RouteComponentProps<{}>, IC
         super(); 
         this.state = {foundProductToShow: new List<game>(), categoryTitle: "", loaded:false, productPageClicked: false, clickedOnProduct: null}
         this.ToProductPage = this.ToProductPage.bind(this);
-        this.PrepareForGameQuery = this.PrepareForGameQuery.bind(this);
+        this.PrepareForProductQuery = this.PrepareForProductQuery.bind(this);
         this.ToLowerCase = this.ToLowerCase.bind(this);   
     }
     //Gets the selected category
@@ -25,14 +25,14 @@ export class GamesContainer  extends React.Component<RouteComponentProps<{}>, IC
         var convertedPath = currentPath.replace("/Games/", "")
         var convertedPathLowercased = this.ToLowerCase(convertedPath);
         let convertedPathToEnum: genreCategory = genreCategory[convertedPathLowercased]  
-        this.PrepareForGameQuery(convertedPathToEnum).then(gamesListToShow => this.setState({foundProductToShow: gamesListToShow, categoryTitle:convertedPathLowercased, loaded: true}));  
+        this.PrepareForProductQuery(convertedPathToEnum).then(gamesListToShow => this.setState({foundProductToShow: gamesListToShow, categoryTitle:convertedPathLowercased, loaded: true}));  
     }
     //The url's first letter are  with uppercase (Sport for example) but they get converted to lowercase to match the enum' name(genrecategory)
     ToLowerCase(categoryToCapatalize: string){
         return categoryToCapatalize[0].toLowerCase() + categoryToCapatalize.slice(1).toLowerCase();
     }
     //Gets the games based on the category
-    PrepareForGameQuery(clickedOnSubCategory: any): Promise<List<any>> {
+    PrepareForProductQuery(clickedOnSubCategory: any): Promise<List<any>> {
         var visitor = new QueryVisitor();
         return visitor.MakeQueryForGames(clickedOnSubCategory);
        

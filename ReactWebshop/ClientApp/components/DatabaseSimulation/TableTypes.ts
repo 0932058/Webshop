@@ -1,5 +1,6 @@
 //Category enum
 import {consoleType} from "./ConsoleTable";
+import {accessoiresType} from "./AccessoiresTable";
 import {genreCategory, age} from "./GameTable";
 
 export type subCategory = consoleType | genreCategory
@@ -13,6 +14,16 @@ export enum category{
 export enum storageCategory{
     wishlist = "wishlist",
     shoppingCart = "shopping Cart"
+}
+export type accessoires = {
+    pk: number,
+    name: string,
+    description: string,
+    price: number,
+    image: string
+    subCategory: accessoiresType
+    category:category
+
 }
 
 export type account = {
@@ -72,6 +83,6 @@ export type shoppingCart = {
     productForeignKeyReference: category,
     productFK: number
 }
-export type product = game & {categoryKind: category.games} | console & {categoryKind: category.consoles}
+export type product = game & {categoryKind: category.games} | console & {categoryKind: category.consoles} | accessoires & {categoryKind: category.accessoires}
 
 export type storage = wishList & {categoryKind: storageCategory.wishlist} | shoppingCart & {categoryKind: storageCategory.shoppingCart}

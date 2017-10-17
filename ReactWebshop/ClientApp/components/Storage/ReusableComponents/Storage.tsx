@@ -1,5 +1,5 @@
 import {storage,category, product} from "../../DatabaseSimulation/TableTypes";
-import {wishListData, shoppingCartdata, consoleTableData, gameTableData} from "../../DatabaseSimulation/FakeDatabase";
+import {wishListData, shoppingCartdata, consoleTableData, gameTableData, accessoiresTableData} from "../../DatabaseSimulation/FakeDatabase";
 import { RouteComponentProps } from 'react-router';
 import * as React from 'react';
 import {List} from "linqts";
@@ -49,9 +49,12 @@ export interface StorageState{
     LoopThroughStorage(){
         var foundGames = this.state.storageProducts.Where(storage => storage.productForeignKeyReference == category.games).Join(gameTableData, storage => storage.productFK, game => game.pk, (storage1,game1) => game1);
         var foundConsoles = this.state.storageProducts.Where(storage => storage.productForeignKeyReference == category.consoles).Join(consoleTableData, storage => storage.productFK, consoleEntity => consoleEntity.pk, (storage1,console1) =>  console1);
-        var productsCombined = foundGames.Concat(foundConsoles).ToList() // combines the games and consoles
-        this.setState({convertedStorageProducts: productsCombined})
-        this.UpdatePrice(productsCombined).then(number => this.setState({totalPrice:number, loaded: true}));
+        var foundAccesoires =  this.state.storageProducts.Where(storage => storage.productForeignKeyReference == category.accessoires).Join(accessoiresTableData, storage => storage.productFK, accessoires => accessoires.pk, (storage1,accessoires1) =>  accessoires1);
+
+        var gamesAndConsoles = foundGames.Concat(foundConsoles).ToList() // combines the games and consoles
+        var allProductsCombined = foundAccesoires.Concat(gamesAndConsoles).ToList()
+        this.setState({convertedStorageProducts: allProductsCombined})
+        this.UpdatePrice(allProductsCombined).then(number => this.setState({totalPrice:number, loaded: true}));
     }
     //Gets total price of the prodcuts 
     UpdatePrice(products: List<product>) : Promise<number>{

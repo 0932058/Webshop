@@ -1,16 +1,21 @@
 import {List} from "linqts";
-import {gameTableData, consoleTableData} from "../../DatabaseSimulation/FakeDatabase";
+import {gameTableData, consoleTableData, accessoiresTableData} from "../../DatabaseSimulation/FakeDatabase";
 
 //Reusable component for all the categories
 
-//The interface of the visitor
+//The visitor design pattern
 export interface Visitor{
     MakeQueryForConsoles(clickedOnSubCategory: any) : Promise<List<any>>
     MakeQueryForGames(clickedOnSubCategory: any) : Promise<List<any>>
+    MakeQueryForAccessoires(clickedOnSubCategory: any) : Promise<List<any>>
 }
 //The class (visitor) that is responsible for making the category queries
 //Queries get done based on the clicked on category
 export class QueryVisitor implements Visitor{
+    MakeQueryForAccessoires(clickedOnSubCategory: any): Promise<List<any>> {
+        var accessoiresToShow = accessoiresTableData.Where(accessoires => accessoires.subCategory == clickedOnSubCategory);
+        return Promise.resolve(accessoiresToShow);
+    }
     MakeQueryForConsoles(clickedOnSubCategory: any): Promise<List<any>> {
         var consolesListToShow = consoleTableData.Where(console1 => console1.console == clickedOnSubCategory);
         return Promise.resolve(consolesListToShow);
@@ -20,6 +25,7 @@ export class QueryVisitor implements Visitor{
         return Promise.resolve(gamesListToShow);
     }
 }
+
 //Generic state for the categories
 export interface ICategoryState<T>{
     foundProductToShow: List<T>; //The list of products loaded on screen
@@ -32,4 +38,5 @@ export interface ICategoryState<T>{
 export interface ICategory {
     componentWillMount();
     ToLowerCase(categoryToCapatalize: string);
+    PrepareForProductQuery(clickedOnSubCategory: any): Promise<List<any>>
 }

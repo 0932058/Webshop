@@ -3,6 +3,7 @@ import { RouteComponentProps } from 'react-router';
 import {game, wishList,shoppingCart, console, product, category, storage, storageCategory} from "../DatabaseSimulation/TableTypes";
 import {gameTableData, wishListData, shoppingCartdata, consoleTableData} from "../DatabaseSimulation/FakeDatabase";
 import {consoleType} from "../DatabaseSimulation/ConsoleTable";
+import {accessoires} from "../DatabaseSimulation/TableTypes";
 import {ProductPageComponent} from "./ProductPageComponent";
 import {List} from "linqts";
 
@@ -10,7 +11,7 @@ import {List} from "linqts";
 
 //The product page
 interface ProductPageProps{
-    clickedOnProduct: game | console; 
+    clickedOnProduct: game | console | accessoires; 
 }
 
 interface ProductPageState{
@@ -38,19 +39,20 @@ export class ProductPage extends React.Component<ProductPageProps, ProductPageSt
     //wishlist PK and account manually inserted, this can be changed later that it checks the logged in user's PK.
     AddToStorage(productObjectAsString: string, loggedInUser: number, isShoppingcart: boolean ){
          var product = JSON.parse(productObjectAsString); //the product is parsed to an object to bypass React's this.state rules
-
+     
          //Depending if the paramter Isshoppingcart, a different type of pk and categorykind is choosen
         var productToAddToStorage = {pk: isShoppingcart? shoppingCartdata.Count()+ 1 : wishListData.Count() + 1, 
         accountFK: loggedInUser, productFK: product.pk, productForeignKeyReference: product.category, 
     categoryKind: isShoppingcart? storageCategory.shoppingCart : storageCategory.wishlist} 
  
-
+  
         if(productToAddToStorage.categoryKind == storageCategory.shoppingCart){
             shoppingCartdata.Add(productToAddToStorage)
         }
         else{
             wishListData.Add(productToAddToStorage);
         }
+   
         this.NotificationAlert(product, isShoppingcart);
     } 
     //Notifcation pop up when user adds an item to the wishlist or shopping cart

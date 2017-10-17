@@ -8,6 +8,7 @@ import { ProductPage } from './components/ProductPage/ProductPageContainer';
 import { Home } from './components/Home';
 import {GamesContainer} from "./components/Categories/Games/GamesContainer";
 import {ConsolesContainer} from "./components/Categories/Consoles/ConsoleContainer";
+import {AccessoiresContainer} from "./components/Categories/Accessoires/AccessoiresContainer";
 
 
 //Productpage won't be accesed in the menu tabs 
@@ -31,6 +32,11 @@ export const routes = <Layout>
     <Route path="/Consoles/XboxOne"  component={ConsolesContainer}/>
     <Route path="/Consoles/Playstation3"  component={ConsolesContainer}/>
     <Route path="/Consoles/Playstation4"  component={ConsolesContainer}/>
+
+    <Route path="/Accessoires/Headsets"  component={AccessoiresContainer}/>
+    <Route path="/Accessoires/Racewheels"  component={AccessoiresContainer}/>
+
+
 
 
 </Layout>;

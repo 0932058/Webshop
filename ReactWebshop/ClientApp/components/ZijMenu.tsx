@@ -64,12 +64,12 @@ export class ZijMenu extends React.Component<{}, {}> {
             <h2>Accessoires</h2>
             <ul>
                 <li>
-                <NavLink to={ '/' } exact activeClassName='active'className='LinksSide'>
+                <NavLink to={ '/Accessoires/Headsets' } exact activeClassName='active'className='LinksSide'>
                     Headsets
                 </NavLink>
                 </li>
                 <li>
-                <NavLink to={ '/' } exact activeClassName='active'className='LinksSide'>
+                <NavLink to={ '/Accessoires/Racewheels' } exact activeClassName='active'className='LinksSide'>
                     Race-Wheels
                 </NavLink>
                 </li>
