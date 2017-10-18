@@ -11,9 +11,12 @@ import {AccessoiresContainer} from "./components/Categories/Accessoires/Accessoi
 import {SearchContainer} from "./components/Search/SearchContainer";
 import {HomeContainer} from "./components/Home/HomeContainer";
 import {LoginContainer} from "./components/Login/LoginContainer";
+import {RegistratieContainer} from "./components/Registratie/RegistratieContainer";
 
 export const routes = <Layout>
     <Route exact path={"/"} component={HomeContainer} />
+
+    <Route path={"/Registratie"} component={RegistratieContainer} />
 
     <Route path={"/Login"} component={LoginContainer} />
 

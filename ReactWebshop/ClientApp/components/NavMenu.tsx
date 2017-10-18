@@ -13,6 +13,9 @@ export class NavMenu extends React.Component<{}, {}> {
                             <NavLink to={ '/' } exact activeClassName='active' className='LinksNav'>
                                 Home
                             </NavLink>
+                            <NavLink to={ '/Registratie' } exact activeClassName='active'className='LinksNav'>
+                                Registreer
+                            </NavLink>
                             <NavLink to={ '/Login' } exact activeClassName='active'className='LinksNav'>
                                 Login
                             </NavLink>
@@ -25,7 +28,7 @@ export class NavMenu extends React.Component<{}, {}> {
                             <NavLink to={ '/Winkelmand' } exact activeClassName='active'className='LinksNav'>
                                     Winkelmand
                             </NavLink>                       
-        }
+        
         </nav>;
     }
 }
