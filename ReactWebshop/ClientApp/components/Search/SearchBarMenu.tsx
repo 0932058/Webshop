@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import {SearchContainer} from "./SearchContainer";
 import { Redirect } from 'react-router';
+import { RouteComponentProps } from 'react-router';
 
 
 //The Search Bar
@@ -52,7 +53,7 @@ export class SearchBarMenu extends React.Component<{}, SearchBarState> {
             </div>
           
             {this.state.isSearchbarButtonClicked ?
-            <Redirect to="/Search" push={true}/>
+            <Redirect to={"/Search"} push={true}/>
             :
             <div> 
             </div>   

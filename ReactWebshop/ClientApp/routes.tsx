@@ -15,8 +15,10 @@ import {SearchContainer} from "./components/Search/SearchContainer";
 //Productpage won't be accesed in the menu tabs 
 {/* <Route path='/ProductPage' component={ ProductPage } /> */}
 
+
 export const routes = <Layout>
-    <Route path='/Search' component={SearchContainer} />
+
+    <Route path={"/Search"} component={SearchContainer} />
     
     <Route path='/Wenslijst' component={ WensLijstContainer } />
     <Route path='/Winkelmand' component={ Winkelmand } />
@@ -37,8 +39,5 @@ export const routes = <Layout>
 
     <Route path="/Accessoires/Headsets"  component={AccessoiresContainer}/>
     <Route path="/Accessoires/Racewheels"  component={AccessoiresContainer}/>
-
-
-
 
 </Layout>;

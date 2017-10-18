@@ -26,6 +26,7 @@ export class SearchContainer extends React.Component<RouteComponentProps<{}>, Se
     }
 
     componentWillMount(){
+      
         var res = localStorage.getItem("searchBox");
         this.SetSearchItem().then(searchBarText => this.setState({searchBarText: searchBarText})).then(yo =>
         this.SearchInDatabaseForSearchTerms().then(foundProducts => this.setState({loaded: true, foundProducts: foundProducts })));
