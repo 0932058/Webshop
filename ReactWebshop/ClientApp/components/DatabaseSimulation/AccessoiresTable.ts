@@ -11,7 +11,8 @@ export let accessoire: accessoires = {
     price: 59,
     image: "https://gaming.logitech.com/assets/65178/30/g433-surround-gaming-headset.png",
     category: category.accessoires,
-    subCategory: accessoiresType.headsets
+    subCategory: accessoiresType.headsets,
+    dateAddedToDatabase: new Date(2017,10,5)
 }
 export let accessoire1: accessoires = {
     pk: 2,
@@ -20,7 +21,8 @@ export let accessoire1: accessoires = {
     price: 99,
     image: "https://multimedia.bbycastatic.ca/multimedia/products/1500x1500/105/10529/10529012.jpg",
     category: category.accessoires,
-    subCategory: accessoiresType.headsets
+    subCategory: accessoiresType.headsets,
+    dateAddedToDatabase: new Date(2017,5,5)
 }
 export let accessoire2: accessoires = {
     pk: 3,
@@ -29,7 +31,8 @@ export let accessoire2: accessoires = {
     price: 99,
     image: "https://assets.logitech.com/assets/54876/h600-gallery.png",
     category: category.accessoires,
-    subCategory: accessoiresType.headsets
+    subCategory: accessoiresType.headsets,
+    dateAddedToDatabase: new Date(2016,10,5)
 }
 export let accessoire3: accessoires = {
     pk: 4,
@@ -38,7 +41,8 @@ export let accessoire3: accessoires = {
     price: 50,
     image: "https://images-na.ssl-images-amazon.com/images/I/61zSNzmmcYL._SX522_.jpg",
     category: category.accessoires,
-    subCategory: accessoiresType.racewheels
+    subCategory: accessoiresType.racewheels,
+    dateAddedToDatabase: new Date(2015,5,5)
 }
 export let accessoire4: accessoires = {
     pk: 5,
@@ -47,5 +51,6 @@ export let accessoire4: accessoires = {
     price: 40,
     image: "https://gaming.logitech.com/assets/53687/5/logitech-g920-racing-wheel.png",
     category: category.accessoires,
-    subCategory: accessoiresType.racewheels
+    subCategory: accessoiresType.racewheels,
+    dateAddedToDatabase: new Date(2017,10,16)
 }

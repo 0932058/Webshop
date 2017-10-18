@@ -11,13 +11,14 @@ import {ConsolesContainer} from "./components/Categories/Consoles/ConsoleContain
 import {AccessoiresContainer} from "./components/Categories/Accessoires/AccessoiresContainer";
 import {SearchContainer} from "./components/Search/SearchContainer";
 
+import {HomeContainer} from "./components/Home/HomeContainer";
 
 //Productpage won't be accesed in the menu tabs 
 {/* <Route path='/ProductPage' component={ ProductPage } /> */}
 
 
 export const routes = <Layout>
-
+    <Route exact path={"/"} component={HomeContainer} />
     <Route path={"/Search"} component={SearchContainer} />
     
     <Route path='/Wenslijst' component={ WensLijstContainer } />

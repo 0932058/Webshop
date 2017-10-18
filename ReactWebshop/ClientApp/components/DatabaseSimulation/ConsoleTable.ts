@@ -19,7 +19,8 @@ export let console1: console = {
     image: "https://resources.budgetgaming.nl/boxarts/108594ps3ss500.jpg",
     ammountAvailable: 50,
     category: category.consoles,
-    price: 500
+    price: 500,
+    dateAddedToDatabase: new Date(2017,1,5)
 }
 export let console2: console = {
     pk: 2,
@@ -30,7 +31,8 @@ export let console2: console = {
     image: "https://s.s-bol.com/imgbase0/imagebase3/large/FC/3/5/4/7/9200000051707453.jpg",
     ammountAvailable: 100,
     category: category.consoles,
-    price: 500
+    price: 500,
+    dateAddedToDatabase: new Date(2017,7,5)
 }
 export let console3: console = {
     pk: 3,
@@ -41,7 +43,8 @@ export let console3: console = {
     image: "https://static.raru.co.za/cover/2014/10/20/2136356-l.jpg?v=1413789188",
     ammountAvailable: 10,
     category: category.consoles,
-    price: 600
+    price: 600,
+    dateAddedToDatabase: new Date(2017,1,5)
 }
 export let console4: console = {
     pk: 4,
@@ -52,6 +55,7 @@ export let console4: console = {
     image: "https://i5.walmartimages.com/asr/ba224f43-000b-4966-b542-826bbb79f110_1.9e96259ce0161ada5f9ce7d14e0db4f2.jpeg?odnHeight=450&odnWidth=450&odnBg=FFFFFF",
     ammountAvailable: 15,
     category: category.consoles,
-    price: 700
+    price: 700,
+    dateAddedToDatabase: new Date(2017,5,7)
 }
 

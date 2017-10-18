@@ -34,7 +34,8 @@ export let game1: game = {
     category: category.games, 
     image: "https://www.gamestop.com/common/images/lbox/125879b.jpg",
     age: age._12,
-    ammountAvailable: 100
+    ammountAvailable: 100,
+    dateAddedToDatabase: new Date(2017,1,1)
 }
 export let game2: game = { 
     pk: 2,
@@ -46,7 +47,8 @@ export let game2: game = {
     category: category.games, 
     image: "https://vignette.wikia.nocookie.net/gtawiki/images/7/76/CoverArt-GTAV.png/revision/latest?cb=20130826184215",
     age: age._18,
-    ammountAvailable: 10
+    ammountAvailable: 10,
+    dateAddedToDatabase: new Date(2017,1,5)
 }
 export let game3: game = {
     pk: 3,
@@ -58,7 +60,8 @@ export let game3: game = {
     category: category.games, 
     image: "https://images-na.ssl-images-amazon.com/images/I/51zIFKpez%2BL._SX342_.jpg",
     age: age._3,
-    ammountAvailable: 10
+    ammountAvailable: 10,
+    dateAddedToDatabase: new Date(2017,9,5)
 }
 export let game4: game = {
     pk: 4,
@@ -70,7 +73,8 @@ export let game4: game = {
     category: category.games, 
     image: "https://www.gamestop.com/common/images/lbox/210047b.jpg",
     age: age._16,
-    ammountAvailable: 1
+    ammountAvailable: 1,
+    dateAddedToDatabase: new Date(2017,7,5)
 }
 export let game5: game = {
     pk: 5,
@@ -82,7 +86,8 @@ export let game5: game = {
     category: category.games, 
     image: "http://www.topvaluereviews.net/wp-content/uploads/2016/11/810jMlhPnTL._AC_SL1500_.jpg",
     age: age._18,
-    ammountAvailable: 15
+    ammountAvailable: 15,
+    dateAddedToDatabase: new Date(2017,5,11)
 }
 
 export let game6: game = {
@@ -95,7 +100,8 @@ export let game6: game = {
     category: category.games, 
     image: "https://i.pinimg.com/736x/dc/2a/ce/dc2aceb93139ab79d37a8322e0942e0b--xbox-one-games-x-games.jpg",
     age: age._18,
-    ammountAvailable: 15
+    ammountAvailable: 15,
+    dateAddedToDatabase: new Date(2017,2,2)
 
 }
 export let game7: game = {
@@ -108,7 +114,8 @@ export let game7: game = {
     category: category.games, 
     image: "http://www.gamesintime.com/wp-content/uploads/2015/09/284614-watch-dogs-ps4-exclusive-edition-playstation-4-front-cover.jpg",
     age: age._18,
-    ammountAvailable: 90
+    ammountAvailable: 90,
+    dateAddedToDatabase: new Date(2017,5,5)
 }
 export let game8: game = {
     pk: 8,
@@ -120,7 +127,8 @@ export let game8: game = {
     category: category.games, 
     image: "https://i.pinimg.com/736x/fe/9b/f3/fe9bf3288200626f56be758f9e18c36e--playstation-games-ps-games.jpg",
     age: age._18,
-    ammountAvailable: 500
+    ammountAvailable: 500,
+    dateAddedToDatabase: new Date(2017, 10,15)
 }
 export let game9: game = {
     pk: 9,
@@ -132,7 +140,8 @@ export let game9: game = {
     category: category.games, 
     image: "http://pusabase.com/blog/wp-content/uploads/2013/09/PlayStation-4__PS4_knack_game_cover_art-818x1024.jpg",
     age: age._3,
-    ammountAvailable: 150
+    ammountAvailable: 150,
+    dateAddedToDatabase: new Date(2017,1,5)
 
 }
 export let game10: game = {
@@ -145,6 +154,7 @@ export let game10: game = {
     category: category.games, 
     image: "http://pusabase.com/blog/wp-content/uploads/2013/11/lego_marvel_super_heroes_playstation_4_ps4_cover_art-837x1024.jpg",
     age: age._16,
-    ammountAvailable: 90
+    ammountAvailable: 90,
+    dateAddedToDatabase: new Date(2017,5,5)
 }
 

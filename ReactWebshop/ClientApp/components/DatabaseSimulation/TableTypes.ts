@@ -23,7 +23,7 @@ export type accessoires = {
     image: string
     subCategory: accessoiresType
     category:category
-
+    dateAddedToDatabase: Date;
 }
 
 export type account = {
@@ -48,6 +48,8 @@ export type console = {
     image: string,
     ammountAvailable: number,
     price: number
+    dateAddedToDatabase: Date;
+ 
    
 }
 export type game = {
@@ -61,6 +63,7 @@ export type game = {
     age: age,
     image: string,
     ammountAvailable: number
+    dateAddedToDatabase: Date;
 }
 
 export type order =  {
