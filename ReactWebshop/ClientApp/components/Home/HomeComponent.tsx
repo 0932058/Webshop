@@ -20,6 +20,7 @@ export class HomeComponent extends React.Component<HomeComponentProps, {}> {
                     <li>  <img src={this.props.homeProduct.image}  height={300}/> </li>
                     <div> <h2> Naam: {this.props.homeProduct.name} </h2> </div>
                     <div> <h2> Prijs: {"€" + this.props.homeProduct.price.toFixed(2)} </h2> </div>
+                    <div> <h2> Categorie: {this.props.homeProduct.category} </h2> </div>
                     <h2> <button onClick={(e:any) => this.props.GotoProductPage(e,this.props.homeProduct)}> Product page  </button> </h2>        
                     </div> 
                     </div>                
