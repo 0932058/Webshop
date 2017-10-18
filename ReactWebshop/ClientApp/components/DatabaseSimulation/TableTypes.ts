@@ -8,10 +8,10 @@ import {genreCategory, age} from "./GameTable";
 The distinguishment between the products goes as follows:
 
 enum category =  used to distinguish between the type of product (Games, accessoires and consoles) scroll,
-to the type: product, to see it in action, it is used for the kind attribute.
+to the type: product, to see it in action, it is used for the CategoryKind attribute.
 
 enum storageCategory = used to distinguish between the type of storage (shopping cart and wishlist) scroll,
-to the type: storage, to see it in action, it is used for the kind attribute.
+to the type: storage, to see it in action, it is used for the CategoryKind attribute.
 
 enum product = Polymorphic type for the products 
 
