@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 
+//The navigation menu of the side bar
+
 export class ZijMenu extends React.Component<{}, {}> {
     public render() {
         return <nav className="Zijbalk">

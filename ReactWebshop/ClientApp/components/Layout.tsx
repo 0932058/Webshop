@@ -3,10 +3,12 @@ import { NavMenu } from './NavMenu';
 import {ZijMenu} from './ZijMenu';
 import {SearchBarMenu} from "./Search/SearchBarMenu";
 
+//The components used for the layout is in the render method
+//The components are always displayed on screen
+
 export interface LayoutProps {
     children?: React.ReactNode;
 }
-
 export class Layout extends React.Component<LayoutProps, {}> {
     public render() {
         return <div className='container-fluid'>

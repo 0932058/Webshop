@@ -10,9 +10,12 @@ import {ConsolesContainer} from "./components/Categories/Consoles/ConsoleContain
 import {AccessoiresContainer} from "./components/Categories/Accessoires/AccessoiresContainer";
 import {SearchContainer} from "./components/Search/SearchContainer";
 import {HomeContainer} from "./components/Home/HomeContainer";
+import {LoginContainer} from "./components/Login/LoginContainer";
 
 export const routes = <Layout>
     <Route exact path={"/"} component={HomeContainer} />
+
+    <Route path={"/Login"} component={LoginContainer} />
 
     <Route path={"/Search"} component={SearchContainer} />
     

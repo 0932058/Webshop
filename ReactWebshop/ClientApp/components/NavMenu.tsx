@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import {SearchContainer} from "./Search/SearchContainer";
 
+//The navigation menu of the top bar
 
 export class NavMenu extends React.Component<{}, {}> {
     constructor(){
@@ -12,8 +13,8 @@ export class NavMenu extends React.Component<{}, {}> {
                             <NavLink to={ '/' } exact activeClassName='active' className='LinksNav'>
                                 Home
                             </NavLink>
-                            <NavLink to={ '/ProductPage' } exact activeClassName='active'className='LinksNav'>
-                                ProductPage
+                            <NavLink to={ '/Login' } exact activeClassName='active'className='LinksNav'>
+                                Login
                             </NavLink>
                             <NavLink to={ '/Bestellingen' } exact activeClassName='active'className='LinksNav'>
                                 Bestellingen

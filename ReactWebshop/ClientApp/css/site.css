@@ -40,7 +40,12 @@ body{
 .Home{
     padding-top: 5cm;
 }
-   
+.LoginContainer{
+    align-content: center;
+    padding-top: 7cm;
+    color: black;
+    
+}
 
 
 .Order{

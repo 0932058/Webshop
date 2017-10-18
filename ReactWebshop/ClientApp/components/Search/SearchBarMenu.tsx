@@ -34,9 +34,11 @@ export class SearchBarMenu extends React.Component<{}, SearchBarState> {
     }
     //When the user clicks on enter or clicks the button, this method gets called
     HandleSearchBarSubmit(event: any){
-        localStorage.setItem("searchBox", this.state.searchbarText);  
-        event.preventDefault();
+        localStorage.setItem("searchBox", this.state.searchbarText); 
+
+        // event.preventDefault(); this causes the reloading of the page
         this.ActivateSearchButton();
+
     }
     //When the button is pressed, then it gets redirect to the search page.
     public render() {

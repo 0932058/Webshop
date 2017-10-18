@@ -20,3 +20,14 @@ export let user1: account = {
     shoppingCartFK: 1,
     orderFK: order1.pk
 }
+export let user2: account = {
+    pk:2,
+    firstName: "Henk",
+    lastName: "Klaas",
+    email: "h@live.nl",
+    username: "henk",
+    password: "wiw",
+    wishListFK: 1,
+    shoppingCartFK: 1,
+    orderFK: order1.pk
+}
