@@ -1,13 +1,11 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
-import {ZijMenu} from "./ZijMenu";
 
+//This component can be used for tests
 
-
-export class Home extends React.Component<RouteComponentProps<{}>, {}> { 
+export class Test extends React.Component<{}, {}> { 
     public render() {
-    
-     
+ 
         return <div> 
     )} </div>
     }
