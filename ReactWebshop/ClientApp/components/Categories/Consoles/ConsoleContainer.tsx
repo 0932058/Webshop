@@ -7,7 +7,6 @@ import {ConsolesComponent} from "./ConsolesComponent";
 import {List} from "linqts";
 import {ProductPage} from "../../ProductPage/ProductPageContainer";
 import {genreCategory} from "../../DatabaseSimulation/GameTable";
-import {subCategory} from "../../DatabaseSimulation/TableTypes";
 import {Visitor,  QueryVisitor, ICategory, ICategoryState} from "../MainReusableComponent/ReusableComponent";
 
 //The console container

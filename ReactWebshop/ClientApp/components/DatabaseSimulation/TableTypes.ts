@@ -1,10 +1,23 @@
-//Category enum
 import {consoleType} from "./ConsoleTable";
 import {accessoiresType} from "./AccessoiresTable";
 import {genreCategory, age} from "./GameTable";
 
-export type subCategory = consoleType | genreCategory
+//The types used for the entities
 
+/*
+The distinguishment between the products goes as follows:
+
+enum category =  used to distinguish between the type of product (Games, accessoires and consoles) scroll,
+to the type: product, to see it in action, it is used for the kind attribute.
+
+enum storageCategory = used to distinguish between the type of storage (shopping cart and wishlist) scroll,
+to the type: storage, to see it in action, it is used for the kind attribute.
+
+enum product = Polymorphic type for the products 
+
+enum storage = Polymorphic type for the storage (shopping cart, wishlist)
+
+*/
 
 export enum category{
     consoles = "consoles",
@@ -15,6 +28,8 @@ export enum storageCategory{
     wishlist = "wishlist",
     shoppingCart = "shopping Cart"
 }
+
+
 export type accessoires = {
     pk: number,
     name: string,

@@ -2,6 +2,8 @@ import {category, shoppingCart} from './TableTypes'
 import {consoleType} from "./ConsoleTable";
 import {game} from "./TableTypes";
 
+//The shopping cart table
+
 export let shoppingCartItem1: shoppingCart = {
     pk: 1,
     accountFK: 1,

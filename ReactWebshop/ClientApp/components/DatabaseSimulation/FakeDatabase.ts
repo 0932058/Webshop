@@ -4,12 +4,12 @@ import * as accountsTable from "./AccountsTable";
 import * as consoleTable from "./ConsoleTable";
 import * as orderTable from "./OrdersTable";
 import * as wishListTable from "./WishlistTable";
-import * as shoppingCartTable from "./ShoppingCartItem";
+import * as shoppingCartTable from "./ShoppingCartTable";
 import * as accessoiresTable from "./AccessoiresTable";
-import {List} from "linqts";
+import {List} from "linqts"; //Lists can be approached with LINQ
 
-//The seperate database entities have been put in an array to simulate a database
-//The lists can be approached with LINQ
+//The seperate database entities have been put in a lists to simulate a database
+//The lists can be approached with LINQ thanks to the "linqts" library 
 
 export let gameTableData = new List<game>([gameTable.game1,gameTable.game2,gameTable.game3,gameTable.game4,gameTable.game5,gameTable.game6,gameTable.game7,
     gameTable.game8,gameTable.game9,gameTable.game10])

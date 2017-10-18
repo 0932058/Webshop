@@ -2,8 +2,10 @@ import {category} from './TableTypes'
 import {consoleType} from "./ConsoleTable";
 import {game} from "./TableTypes";
 
-//The games table
+//The games entities
 
+
+/* to distinguish between the categories of the game, the genreCategory distinguis between the games */
 export enum genreCategory{
     action = "action",
     shooter = "shooter",
@@ -13,7 +15,6 @@ export enum genreCategory{
     fight = "fight"
 }
 
-
 export enum age{
     _3 = "3+",
     _7 = "7+",
@@ -21,8 +22,6 @@ export enum age{
     _16 = "16+",
     _18 = "18+"
 }
-
-
 
 export let game1: game = {
     pk: 1,

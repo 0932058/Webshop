@@ -1,7 +1,9 @@
 import {category} from './TableTypes'
 import {console} from "./TableTypes";
 
-//The consoles table
+//The consoles entities
+
+/* To distinguish the consoles, the consoleType is in the console attribute */
 
 export enum consoleType{
     xboxone = "Xbox One",
@@ -9,6 +11,9 @@ export enum consoleType{
     xbox360 = "Xbox 360",
     playstation3 = "Playstation 3"
 }
+/*
+Console: The subcategory of the console
+Category: The category enum has: console, game, accessoires. */
 
 export let console1: console = {
     pk: 1,

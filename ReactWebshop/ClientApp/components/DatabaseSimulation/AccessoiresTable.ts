@@ -1,9 +1,19 @@
 import {accessoires,category} from "./TableTypes";
 
+//The accessoires entites
+
+/*An accessoire is either a headset or a racewheel
+The accesoire entity has an attribute called: subCategory. That has the type */
 export enum accessoiresType{
     headsets = "Headsets",
     racewheels = "Racewheels",
 }
+/* 
+PK = Primary key of the product
+Category = The category can either be: Games, consoles or accessoire. This is for distinguising the products
+SubCategory: the accessoiresType
+*/
+
 export let accessoire: accessoires = {
     pk: 1,
     name: "Logitech G433",

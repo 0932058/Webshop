@@ -1,6 +1,9 @@
 import {order, category} from "./TableTypes";
 import {gameTableData, accountsTableData} from "ClientApp/components/DatabaseSimulation/FakeDatabase"
 
+//The order entities
+//The productForeignKeyreference is to identify the product of the order
+
 export let order1: order = {
     pk: 1,
     accountFK: 1, 

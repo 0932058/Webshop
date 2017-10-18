@@ -1,7 +1,13 @@
 import {account} from "./tableTypes";
 import {order1} from "./OrdersTable";
 
-//Accounts Table
+//Accounts entities
+
+/*
+pk = primary key
+WishlistFK = Foreign key to wishlist
+ShoppingcartFK = foreign key to shopping cart
+ORderFK = foreign key to the order (product) */
 
 export let user1: account = {
     pk:1,

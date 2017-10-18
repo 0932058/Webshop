@@ -5,20 +5,15 @@ import {BestellingenContainer} from './components/Bestellingen/BestellingenConta
 import { WensLijstContainer } from './components/Storage/Wenslijst/WensLijstContainer';
 import { Winkelmand } from './components/Storage/ShoppingCart/WinkelmandContainer';
 import { ProductPage } from './components/ProductPage/ProductPageContainer';
-import { Home } from './components/Home';
 import {GamesContainer} from "./components/Categories/Games/GamesContainer";
 import {ConsolesContainer} from "./components/Categories/Consoles/ConsoleContainer";
 import {AccessoiresContainer} from "./components/Categories/Accessoires/AccessoiresContainer";
 import {SearchContainer} from "./components/Search/SearchContainer";
-
 import {HomeContainer} from "./components/Home/HomeContainer";
-
-//Productpage won't be accesed in the menu tabs 
-{/* <Route path='/ProductPage' component={ ProductPage } /> */}
-
 
 export const routes = <Layout>
     <Route exact path={"/"} component={HomeContainer} />
+
     <Route path={"/Search"} component={SearchContainer} />
     
     <Route path='/Wenslijst' component={ WensLijstContainer } />
@@ -40,5 +35,4 @@ export const routes = <Layout>
 
     <Route path="/Accessoires/Headsets"  component={AccessoiresContainer}/>
     <Route path="/Accessoires/Racewheels"  component={AccessoiresContainer}/>
-
 </Layout>;
