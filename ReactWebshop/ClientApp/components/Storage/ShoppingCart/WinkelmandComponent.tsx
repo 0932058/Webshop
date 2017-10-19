@@ -21,7 +21,7 @@ export class WinkelMandComponent extends React.Component<WinkelmandProps, Winkel
         this.props.RemoveItemFromStorage(this.props.shoppingCartProduct, this.props.shoppingCartProduct.category)
     }
     render(){
-        return <div className={"Winkelmand"}>                  
+        return <div className={"WinkelmandComponent"}>                  
                     <div>
                     <h1>{this.props.shoppingCartProduct.name}</h1>
                     <li>  <img src={this.props.shoppingCartProduct.image}  height={300}/> </li>

@@ -15,7 +15,7 @@ export class GamesComponent extends React.Component<GamesComponentProps, GamesCo
         super(props);   
     }
     render(){
-        return <div className={"Game"}>                  
+        return <div className={"GamesComponent"}>                  
                     <div>
                     <h1>{this.props.gameToShow.console}</h1>
                     <h1>{this.props.gameToShow.name}</h1>

@@ -19,7 +19,8 @@ export class Winkelmand extends AbstractStorage {
     }
     render() {
         return (
-        <div>
+            
+        <div className={"WinkelmandContainer"}>
             <h1>Winkelmand</h1>
             {this.state.convertedStorageProducts.ToArray().map((storageProduct,index) =>
             <WinkelMandComponent key={index} shoppingCartProduct={storageProduct} RemoveItemFromStorage={this.RemoveItemFromStorage}/>)  

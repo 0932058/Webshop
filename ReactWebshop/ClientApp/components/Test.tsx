@@ -5,7 +5,6 @@ import { RouteComponentProps } from 'react-router';
 
 export class Test extends React.Component<{}, {}> { 
     public render() {
- 
         return <div> 
     )} </div>
     }

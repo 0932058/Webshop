@@ -1,14 +1,20 @@
 import * as React from 'react';
 import { Link, NavLink } from 'react-router-dom';
+import {User} from "../User/User";
 
 //The menu when the user is logged in
+
+
 
 export class UserLoggedInMenu extends React.Component<{}, {}> {
     constructor(){
         super();
+    
     }
+  
     public render() {
-        return <nav className="homebalk">
+        return <nav className="UserLoggedInMenuLayout">
+                        
                             <NavLink to={ '/' } exact activeClassName='active' className='LinksNav'>
                                 Home
                             </NavLink>                  
@@ -29,6 +35,7 @@ export class UserLoggedInMenu extends React.Component<{}, {}> {
                             </NavLink>            
 
         </nav>;
+      
     }
 }
 export default UserLoggedInMenu;

@@ -6,14 +6,14 @@ import {account} from "../DatabaseSimulation/TableTypes";
 
 export class User{
     private static pk: number;
-    private firstName: string;
-    private lastName: string;
-    private email: string;
-    private username:string;
-    private password:string;
-    private wishListFK: number;
-    private shoppingCartFK: number;
-    private orderFK: number | number[]
+    private static firstName: string;
+    private static lastName: string;
+    private static email: string;
+    private static username:string;
+    private static password:string;
+    private static wishListFK: number;
+    private static shoppingCartFK: number;
+    private static orderFK: number | number[]
     private static user: User;
     private static isLoggedIn: boolean = false;
     private constructor(){
@@ -36,14 +36,14 @@ export class User{
     public SetAccount(account: account){
         User.isLoggedIn = true;
         User.pk = account.pk;
-        this.firstName = account.firstName;
-        this.lastName = account.lastName;
-        this.email = account.email;
-        this.username = account.username;
-        this.password = account.password;
-        this.wishListFK = account.wishListFK;
-        this.shoppingCartFK = account.shoppingCartFK;
-        this.orderFK = account.orderFK
+        User.firstName = account.firstName;
+        User.lastName = account.lastName;
+        User.email = account.email;
+        User.username = account.username;
+        User.password = account.password;
+        User.wishListFK = account.wishListFK;
+        User.shoppingCartFK = account.shoppingCartFK;
+        User.orderFK = account.orderFK
     }
     public static LogUserOut(){
         User.isLoggedIn = false;
@@ -52,29 +52,29 @@ export class User{
     public static GetPK(){
         return User.pk;
     }
-    public GetFirstname(){
-        return this.firstName;
+    public static GetFirstname(){
+        return User.firstName;
     }
-    public GetLastname(){
-        return this.lastName;
+    public static GetLastname(){
+        return User.lastName;
     }
-    public GetEmail(){
-        return this.email;
+    public static GetEmail(){
+        return User.email;
     }
-    public GetUsername(){
-        return this.username;
+    public static GetUsername(){
+        return User.username;
     }
-    public GetPassword(){
-        return this.password;
+    public static GetPassword(){
+        return User.password;
     }
-    public GetWishListFK(){
-        return this.wishListFK;
+    public static GetWishListFK(){
+        return User.wishListFK;
     }
-    public GetShoppingCartFK(){
-        return this.shoppingCartFK;
+    public static GetShoppingCartFK(){
+        return User.shoppingCartFK;
     }
     public GetOrderFK(){
-        return this.orderFK;
+        return User.orderFK;
     }
 }
 export default User;

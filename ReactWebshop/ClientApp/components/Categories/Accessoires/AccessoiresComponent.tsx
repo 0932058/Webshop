@@ -16,7 +16,7 @@ export class AccessoiresComponent extends React.Component<GamesComponentProps, G
         super(props);   
     }
     render(){
-        return <div className={"Game"}>                  
+        return <div className={"AccessoiresComponent"}>                  
                     <div>
                     <h1>{this.props.accessoiresToShow.category}</h1>
                     <h1>{this.props.accessoiresToShow.name}</h1>

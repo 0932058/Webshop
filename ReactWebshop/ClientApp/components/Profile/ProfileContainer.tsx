@@ -7,8 +7,7 @@ export class ProfileContainer extends React.Component<RouteComponentProps<{}>, {
         super();
     }
     render(){  
-        return(
-            
+        return(         
          <ProfileSideMenuLayout>
             <div> </div>      
             </ProfileSideMenuLayout>

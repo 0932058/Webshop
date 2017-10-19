@@ -2,9 +2,7 @@ body{
     background-color: #232B2B;
 }
 /*keeps the text behind the home and side balk and in the middle */
-.Winkelmand,
-.ProductPage,
-.Wenslijst,
+
 .Orders{
     padding-top: 10em;
     margin-left: -4.5em;
@@ -22,32 +20,20 @@ body{
     padding-top: 4cm;
     padding-left:5cm;
     margin-left: 2cm;
-    
-    
 }
-.Games{
-    padding-top: 3cm;
-}
-.Game{
-    padding-top: 3cm;
-}
-.Console{
-    padding-top: 3cm;
-}
-.Consoles{
-    padding-top: 3cm;
-
-}
-.Searches{
+.AccessoiresContainer, .AccessoiresComponent, .ConsolesComponent, .ConsoleContainer, .GamesComponent, .GamesContainer,
+.WinkelmandContainer,ProductPageContainer, .WensLijstComponent, .Searches, .HomeContainer, .HomeComponent,
+.BestellingenContainer, .BestellingenComponent, .WinkelmandComponent, .LoginContainer, .RegistratieSuccesfullContainer,
+.WensLijstContainer
+{
     padding-top: 5cm;
+    align-content: center;
+
 }
 .SearchButton{
     align-content: center
 }
-.Home{
-    padding-top: 5cm;
-}
-.LoginContainer{
+.LogOutContainer, .LogOutContainer{
     align-content: center;
     padding-top: 7cm;
     color: black;
@@ -60,10 +46,9 @@ body{
     align-content: center;
     padding-top: 10cm;
     color:red
-
 }
 
-.Order{
+.BestellingenComponent{
     width:300px;
     border: 2px solid rgb(0, 0, 0);
     padding: 5px;
@@ -116,11 +101,18 @@ h2{
     font-size: 1.5em;
 }
 /* Keep the homebalk and sidebalk independent of scrolling and on top of other items */
-.homebalk{
+.UserLoggedInMenuLayout{
     position: fixed; 
     padding-right: 40em;
     z-index: 1;
 }
+.UserNotLoggedInMenuLayout{
+    position: fixed; 
+    padding-right: 40em;
+    z-index: 1;
+
+}
+
 .Zijbalk{
     margin-top:10em;
     position: fixed;
@@ -164,7 +156,12 @@ nav form{
 
         background-color: #232B2B;
     }
-    .Winkelmand,
+    .WinkelmandComponent{
+     align-content: center;
+    padding-top: 7cm;
+    color: black;
+    }
+
     .Orders{
         padding-top:9em;
         size: 3em;

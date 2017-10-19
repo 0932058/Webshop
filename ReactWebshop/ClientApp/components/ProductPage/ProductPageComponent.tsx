@@ -3,6 +3,7 @@ import { RouteComponentProps } from 'react-router';
 import {game, console,product, category} from "../DatabaseSimulation/TableTypes";
 import {gameTableData} from "../DatabaseSimulation/FakeDatabase";
 import {consoleType} from "../DatabaseSimulation/ConsoleTable";
+import {User} from "../User/User";
 
 interface ProductPageState{
     product: string; 
@@ -23,7 +24,7 @@ export class ProductPageComponent extends React.Component<ProductPageProps, Prod
     }
     //The objects have to be parsed to json because this.state doesn't allow an single object in the state
     render() {
-        return <div  className={"Product"}>      
+        return <div  className={"ProductPageComponent"}>      
                 <h1>{JSON.parse(this.state.product).name} - {JSON.parse(this.state.product).console}</h1>
                 <div>   
                   <li> <img src={this.props.consoleImage}  width={300} height={50} /> </li>          
@@ -46,8 +47,13 @@ export class ProductPageComponent extends React.Component<ProductPageProps, Prod
                    }
                 </div>
                 <h2>
-                <button  onClick= { (e:any) => this.HandleStorageAddClick(e, false)}> Add to wishlist</button>
                 <button  onClick= { (e:any) => this.HandleStorageAddClick(e, true)}> Add to shopping cart</button>
+                {User.IsUserLoggedIn() ?
+                <button  onClick= { (e:any) => this.HandleStorageAddClick(e, false)}> Add to wishlist</button>
+                :
+                <div> </div>
+                }
+             
                 </h2> 
             </div>
             

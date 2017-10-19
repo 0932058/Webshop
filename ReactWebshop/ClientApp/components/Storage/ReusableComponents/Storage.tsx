@@ -28,20 +28,19 @@ export interface StorageState{
     //Calls the customer method to get customer storage and thne calls the loop method to see the products related to the customer orders
     componentWillMount(){
         let loadData : () => void = () => 
-        this.GetCustomerStorageProducts(this.state.customerID, this.state.isShoppingCart).then(foundorders => this.setState({storageProducts: foundorders}))
-        .then(this.LoopThroughStorage)
-        
+        this.GetCustomerStorageProducts().then(foundorders => this.setState({storageProducts: foundorders}))
+        .then(this.LoopThroughStorage)      
         loadData();
     }    
 
     //Gets customer storage items
-    GetCustomerStorageProducts(customerID: number, isShoppingCart: boolean) : Promise<List<storage>>{
+    GetCustomerStorageProducts() : Promise<List<storage>>{
         var storage = new List<any>();
-        if(isShoppingCart){
-             storage = shoppingCartdata.Where(shoppingCart => shoppingCart.accountFK == customerID)
+        if(this.state.isShoppingCart){
+             storage = shoppingCartdata.Where(shoppingCart => shoppingCart.accountFK == this.state.customerID)
         }
         else{
-            storage = wishListData.Where(wishListData => wishListData.accountFK == customerID)
+            storage = wishListData.Where(wishListData => wishListData.accountFK == this.state.customerID)
         }
         return Promise.resolve<List<storage>>(storage);
     }

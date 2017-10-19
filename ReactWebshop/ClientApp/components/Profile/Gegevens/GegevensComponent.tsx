@@ -7,35 +7,26 @@ import {RegistratieContainer} from "../../Registratie/RegistratieContainer";
 import { Redirect } from 'react-router';
 import {User} from "../../User/User";
 
-//Login container
+//Gegevens Component
 
-interface GegevensComponentState{
-}
-interface GegevensComponentProps{
-    user:User
-
-}
-
-export class GegevensComponent extends React.Component<GegevensComponentProps, GegevensComponentState> {
+export class GegevensComponent extends React.Component<{}, {}> {
     constructor(props: User){
         super();      
     }
-    componentWillMount(){
-      
-    }
-    render(){
-   
+
+    render(){  
         return(
             <div> 
             <div className={"GegevensComponent"}>
             <h1>
             <h1> Gegevens </h1>
-            <div> Voornaam: {this.props.user.GetFirstname()} </div>
-            <div> Achternaam: {this.props.user.GetLastname()} </div>
-            <div> Email: {this.props.user.GetEmail()} </div>
-            <div> Username: {this.props.user.GetUsername()} </div>
-            <div> Wachtwoord: {this.props.user.GetPassword()} </div>      
+            <div> Voornaam: {User.GetFirstname()} </div>
+            <div> Achternaam: {User.GetLastname()} </div>
+            <div> Email: {User.GetEmail()} </div>
+            <div> Username: {User.GetUsername()} </div>
+            <div> Wachtwoord: {User.GetPassword()} </div>      
             </h1>
+          
         </div>
         </div>
     )

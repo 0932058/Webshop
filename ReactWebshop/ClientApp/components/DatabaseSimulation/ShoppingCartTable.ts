@@ -24,13 +24,13 @@ export let shoppingCartItem3: shoppingCart = {
 }
 export let shoppingCartItem4: shoppingCart = {
     pk: 4,
-    accountFK: 1,
+    accountFK: 2,
     productForeignKeyReference: category.games,
     productFK: 3
 }
 export let shoppingCartItem5: shoppingCart = {
     pk: 5,
-    accountFK: 1,
+    accountFK: 2,
     productForeignKeyReference: category.games,
     productFK: 4
 }

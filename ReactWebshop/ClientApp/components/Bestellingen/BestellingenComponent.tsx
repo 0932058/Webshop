@@ -1,9 +1,5 @@
 import * as React from 'react';
-import { RouteComponentProps } from 'react-router';
 import Img from 'react-image'
-import {game, order} from "../DatabaseSimulation/TableTypes"
-
-//The bestellingen component, it's parent is the bestellingen container
 
 interface BestellingenState{
     orders: any[] 
@@ -22,7 +18,7 @@ export class BestellingenComponent extends React.Component<BestellingenProps, Be
     }
     render() {
             return (
-            <div className={"Order"}>      
+            <div className={"BestellingenComponent"}>      
             <h1>Bestellingen</h1>
             <div>
             <li>  <img src={this.props.image}  height={300}/> </li>

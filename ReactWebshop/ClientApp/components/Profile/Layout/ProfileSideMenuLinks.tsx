@@ -6,7 +6,7 @@ import { RouteComponentProps } from 'react-router';
 
 export class ProfileSideMenuLinks extends React.Component<{}, {}> {
     public render() {
-        return <nav className="ProfileSideMenu">
+        return <nav className="ProfileSideMenuLinks">
             <h2>Profiel</h2>
             <ul>
             <li>

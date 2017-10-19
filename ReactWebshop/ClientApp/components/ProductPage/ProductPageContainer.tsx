@@ -6,6 +6,7 @@ import {consoleType} from "../DatabaseSimulation/ConsoleTable";
 import {accessoires} from "../DatabaseSimulation/TableTypes";
 import {ProductPageComponent} from "./ProductPageComponent";
 import {List} from "linqts";
+import {User} from "../User/User";
 
 
 
@@ -18,31 +19,36 @@ interface ProductPageState{
     product: string; //the product to show is an JSON object because this.state doesn't allow a single object
     consoleImage: string; //The consoleimge that will be shown on the header
     loaded: boolean;
+    PKUser: number;
 }
 export class ProductPage extends React.Component<ProductPageProps, ProductPageState>{
     constructor(props: ProductPageProps){
         super(props);
+        //Gets the pk of the logged in user
+        var loggedInUserPK = User.IsUserLoggedIn? User.GetPK() : 0
+
         this.CheckChoosenConsole = this.CheckChoosenConsole.bind(this)
         this.AddToStorage = this.AddToStorage.bind(this);
         this.StorageAddHandler = this.StorageAddHandler.bind(this);
         this.NotificationAlert = this.NotificationAlert.bind(this);    
-        this.state = {product: JSON.stringify(this.props.clickedOnProduct), consoleImage: "", loaded: false}; 
+        this.state = {product: JSON.stringify(this.props.clickedOnProduct), consoleImage: "", loaded: false, PKUser: loggedInUserPK}; 
     }
     //The console image will be loaded
     componentWillMount(){
+          
         this.CheckChoosenConsole().then(consoleImage => this.setState({consoleImage: consoleImage, loaded: true}))     
     }
     //The child component (ProductPageComponent) will come into this method when a button is clicked
     StorageAddHandler(isShoppingCart: boolean){
-        this.AddToStorage(this.state.product, 1, isShoppingCart);
+        this.AddToStorage(this.state.product, isShoppingCart);
     }
     //wishlist PK and account manually inserted, this can be changed later that it checks the logged in user's PK.
-    AddToStorage(productObjectAsString: string, loggedInUser: number, isShoppingcart: boolean ){
+    AddToStorage(productObjectAsString: string, isShoppingcart: boolean ){
          var product = JSON.parse(productObjectAsString); //the product is parsed to an object to bypass React's this.state rules
      
          //Depending if the paramter Isshoppingcart, a different type of pk and categorykind is choosen
         var productToAddToStorage = {pk: isShoppingcart? shoppingCartdata.Count()+ 1 : wishListData.Count() + 1, 
-        accountFK: loggedInUser, productFK: product.pk, productForeignKeyReference: product.category, 
+        accountFK: this.state.PKUser, productFK: product.pk, productForeignKeyReference: product.category, 
     categoryKind: isShoppingcart? storageCategory.shoppingCart : storageCategory.wishlist} 
  
   
@@ -91,7 +97,7 @@ export class ProductPage extends React.Component<ProductPageProps, ProductPageSt
     }
     render() {   
         return ( 
-            <div>
+            <div className={"ProductPageContainer"}>
                 {this.state.loaded ? 
                 <ProductPageComponent  product={this.state.product} consoleImage={this.state.consoleImage}
                 AddProductToStorage={this.StorageAddHandler}/>    

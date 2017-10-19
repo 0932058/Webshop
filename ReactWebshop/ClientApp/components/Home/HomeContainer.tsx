@@ -6,6 +6,7 @@ import {HomeComponent} from "./HomeComponent";
 import {ProductPage} from "../ProductPage/ProductPageContainer";
 import { RouteComponentProps } from 'react-router';
 //import * as moment from "moment"; //For the date
+import {User} from "../User/User";
 
 //Home container
 
@@ -49,8 +50,12 @@ export class HomeContainer extends React.Component<RouteComponentProps<{}>, Home
     render(){
    
         return(
-            <div className={"Home"}>
+            <div className={"HomeContainer"}>
+            {User.IsUserLoggedIn()? 
+            <div> <h1> Welkom {" " + User.GetFirstname()}!  dit zijn de nieuwste producten!  </h1> </div>
+            :
             <div> <h1> Nieuwste producten van maand {new Date().getMonth() + 1}! </h1> </div> 
+            }
             {this.state.productPageButtonClicked?
             <ProductPage clickedOnProduct={this.state.clickedOnProduct}/>
             :

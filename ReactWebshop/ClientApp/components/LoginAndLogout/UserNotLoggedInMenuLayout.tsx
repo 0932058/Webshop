@@ -9,7 +9,7 @@ export class UserNotLoggedInMenu extends React.Component<{}, {}> {
         super();
     }
     public render() {
-        return <nav className="homebalk">
+        return <nav className="UserNotLoggedInMenuLayout">
                             <NavLink to={ '/' } exact activeClassName='active' className='LinksNav'>
                                 Home
                             </NavLink>   

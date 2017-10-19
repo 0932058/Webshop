@@ -6,17 +6,19 @@ import {shoppingCart}  from '../../DatabaseSimulation/TableTypes';
 import {List} from "linqts";
 import {AbstractStorage,StorageState} from "../ReusableComponents/Storage";
 import {WensLijstComponent} from "./WensLijstComponent";
+import {User} from "../../User/User";
 
 //Container for the Wenslijst
 
 export class WensLijstContainer extends AbstractStorage {
     constructor(){
         super();    
-        this.state = {storageProducts: new List<storage>(), convertedStorageProducts: new List<product>(),customerID:1, isShoppingCart:false, loaded:false, totalPrice: 0}
+        var loggedInUserPK = User.IsUserLoggedIn? User.GetPK() : 0
+        this.state = {storageProducts: new List<storage>(), convertedStorageProducts: new List<product>(),customerID: loggedInUserPK, isShoppingCart:false, loaded:false, totalPrice: 0}
     }
     render() {
         return (
-        <div>
+        <div className={"WensLijstContainer"}>
             <h1>Wenslijst</h1>
             {this.state.convertedStorageProducts.ToArray().map((storageProduct,index) =>
             <WensLijstComponent key={index} WenslijstProduct={storageProduct} RemoveItemFromStorage={this.RemoveItemFromStorage}/>)  

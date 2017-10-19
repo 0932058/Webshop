@@ -6,6 +6,8 @@ import {game, order, console, category} from "../DatabaseSimulation/TableTypes"
 import {orderTabledata, gameTableData,consoleTableData} from "../DatabaseSimulation/FakeDatabase";
 import {BestellingenComponent} from "./BestellingenComponent";
 import {List} from "linqts";
+import {User} from "../User/User";
+
 
 //Bestellingen Page
 
@@ -13,26 +15,28 @@ interface BestellingenContainerState{
     orders: List<order> //The order of the customers without the products combined with it
     orderAndProductCombined: List<any>  //Customer order information and product information combined
     loaded: boolean; //In case the orders are not loaded, a load text appears on screen
+    PKLoggedInUser: number;
 }
 export class BestellingenContainer extends React.Component<RouteComponentProps<{}>, BestellingenContainerState> {
     constructor(){
         super();
+        var loggedInUserPK = User.IsUserLoggedIn? User.GetPK() : 0
         this.GetCustomerOrders = this.GetCustomerOrders.bind(this);
         this.LoopThroughOrders = this.LoopThroughOrders.bind(this);
-        this.state = {orders: new List<order>(), orderAndProductCombined: new List<any>(), loaded: false}
+        this.state = {orders: new List<order>(), orderAndProductCombined: new List<any>(), loaded: false, PKLoggedInUser: loggedInUserPK}
     }
     //loadData method is an async operation, the program counter continues while the items are being fetched from the database
     //GetCustomersOrders is given as argument the PK of the customer who is logged in
     componentWillMount(){
         let loadData : () => void = () =>
-        this.GetCustomerOrders(1).then(foundOrders => this.setState({orders: foundOrders}))
+        this.GetCustomerOrders().then(foundOrders => this.setState({orders: foundOrders}))
         .then(this.LoopThroughOrders)
         .catch(loadData)
         loadData();
     }
     //Gets the orders of the customer
-    GetCustomerOrders(customerID: number): Promise<List<order>>{
-        var foundOrders = orderTabledata.Where(order => order.accountFK == customerID);
+    GetCustomerOrders(): Promise<List<order>>{
+        var foundOrders = orderTabledata.Where(order => order.accountFK == this.state.PKLoggedInUser);
         return Promise.resolve<List<order>>(foundOrders);
    }  
    //Combines the order and product information
@@ -46,7 +50,7 @@ export class BestellingenContainer extends React.Component<RouteComponentProps<{
         //Converted to get the Map function
         var listconverted = this.state.orderAndProductCombined.ToArray()
         return ( 
-            <div>
+            <div className={"BestellingenContainer"}>
                 {this.state.loaded? 
                 listconverted.map((order,index) => 
                     <BestellingenComponent key={index} image={order.image} name={order.name}

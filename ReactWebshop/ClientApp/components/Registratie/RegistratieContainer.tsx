@@ -153,7 +153,7 @@ export class RegistratieContainer extends React.Component<RouteComponentProps<{}
             <div>            
             </div>
             {this.state.isNoEmptyInputFields ?
-            <Redirect to={"/Home"} push={true}/>
+            <Redirect to={"/Registratiesuccessfull"} push={true}/>
             :
             <div> </div>
             }

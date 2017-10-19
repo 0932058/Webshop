@@ -1,4 +1,6 @@
 import * as React from 'react';
+
+
 import { Route } from 'react-router-dom';
 import { Layout } from './components/Layout';
 import {BestellingenContainer} from './components/Bestellingen/BestellingenContainer';
@@ -16,14 +18,17 @@ import {GegevensContainer} from "./components/Profile/Gegevens/GegevensContainer
 import {ProfileSideMenuLayout} from "./components/Profile/Layout/ProfileSideMenuLayout";
 import {ProfileContainer} from "./components/Profile/ProfileContainer";
 import {LogoutContainer} from "./components/LoginAndLogout/LogoutContainer";
+import {RegistratieSuccesfullContainer} from "./components/Registratie/RegistratieSuccesfullContainer";
+
 
 export const routes = <Layout>
     <Route exact path={"/"} component={HomeContainer} />
-
-    <Route exact path ={"/Profile"} component={ProfileContainer}/>
-    <Route path={"/Profile/Gegevens"} component={GegevensContainer} />
     
+    <Route path ={"/Profile"} component={ProfileContainer}/>
+    <Route path={"/Profile/Gegevens"} component={GegevensContainer} />
+
     <Route path={"/Registratie"} component={RegistratieContainer} />
+    <Route path={"/Registratiesuccessfull"} component={RegistratieSuccesfullContainer} />
 
     <Route path={"/Login"} component={LoginContainer} />
     <Route path ={"/Logout"} component={LogoutContainer}/>

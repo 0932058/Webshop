@@ -14,8 +14,9 @@ export class HomeComponent extends React.Component<HomeComponentProps, {}> {
         super(props);   
     }
     render(){
-        return <div className={"HomeProduct"}>                  
+        return <div className={"HomeComponent"}>                  
                     <div>                 
+                    
                     <h1>{this.props.homeProduct.name}</h1>
                     <li>  <img src={this.props.homeProduct.image}  height={300}/> </li>
                     <div> <h2> Naam: {this.props.homeProduct.name} </h2> </div>
