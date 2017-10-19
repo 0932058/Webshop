@@ -10,15 +10,23 @@ import {ConsolesContainer} from "./components/Categories/Consoles/ConsoleContain
 import {AccessoiresContainer} from "./components/Categories/Accessoires/AccessoiresContainer";
 import {SearchContainer} from "./components/Search/SearchContainer";
 import {HomeContainer} from "./components/Home/HomeContainer";
-import {LoginContainer} from "./components/Login/LoginContainer";
+import {LoginContainer} from "./components/LoginAndLogout/LoginContainer";
 import {RegistratieContainer} from "./components/Registratie/RegistratieContainer";
+import {GegevensContainer} from "./components/Profile/Gegevens/GegevensContainer";
+import {ProfileSideMenuLayout} from "./components/Profile/Layout/ProfileSideMenuLayout";
+import {ProfileContainer} from "./components/Profile/ProfileContainer";
+import {LogoutContainer} from "./components/LoginAndLogout/LogoutContainer";
 
 export const routes = <Layout>
     <Route exact path={"/"} component={HomeContainer} />
 
+    <Route exact path ={"/Profile"} component={ProfileContainer}/>
+    <Route path={"/Profile/Gegevens"} component={GegevensContainer} />
+    
     <Route path={"/Registratie"} component={RegistratieContainer} />
 
     <Route path={"/Login"} component={LoginContainer} />
+    <Route path ={"/Logout"} component={LogoutContainer}/>
 
     <Route path={"/Search"} component={SearchContainer} />
     

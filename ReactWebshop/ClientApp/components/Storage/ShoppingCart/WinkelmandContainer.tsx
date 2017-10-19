@@ -6,13 +6,16 @@ import {shoppingCart}  from '../../DatabaseSimulation/TableTypes';
 import {List} from "linqts";
 import {AbstractStorage,StorageState} from "../ReusableComponents/Storage";
 import {WinkelMandComponent} from "./WinkelmandComponent";
+import {User} from "../../User/User";
 
 //Container for the winkelmand
 
 export class Winkelmand extends AbstractStorage {
     constructor(){
         super();    
-        this.state = {storageProducts: new List<storage>(), convertedStorageProducts: new List<product>(),customerID:1, isShoppingCart:true, loaded:false, totalPrice: 0}
+        //Gets the pk of the logged in user
+        var loggedInUserPK = User.IsUserLoggedIn? User.GetPK() : 0
+        this.state = {storageProducts: new List<storage>(), convertedStorageProducts: new List<product>(),customerID: loggedInUserPK, isShoppingCart:true, loaded:false, totalPrice: 0}
     }
     render() {
         return (

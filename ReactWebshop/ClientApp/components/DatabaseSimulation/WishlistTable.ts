@@ -31,7 +31,7 @@ export let wishListItem4: wishList = {
 }
 export let wishListItem5: wishList = {
     pk: 5,
-    accountFK: 1,
+    accountFK: 2,
     productForeignKeyReference: category.consoles,
     productFK: 3
 }

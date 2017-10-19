@@ -5,10 +5,13 @@ import {List} from "linqts";
 import { RouteComponentProps } from 'react-router';
 import {RegistratieContainer} from "../Registratie/RegistratieContainer";
 import { Redirect } from 'react-router';
+import {User} from "../User/User";
 
 //Login container
 
 interface LoginContainerState{
+    //to check if it needs to redirect to Home, there is a method in User class to check the login status
+    userLoggedIn: boolean; 
     typedInUsername: string;
     typedInPassword: string;
     isRegisterButtonClick: boolean;
@@ -20,7 +23,8 @@ export class LoginContainer extends React.Component<RouteComponentProps<{}>, Log
         this.CheckLoginInDatabase = this.CheckLoginInDatabase.bind(this);
         this.RegisterTheAccount = this.RegisterTheAccount.bind(this);
         this.ResultLogin = this.ResultLogin.bind(this);
-        this.state = {typedInUsername:"", typedInPassword:"", isRegisterButtonClick: false}       
+        this.state = {typedInUsername:"", typedInPassword:"", isRegisterButtonClick: false, userLoggedIn: false}   
+        this.CreateLoggedInUser = this.CreateLoggedInUser.bind(this);    
     }
     //When the user types into one of the fields, the result is saved to the state
     HandleChangeToInputFields(event: any){         
@@ -33,15 +37,27 @@ export class LoginContainer extends React.Component<RouteComponentProps<{}>, Log
     }
     //Checks if account with the given username and password exists
     CheckLoginInDatabase() : Promise<null|account>{
-        var possibleAccount = accountsTableData.Where(account => account.username == this.state.typedInUsername && 
+        var userAccount = accountsTableData.Where(account => account.username == this.state.typedInUsername && 
             account.password == this.state.typedInPassword).FirstOrDefault();
-        return Promise.resolve(possibleAccount);
+        if(userAccount == null){
+            return Promise.reject("Incorrect login")
+        }
+        return Promise.resolve(userAccount);
     } 
     //Depending on the result of the CheckLoginInDatabase method, an pop up appears on the screen
     ResultLogin(event: any){
         event.preventDefault();
-        this.CheckLoginInDatabase().then(possibleAccount => possibleAccount==null? alert("Incorrect login") : alert("Successfull login!"));
+        this.CheckLoginInDatabase().then(userAccount => this.CreateLoggedInUser(userAccount))
+        .catch(errorMessage => alert(errorMessage))
     }
+    //Fetches the data (Pk, name etc) of the logged in user 
+    CreateLoggedInUser(userAccount: account){
+        var loggedInUser = User.CreateUser();
+        loggedInUser.SetAccount(userAccount);
+        this.setState({userLoggedIn: true})
+
+    }
+
     //When the user clicks the register button
     RegisterTheAccount(){
         this.setState({isRegisterButtonClick: true})
@@ -70,11 +86,16 @@ export class LoginContainer extends React.Component<RouteComponentProps<{}>, Log
             </form>       
             <div>            
             </div>    
-            {this.state.isRegisterButtonClick?
+            {this.state.userLoggedIn ?
+            <Redirect to={"/"} push={true}/>
+            :
+            this.state.isRegisterButtonClick?
              <Redirect to={"/Registratie"} push={true}/>
-    
             :
             <div> </div>
+            }
+
+            
  
             }
           

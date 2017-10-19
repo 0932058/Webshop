@@ -1,10 +1,9 @@
 import * as React from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import {SearchContainer} from "./Search/SearchContainer";
 
-//The navigation menu of the top bar
+//The menu when the user is logged in
 
-export class NavMenu extends React.Component<{}, {}> {
+export class UserLoggedInMenu extends React.Component<{}, {}> {
     constructor(){
         super();
     }
@@ -12,13 +11,10 @@ export class NavMenu extends React.Component<{}, {}> {
         return <nav className="homebalk">
                             <NavLink to={ '/' } exact activeClassName='active' className='LinksNav'>
                                 Home
-                            </NavLink>
-                            <NavLink to={ '/Registratie' } exact activeClassName='active'className='LinksNav'>
-                                Registreer
-                            </NavLink>
-                            <NavLink to={ '/Login' } exact activeClassName='active'className='LinksNav'>
-                                Login
-                            </NavLink>
+                            </NavLink>                  
+                            <NavLink to={ '/Profile' } exact activeClassName='active' className='LinksNav'>
+                                Profile
+                            </NavLink>                                                                     
                             <NavLink to={ '/Bestellingen' } exact activeClassName='active'className='LinksNav'>
                                 Bestellingen
                             </NavLink>
@@ -26,9 +22,13 @@ export class NavMenu extends React.Component<{}, {}> {
                                 Wenslijst
                             </NavLink>
                             <NavLink to={ '/Winkelmand' } exact activeClassName='active'className='LinksNav'>
-                                    Winkelmand
-                            </NavLink>                       
-        
+                                Winkelmand
+                            </NavLink> 
+                            <NavLink to={ '/Logout' } exact activeClassName='active'className='LinksNav'>
+                                Log uit
+                            </NavLink>            
+
         </nav>;
     }
 }
+export default UserLoggedInMenu;

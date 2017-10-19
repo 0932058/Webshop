@@ -1,0 +1,21 @@
+import * as React from 'react';
+import {ProfileSideMenuLinks} from "./ProfileSideMenuLinks";
+
+export interface LayoutProps {
+    children?: React.ReactNode;
+}
+export class ProfileSideMenuLayout extends React.Component<LayoutProps, {}> {
+    public render() {
+        return <div className='ProfileSideMenuLayout'>
+            <div className='row'>
+                <div className='col-sm-3'>
+                    <ProfileSideMenuLinks/>                                                                     
+                </div>
+                <div className='col-sm-9'>
+                    { this.props.children }
+                </div>
+            </div>
+        </div>;
+    }
+}
+export default ProfileSideMenuLayout;
