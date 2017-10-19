@@ -6,7 +6,7 @@ import {gameTableData, accountsTableData} from "ClientApp/components/DatabaseSim
 
 export let order1: order = {
     pk: 1,
-    accountFK: 1, 
+    accountFK: 2, 
     productFK: 1,
     productForeignKeyReference: category.consoles,
     orderdate: "10 Oktober 2017",
@@ -14,7 +14,7 @@ export let order1: order = {
 }
 export let order2: order = {
     pk: 2,
-    accountFK: 1, 
+    accountFK: 2, 
     productFK: 1, 
     productForeignKeyReference: category.games,
     orderdate: "5 Oktober 2017",
@@ -22,7 +22,7 @@ export let order2: order = {
 }
 export let order3: order = {
     pk: 3,
-    accountFK: 1, 
+    accountFK: 2, 
     productFK: 3, 
     productForeignKeyReference: category.consoles,
     orderdate: "2 Oktober 2017",

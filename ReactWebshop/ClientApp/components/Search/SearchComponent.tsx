@@ -3,8 +3,6 @@ import {gameTableData, consoleTableData, accessoiresTableData} from "../Database
 import {product} from "../DatabaseSimulation/TableTypes";
 import {List} from "linqts";
 
-//The search component 
-
 interface SearchComponentProps{
     foundSearchResultProduct: product; //The item that was found 
     GotoProductPage(event:any, clickedOnProduct: product): void; //When the product page button is clicked it activates this method

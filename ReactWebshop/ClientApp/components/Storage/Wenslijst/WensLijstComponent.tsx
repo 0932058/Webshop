@@ -9,10 +9,7 @@ interface WenslijstProps{
     RemoveItemFromStorage(productToRemove:product, category:category);
 }
 
-interface WenslijstState{   
-}
-
-export class WensLijstComponent extends React.Component<WenslijstProps, WenslijstState> {
+export class WensLijstComponent extends React.Component<WenslijstProps, {}> {
     constructor(props: any){
         super(props);
         this.RemoveItemFromStorage = this.RemoveItemFromStorage.bind(this);   

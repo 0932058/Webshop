@@ -8,13 +8,10 @@ import {ProductPageComponent} from "./ProductPageComponent";
 import {List} from "linqts";
 import {User} from "../User/User";
 
-
-
 //The product page
 interface ProductPageProps{
     clickedOnProduct: game | console | accessoires; 
 }
-
 interface ProductPageState{
     product: string; //the product to show is an JSON object because this.state doesn't allow a single object
     consoleImage: string; //The consoleimge that will be shown on the header
@@ -50,8 +47,7 @@ export class ProductPage extends React.Component<ProductPageProps, ProductPageSt
         var productToAddToStorage = {pk: isShoppingcart? shoppingCartdata.Count()+ 1 : wishListData.Count() + 1, 
         accountFK: this.state.PKUser, productFK: product.pk, productForeignKeyReference: product.category, 
     categoryKind: isShoppingcart? storageCategory.shoppingCart : storageCategory.wishlist} 
- 
-  
+
         if(productToAddToStorage.categoryKind == storageCategory.shoppingCart){
             shoppingCartdata.Add(productToAddToStorage)
         }

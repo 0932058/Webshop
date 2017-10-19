@@ -1,6 +1,8 @@
 import * as React from 'react';
 import {ProfileSideMenuLinks} from "./ProfileSideMenuLinks";
 
+//Side menu for the profile page
+
 export interface LayoutProps {
     children?: React.ReactNode;
 }

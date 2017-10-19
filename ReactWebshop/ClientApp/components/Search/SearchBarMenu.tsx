@@ -4,14 +4,10 @@ import {SearchContainer} from "./SearchContainer";
 import { Redirect } from 'react-router';
 import { RouteComponentProps } from 'react-router';
 
-
-//The Search Bar
-
 interface SearchBarState{
     searchbarText:string;
     isSearchbarButtonClicked: boolean
 }
-
 export class SearchBarMenu extends React.Component<{}, SearchBarState> {
     constructor(){
         super();
@@ -38,22 +34,19 @@ export class SearchBarMenu extends React.Component<{}, SearchBarState> {
 
         // event.preventDefault(); this causes the reloading of the page
         this.ActivateSearchButton();
-
     }
     //When the button is pressed, then it gets redirect to the search page.
     public render() {
         return (   
         <div>           
-            <div className={"SearchButton"}>
-            
+            <div className={"SearchButton"}>          
             <form onSubmit={this.HandleSearchBarSubmit}>
             <label>
             <input type="text" value={this.state.searchbarText} onChange={this.HandleSearchBarChange} /> 
             </label>
             <input type="Submit" value="Zoeken"/>
             </form>
-            </div>
-          
+            </div>         
             {this.state.isSearchbarButtonClicked ?
             <Redirect to={"/Search"} push={true}/>
             :

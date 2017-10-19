@@ -5,8 +5,6 @@ import {accountsTableData} from "../DatabaseSimulation/FakeDatabase";
 import { RouteComponentProps } from 'react-router';
 import { Redirect } from 'react-router';
 
-//Registratie container
-
 interface RegistratieContainerState{
     firstname: string;
     lastname: string;
@@ -78,9 +76,7 @@ export class RegistratieContainer extends React.Component<RouteComponentProps<{}
         this.IsNoEmptyField().then(() => this.CheckIfAccountExists().then(account => accountsTableData.Add(account))
         .then(() => this.setState({isNoEmptyInputFields: true}))
         .catch(userNameOrEmailError => alert(userNameOrEmailError)))
-        .catch(emptyFieldError => alert(emptyFieldError))     
-
-     
+        .catch(emptyFieldError => alert(emptyFieldError))       
     }
     //Checks if account already exists
     CheckIfAccountExists() : Promise<account>{       
@@ -99,7 +95,6 @@ export class RegistratieContainer extends React.Component<RouteComponentProps<{}
         }  
     }
     render(){
-   
         return(
             <div className={"RegistratieContainer"}>
             <div> <h1> Registreer</h1> </div>
@@ -156,9 +151,7 @@ export class RegistratieContainer extends React.Component<RouteComponentProps<{}
             <Redirect to={"/Registratiesuccessfull"} push={true}/>
             :
             <div> </div>
-            }
-            
-            
+            }                  
             </div>
         )}
 }

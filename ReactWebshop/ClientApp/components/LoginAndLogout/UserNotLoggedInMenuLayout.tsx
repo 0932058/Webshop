@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 
-
 //The navigation menu of the top bar when the user is not logged in
 
 export class UserNotLoggedInMenu extends React.Component<{}, {}> {

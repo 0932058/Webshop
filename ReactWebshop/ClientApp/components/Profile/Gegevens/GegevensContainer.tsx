@@ -8,8 +8,6 @@ import { Redirect } from 'react-router';
 import {GegevensComponent} from "./GegevensComponent";
 import {ProfileSideMenuLayout} from "../Layout/ProfileSideMenuLayout";
 
-//Gegevens container
-
 export class GegevensContainer extends React.Component<RouteComponentProps<{}>, {}> {
     constructor(){
         super();

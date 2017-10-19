@@ -19,6 +19,7 @@ export class ProductPageComponent extends React.Component<ProductPageProps, Prod
         this.HandleStorageAddClick = this.HandleStorageAddClick.bind(this);    
         this.state = {product: this.props.product} //The product is a string but gets converted in the render method
     }
+    //When shoppingcart or wishlist is clicked, it goes to a method that adds the clicked on product
     HandleStorageAddClick(event: any, isShoppingcart: boolean){
         this.props.AddProductToStorage(isShoppingcart);
     }
@@ -55,9 +56,7 @@ export class ProductPageComponent extends React.Component<ProductPageProps, Prod
                 }
              
                 </h2> 
-            </div>
-            
-                
+            </div>                         
     }
 }
 export default ProductPageComponent 

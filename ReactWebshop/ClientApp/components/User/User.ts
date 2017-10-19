@@ -25,8 +25,7 @@ export class User{
             User.isLoggedIn = true;
             return User.user;
         }
-        throw new Error("There is already a user created!")
-
+        throw new Error("There is already a user logged in!")
     }
     public static IsUserLoggedIn() : boolean{
         return User.isLoggedIn;

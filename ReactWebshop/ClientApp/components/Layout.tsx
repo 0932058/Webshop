@@ -5,7 +5,6 @@ import {SearchBarMenu} from "./Search/SearchBarMenu";
 import {UserLoggedInMenu} from "./LoginAndLogout/UserLoggedInMenuLayout";
 import {User} from "./User/User";
 
-
 //The components used for the layout is in the render method
 //The components are always displayed on screen
 

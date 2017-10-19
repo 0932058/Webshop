@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { RouteComponentProps } from 'react-router';
 
-//The navigation menu of the side bar
+//The navigation menu (links) of the side bar for profile page
 
 export class ProfileSideMenuLinks extends React.Component<{}, {}> {
     public render() {

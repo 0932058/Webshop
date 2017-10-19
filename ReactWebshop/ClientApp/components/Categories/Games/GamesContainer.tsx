@@ -9,7 +9,6 @@ import {ProductPage} from "../../ProductPage/ProductPageContainer";
 import {genreCategory} from "../../DatabaseSimulation/GameTable";
 import {Visitor,  QueryVisitor, ICategory, ICategoryState} from "../MainReusableComponent/ReusableComponent";
 
-
 export class GamesContainer  extends React.Component<RouteComponentProps<{}>, ICategoryState<game>> implements ICategory {
     constructor(){
         super(); 

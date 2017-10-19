@@ -8,18 +8,16 @@ import {BestellingenComponent} from "./BestellingenComponent";
 import {List} from "linqts";
 import {User} from "../User/User";
 
-
-//Bestellingen Page
-
 interface BestellingenContainerState{
     orders: List<order> //The order of the customers without the products combined with it
     orderAndProductCombined: List<any>  //Customer order information and product information combined
     loaded: boolean; //In case the orders are not loaded, a load text appears on screen
-    PKLoggedInUser: number;
+    PKLoggedInUser: number; //Primary key of the logged in user
 }
 export class BestellingenContainer extends React.Component<RouteComponentProps<{}>, BestellingenContainerState> {
     constructor(){
         super();
+        //If the user is logged in, it gets the PK of the logged in user and adds it to the state
         var loggedInUserPK = User.IsUserLoggedIn? User.GetPK() : 0
         this.GetCustomerOrders = this.GetCustomerOrders.bind(this);
         this.LoopThroughOrders = this.LoopThroughOrders.bind(this);
@@ -47,19 +45,16 @@ export class BestellingenContainer extends React.Component<RouteComponentProps<{
        this.setState({orderAndProductCombined: productsCombined, loaded: true})
    }
     render() {   
-        //Converted to get the Map function
-        var listconverted = this.state.orderAndProductCombined.ToArray()
         return ( 
             <div className={"BestellingenContainer"}>
                 {this.state.loaded? 
-                listconverted.map((order,index) => 
+                this.state.orderAndProductCombined.ToArray().map((order,index) => 
                     <BestellingenComponent key={index} image={order.image} name={order.name}
                     price={order.price} orderDate={order.orderDate} orderStatus={order.orderStatus}/>)
                 :
                 <h1> Loading the orders... </h1>           
             }
             </div> 
-
         );
     }
 }           

@@ -3,15 +3,11 @@ import { RouteComponentProps } from 'react-router';
 import {product, category,game,accessoires}  from '../../DatabaseSimulation/TableTypes';
 
 
-//Games component
-
-interface GamesComponentProps{
+interface AccessoiresComponentProps{
     accessoiresToShow: accessoires;
     ToProductPage(event: any, accessoires: accessoires)
 }
-interface GamesComponentState{   
-}
-export class AccessoiresComponent extends React.Component<GamesComponentProps, GamesComponentState> {
+export class AccessoiresComponent extends React.Component<AccessoiresComponentProps, {}> {
     constructor(props: any){
         super(props);   
     }

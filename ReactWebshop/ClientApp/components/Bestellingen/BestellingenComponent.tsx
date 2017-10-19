@@ -1,20 +1,16 @@
 import * as React from 'react';
 import Img from 'react-image'
 
-interface BestellingenState{
-    orders: any[] 
-}
 interface BestellingenProps{
-    image: string | any,
-    name: string | any,
-    price: number | any,
-    orderDate: string | any,
-    orderStatus: string | any
+    image: string;
+    name: string;
+    price: number;
+    orderDate: string;
+    orderStatus: string;
 }
-export class BestellingenComponent extends React.Component<BestellingenProps, BestellingenState> {
+export class BestellingenComponent extends React.Component<BestellingenProps, {}> {
     constructor(props: any){
         super(props);
-        this.state = {orders:[]}
     }
     render() {
             return (

@@ -7,13 +7,10 @@ import {RegistratieContainer} from "../../Registratie/RegistratieContainer";
 import { Redirect } from 'react-router';
 import {User} from "../../User/User";
 
-//Gegevens Component
-
 export class GegevensComponent extends React.Component<{}, {}> {
     constructor(props: User){
         super();      
     }
-
     render(){  
         return(
             <div> 
@@ -25,8 +22,7 @@ export class GegevensComponent extends React.Component<{}, {}> {
             <div> Email: {User.GetEmail()} </div>
             <div> Username: {User.GetUsername()} </div>
             <div> Wachtwoord: {User.GetPassword()} </div>      
-            </h1>
-          
+            </h1>       
         </div>
         </div>
     )

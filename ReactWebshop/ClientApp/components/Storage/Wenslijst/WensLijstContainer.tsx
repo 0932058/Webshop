@@ -8,8 +8,6 @@ import {AbstractStorage,StorageState} from "../ReusableComponents/Storage";
 import {WensLijstComponent} from "./WensLijstComponent";
 import {User} from "../../User/User";
 
-//Container for the Wenslijst
-
 export class WensLijstContainer extends AbstractStorage {
     constructor(){
         super();    

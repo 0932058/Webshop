@@ -8,9 +8,7 @@ interface GamesComponentProps{
     gameToShow: game;
     ToProductPage(event: any, game: game)
 }
-interface GamesComponentState{   
-}
-export class GamesComponent extends React.Component<GamesComponentProps, GamesComponentState> {
+export class GamesComponent extends React.Component<GamesComponentProps, {}> {
     constructor(props: any){
         super(props);   
     }

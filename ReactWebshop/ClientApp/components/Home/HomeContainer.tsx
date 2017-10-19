@@ -8,8 +8,6 @@ import { RouteComponentProps } from 'react-router';
 //import * as moment from "moment"; //For the date
 import {User} from "../User/User";
 
-//Home container
-
 interface HomeContainerState{
     loaded:boolean;
     productPageButtonClicked: boolean; //When a product is clicked, the product page component is called

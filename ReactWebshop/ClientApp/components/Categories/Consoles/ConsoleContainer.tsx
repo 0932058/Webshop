@@ -9,8 +9,6 @@ import {ProductPage} from "../../ProductPage/ProductPageContainer";
 import {genreCategory} from "../../DatabaseSimulation/GameTable";
 import {Visitor,  QueryVisitor, ICategory, ICategoryState} from "../MainReusableComponent/ReusableComponent";
 
-//The console container
-
 export class ConsolesContainer  extends React.Component<RouteComponentProps<{}>, ICategoryState<console>> implements ICategory{
     constructor(){
         super(); 
@@ -19,7 +17,7 @@ export class ConsolesContainer  extends React.Component<RouteComponentProps<{}>,
         this. PrepareForProductQuery = this. PrepareForProductQuery.bind(this);
         this.ToLowerCase = this.ToLowerCase.bind(this);   
     }
-    //Gets the selected category
+    //Gets the selected category by URL
     componentWillMount(){
         var currentPath: string = this.props.location.pathname;
         var convertedPath = currentPath.replace("/Consoles/", "")

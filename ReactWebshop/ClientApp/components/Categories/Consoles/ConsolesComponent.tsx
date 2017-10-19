@@ -8,9 +8,7 @@ interface ConsolesComponentProps{
     consoleToShow: console;
     ToProductPage(event: any, game: console)
 }
-interface ConsolesComponentState{   
-}
-export class ConsolesComponent extends React.Component<ConsolesComponentProps, ConsolesComponentState> {
+export class ConsolesComponent extends React.Component<ConsolesComponentProps, {}> {
     constructor(props: any){
         super(props);   
     }

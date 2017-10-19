@@ -19,7 +19,7 @@ export class AccessoiresContainer  extends React.Component<RouteComponentProps<{
         this.PrepareForProductQuery = this.PrepareForProductQuery.bind(this);
         this.ToLowerCase = this.ToLowerCase.bind(this);   
     }
-    //Gets the selected category
+    //Gets the selected category from the url 
     componentWillMount(){
         var currentPath: string = this.props.location.pathname;
         
@@ -34,13 +34,12 @@ export class AccessoiresContainer  extends React.Component<RouteComponentProps<{
     ToLowerCase(categoryToCapatalize: string){
         return categoryToCapatalize[0].toLowerCase() + categoryToCapatalize.slice(1).toLowerCase();
     }
-    //Gets the Accessoires based on the category
+    //Gets the Accessoires (by a query) based on the category
     PrepareForProductQuery(clickedOnSubCategory: any): Promise<List<any>> {
         var visitor = new QueryVisitor();
-        return visitor.MakeQueryForAccessoires(clickedOnSubCategory);
-       
+        return visitor.MakeQueryForAccessoires(clickedOnSubCategory);     
     }
-    //When the productpage button is clicked
+    //When the productpage button is clicked it goes to the product page
     ToProductPage(event: any, game: accessoires){
         this.setState({productPageClicked: true, clickedOnProduct: game})
     }

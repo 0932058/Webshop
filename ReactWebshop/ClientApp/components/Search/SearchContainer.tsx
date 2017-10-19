@@ -6,8 +6,6 @@ import {SearchComponent} from "./SearchComponent";
 import {ProductPage} from "../ProductPage/ProductPageContainer";
 import { RouteComponentProps } from 'react-router';
 
-//Search container
-
 interface SearchContainerState{
     loaded:boolean;
     productPageButtonClicked: boolean; //When a product page is clicked, the product page component is called
@@ -15,7 +13,6 @@ interface SearchContainerState{
     clickedOnProduct: product; //The clicked on product gets send to the product page component 
     searchBarText: string; //The typed in search bar text
 }
-
 export class SearchContainer extends React.Component<RouteComponentProps<{}>, SearchContainerState> {
     constructor(){
         super();
@@ -24,7 +21,6 @@ export class SearchContainer extends React.Component<RouteComponentProps<{}>, Se
         this.GotoProductPage = this.GotoProductPage.bind(this);
         this.SetSearchItem = this.SetSearchItem.bind(this);
     }
-
     componentWillMount(){
       
         var res = localStorage.getItem("searchBox");

@@ -7,8 +7,6 @@ import {RegistratieContainer} from "../Registratie/RegistratieContainer";
 import { Redirect } from 'react-router';
 import {User} from "../User/User";
 
-//Login container
-
 interface LoginContainerState{
     //to check if it needs to redirect to Home, there is a method in User class to check the login status
     userLoggedIn: boolean; 
@@ -55,9 +53,7 @@ export class LoginContainer extends React.Component<RouteComponentProps<{}>, Log
         var loggedInUser = User.CreateUser();
         loggedInUser.SetAccount(userAccount);
         this.setState({userLoggedIn: true})
-
     }
-
     //When the user clicks the register button
     RegisterTheAccount(){
         this.setState({isRegisterButtonClick: true})
@@ -94,11 +90,7 @@ export class LoginContainer extends React.Component<RouteComponentProps<{}>, Log
             :
             <div> </div>
             }
-
-            
- 
-            }
-          
+            }        
             </div>
         )}
 }

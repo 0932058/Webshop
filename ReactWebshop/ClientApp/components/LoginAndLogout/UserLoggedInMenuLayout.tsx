@@ -4,17 +4,12 @@ import {User} from "../User/User";
 
 //The menu when the user is logged in
 
-
-
 export class UserLoggedInMenu extends React.Component<{}, {}> {
     constructor(){
-        super();
-    
-    }
-  
+        super();  
+    } 
     public render() {
-        return <nav className="UserLoggedInMenuLayout">
-                        
+        return <nav className="UserLoggedInMenuLayout">                     
                             <NavLink to={ '/' } exact activeClassName='active' className='LinksNav'>
                                 Home
                             </NavLink>                  
@@ -33,9 +28,7 @@ export class UserLoggedInMenu extends React.Component<{}, {}> {
                             <NavLink to={ '/Logout' } exact activeClassName='active'className='LinksNav'>
                                 Log uit
                             </NavLink>            
-
-        </nav>;
-      
+        </nav>;    
     }
 }
 export default UserLoggedInMenu;

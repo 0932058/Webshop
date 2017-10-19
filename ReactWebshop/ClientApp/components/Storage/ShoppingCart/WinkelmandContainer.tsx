@@ -33,6 +33,7 @@ export class Winkelmand extends AbstractStorage {
 }
 
 {
+    //Old comments
     
     /* //JSON related files
 

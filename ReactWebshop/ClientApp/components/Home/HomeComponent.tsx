@@ -3,7 +3,6 @@ import {gameTableData, consoleTableData, accessoiresTableData} from "../Database
 import {product} from "../DatabaseSimulation/TableTypes";
 import {List} from "linqts";
 
-//The Home component 
 
 interface HomeComponentProps{
     homeProduct: product; //The item to display on the home page 
@@ -15,8 +14,7 @@ export class HomeComponent extends React.Component<HomeComponentProps, {}> {
     }
     render(){
         return <div className={"HomeComponent"}>                  
-                    <div>                 
-                    
+                    <div>                                  
                     <h1>{this.props.homeProduct.name}</h1>
                     <li>  <img src={this.props.homeProduct.image}  height={300}/> </li>
                     <div> <h2> Naam: {this.props.homeProduct.name} </h2> </div>
