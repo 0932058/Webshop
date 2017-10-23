@@ -152,6 +152,19 @@ nav{
 nav form{
 	display: inline;
 }
+.RegistratieContainer input{
+    margin-top: 5px;
+}
+.RegistratieContainer li{
+    list-style-type: none;
+}
+.RegistratieContainer ul{
+    padding: 7px;
+    list-style-type: none;
+}
+form{
+    vertical-align: middle;
+}
 /*special needs when the zoom is extreme*/
 @media (max-width: 767px) {
     body {

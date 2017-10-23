@@ -12,21 +12,21 @@ export class UserNotLoggedInMenu extends React.Component<{}, {}> {
         return <nav className="UserNotLoggedInMenuLayout">
                             <NavLink to={ '/' } exact activeClassName='active' className='LinksNav'>
                                 Home
-                            </NavLink>   
+                            </NavLink>
+
                             <NavLink to={ '/Login' } exact activeClassName='active'className='LinksNav'>
                                 Login
-                            </NavLink>                                      
+                            </NavLink>
+
                             <NavLink to={ '/Registratie' } exact activeClassName='active'className='LinksNav'>
                                 Registreer
-                            </NavLink>                                                
+                            </NavLink>
+
                             <NavLink to={ '/Winkelmand' } exact activeClassName='active'className='LinksNav'>
                                     Winkelmand
                             </NavLink>
-                            <div>
-                                <SearchBarMenu />
-                            </div>
-                            
-                                                    
+
+                            <SearchBarMenu />                                     
         </nav>;
     }
 }

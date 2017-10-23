@@ -98,28 +98,25 @@ export class RegistratieContainer extends React.Component<RouteComponentProps<{}
         return(
             <div className={"RegistratieContainer"}>
                 <h1> Registreer</h1>
-                <form  onSubmit={this.InsertAccountIntoDatabase} onChange={this.HandleInputFieldsChange}>
-                    <ul>
-                    <input type="text" name="firstname" value={this.state.firstname} />               
+
+                <ul><form  onSubmit={this.InsertAccountIntoDatabase} onChange={this.HandleInputFieldsChange}>
+                    <li><input placeholder="firstname" type="text" name="firstname" value={this.state.firstname} /> </li>              
                    
-                    <input type="text" name="lastname"  value={this.state.lastname} />             
+                    <li><input placeholder="lastname" type="text" name="lastname"  value={this.state.lastname} /> </li>            
 
-                    <input type="text" name="email"  value={this.state.email} />             
+                    <li><input placeholder="email" type="text" name="email"  value={this.state.email} /> </li>            
                 
-                    <input type="text" name="username"  value={this.state.username} />             
+                    <li><input placeholder="username" type="text" name="username"  value={this.state.username} /> </li>            
                   
-                    <input type="text" name="password"  value={this.state.password} />             
+                    <li><input placeholder="password" type="text" name="password"  value={this.state.password} /> </li>            
                  
-                    <input placeholder='Straatnaam' type="text" name="streetname"  value={this.state.streetname} />             
+                    <li><input placeholder='Straatnaam' type="text" name="streetname"  value={this.state.streetname} /> </li>            
                   
-                    <input type="text" name="postcode"  value={this.state.postcode} />             
+                    <li><input placeholder="postcode" type="text" name="postcode"  value={this.state.postcode} /> </li>            
 
-                    <input type="submit" value="Submit"  />
-                    </ul>
-                </form>
+                    <li><input placeholder="Submit" type="submit" value="Registreer"  /> </li>
+                </form></ul>
 
-            <div>            
-            </div>
             {this.state.isNoEmptyInputFields ?
             <Redirect to={"/Registratiesuccessfull"} push={true}/>
             :
