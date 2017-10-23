@@ -97,54 +97,27 @@ export class RegistratieContainer extends React.Component<RouteComponentProps<{}
     render(){
         return(
             <div className={"RegistratieContainer"}>
-            <div> <h1> Registreer</h1> </div>
-            <form  onSubmit={this.InsertAccountIntoDatabase} onChange={this.HandleInputFieldsChange}>
-            <div>
-            <label>
-                Firstname:         
-                <input type="text" name="firstname" value={this.state.firstname} />               
-            </label>
-            </div>
-            <div>
-            <label>
-                Lastname:       
-                <input type="text" name="lastname"  value={this.state.lastname} />             
-            </label>
-            </div>
-            <div>
-            <label>
-                Email:          | 
-                <input type="text" name="email"  value={this.state.email} />             
-            </label>
-            </div>
-            <div>
-            <label>
-                Username:       
-                <input type="text" name="username"  value={this.state.username} />             
-            </label>
-            </div>
-            <div>
-            <label>
-                Password:       
-                <input type="text" name="password"  value={this.state.password} />             
-            </label>
-            <div>
-            <label>
-                Straatnaam:       
-                <input type="text" name="streetname"  value={this.state.streetname} />             
-            </label>
-            </div>
-            <div>
-            <label>
-                Postcode:       
-                <input type="text" name="postcode"  value={this.state.postcode} />             
-            </label>
-            </div>
-            <div>
-            </div>
-            </div>
-            <input type="submit" value="Submit"  />
-            </form>       
+                <h1> Registreer</h1>
+                <form  onSubmit={this.InsertAccountIntoDatabase} onChange={this.HandleInputFieldsChange}>
+                    <ul>
+                    <input type="text" name="firstname" value={this.state.firstname} />               
+                   
+                    <input type="text" name="lastname"  value={this.state.lastname} />             
+
+                    <input type="text" name="email"  value={this.state.email} />             
+                
+                    <input type="text" name="username"  value={this.state.username} />             
+                  
+                    <input type="text" name="password"  value={this.state.password} />             
+                 
+                    <input placeholder='Straatnaam' type="text" name="streetname"  value={this.state.streetname} />             
+                  
+                    <input type="text" name="postcode"  value={this.state.postcode} />             
+
+                    <input type="submit" value="Submit"  />
+                    </ul>
+                </form>
+
             <div>            
             </div>
             {this.state.isNoEmptyInputFields ?

@@ -17,17 +17,21 @@ export class SearchBarMenu extends React.Component<{}, SearchBarState> {
         this.ResetSearchButton = this.ResetSearchButton.bind(this);
         this.ActivateSearchButton = this.ActivateSearchButton.bind(this);      
     }
+    
     ResetSearchButton(){
         this.setState({isSearchbarButtonClicked: false})
     }
+
     ActivateSearchButton(){
         this.setState({isSearchbarButtonClicked: true})
     }
+
     //When the user types something in the form, this method is then called
     HandleSearchBarChange(event: any){         
         this.ResetSearchButton();
         this.setState({searchbarText: event.target.value});         
     }
+
     //When the user clicks on enter or clicks the button, this method gets called
     HandleSearchBarSubmit(event: any){
         localStorage.setItem("searchBox", this.state.searchbarText); 
@@ -35,6 +39,7 @@ export class SearchBarMenu extends React.Component<{}, SearchBarState> {
         // event.preventDefault(); this causes the reloading of the page
         this.ActivateSearchButton();
     }
+
     //When the button is pressed, then it gets redirect to the search page.
     public render() {
         return (   
@@ -53,7 +58,6 @@ export class SearchBarMenu extends React.Component<{}, SearchBarState> {
             <div> 
             </div>   
         }      
-        }
         </div>);
     }
 }

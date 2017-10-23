@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Link, NavLink } from 'react-router-dom';
+import {SearchBarMenu} from "../Search/SearchBarMenu";
 
 //The navigation menu of the top bar when the user is not logged in
 
@@ -20,7 +21,12 @@ export class UserNotLoggedInMenu extends React.Component<{}, {}> {
                             </NavLink>                                                
                             <NavLink to={ '/Winkelmand' } exact activeClassName='active'className='LinksNav'>
                                     Winkelmand
-                            </NavLink>                               
+                            </NavLink>
+                            <div>
+                                <SearchBarMenu />
+                            </div>
+                            
+                                                    
         </nav>;
     }
 }
