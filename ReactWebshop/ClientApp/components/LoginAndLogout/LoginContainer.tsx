@@ -66,14 +66,15 @@ export class LoginContainer extends React.Component<RouteComponentProps<{}>, Log
             <div> <h1> Log in </h1> </div>
             <form  onSubmit={this.ResultLogin} onChange={this.HandleChangeToInputFields}>
             <div>
-            <label>
-                Username:         
+                <label>
+                    <span>Username:  </span>: 
+                      
                 <input type="text" name="username" value={this.state.typedInUsername} />               
             </label>
             </div>
             <div>
             <label>
-                Password:       
+                <span> Password:   </span>    
                 <input type="text" name="password"  value={this.state.typedInPassword} />             
             </label>
             </div>

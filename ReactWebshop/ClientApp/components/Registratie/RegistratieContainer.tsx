@@ -101,42 +101,42 @@ export class RegistratieContainer extends React.Component<RouteComponentProps<{}
             <form  onSubmit={this.InsertAccountIntoDatabase} onChange={this.HandleInputFieldsChange}>
             <div>
             <label>
-                Firstname:         
+                <span>Firstname:         </span>
                 <input type="text" name="firstname" value={this.state.firstname} />               
             </label>
             </div>
             <div>
             <label>
-                Lastname:       
+                <span>Lastname:       </span>
                 <input type="text" name="lastname"  value={this.state.lastname} />             
             </label>
             </div>
             <div>
             <label>
-                Email:          | 
+                <span>Email:    </span>          | 
                 <input type="text" name="email"  value={this.state.email} />             
             </label>
             </div>
             <div>
             <label>
-                Username:       
+                <span>Username:      </span> 
                 <input type="text" name="username"  value={this.state.username} />             
             </label>
             </div>
             <div>
             <label>
-                Password:       
+                <span>Password:       </span>
                 <input type="text" name="password"  value={this.state.password} />             
             </label>
             <div>
             <label>
-                Straatnaam:       
+                <span>Straatnaam:     </span>  
                 <input type="text" name="streetname"  value={this.state.streetname} />             
             </label>
             </div>
             <div>
             <label>
-                Postcode:       
+                <span>Postcode:    </span>   
                 <input type="text" name="postcode"  value={this.state.postcode} />             
             </label>
             </div>

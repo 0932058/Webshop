@@ -2,7 +2,9 @@ body{
     background-color: #232B2B;
 }
 /*keeps the text behind the home and side balk and in the middle */
-
+label span {
+    color: white;
+}
 .Orders{
     padding-top: 10em;
     margin-left: -4.5em;
