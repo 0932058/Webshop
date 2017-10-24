@@ -17,20 +17,7 @@ export class Afrekenen extends AbstractStorage {
         var loggedInUserPK = User.IsUserLoggedIn? User.GetPK() : 0
         this.state = {storageProducts: new List<storage>(), convertedStorageProducts: new List<product>(),customerID: loggedInUserPK, isShoppingCart:true, loaded:false, totalPrice: 0}
     }
-    render() {
-        if (User.IsUserLoggedIn){
-            return (
-                
-                <div className={"AfrekenContainer"}>
-                <h1>Afrekenen</h1>
-                <p> Total Price: €{this.state.totalPrice.toFixed(2)}</p>
-                <p> <button> Finalize order </button> </p>
-                </div>          
-            )
-        }
-        else{
-            return (
-                
+    render() {return  (
                 <div className={"AfrekenContainer"}>
                 <h1>Afrekenen</h1>
                 <div>
@@ -48,7 +35,7 @@ export class Afrekenen extends AbstractStorage {
                 </div>
                 <p> Total Price: €{this.state.totalPrice.toFixed(2)}</p>
                 <p> <button> Finalize order </button> </p>
-                </div>            
-            )
+                </div>     
+                )
         }}
-}
+        
