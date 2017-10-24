@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Link, NavLink } from 'react-router-dom';
 import { RouteComponentProps } from 'react-router';
 import {shoppingCartdata} from "../../DatabaseSimulation/FakeDatabase";
 import {game,storage, product}  from '../../DatabaseSimulation/TableTypes';
@@ -27,7 +28,9 @@ export class Winkelmand extends AbstractStorage {
             }
             <h1> Total items: {this.state.convertedStorageProducts.Count()}</h1>
             <h1> Total Price: €{this.state.totalPrice.toFixed(2)}</h1>
-            <h1> <button> Finalize order </button> </h1>
+            <h1> <NavLink to={ '/Afrekenen' } exact activeClassName='active' className='AfrekenLink'>
+                   Afrekenen
+                </NavLink> </h1>
             </div>          
         )}
 }
