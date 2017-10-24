@@ -5,7 +5,8 @@ import {game,storage, product}  from '../DatabaseSimulation/TableTypes';
 import {shoppingCart}  from '../DatabaseSimulation/TableTypes';
 import {List} from "linqts";
 import {AbstractStorage,StorageState} from "../Storage/ReusableComponents/Storage";
-import {WinkelMandComponent} from "../Storage/ShoppingCart/WinkelmandComponent";
+import {AfrekenContentLoggedIn} from "../Afrekenen/AfrekenContentLoggedIn";
+import {AfrekenContentLoggedOut} from "../Afrekenen/AfrekenContentLoggedOut";
 import {User} from "../User/User";
 
 //Container voor afrekenmenu
@@ -17,25 +18,29 @@ export class Afrekenen extends AbstractStorage {
         var loggedInUserPK = User.IsUserLoggedIn? User.GetPK() : 0
         this.state = {storageProducts: new List<storage>(), convertedStorageProducts: new List<product>(),customerID: loggedInUserPK, isShoppingCart:true, loaded:false, totalPrice: 0}
     }
-    render() {return  (
+    render() {
+        if (User.IsUserLoggedIn() == true) {
+            return (
                 <div className={"AfrekenContainer"}>
                 <h1>Afrekenen</h1>
-                <div>
-                    <h2>Adres</h2>
-                    <form>
-                        <p>Naam</p>
-                        <input type="text" name="Klantnaam"></input>
-                        <p>Straat en Huisnummer</p>
-                        <input type="text" name="KlantStraat"></input>
-                        <p>Postcode</p>
-                        <input type="text" name="KlantPostcode"></input>
-                        <p>Stad</p>
-                        <input type="text" name="KlantStad"></input>
-                    </form>
-                </div>
+                <div>{AfrekenContentLoggedIn}</div>
                 <p> Total Price: €{this.state.totalPrice.toFixed(2)}</p>
                 <p> <button> Finalize order </button> </p>
-                </div>     
-                )
-        }}
+                </div>
+            )
+        }
+        else
+            {return (
+                <div className={"AfrekenContainer"}>
+                <h1>Afrekenen</h1>
+                <div>{AfrekenContentLoggedOut}</div>
+                <p> Total Price: €{this.state.totalPrice.toFixed(2)}</p>
+                <p> <button> Finalize order </button> </p>
+                </div>
+            )
+        }
+        }
+    }
+    
         
+export default Afrekenen;

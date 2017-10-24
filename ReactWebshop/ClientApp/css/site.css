@@ -26,7 +26,7 @@ label span {
 .AccessoiresContainer, .AccessoiresComponent, .ConsolesComponent, .ConsoleContainer, .GamesComponent, .GamesContainer,
 .WinkelmandContainer,ProductPageContainer, .WensLijstComponent, .Searches, .HomeContainer, .HomeComponent,
 .BestellingenContainer, .BestellingenComponent, .WinkelmandComponent, .LoginContainer, .RegistratieSuccesfullContainer,
-.WensLijstContainer
+.WensLijstContainer, .AfrekenContainer
 {
     padding-top: 5cm;
     align-content: center;
