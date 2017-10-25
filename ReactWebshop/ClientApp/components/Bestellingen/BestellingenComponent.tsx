@@ -14,14 +14,15 @@ export class BestellingenComponent extends React.Component<BestellingenProps, {}
     }
     render() {
             return (
-            <div className={"Component"}>      
-            <h1>Bestellingen</h1>
-            <img src={this.props.image}  height={300}/>
+            <div className={"Component"}>
+            <img src={this.props.image}/>
+            <div className="ComponentInfo">
              <h3> Naam: {this.props.name} </h3> 
              <h3> Prijs: {"€" + this.props.price.toFixed(2)} </h3> 
              <h3> Besteld op: {this.props.orderDate} </h3>
              <h3> Status: {this.props.orderStatus} </h3>
-            </div>        
+            </div> 
+            </div>       
             )}          
 }
 

@@ -46,12 +46,12 @@ export class GamesContainer  extends React.Component<RouteComponentProps<{}>, IC
             this.state.loaded? 
             <div>
             <h1> {this.state.categoryTitle} </h1>
-            <h1> Items found: {this.state.foundProductToShow.Count()} </h1> 
+            <h2> Aantal Producten: {this.state.foundProductToShow.Count()} </h2> 
             {this.state.foundProductToShow.ToArray().map((game, index) =>
             <GamesComponent key={index} gameToShow={game} ToProductPage ={this.ToProductPage}/>)}
             </div>
             :
-            <div> loading... </div>                   
+            <div> laden </div>                   
         }   
         </div>         
     }       

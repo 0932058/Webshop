@@ -26,31 +26,31 @@ export class ProductPageComponent extends React.Component<ProductPageProps, Prod
     //The objects have to be parsed to json because this.state doesn't allow an single object in the state
     render() {
         return <div  className={"ProductPageComponent"}>      
-                <h1>{JSON.parse(this.state.product).name} - {JSON.parse(this.state.product).console}</h1>
-                <div>   
-                  <li> <img src={this.props.consoleImage}  width={300} height={50} /> </li>          
-                   <li> <img src={JSON.parse(this.state.product).image}  height={500}/> </li>                                     
-                   <div> <h2> Description: {JSON.parse(this.state.product).description} </h2></div>
-                   <div> <h2> Price: €{JSON.parse(this.state.product).price.toFixed(2)} </h2></div>
-                
-                   {JSON.parse(this.state.product).category == category.games?
-                   <div>
-                   <div> <h2> Age: {JSON.parse(this.state.product).age} </h2></div>
-                   <div> <h2> Genre: {JSON.parse(this.state.product).genreCategory} </h2></div>
-                   <div> <h2> Category: {JSON.parse(this.state.product).category} </h2></div>  
-                   <div> <h2> Console: {JSON.parse(this.state.product).console} </h2></div>     
-                   </div>
-                   :         
-                   <div>
-                   <div> <h2> Memory: {JSON.parse(this.state.product).memory} </h2></div>  
-                   <div> <h2> Console: {JSON.parse(this.state.product).console} </h2></div>     
-                   </div>    
-                   }
+                <h1>{JSON.parse(this.state.product).name}</h1>
+                <div>         
+                <img src={JSON.parse(this.state.product).image} />
+                <div className="ProductPageComponentInfo">                                   
+                <h2> Beschrijving:</h2><p> {JSON.parse(this.state.product).description} </p>
+                <h2> Prijs: €{JSON.parse(this.state.product).price.toFixed(2)} </h2>
+                {JSON.parse(this.state.product).category == category.games?
+                <div>
+                <h2> Leeftijd: {JSON.parse(this.state.product).age} </h2>
+                <h2> Genre: {JSON.parse(this.state.product).genreCategory} </h2>
+                <h2> Categorie: {JSON.parse(this.state.product).category} </h2>
+                <h2> Console:</h2><img src={this.props.consoleImage}  width={300} height={50} /><p>{JSON.parse(this.state.product).console}</p>
+                </div>
+                :         
+                <div>
+                <div> <h2> Geheugen: {JSON.parse(this.state.product).memory} </h2></div>  
+                <h2> Console:</h2><img src={this.props.consoleImage}  width={300} height={50} /><p>{JSON.parse(this.state.product).console}</p>     
+                </div>    
+                }
+                </div>
                 </div>
                 <h2>
-                <button  onClick= { (e:any) => this.HandleStorageAddClick(e, true)}> Add to shopping cart</button>
+                <button  onClick= { (e:any) => this.HandleStorageAddClick(e, true)}> Toevoegen aan winkelwagen</button>
                 {User.IsUserLoggedIn() ?
-                <button  onClick= { (e:any) => this.HandleStorageAddClick(e, false)}> Add to wishlist</button>
+                <button  onClick= { (e:any) => this.HandleStorageAddClick(e, false)}> Toevoegen aan wenslijst</button>
                 :
                 <div> </div>
                 }

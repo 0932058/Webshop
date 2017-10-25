@@ -13,13 +13,11 @@ export class AccessoiresComponent extends React.Component<AccessoiresComponentPr
     }
     render(){
         return <div className={"Component"}>                  
-                    <div>
-                    <h1>{this.props.accessoiresToShow.category}</h1>
-                    <h1>{this.props.accessoiresToShow.name}</h1>
-                    <li>  <img src={this.props.accessoiresToShow.image}  height={300}/> </li>
-                    <div> <h2> Naam: {this.props.accessoiresToShow.name} </h2> </div>
-                    <div> <h2> Prijs: {"€" + this.props.accessoiresToShow.price.toFixed(2)} </h2> </div>
-                    <h2> <button onClick={(e:any) => this.props.ToProductPage(e,this.props.accessoiresToShow)}> Product page  </button> </h2>        
+                     <img src={this.props.accessoiresToShow.image}></img>
+                     <div className="ComponentInfo">
+                    <h2> {this.props.accessoiresToShow.name} </h2>
+                    <p> Prijs: {"€" + this.props.accessoiresToShow.price.toFixed(2)} </p>
+                    <p> <button onClick={(e:any) => this.props.ToProductPage(e,this.props.accessoiresToShow)}> Productpagina  </button> </p>        
                     </div> 
                     </div>                
     }
