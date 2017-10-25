@@ -14,7 +14,7 @@ export class HomeComponent extends React.Component<HomeComponentProps, {}> {
     }
     render(){
         return <div className="Component">
-                    <img src={this.props.homeProduct.image}  height={300}/>
+                    <img src={this.props.homeProduct.image}/>
                     <div className="ComponentInfo">
                     <h2> {this.props.homeProduct.name} </h2>
                     <p> Prijs: {"€" + this.props.homeProduct.price.toFixed(2)} </p>

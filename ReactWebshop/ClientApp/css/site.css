@@ -13,14 +13,6 @@ ul, li{
     margin-left: -4.5em;
     z-index: -5;
 }
-.Product{
-    width:700px;
-    border: 1px solid rgb(0, 0, 0);
-    padding: 5px;
-    margin:10 px;
-    padding-top: 3cm;
-
-}
 .ProfileSideMenuLayout{
     padding-top: 4cm;
     padding-left:5cm;
@@ -28,21 +20,38 @@ ul, li{
 }
 .Component, .Search
 {
-    padding: 1em;
     margin: 1em;
+    padding: 1em;
     display: block;
-    size: auto;
+    border-style: solid;
+    border-width: 5px;
+    border-color: #232B2B;
+    border-radius: 5px;
+    height: auto;
 }
+
+.Component img{
+    background-color: #232B2B;
+    width: 10em;
+}
+.Search img{
+    background-color: #232B2B;
+    width: 10em;
+}
+
 
 .ComponentInfo {
     display:inline-block;
+    background-color: #DC3D24;
+    margin-left: 1em;
 }
 
 .Container, .Searches
 {
     display: block;
-    align-self: left ;
+    float: left;
     background: #DC3D24;
+    padding: 10px;
     border-radius: 5px;
     margin-top: 10em;
     margin-left: -10em;
@@ -51,13 +60,6 @@ ul, li{
 
 .SearchButton{
     align-content: center
-}
-
-.BestellingenComponent{
-    width:300px;
-    border: 2px solid rgb(0, 0, 0);
-    padding: 5px;
-    margin: 20px; 
 }
 
 .Orders-texst{
@@ -162,16 +164,7 @@ nav{
 nav form{
 	display: inline;
 }
-.RegistratieContainer input{
-    margin-top: 5px;
-}
-.RegistratieContainer li{
-    list-style-type: none;
-}
-.RegistratieContainer ul{
-    padding: 7px;
-    list-style-type: none;
-}
+
 form{
     vertical-align: middle;
 }
@@ -180,11 +173,6 @@ form{
     body {
 
         background-color: #232B2B;
-    }
-    .WinkelmandComponent{
-     align-content: center;
-    padding-top: 7cm;
-    color: black;
     }
 
     .Orders{
