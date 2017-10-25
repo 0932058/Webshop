@@ -48,7 +48,7 @@ export class HomeContainer extends React.Component<RouteComponentProps<{}>, Home
     render(){
    
         return(
-            <div className={"HomeContainer"}>
+            <div className={"Container"}>
             {User.IsUserLoggedIn()? 
             <div> <h1> Welkom {" " + User.GetFirstname()}!  dit zijn de nieuwste producten!  </h1> </div>
             :

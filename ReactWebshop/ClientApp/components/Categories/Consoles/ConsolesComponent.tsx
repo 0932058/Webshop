@@ -13,7 +13,7 @@ export class ConsolesComponent extends React.Component<ConsolesComponentProps, {
         super(props);   
     }
     render(){
-        return <div className={"ConsolesComponent"}>                  
+        return <div className={"Component"}>                  
                     <div>
                     <h1>{this.props.consoleToShow.console}</h1>
                     <h1>{this.props.consoleToShow.name}</h1>

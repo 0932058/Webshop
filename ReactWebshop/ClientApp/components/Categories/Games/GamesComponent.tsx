@@ -13,7 +13,7 @@ export class GamesComponent extends React.Component<GamesComponentProps, {}> {
         super(props);   
     }
     render(){
-        return <div className={"GamesComponent"}>                  
+        return <div className={"Component"}>                  
                     <div>
                     <h1>{this.props.gameToShow.console}</h1>
                     <h1>{this.props.gameToShow.name}</h1>

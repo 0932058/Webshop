@@ -17,11 +17,11 @@ export class GegevensComponent extends React.Component<{}, {}> {
             <div className={"GegevensComponent"}>
             <h1>
             <h1> Gegevens </h1>
-            <div> Voornaam: {User.GetFirstname()} </div>
-            <div> Achternaam: {User.GetLastname()} </div>
-            <div> Email: {User.GetEmail()} </div>
-            <div> Username: {User.GetUsername()} </div>
-            <div> Wachtwoord: {User.GetPassword()} </div>      
+            <h2> Voornaam: {User.GetFirstname()} </h2>
+            <h2> Achternaam: {User.GetLastname()} </h2>
+            <h2> Email: {User.GetEmail()} </h2>
+            <h2> Username: {User.GetUsername()} </h2>
+            <h2> Wachtwoord: {User.GetPassword()} </h2>      
             </h1>       
         </div>
         </div>

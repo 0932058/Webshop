@@ -40,7 +40,7 @@ export class GamesContainer  extends React.Component<RouteComponentProps<{}>, IC
         this.setState({productPageClicked: true, clickedOnProduct: game})
     }
     render() {   
-        return <div className={"GamesContainer"}>
+        return <div className={"Container"}>
             {this.state.productPageClicked? 
             <ProductPage clickedOnProduct={this.state.clickedOnProduct} /> :
             this.state.loaded? 

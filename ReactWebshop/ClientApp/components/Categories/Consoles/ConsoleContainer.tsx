@@ -40,7 +40,7 @@ export class ConsolesContainer  extends React.Component<RouteComponentProps<{}>,
         this.setState({productPageClicked: true, clickedOnProduct: console})
     }
     render() {   
-        return <div className={"ConsoleContainer"}>
+        return <div className={"Container"}>
             {this.state.productPageClicked? 
             <ProductPage clickedOnProduct={this.state.clickedOnProduct} /> :
             this.state.loaded? 

@@ -12,7 +12,7 @@ export class AccessoiresComponent extends React.Component<AccessoiresComponentPr
         super(props);   
     }
     render(){
-        return <div className={"AccessoiresComponent"}>                  
+        return <div className={"Component"}>                  
                     <div>
                     <h1>{this.props.accessoiresToShow.category}</h1>
                     <h1>{this.props.accessoiresToShow.name}</h1>

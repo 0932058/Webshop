@@ -5,6 +5,9 @@ body{
 label span {
     color: white;
 }
+ul, li{
+    list-style: none;
+}
 .Orders{
     padding-top: 10em;
     margin-left: -4.5em;
@@ -23,31 +26,31 @@ label span {
     padding-left:5cm;
     margin-left: 2cm;
 }
-.AccessoiresContainer, .AccessoiresComponent, .ConsolesComponent, .ConsoleContainer, .GamesComponent, .GamesContainer,
-.WinkelmandContainer,ProductPageContainer, .WensLijstComponent, .Searches, .HomeContainer, .HomeComponent,
-.BestellingenContainer, .BestellingenComponent, .WinkelmandComponent, .LoginContainer, .RegistratieSuccesfullContainer,
-.WensLijstContainer, .AfrekenContainer
+.Component, .Search
 {
-    padding-top: 5cm;
-    align-content: center;
-
+    padding: 1em;
+    margin: 1em;
+    display: block;
+    size: auto;
 }
+
+.ComponentInfo {
+    display:inline-block;
+}
+
+.Container, .Searches
+{
+    display: block;
+    align-self: left ;
+    background: #DC3D24;
+    border-radius: 5px;
+    margin-top: 10em;
+    margin-left: -10em;
+}
+
+
 .SearchButton{
     align-content: center
-}
-.LogOutContainer, .LogOutContainer{
-    align-content: center;
-    padding-top: 7cm;
-    color: black;
-}
-.RegistratieContainer{
-    padding-top: 7cm;
-    color:black;
-}
-.GegevensContainer{
-    align-content: center;
-    padding-top: 10cm;
-    color:red
 }
 
 .BestellingenComponent{
@@ -96,11 +99,18 @@ h1{
     font-size: 3em;
 }
 h2{
-	color: #D9D9D9;
+	color: white;
     border-radius: 5px;
 	padding: 0.1em;
     width: auto;
     font-size: 1.5em;
+}
+p{
+	color: white;
+}
+a{
+    color: white;
+
 }
 /* Keep the homebalk and sidebalk independent of scrolling and on top of other items */
 .UserLoggedInMenuLayout{

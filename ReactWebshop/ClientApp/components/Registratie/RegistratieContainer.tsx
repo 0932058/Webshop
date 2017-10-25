@@ -96,7 +96,7 @@ export class RegistratieContainer extends React.Component<RouteComponentProps<{}
     }
     render(){
         return(
-            <div className={"RegistratieContainer"}>
+            <div className={"Container"}>
                 <h1> Registreer</h1>
 
                 <ul><form  onSubmit={this.InsertAccountIntoDatabase} onChange={this.HandleInputFieldsChange}>

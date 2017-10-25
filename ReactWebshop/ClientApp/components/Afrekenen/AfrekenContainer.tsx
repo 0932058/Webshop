@@ -21,7 +21,7 @@ export class Afrekenen extends AbstractStorage {
     render() {
         if (User.IsUserLoggedIn() == true) {
             return (
-                <div className={"AfrekenContainer"}>
+                <div className={"Container"}>
                 <h1>Afrekenen</h1>
                 <div>{AfrekenContentLoggedIn}</div>
                 <p> Total Price: €{this.state.totalPrice.toFixed(2)}</p>
@@ -31,7 +31,7 @@ export class Afrekenen extends AbstractStorage {
         }
         else
             {return (
-                <div className={"AfrekenContainer"}>
+                <div className={"Container"}>
                 <h1>Afrekenen</h1>
                 <div>{AfrekenContentLoggedOut}</div>
                 <p> Total Price: €{this.state.totalPrice.toFixed(2)}</p>

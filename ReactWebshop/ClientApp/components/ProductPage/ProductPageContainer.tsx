@@ -93,7 +93,7 @@ export class ProductPage extends React.Component<ProductPageProps, ProductPageSt
     }
     render() {   
         return ( 
-            <div className={"ProductPageContainer"}>
+            <div className={"Container"}>
                 {this.state.loaded ? 
                 <ProductPageComponent  product={this.state.product} consoleImage={this.state.consoleImage}
                 AddProductToStorage={this.StorageAddHandler}/>    

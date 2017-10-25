@@ -61,7 +61,7 @@ export class LoginContainer extends React.Component<RouteComponentProps<{}>, Log
     render(){
    
         return(
-            <div className={"LoginContainer"}>
+            <div className={"Container"}>
             
             <div> <h1> Log in </h1> </div>
             <form  onSubmit={this.ResultLogin} onChange={this.HandleChangeToInputFields}>

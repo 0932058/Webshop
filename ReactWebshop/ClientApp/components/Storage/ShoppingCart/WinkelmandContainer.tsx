@@ -21,16 +21,16 @@ export class Winkelmand extends AbstractStorage {
     render() {
         return (
             
-        <div className={"WinkelmandContainer"}>
+        <div className={"Container"}>
             <h1>Winkelmand</h1>
             {this.state.convertedStorageProducts.ToArray().map((storageProduct,index) =>
             <WinkelMandComponent key={index} shoppingCartProduct={storageProduct} RemoveItemFromStorage={this.RemoveItemFromStorage}/>)  
             }
-            <h1> Total items: {this.state.convertedStorageProducts.Count()}</h1>
-            <h1> Total Price: €{this.state.totalPrice.toFixed(2)}</h1>
-            <h1> <NavLink to={ '/Afrekenen' } exact activeClassName='active' className='AfrekenLink'>
+            <p> Total items: {this.state.convertedStorageProducts.Count()}</p>
+            <p> Total Price: €{this.state.totalPrice.toFixed(2)}</p>
+            <h2> <NavLink to={ '/Afrekenen' } exact activeClassName='active' className='AfrekenLink'>
                    Afrekenen
-                </NavLink> </h1>
+                </NavLink> </h2>
             </div>          
         )}
 }
