@@ -16,7 +16,7 @@ export class WensLijstContainer extends AbstractStorage {
     }
     render() {
         return (
-        <div className={"WensLijstContainer"}>
+        <div className={"Container"}>
             <h1>Wenslijst</h1>
             {this.state.convertedStorageProducts.ToArray().map((storageProduct,index) =>
             <WensLijstComponent key={index} WenslijstProduct={storageProduct} RemoveItemFromStorage={this.RemoveItemFromStorage}/>)  

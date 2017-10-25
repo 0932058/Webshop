@@ -40,13 +40,13 @@ export class ConsolesContainer  extends React.Component<RouteComponentProps<{}>,
         this.setState({productPageClicked: true, clickedOnProduct: console})
     }
     render() {   
-        return <div className={"ConsoleContainer"}>
+        return <div className={"Container"}>
             {this.state.productPageClicked? 
             <ProductPage clickedOnProduct={this.state.clickedOnProduct} /> :
             this.state.loaded? 
             <div>
             <h1> {this.state.categoryTitle} </h1>
-            <h1> Items found: {this.state.foundProductToShow.Count()} </h1> 
+            <h2> Aantal Producten: {this.state.foundProductToShow.Count()} </h2> 
             {this.state.foundProductToShow.ToArray().map((console, index) =>
             <ConsolesComponent key={index} consoleToShow={console} ToProductPage ={this.ToProductPage}/>)}
             </div>

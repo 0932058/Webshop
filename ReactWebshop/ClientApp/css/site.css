@@ -5,56 +5,73 @@ body{
 label span {
     color: white;
 }
+ul, li{
+    list-style: none;
+}
 .Orders{
     padding-top: 10em;
     margin-left: -4.5em;
     z-index: -5;
-}
-.Product{
-    width:700px;
-    border: 1px solid rgb(0, 0, 0);
-    padding: 5px;
-    margin:10 px;
-    padding-top: 3cm;
-
 }
 .ProfileSideMenuLayout{
     padding-top: 4cm;
     padding-left:5cm;
     margin-left: 2cm;
 }
-.AccessoiresContainer, .AccessoiresComponent, .ConsolesComponent, .ConsoleContainer, .GamesComponent, .GamesContainer,
-.WinkelmandContainer,ProductPageContainer, .WensLijstComponent, .Searches, .HomeContainer, .HomeComponent,
-.BestellingenContainer, .BestellingenComponent, .WinkelmandComponent, .LoginContainer, .RegistratieSuccesfullContainer,
-.WensLijstContainer
+.Component, .Search
 {
-    padding-top: 5cm;
-    align-content: center;
-
+    margin: 1em;
+    padding: 1em;
+    display: block;
+    border-style: solid;
+    border-width: 5px;
+    border-color: #232B2B;
+    border-radius: 5px;
+    height: auto;
 }
+
+.Component img{
+    background-color: #232B2B;
+    width: 10em;
+}
+.Search img{
+    background-color: #232B2B;
+    width: 10em;
+}
+
+
+.ComponentInfo {
+    display:inline-block;
+    background-color: #DC3D24;
+    margin-left: 1em;
+}
+
+.ProductPageComponent{
+    margin: 1em;
+    padding: 1em;
+    display: block;
+    border-style: solid;
+    border-width: 5px;
+    border-color: #232B2B;
+    border-radius: 5px;
+    height: auto;
+}
+
+.Container, .Searches
+{
+    display: block;
+    float: left;
+    background: #DC3D24;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 10em;
+    margin-left: -10em;
+    width: auto;
+}
+
+
 .SearchButton{
     align-content: center
-}
-.LogOutContainer, .LogOutContainer{
-    align-content: center;
-    padding-top: 7cm;
-    color: black;
-}
-.RegistratieContainer{
-    padding-top: 7cm;
-    color:black;
-}
-.GegevensContainer{
-    align-content: center;
-    padding-top: 10cm;
-    color:red
-}
-
-.BestellingenComponent{
-    width:300px;
-    border: 2px solid rgb(0, 0, 0);
-    padding: 5px;
-    margin: 20px; 
 }
 
 .Orders-texst{
@@ -96,11 +113,18 @@ h1{
     font-size: 3em;
 }
 h2{
-	color: #D9D9D9;
+	color: white;
     border-radius: 5px;
 	padding: 0.1em;
     width: auto;
     font-size: 1.5em;
+}
+p{
+	color: white;
+}
+a{
+    color: white;
+
 }
 /* Keep the homebalk and sidebalk independent of scrolling and on top of other items */
 .UserLoggedInMenuLayout{
@@ -152,16 +176,7 @@ nav{
 nav form{
 	display: inline;
 }
-.RegistratieContainer input{
-    margin-top: 5px;
-}
-.RegistratieContainer li{
-    list-style-type: none;
-}
-.RegistratieContainer ul{
-    padding: 7px;
-    list-style-type: none;
-}
+
 form{
     vertical-align: middle;
 }
@@ -170,11 +185,6 @@ form{
     body {
 
         background-color: #232B2B;
-    }
-    .WinkelmandComponent{
-     align-content: center;
-    padding-top: 7cm;
-    color: black;
     }
 
     .Orders{

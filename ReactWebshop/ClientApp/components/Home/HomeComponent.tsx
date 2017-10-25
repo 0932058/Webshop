@@ -13,16 +13,15 @@ export class HomeComponent extends React.Component<HomeComponentProps, {}> {
         super(props);   
     }
     render(){
-        return <div className={"HomeComponent"}>                  
-                    <div>                                  
-                    <h1>{this.props.homeProduct.name}</h1>
-                    <li>  <img src={this.props.homeProduct.image}  height={300}/> </li>
-                    <div> <h2> Naam: {this.props.homeProduct.name} </h2> </div>
-                    <div> <h2> Prijs: {"€" + this.props.homeProduct.price.toFixed(2)} </h2> </div>
-                    <div> <h2> Categorie: {this.props.homeProduct.category} </h2> </div>
-                    <h2> <button onClick={(e:any) => this.props.GotoProductPage(e,this.props.homeProduct)}> Product page  </button> </h2>        
-                    </div> 
-                    </div>                
+        return <div className="Component">
+                    <img src={this.props.homeProduct.image}/>
+                    <div className="ComponentInfo">
+                    <h2> {this.props.homeProduct.name} </h2>
+                    <p> Prijs: {"€" + this.props.homeProduct.price.toFixed(2)} </p>
+                    <p> Categorie: {this.props.homeProduct.category} </p>
+                    <h2> <button onClick={(e:any) => this.props.GotoProductPage(e,this.props.homeProduct)}> Product page  </button> </h2>
+                    </div>
+                    </div>               
     }
 }
 export default HomeComponent;

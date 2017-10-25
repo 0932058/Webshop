@@ -46,7 +46,8 @@ export class BestellingenContainer extends React.Component<RouteComponentProps<{
    }
     render() {   
         return ( 
-            <div className={"BestellingenContainer"}>
+            <div className={"Container"}>
+            <h1>Bestellingen</h1>
                 {this.state.loaded? 
                 this.state.orderAndProductCombined.ToArray().map((order,index) => 
                     <BestellingenComponent key={index} image={order.image} name={order.name}

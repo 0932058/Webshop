@@ -44,18 +44,18 @@ export class AccessoiresContainer  extends React.Component<RouteComponentProps<{
         this.setState({productPageClicked: true, clickedOnProduct: game})
     }
     render() {   
-        return <div className={"AccessoiresContainer"}>
+        return <div className={"Container"}>
             {this.state.productPageClicked? 
             <ProductPage clickedOnProduct={this.state.clickedOnProduct} /> :
             this.state.loaded? 
             <div>
             <h1> {this.state.categoryTitle} </h1>
-            <h1> Items found: {this.state.foundProductToShow.Count()} </h1> 
+            <h2> Aantal producten: {this.state.foundProductToShow.Count()} </h2> 
             {this.state.foundProductToShow.ToArray().map((accessoires, index) =>
             <AccessoiresComponent key={index} accessoiresToShow={accessoires} ToProductPage ={this.ToProductPage}/>)}
             </div>
             :
-            <div> loading... </div>                   
+            <div> laden... </div>                   
         }   
         </div>         
     }       

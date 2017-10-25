@@ -13,14 +13,12 @@ export class GamesComponent extends React.Component<GamesComponentProps, {}> {
         super(props);   
     }
     render(){
-        return <div className={"GamesComponent"}>                  
-                    <div>
-                    <h1>{this.props.gameToShow.console}</h1>
-                    <h1>{this.props.gameToShow.name}</h1>
-                    <li>  <img src={this.props.gameToShow.image}  height={300}/> </li>
-                    <div> <h2> Naam: {this.props.gameToShow.name} </h2> </div>
-                    <div> <h2> Prijs: {"€" + this.props.gameToShow.price.toFixed(2)} </h2> </div>
-                    <h2> <button onClick={(e:any) => this.props.ToProductPage(e,this.props.gameToShow)}> Product page  </button> </h2>        
+        return <div className={"Component"}>
+                    <img src={this.props.gameToShow.image}/>
+                    <div className="ComponentInfo"> <h2>{this.props.gameToShow.name} </h2>
+                    <p>Console: {this.props.gameToShow.console}</p>
+                    <p> Prijs: {"€" + this.props.gameToShow.price.toFixed(2)} </p>
+                    <h2> <button onClick={(e:any) => this.props.ToProductPage(e,this.props.gameToShow)}> Productpagina  </button> </h2>        
                     </div> 
                     </div>                
     }

@@ -13,13 +13,10 @@ export class ConsolesComponent extends React.Component<ConsolesComponentProps, {
         super(props);   
     }
     render(){
-        return <div className={"ConsolesComponent"}>                  
-                    <div>
-                    <h1>{this.props.consoleToShow.console}</h1>
-                    <h1>{this.props.consoleToShow.name}</h1>
-                    <li>  <img src={this.props.consoleToShow.image}  height={300}/> </li>
-                    <div> <h2> Naam: {this.props.consoleToShow.name} </h2> </div>
-                    <div> <h2> Prijs: {"€" + this.props.consoleToShow.price.toFixed(2)} </h2> </div>
+        return <div className={"Component"}>                  
+                    <img src={this.props.consoleToShow.image}/>
+                    <div className="ComponentInfo" > <h2>{this.props.consoleToShow.name} </h2>
+                    <p> Prijs: {"€" + this.props.consoleToShow.price.toFixed(2)} </p>
                     <h2> <button onClick={(e:any) => this.props.ToProductPage(e,this.props.consoleToShow)}> Product page  </button> </h2>        
                     </div> 
                     </div>                

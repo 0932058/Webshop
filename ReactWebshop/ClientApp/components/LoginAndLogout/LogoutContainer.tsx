@@ -30,7 +30,7 @@ export class LogoutContainer extends React.Component<RouteComponentProps<{}>, Lo
     }  
     render(){  
         return(
-            <div className={"LogOutContainer"}>
+            <div className={"Container"}>
             {this.state.loaded? 
             <Redirect exact to={"/"} push={true}/>
             :

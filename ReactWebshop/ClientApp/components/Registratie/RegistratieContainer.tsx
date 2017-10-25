@@ -96,21 +96,21 @@ export class RegistratieContainer extends React.Component<RouteComponentProps<{}
     }
     render(){
         return(
-            <div className={"RegistratieContainer"}>
+            <div className={"Container"}>
                 <h1> Registreer</h1>
 
                 <ul><form  onSubmit={this.InsertAccountIntoDatabase} onChange={this.HandleInputFieldsChange}>
-                    <li><input placeholder="firstname" type="text" name="firstname" value={this.state.firstname} /> </li>              
+                    <li><input placeholder="voornaam" type="text" name="firstname" value={this.state.firstname} /> </li>              
                    
-                    <li><input placeholder="lastname" type="text" name="lastname"  value={this.state.lastname} /> </li>            
+                    <li><input placeholder="achternaam" type="text" name="lastname"  value={this.state.lastname} /> </li>            
 
                     <li><input placeholder="email" type="text" name="email"  value={this.state.email} /> </li>            
                 
-                    <li><input placeholder="username" type="text" name="username"  value={this.state.username} /> </li>            
+                    <li><input placeholder="gebruikersnaam" type="text" name="username"  value={this.state.username} /> </li>            
                   
-                    <li><input placeholder="password" type="text" name="password"  value={this.state.password} /> </li>            
+                    <li><input placeholder="wachtwoord" type="text" name="password"  value={this.state.password} /> </li>            
                  
-                    <li><input placeholder='Straatnaam' type="text" name="streetname"  value={this.state.streetname} /> </li>            
+                    <li><input placeholder='straatnaam' type="text" name="streetname"  value={this.state.streetname} /> </li>            
                   
                     <li><input placeholder="postcode" type="text" name="postcode"  value={this.state.postcode} /> </li>            
 

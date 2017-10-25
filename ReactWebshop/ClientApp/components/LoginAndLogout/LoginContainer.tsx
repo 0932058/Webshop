@@ -61,25 +61,25 @@ export class LoginContainer extends React.Component<RouteComponentProps<{}>, Log
     render(){
    
         return(
-            <div className={"LoginContainer"}>
+            <div className={"Container"}>
             
             <div> <h1> Log in </h1> </div>
             <form  onSubmit={this.ResultLogin} onChange={this.HandleChangeToInputFields}>
             <div>
                 <label>
-                    <span>Username:  </span>: 
+                    <span>Gebruikersnaam:  </span>
                       
                 <input type="text" name="username" value={this.state.typedInUsername} />               
             </label>
             </div>
             <div>
             <label>
-                <span> Password:   </span>    
+                <span> Wachtwoord:   </span>    
                 <input type="text" name="password"  value={this.state.typedInPassword} />             
             </label>
             </div>
-            <input type="submit" value="Submit"  />
-            <button onClick={this.RegisterTheAccount}> Register </button>   
+            <input type="submit" value="Inloggen"  />
+            <button onClick={this.RegisterTheAccount}> Registeer </button>   
             </form>       
             <div>            
             </div>    
@@ -91,7 +91,7 @@ export class LoginContainer extends React.Component<RouteComponentProps<{}>, Log
             :
             <div> </div>
             }
-            }        
+                    
             </div>
         )}
 }

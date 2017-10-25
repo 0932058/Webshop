@@ -15,7 +15,7 @@ export class GegevensContainer extends React.Component<RouteComponentProps<{}>, 
     render(){  
         return(    
             <div>         
-                <div className={"GegevensContainer"}>
+                <div className={"Container"}>
                 <GegevensComponent  />  
             </div>        
             </div>             

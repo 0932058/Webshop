@@ -18,7 +18,7 @@ export class WensLijstComponent extends React.Component<WenslijstProps, {}> {
         this.props.RemoveItemFromStorage(this.props.WenslijstProduct, this.props.WenslijstProduct.category)
     }
     render(){
-        return <div className={"WensLijstComponent"}>                  
+        return <div className={"Component"}>                  
                     <div>
                     <h1>{this.props.WenslijstProduct.name}</h1>
                     <li>  <img src={this.props.WenslijstProduct.image}  height={300}/> </li>

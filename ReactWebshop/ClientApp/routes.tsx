@@ -19,6 +19,7 @@ import {ProfileSideMenuLayout} from "./components/Profile/Layout/ProfileSideMenu
 import {ProfileContainer} from "./components/Profile/ProfileContainer";
 import {LogoutContainer} from "./components/LoginAndLogout/LogoutContainer";
 import {RegistratieSuccesfullContainer} from "./components/Registratie/RegistratieSuccesfullContainer";
+import {Afrekenen} from "./components/Afrekenen/AfrekenContainer";
 
 
 export const routes = <Layout>
@@ -37,6 +38,7 @@ export const routes = <Layout>
     
     <Route path='/Wenslijst' component={ WensLijstContainer } />
     <Route path='/Winkelmand' component={ Winkelmand } />
+    <Route path='/Afrekenen' component={Afrekenen} />
 
     <Route path='/Bestellingen' component={ BestellingenContainer } />
 
