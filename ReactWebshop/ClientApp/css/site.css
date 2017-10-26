@@ -55,6 +55,11 @@ ul, li{
     border-color: #232B2B;
     border-radius: 5px;
     height: auto;
+    min-width: 60em;
+}
+
+.ProductPageComponent img{
+    max-height: 30em;
 }
 
 .Container, .Searches
