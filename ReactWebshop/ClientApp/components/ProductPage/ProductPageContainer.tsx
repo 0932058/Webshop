@@ -60,10 +60,10 @@ export class ProductPage extends React.Component<ProductPageProps, ProductPageSt
     //Notifcation pop up when user adds an item to the wishlist or shopping cart
     NotificationAlert(product: product, isForTheShoppingcart: boolean){
         if(isForTheShoppingcart){
-            alert(product.name + " has been added to ShoppingCart!")
+            alert(product.name + " is aan de winkelmand toegevoegd")
         }
         else{
-            alert(product.name + " has been added to Wishlist!")
+            alert(product.name + " is aan uw wenslijst toegevoegd")
         }
     }
     //Depending on the category of the product, the console header gets displayed

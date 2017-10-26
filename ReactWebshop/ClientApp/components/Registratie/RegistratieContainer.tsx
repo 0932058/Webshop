@@ -114,7 +114,7 @@ export class RegistratieContainer extends React.Component<RouteComponentProps<{}
                   
                     <li><input placeholder="postcode" type="text" name="postcode"  value={this.state.postcode} /> </li>            
 
-                    <li><input placeholder="Submit" type="submit" value="Registreer"  /> </li>
+                    <li><input placeholder="Registreer" type="submit" value="Registreer"  /> </li>
                 </form></ul>
 
             {this.state.isNoEmptyInputFields ?

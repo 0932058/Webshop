@@ -17,7 +17,21 @@ export class Afrekenen extends AbstractStorage {
         //Gets the pk of the logged in user
         var loggedInUserPK = User.IsUserLoggedIn? User.GetPK() : 0
         this.state = {storageProducts: new List<storage>(), convertedStorageProducts: new List<product>(),customerID: loggedInUserPK, isShoppingCart:true, loaded:false, totalPrice: 0}
+        this.EmptyShoppingCart = this.EmptyShoppingCart.bind(this);
     }
+    EmptyShoppingCart(){
+        var itemsToDelete = shoppingCartdata.Where(item => item.accountFK == User.GetPK());
+        console.log(itemsToDelete.Count() + " BEFORE DELETE!")
+        while(itemsToDelete.Count() > 0){
+            shoppingCartdata.RemoveAt(itemsToDelete.Count()-1);
+            itemsToDelete = shoppingCartdata.Where(item => item.accountFK == User.GetPK());
+        }
+        console.log(itemsToDelete.Count() + " AFTER DELETE!")
+        this.setState({totalPrice: 0})
+
+   
+    }
+
     render() {
         if (User.IsUserLoggedIn() == true) {
             return (
@@ -35,7 +49,7 @@ export class Afrekenen extends AbstractStorage {
                 <h1>Afrekenen</h1>
                 <div>{AfrekenContentLoggedOut}</div>
                 <p> Total Price: €{this.state.totalPrice.toFixed(2)}</p>
-                <p> <button> Finalize order </button> </p>
+                <p> <button onClick={this.EmptyShoppingCart}> Finalize order </button> </p>
                 </div>
             )
         }

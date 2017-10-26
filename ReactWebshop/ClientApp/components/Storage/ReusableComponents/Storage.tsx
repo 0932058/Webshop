@@ -77,12 +77,11 @@ export interface StorageState{
  
     //When an item gets removed
     GiveNotifcation() {
-        var alertText = " item prepared to be removed! Press ok to finalize it"
         if(this.state.isShoppingCart){
-            alert("Shopping cart" + alertText);
+            alert("Weet u zeker dat u dit product uit de winkelmand wil halen?");
         }
         else{
-            alert("Wishlist item " + alertText);
+            alert("Weet u zeker dat u dit product uit uw wenslijst wil halen?");
         }
         
     }
@@ -100,6 +99,6 @@ export interface StorageState{
                 && SC.productFK == productToRemove.pk && SC.productForeignKeyReference == productToRemove.category).FirstOrDefault();         
         }
         this.RemovingItem(productToRemove,category,foundItem);   
-    } 
+    }
 }
 export default AbstractStorage;

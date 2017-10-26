@@ -23,7 +23,7 @@ export class WinkelMandComponent extends React.Component<WinkelmandProps, {}> {
                     <li>  <img src={this.props.shoppingCartProduct.image}  height={300}/> </li>
                     <div> <h2> Naam: {this.props.shoppingCartProduct.name} </h2> </div>
                     <div> <h2> Prijs: {"€" + this.props.shoppingCartProduct.price.toFixed(2)} </h2> </div>
-                    <h2> <button onClick={this.RemoveItemFromStorage}> Remove from shopping cart </button> </h2>        
+                    <h2> <button onClick={this.RemoveItemFromStorage}> Verwijderen </button> </h2>        
                     </div> 
                     </div>                
     }

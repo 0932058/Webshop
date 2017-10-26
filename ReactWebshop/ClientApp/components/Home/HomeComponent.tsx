@@ -19,7 +19,7 @@ export class HomeComponent extends React.Component<HomeComponentProps, {}> {
                     <h2> {this.props.homeProduct.name} </h2>
                     <p> Prijs: {"€" + this.props.homeProduct.price.toFixed(2)} </p>
                     <p> Categorie: {this.props.homeProduct.category} </p>
-                    <h2> <button onClick={(e:any) => this.props.GotoProductPage(e,this.props.homeProduct)}> Product page  </button> </h2>
+                    <h2> <button onClick={(e:any) => this.props.GotoProductPage(e,this.props.homeProduct)}> Productpagina  </button> </h2>
                     </div>
                     </div>               
     }

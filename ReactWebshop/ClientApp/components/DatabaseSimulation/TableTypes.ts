@@ -50,7 +50,9 @@ export type account = {
     password: string,
     wishListFK: number,
     shoppingCartFK: number,
-    orderFK: number[] | number | null
+    orderFK: number[] | number | null,
+    streetname: string,
+    postcode: string
     
 }
 export type console = {
