@@ -86,7 +86,7 @@ export class RegistratieContainer extends React.Component<RouteComponentProps<{}
             
         if(possibleExistingAccount == null){          
             accountToInsert = {pk: accountsTableData.Count() + 1, firstName: this.state.firstname,         
-                lastName: this.state.lastname, email: this.state.email, username: this.state.username, password: this.state.password,
+                lastName: this.state.lastname, email: this.state.email, username: this.state.username, password: this.state.password, streetname: this.state.streetname, postcode: this.state.postcode,
                 wishListFK: null, shoppingCartFK: null, orderFK: null}    
                 return Promise.resolve(accountToInsert);                 
         }

@@ -16,6 +16,8 @@ export let user1: account = {
     email: "pietje.piet@live.nl",
     username: "pieterman",
     password: "test123",
+    streetname: "straat1",
+    postcode: "1234XD",
     wishListFK: 1,
     shoppingCartFK: 1,
     orderFK: order1.pk
@@ -27,6 +29,8 @@ export let user2: account = {
     email: "h@live.nl",
     username: "henk",
     password: "wiw",
+    streetname: "straat2",
+    postcode: "1234XP",
     wishListFK: 1,
     shoppingCartFK: 1,
     orderFK: order1.pk
