@@ -5,8 +5,6 @@ import {game,storage, product}  from '../DatabaseSimulation/TableTypes';
 import {shoppingCart}  from '../DatabaseSimulation/TableTypes';
 import {List} from "linqts";
 import {AbstractStorage,StorageState} from "../Storage/ReusableComponents/Storage";
-import {AfrekenContentLoggedIn} from "../Afrekenen/AfrekenContentLoggedIn";
-import {AfrekenContentLoggedOut} from "../Afrekenen/AfrekenContentLoggedOut";
 import {User} from "../User/User";
 
 //Container voor afrekenmenu
@@ -37,7 +35,20 @@ export class Afrekenen extends AbstractStorage {
             return (
                 <div className={"Container"}>
                 <h1>Afrekenen</h1>
-                <div>{AfrekenContentLoggedIn}</div>
+                <ul>
+                    <li>
+                        <h2>Naam</h2>
+                        <p>{User.GetFirstname() + ' ' + User.GetLastname()}</p>
+                    </li>
+                    <li>
+                        <h2>Straat</h2>
+                        <p>{User.GetStreetname()}</p>
+                    </li>
+                    <li>
+                        <h2>Postcode</h2>
+                        <p>{User.getPostcode()}</p>
+                    </li>
+                </ul>
                 <p> Total Price: €{this.state.totalPrice.toFixed(2)}</p>
                 <p> <button> Finalize order </button> </p>
                 </div>
@@ -46,10 +57,16 @@ export class Afrekenen extends AbstractStorage {
         else
             {return (
                 <div className={"Container"}>
-                <h1>Afrekenen</h1>
-                <div>{AfrekenContentLoggedOut}</div>
+                <h1>Afrekenen</h1>\
+                <p>Adres voor bezorging en incasso.</p>
+                <form>
+                    <li><input placeholder="voornaam" type="text" name="firstname" /> </li>
+                    <li><input placeholder="achternaam" type="text" name="lastname" /> </li>
+                    <li><input placeholder='straatnaam' type="text" name="streetname" /> </li>
+                    <li><input placeholder="postcode" type="text" name="postcode" /> </li> 
+                </form>
                 <p> Total Price: €{this.state.totalPrice.toFixed(2)}</p>
-                <p> <button onClick={this.EmptyShoppingCart}> Finalize order </button> </p>
+                <p> <button onClick={this.EmptyShoppingCart}> Bestellen </button> </p>
                 </div>
             )
         }

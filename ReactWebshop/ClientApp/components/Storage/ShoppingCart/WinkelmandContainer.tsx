@@ -28,9 +28,7 @@ export class Winkelmand extends AbstractStorage {
             }
             <p> Total items: {this.state.convertedStorageProducts.Count()}</p>
             <p> Total Price: €{this.state.totalPrice.toFixed(2)}</p>
-            <h2> <NavLink to={ '/Afrekenen' } exact activeClassName='active' className='AfrekenLink'>
-                   Afrekenen
-                </NavLink> </h2>
+            <h2> <NavLink to={ '/Afrekenen' } exact activeClassName='active' className='AfrekenLink'> Naar Afrekenen </NavLink> </h2>
             </div>          
         )}
 }
