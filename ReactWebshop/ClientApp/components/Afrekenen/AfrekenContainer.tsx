@@ -28,7 +28,7 @@ export class Afrekenen extends AbstractStorage {
         }
         console.log(itemsToDelete.Count() + " AFTER DELETE!")
         this.setState({totalPrice: 0})
-
+        alert("Uw bestelling is voltooid")
    
     }
 
