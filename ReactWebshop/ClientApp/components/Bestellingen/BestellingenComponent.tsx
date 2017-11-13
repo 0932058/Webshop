@@ -17,10 +17,10 @@ export class BestellingenComponent extends React.Component<BestellingenProps, {}
             <div className={"Component"}>
             <img src={this.props.image}/>
             <div className="ComponentInfo">
-             <h3> Naam: {this.props.name} </h3> 
-             <h3> Prijs: {"€" + this.props.price.toFixed(2)} </h3> 
-             <h3> Besteld op: {this.props.orderDate} </h3>
-             <h3> Status: {this.props.orderStatus} </h3>
+             <h1> Naam: {this.props.name} </h1> 
+             <h2> Prijs: {"€" + this.props.price.toFixed(2)} </h2> 
+             <h2> Besteld op: {this.props.orderDate} </h2>
+             <h2> Status: {this.props.orderStatus} </h2>
             </div> 
             </div>       
             )}          

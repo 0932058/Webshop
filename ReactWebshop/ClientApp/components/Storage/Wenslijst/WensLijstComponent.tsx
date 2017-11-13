@@ -21,7 +21,7 @@ export class WensLijstComponent extends React.Component<WenslijstProps, {}> {
         return <div className={"Component"}>                  
                     <div>
                     <h1>{this.props.WenslijstProduct.name}</h1>
-                    <li>  <img src={this.props.WenslijstProduct.image}  height={300}/> </li>
+                    <li>  <img src={this.props.WenslijstProduct.image}/> </li>
                     <div> <h2> Naam: {this.props.WenslijstProduct.name} </h2> </div>
                     <div> <h2> Prijs: {"€" + this.props.WenslijstProduct.price.toFixed(2)} </h2> </div>
                     <h2> <button onClick={this.RemoveItemFromStorage}> Remove from WishList </button> </h2>        
