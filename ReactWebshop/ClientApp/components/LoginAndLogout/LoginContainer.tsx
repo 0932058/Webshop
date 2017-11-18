@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {accountsTableData} from "../DatabaseSimulation/FakeDatabase";
-import {account} from "../DatabaseSimulation/TableTypes";
+import {user} from "../DatabaseSimulation/TableTypes";
 import {List} from "linqts";
 import { RouteComponentProps } from 'react-router';
 import {RegistratieContainer} from "../Registratie/RegistratieContainer";
@@ -13,15 +13,16 @@ interface LoginContainerState{
     typedInUsername: string;
     typedInPassword: string;
     isRegisterButtonClick: boolean;
+    loggedInUser: user | null;
 }
 export class LoginContainer extends React.Component<RouteComponentProps<{}>, LoginContainerState> {
     constructor(){
         super();
         this.HandleChangeToInputFields = this.HandleChangeToInputFields.bind(this);
-        this.CheckLoginInDatabase = this.CheckLoginInDatabase.bind(this);
+        this.LoadUsersFromApi = this.LoadUsersFromApi.bind(this);
+        this.CheckIfLoginIsCorrect = this.CheckIfLoginIsCorrect.bind(this);
         this.RegisterTheAccount = this.RegisterTheAccount.bind(this);
-        this.ResultLogin = this.ResultLogin.bind(this);
-        this.state = {typedInUsername:"", typedInPassword:"", isRegisterButtonClick: false, userLoggedIn: false}   
+        this.state = {typedInUsername:"", typedInPassword:"", isRegisterButtonClick: false, userLoggedIn: false, loggedInUser: null}   
         this.CreateLoggedInUser = this.CreateLoggedInUser.bind(this);    
     }
     //When the user types into one of the fields, the result is saved to the state
@@ -33,23 +34,29 @@ export class LoginContainer extends React.Component<RouteComponentProps<{}>, Log
             this.setState({typedInPassword: event.target.value});   
         }           
     }
-    //Checks if account with the given username and password exists
-    CheckLoginInDatabase() : Promise<null|account>{
-        var userAccount = accountsTableData.Where(account => account.username == this.state.typedInUsername && 
-            account.password == this.state.typedInPassword).FirstOrDefault();
-        if(userAccount == null){
-            return Promise.reject("Incorrect login")
-        }
-        return Promise.resolve(userAccount);
-    } 
-    //Depending on the result of the CheckLoginInDatabase method, an pop up appears on the screen
-    ResultLogin(event: any){
+    async LoadUsersFromApi() : Promise<user[]>{
+        let apiResponse = await fetch('api/User/Get', {method: 'get', credentials: 'include', headers: new Headers({'content-type' : 'application/json'})});
+        let apiResponseJson = await apiResponse.json();
+        return apiResponseJson;
+    }
+    CheckIfLoginIsCorrect(event:any):void{
         event.preventDefault();
-        this.CheckLoginInDatabase().then(userAccount => this.CreateLoggedInUser(userAccount))
-        .catch(errorMessage => alert(errorMessage))
+        this.LoadUsersFromApi().then(foundUsers => {
+            for(let index = 0; foundUsers.length;index++){
+                if(foundUsers[index].username == this.state.typedInUsername){
+                    if(foundUsers[index].password == this.state.typedInPassword){
+                        this.CreateLoggedInUser(foundUsers[index])
+                    }
+                    else{
+                        alert("wrong password!")
+                    }
+                }      
+            }
+        })
+        .catch(errorMessage => console.log(errorMessage));
     }
     //Fetches the data (Pk, name etc) of the logged in user 
-    CreateLoggedInUser(userAccount: account){
+    CreateLoggedInUser(userAccount: user){
         var loggedInUser = User.CreateUser();
         loggedInUser.SetAccount(userAccount);
         this.setState({userLoggedIn: true})
@@ -59,12 +66,11 @@ export class LoginContainer extends React.Component<RouteComponentProps<{}>, Log
         this.setState({isRegisterButtonClick: true})
     }
     render(){
-   
         return(
             <div className={"Container"}>
             
             <div> <h1> Log in </h1> </div>
-            <form  onSubmit={this.ResultLogin} onChange={this.HandleChangeToInputFields}>
+            <form  onSubmit={this.CheckIfLoginIsCorrect} onChange={this.HandleChangeToInputFields}>
             <div>
                 <label>
                     <span>Gebruikersnaam:  </span>

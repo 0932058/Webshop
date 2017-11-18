@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {List} from "linqts";
-import {account} from "../DatabaseSimulation/TableTypes";
+import {user} from "../DatabaseSimulation/TableTypes";
 import {accountsTableData} from "../DatabaseSimulation/FakeDatabase";
 import { RouteComponentProps } from 'react-router';
 import { Redirect } from 'react-router';
@@ -79,10 +79,10 @@ export class RegistratieContainer extends React.Component<RouteComponentProps<{}
         .catch(emptyFieldError => alert(emptyFieldError))       
     }
     //Checks if account already exists
-    CheckIfAccountExists() : Promise<account>{       
+    CheckIfAccountExists() : Promise<user>{       
         var possibleExistingAccount = accountsTableData.Where(account => account.username == this.state.username || 
         account.email == this.state.email).FirstOrDefault();
-        var accountToInsert: account;
+        var accountToInsert: user;
             
         if(possibleExistingAccount == null){          
             accountToInsert = {pk: accountsTableData.Count() + 1, firstName: this.state.firstname,         

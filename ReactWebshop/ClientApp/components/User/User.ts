@@ -1,4 +1,4 @@
-import {account} from "../DatabaseSimulation/TableTypes";
+import {user} from "../DatabaseSimulation/TableTypes";
 
 //The class for the user that logs in
 //It stores the data of the user
@@ -34,7 +34,7 @@ export class User{
     }
     //When the user logs the data
     //Come into this method and then the user gets created
-    public SetAccount(account: account){
+    public SetAccount(account: user){
         User.isLoggedIn = true;
         User.pk = account.pk;
         User.firstName = account.firstName;

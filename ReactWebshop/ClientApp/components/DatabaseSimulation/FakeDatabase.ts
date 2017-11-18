@@ -1,4 +1,4 @@
-import {console,game,account, order,wishList, shoppingCart, accessoires} from "./TableTypes";
+import {console,game,user, order,wishList, shoppingCart, accessoires} from "./TableTypes";
 import * as gameTable from "./GameTable";
 import * as accountsTable from "./AccountsTable";
 import * as consoleTable from "./ConsoleTable";
@@ -14,7 +14,7 @@ import {List} from "linqts"; //Lists can be approached with LINQ
 export let gameTableData = new List<game>([gameTable.game1,gameTable.game2,gameTable.game3,gameTable.game4,gameTable.game5,gameTable.game6,gameTable.game7,
     gameTable.game8,gameTable.game9,gameTable.game10])
 
-export let accountsTableData  = new List<account>([accountsTable.user1, accountsTable.user2])
+export let accountsTableData  = new List<user>([accountsTable.user1, accountsTable.user2])
 
 export let consoleTableData = new List<console>([consoleTable.console1, consoleTable.console2, consoleTable.console3, consoleTable.console4])
 

@@ -41,7 +41,7 @@ export type accessoires = {
     dateAddedToDatabase: Date;
 }
 
-export type account = {
+export type user = {
     pk: number,
     firstName:string,
     lastName: string,

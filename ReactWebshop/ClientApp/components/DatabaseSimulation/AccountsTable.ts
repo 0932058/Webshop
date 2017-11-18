@@ -1,4 +1,4 @@
-import {account} from "./tableTypes";
+import {user} from "./tableTypes";
 import {order1} from "./OrdersTable";
 
 //Accounts entities
@@ -9,7 +9,7 @@ WishlistFK = Foreign key to wishlist
 ShoppingcartFK = foreign key to shopping cart
 ORderFK = foreign key to the order (product) */
 
-export let user1: account = {
+export let user1: user = {
     pk:1,
     firstName: "Jan",
     lastName: "Pieter",
@@ -22,7 +22,7 @@ export let user1: account = {
     shoppingCartFK: 1,
     orderFK: order1.pk
 }
-export let user2: account = {
+export let user2: user = {
     pk:2,
     firstName: "Henk",
     lastName: "Klaas",

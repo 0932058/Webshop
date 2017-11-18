@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {accountsTableData} from "../../DatabaseSimulation/FakeDatabase";
-import {account} from "../../DatabaseSimulation/TableTypes";
+import {user} from "../../DatabaseSimulation/TableTypes";
 import {List} from "linqts";
 import { RouteComponentProps } from 'react-router';
 import {RegistratieContainer} from "../../Registratie/RegistratieContainer";

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {gameTableData, consoleTableData, accessoiresTableData, accountsTableData} from "../DatabaseSimulation/FakeDatabase";
-import {product, account} from "../DatabaseSimulation/TableTypes";
+import {product, user} from "../DatabaseSimulation/TableTypes";
 import {List} from "linqts";
 import {HomeComponent} from "./HomeComponent";
 import {ProductPage} from "../ProductPage/ProductPageContainer";
