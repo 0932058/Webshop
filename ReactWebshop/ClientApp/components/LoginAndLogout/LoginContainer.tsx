@@ -19,7 +19,7 @@ export class LoginContainer extends React.Component<RouteComponentProps<{}>, Log
     constructor(){
         super();
         this.HandleChangeToInputFields = this.HandleChangeToInputFields.bind(this);
-        this.LoadUsersFromApi = this.LoadUsersFromApi.bind(this);
+        this.GetUserFromApi = this.GetUserFromApi.bind(this);
         this.CheckIfLoginIsCorrect = this.CheckIfLoginIsCorrect.bind(this);
         this.RegisterTheAccount = this.RegisterTheAccount.bind(this);
         this.state = {typedInUsername:"", typedInPassword:"", isRegisterButtonClick: false, userLoggedIn: false, loggedInUser: null}   
@@ -34,26 +34,24 @@ export class LoginContainer extends React.Component<RouteComponentProps<{}>, Log
             this.setState({typedInPassword: event.target.value});   
         }           
     }
-    async LoadUsersFromApi() : Promise<user[]>{
-        let apiResponse = await fetch('api/User/Get', {method: 'get', credentials: 'include', headers: new Headers({'content-type' : 'application/json'})});
+    async GetUserFromApi() : Promise<user>{
+        let apiLink = 'api/User/Get/Username/' + this.state.typedInUsername
+        let apiResponse = await fetch(apiLink, {method: 'get', credentials: 'include', headers: new Headers({'content-type' : 'application/json'})});
         let apiResponseJson = await apiResponse.json();
         return apiResponseJson;
     }
     CheckIfLoginIsCorrect(event:any):void{
         event.preventDefault();
-        this.LoadUsersFromApi().then(foundUsers => {
-            for(let index = 0; foundUsers.length;index++){
-                if(foundUsers[index].username == this.state.typedInUsername){
-                    if(foundUsers[index].password == this.state.typedInPassword){
-                        this.CreateLoggedInUser(foundUsers[index])
-                    }
-                    else{
-                        alert("wrong password!")
-                    }
-                }      
+        this.GetUserFromApi()
+        .then(foundUser => {
+            if(foundUser.password == this.state.typedInPassword){
+                this.CreateLoggedInUser(foundUser);
+            }
+            else{
+                alert("Wrong password!")
             }
         })
-        .catch(errorMessage => console.log(errorMessage));
+        .catch(_ => alert("Username does not exist!"))
     }
     //Fetches the data (Pk, name etc) of the logged in user 
     CreateLoggedInUser(userAccount: user){
