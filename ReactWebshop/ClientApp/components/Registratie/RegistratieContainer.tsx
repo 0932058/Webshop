@@ -20,7 +20,8 @@ export class RegistratieContainer extends React.Component<RouteComponentProps<{}
         super();
         this.HandleInputFieldsChange = this.HandleInputFieldsChange.bind(this);
         this.CheckIfAccountExists = this.CheckIfAccountExists.bind(this);
-        this.InsertAccountIntoDatabase = this.InsertAccountIntoDatabase.bind(this);
+        this.ConnectWithApiToCheckIfUserExist = this.ConnectWithApiToCheckIfUserExist.bind(this);
+        this.PostUserToDatabase = this.PostUserToDatabase.bind(this);
         this.state = {firstname: "", lastname: "", email: "", username:"", password:"", streetname: "", postcode:"", isNoEmptyInputFields:false}       
     }
     //When an input field gets typed in this method gets called
@@ -52,7 +53,7 @@ export class RegistratieContainer extends React.Component<RouteComponentProps<{}
         }           
     }
     //Check if there are no empty input fields
-    IsNoEmptyField() : Promise<void>{
+    IsNoEmptyField() : boolean{
         var inputFields = new List<string>();
         inputFields.Add(this.state.firstname)
         inputFields.Add(this.state.lastname)
@@ -64,42 +65,48 @@ export class RegistratieContainer extends React.Component<RouteComponentProps<{}
     
         var EmptyFieldCheckResult = inputFields.Where(input => input.length == 0)
         if(EmptyFieldCheckResult.Count() == 0){
-            return Promise.resolve();
+            return true;
         }
         else{
-            return Promise.reject("There is still an empty field left!");
+            return false;
         }
     }
-    //If there are no empty fields and no duplicate username or email, then the account gets inserted into the database
-    InsertAccountIntoDatabase(event :any){   
+    async ConnectWithApiToCheckIfUserExist() : Promise<user>{
+        let apiUrl = 'api/User/Get/Username/' + this.state.username
+        let apiResponse = await fetch(apiUrl, {method: 'get', credentials: 'include', headers: new Headers({'content-type' : 'application/json'})});
+        let apiResponseJson = await apiResponse.json();
+        return apiResponseJson;
+    }
+    CheckIfAccountExists(event: any){  
         event.preventDefault();
-        this.IsNoEmptyField().then(() => this.CheckIfAccountExists().then(account => accountsTableData.Add(account))
-        .then(() => this.setState({isNoEmptyInputFields: true}))
-        .catch(userNameOrEmailError => alert(userNameOrEmailError)))
-        .catch(emptyFieldError => alert(emptyFieldError))       
+
+        this.IsNoEmptyField() ? 
+
+        this.ConnectWithApiToCheckIfUserExist()
+        .then(_ => alert("Username already exists"))
+        .catch(_ =>{
+            this.PostUserToDatabase();
+        })
+
+        :   
+        alert("There are  empty fields left!")
     }
-    //Checks if account already exists
-    CheckIfAccountExists() : Promise<user>{       
-        var possibleExistingAccount = accountsTableData.Where(account => account.username == this.state.username || 
-        account.email == this.state.email).FirstOrDefault();
-        var accountToInsert: user;
-            
-        if(possibleExistingAccount == null){          
-            accountToInsert = {pk: accountsTableData.Count() + 1, firstName: this.state.firstname,         
-                lastName: this.state.lastname, email: this.state.email, username: this.state.username, password: this.state.password, streetname: this.state.streetname, postcode: this.state.postcode,
-                wishListFK: null, shoppingCartFK: null, orderFK: null}    
-                return Promise.resolve(accountToInsert);                 
-        }
-        else{
-            Promise.reject("Username or email already exists!");     
-        }  
+    //Based on the filled in information that the user gave, they are send to the api
+    async PostUserToDatabase(){
+        let apiUrl = 'api/User/Post'
+        let userToPost: user = {pk: 0, firstName: this.state.firstname, lastName: this.state.lastname, streetname:this.state.streetname,
+        postcode: this.state.postcode, email: this.state.email, username: this.state.username, password: this.state.password, wishListFK: 0, 
+        shoppingCartFK: 0,   orderFK: 0}
+        let apiResponse = await fetch(apiUrl, {method: 'POST', body:JSON.stringify(userToPost), headers: new Headers({'content-type' : 'application/json'})});
+        this.setState({isNoEmptyInputFields: true})
     }
     render(){
         return(
             <div className={"Container"}>
                 <h1> Registreer</h1>
 
-                <ul><form  onSubmit={this.InsertAccountIntoDatabase} onChange={this.HandleInputFieldsChange}>
+                <ul><form  onSubmit={this.CheckIfAccountExists } onChange={this.HandleInputFieldsChange}>
+                
                     <li><input placeholder="voornaam" type="text" name="firstname" value={this.state.firstname} /> </li>              
                    
                     <li><input placeholder="achternaam" type="text" name="lastname"  value={this.state.lastname} /> </li>            

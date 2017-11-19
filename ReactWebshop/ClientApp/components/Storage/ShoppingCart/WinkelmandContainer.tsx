@@ -16,17 +16,17 @@ export class Winkelmand extends AbstractStorage {
         super();    
         //Gets the pk of the logged in user
         var loggedInUserPK = User.IsUserLoggedIn? User.GetPK() : 0
-        this.state = {storageProducts: new List<storage>(), convertedStorageProducts: new List<product>(),customerID: loggedInUserPK, isShoppingCart:true, loaded:false, totalPrice: 0}
+        this.state = {storageProducts: null, convertedStorageProducts: null,customerID: loggedInUserPK, isShoppingCart:true, loaded:false, totalPrice: 0}
     }
     render() {
         return (
             
         <div className={"Container"}>
             <h1>Winkelmand</h1>
-            {this.state.convertedStorageProducts.ToArray().map((storageProduct,index) =>
+            {this.state.convertedStorageProducts.map((storageProduct,index) =>
             <WinkelMandComponent key={index} shoppingCartProduct={storageProduct} RemoveItemFromStorage={this.RemoveItemFromStorage}/>)  
             }
-            <p> Total items: {this.state.convertedStorageProducts.Count()}</p>
+            <p> Total items: {this.state.convertedStorageProducts.length}</p>
             <p> Total Price: €{this.state.totalPrice.toFixed(2)}</p>
             <h2> <NavLink to={ '/Afrekenen' } exact activeClassName='active' className='AfrekenLink'> Naar Afrekenen </NavLink> </h2>
             </div>          

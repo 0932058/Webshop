@@ -9,40 +9,55 @@ namespace Controllers
     //This is the default route of the API. 
     [Route("api/[controller]")]
     public class UserController : Controller{
-        public user[] users = new user[1];
-        public UserController(){
-            this.users[0] = (new user(1,"jan", "wil", "@live", "jan", "lol", 1,1,1,"lolstreet 10", "lool AB"));
-        }
+        public static List<user> users = new List<user>();  
+        
         // GET api/values
         [HttpGet("Get")]
-        public user[] Get()
-        {
-            return this.users;
+        public IActionResult Get(){
+            return Ok(users.ToArray());
         }
-
         // GET api/values/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
+        [HttpGet("Get/{id}")]
+        public IActionResult Get(int id){
+            var foundUser = users.Where(user => user.pk == id).FirstOrDefault();
+            if(foundUser != null){
+                return Ok(foundUser);
+            }
+            else{
+                return NotFound(foundUser);
+            }
         }
-
+        [HttpGet("Get/Username/{username}")]
+        public IActionResult Get(string username){
+            var foundUser = users.Where(user => user.username == username).FirstOrDefault();
+            if(foundUser != null){
+                return Ok(foundUser);
+            }
+            else{
+                return NotFound(foundUser);
+            }
+        }
         // POST api/values
-        [HttpPost]
-        public void Post([FromBody]string value)
-        {
+        [HttpPost("Post")]
+        public void Post([FromBody]user user){
+            user.pk = users.Count() + 1;
+            users.Add(user);
+           
         }
-
         // PUT api/values/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
-        {
+        public void Put(int id, [FromBody]user user){
+            users.Add(user);
         }
 
         // DELETE api/values/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+        }
+        //Method will be removed when database is added
+        public void NonControllerMethodAddDataToUserList(){
+            users.Add(new user(1,"jan", "lol", "lol@live.nl", "a","a",1,1,1,"lolstreet","lool"));
         }
     }
 }

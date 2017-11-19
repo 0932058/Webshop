@@ -1,4 +1,4 @@
-import {storage,category, product} from "../../DatabaseSimulation/TableTypes";
+import {storage,category, product, shoppingCart,game,console,accessoires} from "../../DatabaseSimulation/TableTypes";
 import {wishListData, shoppingCartdata, consoleTableData, gameTableData, accessoiresTableData} from "../../DatabaseSimulation/FakeDatabase";
 import { RouteComponentProps } from 'react-router';
 import * as React from 'react';
@@ -7,8 +7,8 @@ import {List} from "linqts";
 //AbstractStorage can be used by the shoppingcart and Wishlist clases
 
 export interface StorageState{
-    storageProducts: List<storage>; //The found storage (wishlist or shopping cart) that are linked to the customer PK
-    convertedStorageProducts: List<product>; //The products related to the wishlist or shopping, found by the Foreign FK
+    storageProducts: storage[] //The found storage (wishlist or shopping cart) that are linked to the customer PK
+    convertedStorageProducts: product[]; //The products related to the wishlist or shopping, found by the Foreign FK
     customerID: number; //logged in customer
     isShoppingCart:boolean; //Depending on the boolean, the shopping cart and wishlist take their own paths in the methods
     loaded: boolean
@@ -23,6 +23,7 @@ export interface StorageState{
         this.RemovingItem = this.RemovingItem.bind(this);
         this.GiveNotifcation = this.GiveNotifcation.bind(this);
         this.UpdatePrice = this.UpdatePrice.bind(this);
+        this.LoadShoppingCartFromApi = this.LoadShoppingCartFromApi.bind(this);
    
     }
     //Calls the customer method to get customer storage and thne calls the loop method to see the products related to the customer orders
@@ -32,28 +33,54 @@ export interface StorageState{
         .then(this.LoopThroughStorage)      
         loadData();
     }    
+    async LoadShoppingCartFromApi() : Promise<shoppingCart[]>{
+        let apiUrl: string = 'api/ShoppingCart/Get/'+ this.state.customerID;
+        console.log(apiUrl)
+        let apiResponse = await fetch(apiUrl, {method: 'get', credentials: 'include', headers: new Headers({'content-type' : 'application/json'})});
+        let apiResponseJson = await apiResponse.json();
+        return apiResponseJson;
+
+    }
 
     //Gets customer storage items
-    GetCustomerStorageProducts() : Promise<List<storage>>{
-        var storage = new List<any>();
+    GetCustomerStorageProducts() : Promise<storage[]>{
+        var storage;
         if(this.state.isShoppingCart){
-             storage = shoppingCartdata.Where(shoppingCart => shoppingCart.accountFK == this.state.customerID)
+            this.LoadShoppingCartFromApi()
+            .then(shoppingCart => storage = shoppingCart)
+            .catch(errorMessage => console.log(errorMessage))
+            //  storage = shoppingCartdata.Where(shoppingCart => shoppingCart.accountFK == this.state.customerID); 
         }
         else{
             storage = wishListData.Where(wishListData => wishListData.accountFK == this.state.customerID)
         }
-        return Promise.resolve<List<storage>>(storage);
+        return Promise.resolve<storage[]>(storage);
     }
     //Gets the products related to the Foreign key of the storage items
     LoopThroughStorage(){
-        var foundGames = this.state.storageProducts.Where(storage => storage.productForeignKeyReference == category.games).Join(gameTableData, storage => storage.productFK, game => game.pk, (storage1,game1) => game1);
-        var foundConsoles = this.state.storageProducts.Where(storage => storage.productForeignKeyReference == category.consoles).Join(consoleTableData, storage => storage.productFK, consoleEntity => consoleEntity.pk, (storage1,console1) =>  console1);
-        var foundAccesoires =  this.state.storageProducts.Where(storage => storage.productForeignKeyReference == category.accessoires).Join(accessoiresTableData, storage => storage.productFK, accessoires => accessoires.pk, (storage1,accessoires1) =>  accessoires1);
+        var foundGames;
+        var foundConsoles: console[];
+        var foundAccesoires: accessoires[];
 
-        var gamesAndConsoles = foundGames.Concat(foundConsoles).ToList() // combines the games and consoles
-        var allProductsCombined = foundAccesoires.Concat(gamesAndConsoles).ToList()
-        this.setState({convertedStorageProducts: allProductsCombined})
-        this.UpdatePrice(allProductsCombined).then(number => this.setState({totalPrice:number, loaded: true}));
+        for (let index = 0; index < this.state.storageProducts.length; index++) {
+            if(this.state.storageProducts[index].productForeignKeyReference == "games"){
+                //TODO: Api call to games...     
+            }
+            else if(this.state.storageProducts[index].productForeignKeyReference == "consoles"){
+                //TODO: Api call to console...
+            }   
+            else{
+                //TODO: Api call to accessoires...
+            } 
+        }
+        // // // var foundGames = this.state.storageProducts.Where(storage => storage.productForeignKeyReference == category.games).Join(gameTableData, storage => storage.productFK, game => game.pk, (storage1,game1) => game1);
+        // // // var foundConsoles = this.state.storageProducts.Where(storage => storage.productForeignKeyReference == category.consoles).Join(consoleTableData, storage => storage.productFK, consoleEntity => consoleEntity.pk, (storage1,console1) =>  console1);
+        // // // var foundAccesoires =  this.state.storageProducts.Where(storage => storage.productForeignKeyReference == category.accessoires).Join(accessoiresTableData, storage => storage.productFK, accessoires => accessoires.pk, (storage1,accessoires1) =>  accessoires1);
+
+        // // var gamesAndConsoles = foundGames.Concat(foundConsoles).ToList() // combines the games and consoles
+        // // var allProductsCombined = foundAccesoires.Concat(gamesAndConsoles).ToList()
+        // this.setState({convertedStorageProducts: allProductsCombined})
+        // this.UpdatePrice(allProductsCombined).then(number => this.setState({totalPrice:number, loaded: true}));
     }
     //Gets total price of the prodcuts 
     UpdatePrice(products: List<product>) : Promise<number>{
@@ -65,14 +92,14 @@ export interface StorageState{
     }
     //removes an item
     RemovingItem(productToRemove: product, category: category, foundItem:any){
-        if(foundItem != null){
-            var itemToRemove = this.state.isShoppingCart? shoppingCartdata.IndexOf(foundItem): wishListData.IndexOf(foundItem);
-            this.state.isShoppingCart? shoppingCartdata.RemoveAt(itemToRemove):wishListData.RemoveAt(itemToRemove)
-        }
-        var updatedListWithRemovedItem = this.state.convertedStorageProducts.RemoveAll(game => game.pk == productToRemove.pk && game.category == productToRemove.category);
-        this.UpdatePrice(updatedListWithRemovedItem).then(totalprice => this.setState({totalPrice:totalprice,convertedStorageProducts: updatedListWithRemovedItem, loaded: true}));
+        // if(foundItem != null){
+        //     var itemToRemove = this.state.isShoppingCart? shoppingCartdata.IndexOf(foundItem): wishListData.IndexOf(foundItem);
+        //     this.state.isShoppingCart? shoppingCartdata.RemoveAt(itemToRemove):wishListData.RemoveAt(itemToRemove)
+        // }
+        // var updatedListWithRemovedItem = this.state.convertedStorageProducts.RemoveAll(game => game.pk == productToRemove.pk && game.category == productToRemove.category);
+        // this.UpdatePrice(updatedListWithRemovedItem).then(totalprice => this.setState({totalPrice:totalprice,convertedStorageProducts: updatedListWithRemovedItem, loaded: true}));
       
-        this.GiveNotifcation();    
+        // this.GiveNotifcation();    
     }
  
     //When an item gets removed

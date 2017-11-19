@@ -14,7 +14,7 @@ export class Afrekenen extends AbstractStorage {
         super();    
         //Gets the pk of the logged in user
         var loggedInUserPK = User.IsUserLoggedIn? User.GetPK() : 0
-        this.state = {storageProducts: new List<storage>(), convertedStorageProducts: new List<product>(),customerID: loggedInUserPK, isShoppingCart:true, loaded:false, totalPrice: 0}
+        this.state = {storageProducts: null, convertedStorageProducts: null,customerID: loggedInUserPK, isShoppingCart:true, loaded:false, totalPrice: 0}
         this.EmptyShoppingCart = this.EmptyShoppingCart.bind(this);
     }
     EmptyShoppingCart(){

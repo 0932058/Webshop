@@ -100,7 +100,7 @@ export type wishList = {
 export type shoppingCart = {
     pk: number,
     accountFK: number,
-    productForeignKeyReference: category,
+    productForeignKeyReference: category | string
     productFK: number
 }
 export type product = game & {categoryKind: category.games} | console & {categoryKind: category.consoles} | accessoires & {categoryKind: category.accessoires}
