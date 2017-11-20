@@ -47,7 +47,6 @@ export var routes = <Layout>
     <Route path="/Games/Sport"  component={ItemsContainer}/>
     <Route path="/Games/Fight"  component={ItemsContainer}/>
     <Route path="/Games/Sandbox"  component={ItemsContainer}/>
-    <Route path="/Item"  component={ItemPage}/>
 
     <Route path="/Consoles/All" component={ItemsContainer}/>
     <Route path="/Consoles/Xbox360" component={ItemsContainer}/>

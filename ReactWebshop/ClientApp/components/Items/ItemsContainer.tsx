@@ -24,7 +24,9 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
             isHome : "",
         };
 
-        fetch('api/Items' + this.props.location.pathname + (this.props.location.pathname? "Home" : ""))
+        console.log(this.props.location.pathname);
+
+        fetch('api/Items' + this.props.location.pathname + (this.props.location.pathname ? "Home" : ""))
         .then(response => response.json() as Promise<Game[]>)
         .then(data => {
             this.setState({ games : data, loaded : true});
@@ -52,6 +54,9 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
                                     <h2>{ item.name } </h2>
                                     <p> Console: PS + XBOX </p>
                                     <p> Prijs: {"€" + item.price} </p>
+                                    <NavLink to={ '/Item/' + item.id } exact activeClassName='Active'className='LinksSide'>
+                                        naar Product
+                                    </NavLink>
                                     </div> 
                                 </div>
                             )

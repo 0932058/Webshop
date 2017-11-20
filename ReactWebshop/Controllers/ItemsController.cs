@@ -34,6 +34,18 @@ namespace reactTwo.Controllers
 
             return gamesList;
         }
+
+        [HttpGet("[action]")]
+        public int[] GetAllId()
+        {
+            int[] gamesList = new int[10];
+
+            for(int i = 0; i < 10; i++){
+                gamesList[i] = i;
+            }
+
+            return gamesList;
+        }
     }
 
     /*
