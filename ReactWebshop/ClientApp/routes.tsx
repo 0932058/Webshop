@@ -7,9 +7,8 @@ import {BestellingenContainer} from './components/Bestellingen/BestellingenConta
 import { WensLijstContainer } from './components/Storage/Wenslijst/WensLijstContainer';
 import { Winkelmand } from './components/Storage/ShoppingCart/WinkelmandContainer';
 import { ProductPage } from './components/ProductPage/ProductPageContainer';
-import {GamesContainer} from "./components/Categories/Games/GamesContainer";
-import {ConsolesContainer} from "./components/Categories/Consoles/ConsoleContainer";
-import {AccessoiresContainer} from "./components/Categories/Accessoires/AccessoiresContainer";
+import { ItemsContainer } from "./components/Items/ItemsContainer";
+import { ItemPage } from "./components/ProductPage/ItemPage";
 import {SearchContainer} from "./components/Search/SearchContainer";
 import {HomeContainer} from "./components/Home/HomeContainer";
 import {LoginContainer} from "./components/LoginAndLogout/LoginContainer";
@@ -21,9 +20,8 @@ import {LogoutContainer} from "./components/LoginAndLogout/LogoutContainer";
 import {RegistratieSuccesfullContainer} from "./components/Registratie/RegistratieSuccesfullContainer";
 import {Afrekenen} from "./components/Afrekenen/AfrekenContainer";
 
-
-export const routes = <Layout>
-    <Route exact path={"/"} component={HomeContainer} />
+export var routes = <Layout>
+    <Route exact path={"/"} component={ItemsContainer} />
     
     <Route path ={"/Profile"} component={ProfileContainer}/>
     <Route path={"/Profile/Gegevens"} component={GegevensContainer} />
@@ -42,18 +40,22 @@ export const routes = <Layout>
 
     <Route path='/Bestellingen' component={ BestellingenContainer } />
 
-    <Route path="/Games/Action"  component={GamesContainer}/>
-    <Route path="/Games/Shooter" component={GamesContainer}/>
-    <Route path="/Games/Fantasy" component={GamesContainer}/>
-    <Route path="/Games/Sport"  component={GamesContainer}/>
-    <Route path="/Games/Fight"  component={GamesContainer}/>
-    <Route path="/Games/Sandbox"  component={GamesContainer}/>
+    <Route path="/Games/All"  component={ItemsContainer}/>
+    <Route path="/Games/Action"  component={ItemsContainer}/>
+    <Route path="/Games/Shooter" component={ItemsContainer}/>
+    <Route path="/Games/Fantasy" component={ItemsContainer}/>
+    <Route path="/Games/Sport"  component={ItemsContainer}/>
+    <Route path="/Games/Fight"  component={ItemsContainer}/>
+    <Route path="/Games/Sandbox"  component={ItemsContainer}/>
+    <Route path="/Item"  component={ItemPage}/>
 
-    <Route path="/Consoles/Xbox360" component={ConsolesContainer}/>
-    <Route path="/Consoles/XboxOne"  component={ConsolesContainer}/>
-    <Route path="/Consoles/Playstation3"  component={ConsolesContainer}/>
-    <Route path="/Consoles/Playstation4"  component={ConsolesContainer}/>
+    <Route path="/Consoles/All" component={ItemsContainer}/>
+    <Route path="/Consoles/Xbox360" component={ItemsContainer}/>
+    <Route path="/Consoles/XboxOne"  component={ItemsContainer}/>
+    <Route path="/Consoles/Playstation3"  component={ItemsContainer}/>
+    <Route path="/Consoles/Playstation4"  component={ItemsContainer}/>
 
-    <Route path="/Accessoires/Headsets"  component={AccessoiresContainer}/>
-    <Route path="/Accessoires/Racewheels"  component={AccessoiresContainer}/>
+    <Route path="/Accessoires/All"  component={ItemsContainer}/>
+    <Route path="/Accessoires/Headsets"  component={ItemsContainer}/>
+    <Route path="/Accessoires/Racewheels"  component={ItemsContainer}/>
 </Layout>;
