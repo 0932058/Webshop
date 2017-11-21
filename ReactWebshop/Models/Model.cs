@@ -22,16 +22,17 @@ namespace Models
         public normieContext(DbContextOptions<normieContext> options)
             : base(options)
         {}
+        
     }
 
     public class Wenslijst {
+        public int WenslijstId { get; set; }
         public int productNmr { get; set; }
         public DateTime toevoegDatum { get; set;}
-        public int klantNmr { get; set; }
-        public list<Wenslijst> Wenslijst { get; set; }
+    
 }                          
     public class Klant {
-        public int klantNmr { get; set; }
+        public int KlantId { get; set; }
         public string klantNaam { get; set; }
         public string klantAchternaam { get; set; }
         public string klantTussenvoegsel { get; set; }
@@ -40,10 +41,9 @@ namespace Models
         public string klantStraat { get; set; }
         public string klantPostcode { get; set; }
         public string klantStraatnmr { get; set; }
-        public list<Klant> Klant { get; set; }
 }
     public class Product {
-        public string productNmr { get; set; }
+        public int ProductId { get; set; }
         public string productNaam { get; set; }
         public string productUitgeven { get; set; }
         public string productOmschr { get; set; }
@@ -54,7 +54,7 @@ namespace Models
     }
 
     public class Werknemer {
-        public int werknemersNmr { get; set; }
+        public int WerknemerId { get; set; }
         public string voorNaam { get; set;}
         public string achterNaam { get; set; }
         public string tussenVoegsel { get; set; } 
@@ -63,7 +63,7 @@ namespace Models
     }
 
     public class Bestellingen {
-        public int bestellingNmr { get; set; }
+        public int BestellingenId { get; set; }
         public DateTime bestellingDatum { get; set; }
         public DateTime verstuurDatum { get; set; }
         public string status { get; set; }
@@ -71,20 +71,22 @@ namespace Models
     }
 
     public class Betaling {
-        public string klantNmr { get; set; }
+       
+        public int BetalingId { get; set; }
         public string checkNmr { get; set; }
         public DateTime betalingsDatum { get; set; }
         public decimal bedrag { get; set; }
     }
 
     public class detailsBestelling {
-        public int orderNmr { get; set; }
+        public int detailsBestellingId { get; set; }
         public string productCode { get; set; }
         public int bestellingAantal { get; set; }
         public decimal stukPrijs { get; set; }
     }
 
     public class productType {
+        public int productTypeId {get;set;}
         public string Type { get; set; }
         public string omschrijving { get; set; }
         public string html { get; set; }
