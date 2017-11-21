@@ -24,7 +24,9 @@ namespace reactTwo
         public void ConfigureServices(IServiceCollection services)
         {
             //Adds user data to the user list in user controller, it will be removed after database connection
-            new UserController().NonControllerMethodAddDataToUserList();
+             //Add this line to your method
+            services.AddDbContext<MovieContext> (
+                 opt => opt.UseNpgsql(@"Host=localhost;Database=postgres;Username=postgres;Password=admin"));
             services.AddMvc();
 
         }
