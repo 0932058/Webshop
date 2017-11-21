@@ -46,7 +46,6 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
                 { this.state.loaded? 
                     this.state.games.map(
                         item => {
-
                             return (
                                 <div className={"Component"}>
                                 <img src={ item.img }/>
