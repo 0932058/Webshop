@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
 import {game, console,product, category} from "../DatabaseSimulation/TableTypes";
-import {gameTableData} from "../DatabaseSimulation/FakeDatabase";
+import {gameTableData, shoppingCartdata} from "../DatabaseSimulation/FakeDatabase";
 import {consoleType} from "../DatabaseSimulation/ConsoleTable";
 import {User} from "../User/User";
 
@@ -10,12 +10,22 @@ interface ItemPageState{
 }
 
 export class ItemPage extends React.Component<RouteComponentProps<{}>, ItemPageState> {
-    constructor(){
-        super();
-        
-
+    constructor(props){
+        super(props);
+        this.AddProductToShoppingCartLocalStorage = this.AddProductToShoppingCartLocalStorage.bind(this)
     }
-
+    AddProductToShoppingCartLocalStorage(){
+        var shoppingCartList = [];
+        if(localStorage.getItem("Winkelmand") != null){
+            shoppingCartList = JSON.parse(localStorage.getItem("Winkelmand"));
+            shoppingCartList.push(this.props.location.pathname);
+            localStorage.setItem("Winkelmand", JSON.stringify(shoppingCartList));
+        }
+        else{
+            var shoppingCartList = [];
+            localStorage.setItem("Winkelmand", JSON.stringify(shoppingCartList));
+        }
+    }
     //The objects have to be parsed to json because this.state doesn't allow an single object in the state
     render() {
         return <div  className={"ItemPageComponent"}>
@@ -41,7 +51,7 @@ export class ItemPage extends React.Component<RouteComponentProps<{}>, ItemPageS
                 </div>
 
                     <h2>
-                    <button  > Toevoegen aan winkelwagen</button>
+                    <button onClick={this.AddProductToShoppingCartLocalStorage}  > Toevoegen aan winkelwagen</button>
                         {User.IsUserLoggedIn() ?
                         <button > Toevoegen aan wenslijst</button>
                         :

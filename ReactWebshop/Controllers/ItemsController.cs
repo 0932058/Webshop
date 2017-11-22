@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace reactTwo.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/Item")]
     public class ItemsController : Controller
     {
 
@@ -45,6 +45,20 @@ namespace reactTwo.Controllers
             }
 
             return gamesList;
+        }
+        //Shopping cart testing
+        [HttpGet("{id}")]
+        public IActionResult Get(int id){
+            Game[] gamesList = new Game[10];
+            for (int i = 0; i < gamesList.Count(); i++){  
+                    gamesList[i] = new Game(i);
+                }  
+            for (int i = 0; i < gamesList.Count(); i++){  
+                if(gamesList[i].id == id){
+                     return Ok(gamesList[i]);
+                }  
+            }
+            return NotFound();
         }
     }
 

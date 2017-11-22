@@ -16,27 +16,32 @@ export class Winkelmand extends AbstractStorage {
         super();    
         //Gets the pk of the logged in user
         var loggedInUserPK = User.IsUserLoggedIn? User.GetPK() : 0
-        this.state = {storageProducts: null, convertedStorageProducts: null,customerID: loggedInUserPK, isShoppingCart:true, loaded:false, totalPrice: 0}
+        this.state = {customerID: loggedInUserPK, isShoppingCart:true, loaded:false, totalPrice: 0, products: null}
     }
     render() {
         return (
             
         <div className={"Container"}>
             <h1>Winkelmand</h1>
-            {this.state.convertedStorageProducts.map((storageProduct,index) =>
+            {this.state.products.map((product,index) =>
+            <WinkelMandComponent key={index} shoppingCartProduct={product} RemoveItemFromStorage={null}/>)
+            }
+
+            {/* {this.state.convertedStorageProducts.map((storageProduct,index) =>
             <WinkelMandComponent key={index} shoppingCartProduct={storageProduct} RemoveItemFromStorage={this.RemoveItemFromStorage}/>)  
             }
             <p> Total items: {this.state.convertedStorageProducts.length}</p>
             <p> Total Price: €{this.state.totalPrice.toFixed(2)}</p>
             <h2> <NavLink to={ '/Afrekenen' } exact activeClassName='active' className='AfrekenLink'> Naar Afrekenen </NavLink> </h2>
-            </div>          
+            </div>           */}
+            </div>
         )}
 }
 
 {
     //Old comments
     
-    /* //JSON related files
+    /* //localstorage related files
 
 // var games = JSON.parse(String(localStorage.getItem('winkelmand')));
 // var gamesList: game[] = games.list;
@@ -49,7 +54,7 @@ export class Winkelmand extends AbstractStorage {
 //     //hier wordt de value van wenslijst naar string gecast om vervolgens naar een JSON object te worden gecast
 //     var games = JSON.parse(String(localStorage.getItem('winkelmand')));    
 //     if(games != null){
-//         this.setState({games: games.list})
+//         this.setState({gampes: games.list})
 //     }
 // createStorageAndState(){
 //     localStorage.setItem('winkelmand', JSON.stringify({list: []}));

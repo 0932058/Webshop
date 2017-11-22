@@ -2,12 +2,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Controllers;
+using Models;
 
 namespace reactTwo
 {
@@ -24,7 +28,9 @@ namespace reactTwo
         public void ConfigureServices(IServiceCollection services)
         {
             //Adds user data to the user list in user controller, it will be removed after database connection
-            new UserController().NonControllerMethodAddDataToUserList();
+             //Add this line to your method
+            services.AddDbContext<normieContext> (
+                 opt => opt.UseNpgsql(@"Host=localhost;Database=TestBackup;Username=postgres;Password=Th0mada1"));
             services.AddMvc();
 
         }
