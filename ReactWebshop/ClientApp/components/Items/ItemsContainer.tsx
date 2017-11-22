@@ -37,12 +37,10 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
     render(){
    
         return(
-            <div className={"Container"}>
+            <div  className={"Container"}>
+            <div> <h1>Nieuwste producten van maand {new Date().getMonth() + 1}! </h1> </div> 
+            <div  className={"ItemsContainerScroll"}> 
             
-            <div> <h1> Nieuwste producten van maand {new Date().getMonth() + 1}! </h1> </div> 
-            
-            <div>
-
                 { this.state.loaded? 
                     this.state.games.map(
                         item => {
@@ -65,7 +63,7 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
                     :
                     <h1> still loading... </h1>
                 }
-            
+
             </div>
 
 

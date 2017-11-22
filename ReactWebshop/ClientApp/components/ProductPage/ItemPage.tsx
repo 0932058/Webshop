@@ -18,7 +18,8 @@ export class ItemPage extends React.Component<RouteComponentProps<{}>, ItemPageS
 
     //The objects have to be parsed to json because this.state doesn't allow an single object in the state
     render() {
-        return <div  className={"ItemPageComponent"}>      
+        return <div  className={"ItemPageComponent"}>
+            <div className="ItemPageComponentScroll">      
 
                 <h1> { "name" } </h1>
                 <div>         
@@ -48,6 +49,7 @@ export class ItemPage extends React.Component<RouteComponentProps<{}>, ItemPageS
                         }
              
                 </h2> 
-            </div>                         
+            </div>    
+            </div>                     
     }
 }

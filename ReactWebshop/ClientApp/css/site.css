@@ -20,8 +20,8 @@ ul, li{
 }
 .Component, .Search
 {
-    margin: 1em;
-    padding: 1em;
+    margin: 1%;
+    padding: 2%;
     display: block;
     border-style: solid;
     border-width: 5px;
@@ -43,7 +43,7 @@ ul, li{
 .ComponentInfo {
     display:inline-block;
     background-color: #DC3D24;
-    margin-left: 1em;
+    margin-left: 10em;
 }
 
 .ProductPageComponent{
@@ -64,14 +64,36 @@ ul, li{
 
 .Container, .Searches
 {
-    display: block;
-    float: left;
+    
     background: #DC3D24;
-    padding: 10px;
-    border-radius: 5px;
-    margin-top: 10em;
-    margin-left: -10em;
-    width: auto;
+    padding: 1%;
+    border-radius: 1%;
+    margin-top: 8.8%;
+    margin-left: -10%;
+	margin-bottom:100em;
+	position:fixed;
+}
+.ItemPageComponent{
+	padding: 1%;
+    background: #DC3D24;
+    padding-right: 22.5%;
+	padding-left:1%;
+	padding-right:1%;
+    border-radius: 1%;
+    margin-top: 8.8%;
+    margin-left: -11.4em;
+	position:fixed;
+
+}
+.ItemPageComponentScroll{
+	width:45em;
+    height:42em;
+	overflow-y:scroll;
+}
+.ItemsContainerScroll{
+	width:45em;
+    height:42em;
+	overflow-y:scroll;
 }
 
 
@@ -99,6 +121,7 @@ a:hover{
 	margin: 0.1em; 
     text-decoration: none;
 }
+/* Links in the side menu*/
 .LinksSide{
     color: #FFFFFF;
     padding: 0.1em;
@@ -106,26 +129,27 @@ a:hover{
 	margin: 0.1em; 
     text-decoration: none;
 }
-
 .LinksSide{
     text-decoration: none;
 }
+
 h1{
 	color: white;
     border-radius: 5px;
 	padding: 0.1em;
 	margin: 0.1em;
-    font-size: 3em;
+    font-size: 300%;
 }
 h2{
 	color: white;
     border-radius: 5px;
 	padding: 0.1em;
     width: auto;
-    font-size: 1.5em;
+    font-size: 150%;
 }
 p{
 	color: white;
+	font-size:100%
 }
 a{
     color: white;
@@ -134,21 +158,32 @@ a{
 /* Keep the homebalk and sidebalk independent of scrolling and on top of other items */
 .UserLoggedInMenuLayout{
     position: fixed; 
-    padding-right: 40em;
+	margin-top:1%;
+	margin-left:1%;
+	margin-bottom: 2%;
+    padding-right: 35%;
+	background-color: #DC3D24;
     z-index: 1;
 }
 .UserNotLoggedInMenuLayout{
     position: fixed; 
-    padding-right: 40em;
+	margin-top:1%;
+	margin-left:1%;
+	margin-bottom: 2%;
+    padding-right: 35%;
+	background-color: #DC3D24;
     z-index: 1;
 
 }
-
 .Zijbalk{
-    margin-top:10em;
+    margin-top: 8.8%;
+	margin-left:1%;
+	margin-right:3%;
     position: fixed;
+	background-color: #DC3D24;
 
 }
+
 .Links:active{
     text-decoration: none;  
 }
@@ -157,7 +192,7 @@ input{
 }
 
 button{
-    margin-left: 1em;
+    margin-left: 1%;
     background-color: #232B2B;
     border-radius: 0.5em;
     color: white;
@@ -169,13 +204,12 @@ button{
 }
 button:hover{
     color: black;
-    background-color: white;
+    background-color: white;	
 }
 nav{
-	padding: 2em;
-	margin: 1em;
-	background-color: #DC3D24;
-    border-radius: 5px;
+	padding: 2%;
+	margin: 1%;
+	border-radius: 5px;
 	display: block;
 }
 nav form{
@@ -185,21 +219,4 @@ nav form{
 form{
     vertical-align: middle;
 }
-/*special needs when the zoom is extreme*/
-@media (max-width: 767px) {
-    body {
 
-        background-color: #232B2B;
-    }
-
-    .Orders{
-        padding-top:9em;
-        size: 3em;
-        margin-left:18em;
-        z-index: -5;
-    }
-}
-/*makes the side adapt to the size*/
-@media (min-width: 768px){
-
-}
