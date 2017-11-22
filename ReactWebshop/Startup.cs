@@ -30,7 +30,7 @@ namespace reactTwo
             //Adds user data to the user list in user controller, it will be removed after database connection
              //Add this line to your method
             services.AddDbContext<normieContext> (
-                 opt => opt.UseNpgsql(@"Host=localhost;Database=TestBackup;Username=postgres;Password=Th0mada1"));
+                 opt => opt.UseNpgsql(@"Host=localhost;Database=NormieDB;Username=postgres;Password=Th0mada1"));
             services.AddMvc();
 
         }

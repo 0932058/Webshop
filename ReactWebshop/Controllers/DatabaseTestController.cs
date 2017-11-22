@@ -19,11 +19,8 @@ namespace reactTwo.Controllers {
         // GET api/values
         [HttpGet("Get")]
         public IActionResult Get () {
-            Product foundEntity = this._context.product.Find(1);
-            if(foundEntity != null){
-                return Ok(foundEntity.productNaam);
-            }
-            return Ok("API IS SEEN");
+            Admin foundEntity = this._context.Admins.Find(1);
+            return Ok(foundEntity.achterNaam);
         }
     }
 }
