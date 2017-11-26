@@ -95,6 +95,10 @@ namespace reactTwo.Migrations
 
                     b.Property<string>("klantTussenvoegsel");
 
+                    b.Property<string>("password");
+
+                    b.Property<string>("username");
+
                     b.HasKey("KlantId");
 
                     b.ToTable("Klanten");

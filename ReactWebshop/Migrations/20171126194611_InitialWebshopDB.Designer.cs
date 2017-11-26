@@ -11,7 +11,7 @@ using System;
 namespace reactTwo.Migrations
 {
     [DbContext(typeof(normieContext))]
-    [Migration("20171122134350_InitialWebshopDB")]
+    [Migration("20171126194611_InitialWebshopDB")]
     partial class InitialWebshopDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -95,6 +95,10 @@ namespace reactTwo.Migrations
                     b.Property<int>("klantTel");
 
                     b.Property<string>("klantTussenvoegsel");
+
+                    b.Property<string>("password");
+
+                    b.Property<string>("username");
 
                     b.HasKey("KlantId");
 
