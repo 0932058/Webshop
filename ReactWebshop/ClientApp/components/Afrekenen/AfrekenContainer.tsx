@@ -27,11 +27,21 @@ export class Afrekenen extends AbstractStorage {
         alert("Zooi is leeg")
    
     }
-    FinalizeOrder(){
-        var Orderlist = []
+    CalcPrice(){
+        var totalPrice = 0;
+        var Orderlist = [];
         Orderlist = this.GetCartData();
         Orderlist.forEach(order => {
+            totalPrice += order.price;
             
+        });
+        return totalPrice;
+    }
+    FinalizeOrder(){
+        var Orderlist = [];
+        Orderlist = this.GetCartData();
+        Orderlist.forEach(order => {
+            order
             
         });
     }
@@ -55,7 +65,7 @@ export class Afrekenen extends AbstractStorage {
                         <p>{User.getPostcode()}</p>
                     </li>
                 </ul>
-                <p> Total Price: €{this.state.totalPrice.toFixed(2)}</p>
+                <p> Total Price: €{this.CalcPrice}</p>
                 <p> <button onClick={this.EmptyShoppingCart}> Bestellen </button> </p>
                 </div>
             )
@@ -71,7 +81,7 @@ export class Afrekenen extends AbstractStorage {
                     <li><input placeholder='straatnaam' type="text" name="streetname" /> </li>
                     <li><input placeholder="postcode" type="text" name="postcode" /> </li> 
                 </form>
-                <p> Total Price: €{this.state.totalPrice.toFixed(2)}</p>
+                <p> Total Price: €{this.CalcPrice}</p>
                 <p> <button onClick={this.EmptyShoppingCart}> Bestellen </button> </p>
                 </div>
             )
