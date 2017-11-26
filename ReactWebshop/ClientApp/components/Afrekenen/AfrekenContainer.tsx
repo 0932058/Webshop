@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
-import {shoppingCartdata} from "../DatabaseSimulation/FakeDatabase";
 import {game,storage, product}  from '../DatabaseSimulation/TableTypes';
 import {shoppingCart}  from '../DatabaseSimulation/TableTypes';
 import {List} from "linqts";
@@ -13,20 +12,18 @@ export class Afrekenen extends AbstractStorage {
     constructor(){
         super();    
         //Gets the pk of the logged in user
-        var loggedInUserPK = User.IsUserLoggedIn? User.GetPK() : 0
-        this.state = {storageProducts: null, convertedStorageProducts: null,customerID: loggedInUserPK, isShoppingCart:true, loaded:false, totalPrice: 0}
+        var loggedInUserPK = User.IsUserLoggedIn? User.GetPK() : 0;
+        var shoppingCartData = JSON.parse(localStorage.getItem("shoppingcart"));
+        this.state = {storageProducts: null, convertedStorageProducts: null,customerID: loggedInUserPK, isShoppingCart:true, loaded:false, totalPrice: 0};
         this.EmptyShoppingCart = this.EmptyShoppingCart.bind(this);
+        this.FormShoppingCart = this.FormShoppingCart.bind(this);
+    }
+    FormShoppingCart(){
+        
     }
     EmptyShoppingCart(){
-        var itemsToDelete = shoppingCartdata.Where(item => item.accountFK == User.GetPK());
-        console.log(itemsToDelete.Count() + " BEFORE DELETE!")
-        while(itemsToDelete.Count() > 0){
-            shoppingCartdata.RemoveAt(itemsToDelete.Count()-1);
-            itemsToDelete = shoppingCartdata.Where(item => item.accountFK == User.GetPK());
-        }
-        console.log(itemsToDelete.Count() + " AFTER DELETE!")
-        this.setState({totalPrice: 0})
-        alert("Uw bestelling is voltooid")
+        localStorage.removeItem("shoppingcart");
+        alert("Zooi is leeg")
    
     }
 
