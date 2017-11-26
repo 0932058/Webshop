@@ -13,21 +13,27 @@ export class Afrekenen extends AbstractStorage {
         super();    
         //Gets the pk of the logged in user
         var loggedInUserPK = User.IsUserLoggedIn? User.GetPK() : 0;
-        var shoppingCartData = JSON.parse(localStorage.getItem("shoppingcart"));
         this.state = {storageProducts: null, convertedStorageProducts: null,customerID: loggedInUserPK, isShoppingCart:true, loaded:false, totalPrice: 0};
         this.EmptyShoppingCart = this.EmptyShoppingCart.bind(this);
         this.GetCartData = this.GetCartData.bind(this);
     }
     GetCartData(){
-        shoppingCartData.forEach(element => {
-            
-        });
-        
+        var shoppingCartData = [];
+        shoppingCartData = JSON.parse(localStorage.getItem("shoppingcart"));
+        return shoppingCartData;
     }
     EmptyShoppingCart(){
         localStorage.removeItem("shoppingcart");
         alert("Zooi is leeg")
    
+    }
+    FinalizeOrder(){
+        var Orderlist = []
+        Orderlist = this.GetCartData();
+        Orderlist.forEach(order => {
+            
+            
+        });
     }
 
     render() {
@@ -50,7 +56,7 @@ export class Afrekenen extends AbstractStorage {
                     </li>
                 </ul>
                 <p> Total Price: €{this.state.totalPrice.toFixed(2)}</p>
-                <p> <button> Finalize order </button> </p>
+                <p> <button onClick={this.EmptyShoppingCart}> Bestellen </button> </p>
                 </div>
             )
         }

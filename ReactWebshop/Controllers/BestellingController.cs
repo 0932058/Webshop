@@ -19,7 +19,9 @@ namespace reactTwo.Controllers
 
         [HttpGet("Get/{id"})]
         public IActionResult Get(int id){
-           var foundBestelling = _context.Bestelling.Where(user => user.pk == id).FirstOrDefault();
+        
+            using (var db = new normieContext())
+            var foundBestelling = db.Bestelling.Where(user => user.pk == id).FirstOrDefault();
             if(foundUser != null){
                 return Ok(foundBestelling);
             }
@@ -29,15 +31,15 @@ namespace reactTwo.Controllers
         }
         [HttpPost("Post")]
         public IActionResult Post(int product, int klant){
-            
+            using (var db = new normieContext())
             Bestelling bestelling = new Bestelling();
-            bestelling.BestellingId = ID;
+            bestelling.BestellingId = _context.Bestelling.Count() + 1;
             bestelling.productId = product;
             bestelling.klantId = klant;
             bestelling.bestellingDatum = DateTime.Now;
             bestelling.status = "In behandeling";
             
-            this._context.Bestellingen.Add(bestelling);
+            db.Bestellingen.Add(bestelling);
             
             return View();
         }
