@@ -16,9 +16,12 @@ export class Afrekenen extends AbstractStorage {
         var shoppingCartData = JSON.parse(localStorage.getItem("shoppingcart"));
         this.state = {storageProducts: null, convertedStorageProducts: null,customerID: loggedInUserPK, isShoppingCart:true, loaded:false, totalPrice: 0};
         this.EmptyShoppingCart = this.EmptyShoppingCart.bind(this);
-        this.FormShoppingCart = this.FormShoppingCart.bind(this);
+        this.GetCartData = this.GetCartData.bind(this);
     }
-    FormShoppingCart(){
+    GetCartData(){
+        shoppingCartData.forEach(element => {
+            
+        });
         
     }
     EmptyShoppingCart(){

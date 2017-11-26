@@ -17,13 +17,18 @@ namespace reactTwo.Controllers
             _context = context;
         }
 
-        [HttpGet("Get")]
+        [HttpGet("Get/{id"})]
         public IActionResult Get(int id){
-            Bestelling bestelling = this._context.Bestellingen.Find(id);
-            return View();
+           var foundBestelling = _context.Bestelling.Where(user => user.pk == id).FirstOrDefault();
+            if(foundUser != null){
+                return Ok(foundBestelling);
+            }
+            else{
+                return NotFound(foundBestelling);
+            }
         }
         [HttpPost("Post")]
-        public IActionResult Post(int ID, int product, int klant){
+        public IActionResult Post(int product, int klant){
             
             Bestelling bestelling = new Bestelling();
             bestelling.BestellingId = ID;
