@@ -52,8 +52,7 @@ namespace Controllers
         }
         // PUT api/values/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody]Klant user){
-            this._context.Klanten.Add(user);
+        public void Put(int id, [FromBody] Klant user){
         }
 
         // DELETE api/values/5

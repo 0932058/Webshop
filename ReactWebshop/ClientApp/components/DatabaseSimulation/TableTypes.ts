@@ -41,20 +41,21 @@ export type accessoires = {
     dateAddedToDatabase: Date;
 }
 
-export type user = {
-    pk: number,
-    firstName:string,
-    lastName: string,
-    email: string,
+export type Klant = {
+    KlantId: number,
+    klantNaam:string,
+    klantAchternaam: string,
+    klantTussenvoegsel: string,
+    klantTel: number,
+    klantMail: string,
+    klantStraat: string,
+    klantPostcode: string,
+    klantStraatnmr: string,
     username: string,
-    password: string,
-    wishListFK: number,
-    shoppingCartFK: number,
-    orderFK: number[] | number | null,
-    streetname: string,
-    postcode: string
-    
+    password: string
 }
+
+
 export type console = {
     pk: number,
     name: string,
