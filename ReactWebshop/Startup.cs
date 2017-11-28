@@ -12,6 +12,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Controllers;
 using Models;
+using Pomelo.EntityFrameworkCore.MySql;
 
 namespace reactTwo
 {
@@ -30,11 +31,9 @@ namespace reactTwo
             //Adds user data to the user list in user controller, it will be removed after database connection
              //Add this line to your method
             services.AddDbContext<normieContext> (
-                 opt => opt.UseNpgsql(@"Host=localhost;Database=NormieDB;Username=normieAdmin;Password=admin"));
+                 opt => opt.UseMySql(@"Host=185.56.145.149;Database=stefan2q_WebshopProjectDB;Username=stefan2q_normieUSER;Password=NormiePassword5009!;"));
             services.AddMvc();
-
         }
-
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
