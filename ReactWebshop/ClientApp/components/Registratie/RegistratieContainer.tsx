@@ -1,7 +1,6 @@
 import * as React from 'react';
 import {List} from "linqts";
-import {user} from "../DatabaseSimulation/TableTypes";
-import {accountsTableData} from "../DatabaseSimulation/FakeDatabase";
+import {Klant} from "../../../TypescriptModels/Klant"
 import { RouteComponentProps } from 'react-router';
 import { Redirect } from 'react-router';
 
@@ -71,7 +70,7 @@ export class RegistratieContainer extends React.Component<RouteComponentProps<{}
             return false;
         }
     }
-    async ConnectWithApiToCheckIfUserExist() : Promise<user>{
+    async ConnectWithApiToCheckIfUserExist() : Promise<Klant>{
         let apiUrl = 'api/User/Get/Username/' + this.state.username
         let apiResponse = await fetch(apiUrl, {method: 'get', credentials: 'include', headers: new Headers({'content-type' : 'application/json'})});
         let apiResponseJson = await apiResponse.json();
@@ -94,9 +93,18 @@ export class RegistratieContainer extends React.Component<RouteComponentProps<{}
     //Based on the filled in information that the user gave, they are send to the api
     async PostUserToDatabase(){
         let apiUrl = 'api/User/Post'
-        let userToPost: user = {pk: 0, firstName: this.state.firstname, lastName: this.state.lastname, streetname:this.state.streetname,
-        postcode: this.state.postcode, email: this.state.email, username: this.state.username, password: this.state.password, wishListFK: 0, 
-        shoppingCartFK: 0,   orderFK: 0}
+        let userToPost: Klant = {
+            KlantId: 0, 
+            klantNaam: this.state.firstname, 
+            klantAchternaam: this.state.lastname,
+            klantTussenvoegsel: this.state.firstname, 
+            klantTel: 150,
+            klantMail: this.state.email,
+            klantStraat: this.state.streetname, 
+            klantPostcode: this.state.postcode, 
+            klantStraatnmr:"116",
+            username: this.state.username,
+            password: this.state.password}
         let apiResponse = await fetch(apiUrl, {method: 'POST', body:JSON.stringify(userToPost), headers: new Headers({'content-type' : 'application/json'})});
         this.setState({isNoEmptyInputFields: true})
     }

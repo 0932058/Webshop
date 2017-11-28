@@ -1,12 +1,11 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
-import {product, category}  from '../../DatabaseSimulation/TableTypes';
 
 //Wenslijst component
 
 interface WenslijstProps{
-    WenslijstProduct: product;
-    RemoveItemFromStorage(productToRemove:product, category:category);
+    WenslijstProduct: any;
+    RemoveItemFromStorage(productToRemove:any, category:any);
 }
 
 export class WensLijstComponent extends React.Component<WenslijstProps, {}> {

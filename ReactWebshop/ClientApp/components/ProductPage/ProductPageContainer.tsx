@@ -1,16 +1,12 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
-import {game, wishList,shoppingCart, console, product, category, storage, storageCategory} from "../DatabaseSimulation/TableTypes";
-import {gameTableData, wishListData, shoppingCartdata, consoleTableData} from "../DatabaseSimulation/FakeDatabase";
-import {consoleType} from "../DatabaseSimulation/ConsoleTable";
-import {accessoires} from "../DatabaseSimulation/TableTypes";
 import {ProductPageComponent} from "./ProductPageComponent";
 import {List} from "linqts";
 import {User} from "../User/User";
 
 //The product page
 interface ProductPageProps{
-    clickedOnProduct: game | console | accessoires; 
+    clickedOnProduct: null
 }
 interface ProductPageState{
     product: string; //the product to show is an JSON object because this.state doesn't allow a single object
@@ -44,21 +40,21 @@ export class ProductPage extends React.Component<ProductPageProps, ProductPageSt
          var product = JSON.parse(productObjectAsString); //the product is parsed to an object to bypass React's this.state rules
      
          //Depending if the paramter Isshoppingcart, a different type of pk and categorykind is choosen
-        var productToAddToStorage = {pk: isShoppingcart? shoppingCartdata.Count()+ 1 : wishListData.Count() + 1, 
-        accountFK: this.state.PKUser, productFK: product.pk, productForeignKeyReference: product.category, 
-    categoryKind: isShoppingcart? storageCategory.shoppingCart : storageCategory.wishlist} 
+    //     var productToAddToStorage = {pk: isShoppingcart? shoppingCartdata.Count()+ 1 : wishListData.Count() + 1, 
+    //     accountFK: this.state.PKUser, productFK: product.pk, productForeignKeyReference: product.category, 
+    // categoryKind: isShoppingcart? storageCategory.shoppingCart : storageCategory.wishlist} 
 
-        if(productToAddToStorage.categoryKind == storageCategory.shoppingCart){
-            shoppingCartdata.Add(productToAddToStorage)
-        }
-        else{
-            wishListData.Add(productToAddToStorage);
-        }
+    //     if(productToAddToStorage.categoryKind == storageCategory.shoppingCart){
+    //         shoppingCartdata.Add(productToAddToStorage)
+    //     }
+    //     else{
+    //         wishListData.Add(productToAddToStorage);
+    //     }
    
         this.NotificationAlert(product, isShoppingcart);
     } 
     //Notifcation pop up when user adds an item to the wishlist or shopping cart
-    NotificationAlert(product: product, isForTheShoppingcart: boolean){
+    NotificationAlert(product: any, isForTheShoppingcart: boolean){
         if(isForTheShoppingcart){
             alert(product.name + " is aan de winkelmand toegevoegd")
         }
@@ -74,20 +70,20 @@ export class ProductPage extends React.Component<ProductPageProps, ProductPageSt
         var playstation4Image = "https://www.geek.com/wp-content/uploads/2013/02/PlayStation4_logo.jpg"
         var consoleImage = ""
 
-        switch(JSON.parse(this.state.product).console){
-            case(consoleType.xbox360):
-                consoleImage = xbox360Image;
-                break;
-            case(consoleType.xboxone):
-                consoleImage = xboxOneImage;
-                break;
-            case(consoleType.playstation3):
-                consoleImage = playstation3Image;
-                break;
-            case(consoleType.playstation4):
-                consoleImage = playstation4Image
-                break;
-        }
+        // switch(JSON.parse(this.state.product).console){
+        //     case(consoleType.xbox360):
+        //         consoleImage = xbox360Image;
+        //         break;
+        //     case(consoleType.xboxone):
+        //         consoleImage = xboxOneImage;
+        //         break;
+        //     case(consoleType.playstation3):
+        //         consoleImage = playstation3Image;
+        //         break;
+        //     case(consoleType.playstation4):
+        //         consoleImage = playstation4Image
+        //         break;
+        // }
 
         return Promise.resolve(consoleImage);
     }

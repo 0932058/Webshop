@@ -1,8 +1,5 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
-import {game, console,product, category} from "../DatabaseSimulation/TableTypes";
-import {gameTableData, shoppingCartdata} from "../DatabaseSimulation/FakeDatabase";
-import {consoleType} from "../DatabaseSimulation/ConsoleTable";
 import {User} from "../User/User";
 
 interface ItemPageState{

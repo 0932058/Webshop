@@ -1,6 +1,5 @@
 import * as React from 'react';
 import {List} from "linqts";
-import {user} from "../DatabaseSimulation/TableTypes";
 import { RouteComponentProps } from 'react-router';
 import { Redirect } from 'react-router';
 

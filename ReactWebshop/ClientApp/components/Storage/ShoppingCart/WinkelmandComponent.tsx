@@ -1,11 +1,10 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
-import {product, category}  from '../../DatabaseSimulation/TableTypes';
 
 
 interface WinkelmandProps{
-    shoppingCartProduct: product;
-    RemoveItemFromStorage(productToRemove:product, category:category);
+    shoppingCartProduct: any;
+    RemoveItemFromStorage(productToRemove:any, category:any);
 }
 
 export class WinkelMandComponent extends React.Component<WinkelmandProps, {}> {

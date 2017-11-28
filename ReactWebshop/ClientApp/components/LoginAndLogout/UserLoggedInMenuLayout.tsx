@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import {User} from "../User/User";
-import {SearchBarMenu} from "../Search/SearchBarMenu";
+//import {SearchBarMenu} from "../Search/SearchBarMenu";
 
 //The menu when the user is logged in
 
@@ -29,7 +29,7 @@ export class UserLoggedInMenu extends React.Component<{}, {}> {
                             <NavLink to={ '/Logout' } exact activeClassName='active'className='LinksNav'>
                                 Log uit
                             </NavLink>
-                            <SearchBarMenu/>
+                            {/* <SearchBarMenu/> */}
         </nav>;    
     }
 }

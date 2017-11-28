@@ -1,11 +1,10 @@
 import * as React from 'react';
-import {accountsTableData} from "../DatabaseSimulation/FakeDatabase";
-import {user} from "../DatabaseSimulation/TableTypes";
 import {List} from "linqts";
 import { RouteComponentProps } from 'react-router';
 import {RegistratieContainer} from "../Registratie/RegistratieContainer";
 import { Redirect } from 'react-router';
 import {User} from "../User/User";
+import {Klant} from "../../../TypescriptModels/Klant";
 
 interface LoginContainerState{
     //to check if it needs to redirect to Home, there is a method in User class to check the login status
@@ -13,7 +12,7 @@ interface LoginContainerState{
     typedInUsername: string;
     typedInPassword: string;
     isRegisterButtonClick: boolean;
-    loggedInUser: user | null;
+    loggedInUser: null;
 }
 export class LoginContainer extends React.Component<RouteComponentProps<{}>, LoginContainerState> {
     constructor(){
@@ -34,7 +33,7 @@ export class LoginContainer extends React.Component<RouteComponentProps<{}>, Log
             this.setState({typedInPassword: event.target.value});   
         }           
     }
-    async GetUserFromApi() : Promise<user>{
+    async GetUserFromApi() : Promise<Klant>{
         let apiLink = 'api/User/Get/Username/' + this.state.typedInUsername
         let apiResponse = await fetch(apiLink, {method: 'get', credentials: 'include', headers: new Headers({'content-type' : 'application/json'})});
         let apiResponseJson = await apiResponse.json();
@@ -54,7 +53,7 @@ export class LoginContainer extends React.Component<RouteComponentProps<{}>, Log
         .catch(_ => alert("Username does not exist!"))
     }
     //Fetches the data (Pk, name etc) of the logged in user 
-    CreateLoggedInUser(userAccount: user){
+    CreateLoggedInUser(userAccount: Klant){
         var loggedInUser = User.CreateUser();
         loggedInUser.SetAccount(userAccount);
         this.setState({userLoggedIn: true})
