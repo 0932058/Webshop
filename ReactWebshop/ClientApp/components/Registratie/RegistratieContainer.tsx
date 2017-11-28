@@ -7,6 +7,7 @@ import { Redirect } from 'react-router';
 interface RegistratieContainerState{
     firstname: string;
     lastname: string;
+    tussenvoegsel: string;
     email: string;
     username: string;
     password: string;
@@ -21,7 +22,16 @@ export class RegistratieContainer extends React.Component<RouteComponentProps<{}
         this.CheckIfAccountExists = this.CheckIfAccountExists.bind(this);
         this.ConnectWithApiToCheckIfUserExist = this.ConnectWithApiToCheckIfUserExist.bind(this);
         this.PostUserToDatabase = this.PostUserToDatabase.bind(this);
-        this.state = {firstname: "", lastname: "", email: "", username:"", password:"", streetname: "", postcode:"", isNoEmptyInputFields:false}       
+        this.state = 
+        {firstname: "", 
+        lastname: "", 
+        email: "", 
+        tussenvoegsel: "", 
+        username:"", 
+        password:"", 
+        streetname: "", 
+        postcode:"", 
+        isNoEmptyInputFields:false}       
     }
     //When an input field gets typed in this method gets called
     HandleInputFieldsChange(event: any){     
@@ -35,6 +45,8 @@ export class RegistratieContainer extends React.Component<RouteComponentProps<{}
             case("email"):
                 this.setState({email: event.target.value});  
                 break;
+            case("tussenvoegsel"):
+                this.setState({tussenvoegsel: event.target.values})
             case("username"):
                 this.setState({username: event.target.value});  
                 break;
@@ -61,6 +73,7 @@ export class RegistratieContainer extends React.Component<RouteComponentProps<{}
         inputFields.Add(this.state.email);
         inputFields.Add(this.state.streetname);
         inputFields.Add(this.state.postcode);
+        inputFields.Add(this.state.tussenvoegsel)
     
         var EmptyFieldCheckResult = inputFields.Where(input => input.length == 0)
         if(EmptyFieldCheckResult.Count() == 0){
@@ -97,7 +110,7 @@ export class RegistratieContainer extends React.Component<RouteComponentProps<{}
             KlantId: 0, 
             klantNaam: this.state.firstname, 
             klantAchternaam: this.state.lastname,
-            klantTussenvoegsel: this.state.firstname, 
+            klantTussenvoegsel: this.state.tussenvoegsel, 
             klantTel: 150,
             klantMail: this.state.email,
             klantStraat: this.state.streetname, 
@@ -118,6 +131,8 @@ export class RegistratieContainer extends React.Component<RouteComponentProps<{}
                     <li><input placeholder="voornaam" type="text" name="firstname" value={this.state.firstname} /> </li>              
                    
                     <li><input placeholder="achternaam" type="text" name="lastname"  value={this.state.lastname} /> </li>            
+
+                    <li><input placeholder="tussenvoegsel" type="text" name="tussenvoegsel"  value={this.state.tussenvoegsel} /> </li>    
 
                     <li><input placeholder="email" type="text" name="email"  value={this.state.email} /> </li>            
                 
