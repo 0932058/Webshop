@@ -10,6 +10,5 @@ export type Klant = {
     klantStraatnmr: string,
     username: string,
     password: string
-    
 }
 export default Klant;
