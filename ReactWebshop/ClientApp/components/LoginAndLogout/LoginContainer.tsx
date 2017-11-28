@@ -64,6 +64,7 @@ export class LoginContainer extends React.Component<RouteComponentProps<{}>, Log
         this.setState({isRegisterButtonClick: true})
     }
     render(){
+        console.log("LOL")
         return(
             <div className={"Container"}>
             

@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace reactTwo.Controllers
 {
-    [Route("api/Item")]
+    [Route("api/Items")]
     public class ItemsController : Controller
     {
 

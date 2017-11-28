@@ -3,23 +3,28 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Models;
 
 namespace Controllers
 {
     //This is the default route of the API. 
     [Route("api/[controller]")]
     public class UserController : Controller{
-        public static List<user> users = new List<user>();  
+        private readonly normieContext _context;
+        public UserController(normieContext context){
+            this._context = context;
+        }
+        //public static List<user> users = new List<user>();  
         
         // GET api/values
         [HttpGet("Get")]
         public IActionResult Get(){
-            return Ok(users.ToArray());
+            return Ok(this._context.Klanten.ToArray());   
         }
         // GET api/values/5
         [HttpGet("Get/{id}")]
         public IActionResult Get(int id){
-            var foundUser = users.Where(user => user.pk == id).FirstOrDefault();
+            var foundUser = this._context.Klanten.Where(user => user.KlantId  == id).FirstOrDefault();
             if(foundUser != null){
                 return Ok(foundUser);
             }
@@ -29,7 +34,7 @@ namespace Controllers
         }
         [HttpGet("Get/Username/{username}")]
         public IActionResult Get(string username){
-            var foundUser = users.Where(user => user.username == username).FirstOrDefault();
+            var foundUser = this._context.Klanten.Where(user => user.username == username).FirstOrDefault();
             if(foundUser != null){
                 return Ok(foundUser);
             }
@@ -39,25 +44,22 @@ namespace Controllers
         }
         // POST api/values
         [HttpPost("Post")]
-        public void Post([FromBody]user user){
-            user.pk = users.Count() + 1;
-            users.Add(user);
+        public void Post([FromBody]Klant user){
+            user.KlantId = this._context.Klanten.Count() + 1;
+            this._context.Klanten.Add(user);
+            this._context.SaveChanges();
            
         }
         // PUT api/values/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody]user user){
-            users.Add(user);
+        public void Put(int id, [FromBody]Klant user){
+            this._context.Klanten.Add(user);
         }
 
         // DELETE api/values/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-        }
-        //Method will be removed when database is added
-        public void NonControllerMethodAddDataToUserList(){
-            users.Add(new user(1,"jan", "lol", "lol@live.nl", "a","a",1,1,1,"lolstreet","lool"));
         }
     }
 }
