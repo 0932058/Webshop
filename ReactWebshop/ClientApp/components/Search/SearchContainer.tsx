@@ -1,65 +1,93 @@
 import * as React from 'react';
-import {gameTableData, consoleTableData, accessoiresTableData} from "../DatabaseSimulation/FakeDatabase";
-import {product} from "../DatabaseSimulation/TableTypes";
+import {gameTableData, consoleTableData, accessoiresTableData, accountsTableData} from "../DatabaseSimulation/FakeDatabase";
+import {product, user} from "../DatabaseSimulation/TableTypes";
 import {List} from "linqts";
-import {SearchComponent} from "./SearchComponent";
 import {ProductPage} from "../ProductPage/ProductPageContainer";
 import { RouteComponentProps } from 'react-router';
+//import * as moment from "moment"; //For the date
+import {User} from "../User/User";
+import { Link, NavLink } from 'react-router-dom';
 
-interface SearchContainerState{
-    loaded:boolean;
-    productPageButtonClicked: boolean; //When a product page is clicked, the product page component is called
-    foundProducts: List<product> //The products that match the search text gets put into this list
-    clickedOnProduct: product; //The clicked on product gets send to the product page component 
-    searchBarText: string; //The typed in search bar text
+interface ItemsContainerState{
+    loaded : boolean;
+    products : number[] | null; //The products get put in the list by date
+    isHome : string;
+    isTest : string;
 }
-export class SearchContainer extends React.Component<RouteComponentProps<{}>, SearchContainerState> {
-    constructor(){
-        super();
-        this.state = {loaded: false, foundProducts: new List<product>(), productPageButtonClicked: false, clickedOnProduct: null, searchBarText:""}
-        this.SearchInDatabaseForSearchTerms = this.SearchInDatabaseForSearchTerms.bind(this);
-        this.GotoProductPage = this.GotoProductPage.bind(this);
-        this.SetSearchItem = this.SetSearchItem.bind(this);
-    }
-    componentWillMount(){
-      
-        var res = localStorage.getItem("searchBox");
-        this.SetSearchItem().then(searchBarText => this.setState({searchBarText: searchBarText})).then(yo =>
-        this.SearchInDatabaseForSearchTerms().then(foundProducts => this.setState({loaded: true, foundProducts: foundProducts })));
-     
-    }
-    //Gets the search item
-    SetSearchItem() : Promise<string>{
-        var searchBarText = localStorage.getItem("searchBox");
-        return Promise.resolve(searchBarText);
+export class SearchContainer extends React.Component<RouteComponentProps<{}>, ItemsContainerState> {
+    constructor(props){
+        super(props);
 
+        this.postProduct = this.postProduct.bind(this);
+
+        this.state = {
+            loaded : false,
+            products : null,
+            isHome : "",
+            isTest : 'still loading',
+        };
+
+        //this determines what needs to be loaded
+        var xtra = '';
+        if (this.props.location.pathname === '/'){
+            xtra = '/Home';
+        }else{
+            xtra = this.props.location.pathname
+        }
+
+        console.log(this.props.location.pathname)
+
+        fetch('api/Search/Get')
+        .then(response => response.json() as Promise<number[]>)
+        .then(data => {
+            console.log(data)
+            this.setState({ products : data, loaded : true});
+        });
     }
-    //Search in the database for items that match the search text
-    SearchInDatabaseForSearchTerms() : Promise<List<product>>{
-        var gameSearchResult = gameTableData.Where(game => game.name.toLowerCase().includes(this.state.searchBarText.toLowerCase()));
-        var consoleSearchResult = consoleTableData.Where(console => console.name.toLowerCase().includes(this.state.searchBarText.toLowerCase()));
-        var accessoiresSearchResult = accessoiresTableData.Where(accessoires => accessoires.name.toLowerCase().includes(this.state.searchBarText.toLowerCase()));  
-        var combinedResults: List<product> = gameSearchResult.Cast<product>().Concat(accessoiresSearchResult.Cast<product>().Concat
-        (consoleSearchResult.Cast<product>()));
-        return Promise.resolve(combinedResults);
+
+    postProduct(){
+        fetch('api/Items/Post', {method: 'POST', headers: new Headers({'content-type' : 'application/json'})});
     }
-    //When the user clicks on the product page button, this method gets called
-    GotoProductPage(event:any, clickedOnProduct: product): void{
-        this.setState({productPageButtonClicked: true, clickedOnProduct: clickedOnProduct})
+
+    getProduct(){
     }
+
     render(){
+   
         return(
-            <div className={"Searches"}>
-            {this.state.productPageButtonClicked?
-            <ProductPage clickedOnProduct={this.state.clickedOnProduct}/>
-            :
-            this.state.loaded? 
-            this.state.foundProducts.ToArray().map((product,index) =>
-            <SearchComponent key={index} foundSearchResultProduct={product} GotoProductPage={this.GotoProductPage}/>)
-            :
-            <div> Loading... </div>
-            }
+            <div  className={"Container"}>
+            <div> <h1>Nieuwste producten van maand {new Date().getMonth() + 1}! </h1> </div> 
+            <div  className={"ItemsContainerScroll"}> 
+
+            <h1> { localStorage.getItem('search').toString() } </h1>
+
+            <button onClick={ this.postProduct } > click me to add a product </button>
+            
+                { this.state.loaded? 
+                    this.state.products.map(
+                        item => {
+                            return (
+                                <div className={"Component"}>
+                                <img src={ item.productImg }/>
+                                    <div className="ComponentInfo"> 
+                                    <h2>{ item.productNaam } </h2>
+                                    <p> Console: PS + XBOX </p>
+                                    <p> Prijs: {"€" + item.price} </p>
+                                    <NavLink to={ '/Item/' + item.ProductId } exact activeClassName='Active'className='LinksSide'>
+                                        naar Product
+                                    </NavLink>
+                                    </div> 
+                                </div>
+                            )
+                        }
+                    )
+                    :
+                    <h1> still loading... </h1>
+                }
+
+            </div>
+
+
             </div>
         )}
 }
-export default SearchContainer;

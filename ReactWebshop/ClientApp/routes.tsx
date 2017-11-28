@@ -10,7 +10,6 @@ import { ProductPage } from './components/ProductPage/ProductPageContainer';
 import { ItemsContainer } from "./components/Items/ItemsContainer";
 import { ItemPage } from "./components/ProductPage/ItemPage";
 import {SearchContainer} from "./components/Search/SearchContainer";
-import {HomeContainer} from "./components/Home/HomeContainer";
 import {LoginContainer} from "./components/LoginAndLogout/LoginContainer";
 import {RegistratieContainer} from "./components/Registratie/RegistratieContainer";
 import {GegevensContainer} from "./components/Profile/Gegevens/GegevensContainer";
@@ -57,4 +56,6 @@ export var routes = <Layout>
     <Route path="/Accessoires/All"  component={ItemsContainer}/>
     <Route path="/Accessoires/Headsets"  component={ItemsContainer}/>
     <Route path="/Accessoires/Racewheels"  component={ItemsContainer}/>
+
+    <Route path="/?"  component={SearchContainer}/>
 </Layout>;
