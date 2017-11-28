@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace reactTwo.Migrations
 {
-    public partial class InitialWebshopDB : Migration
+    public partial class DatabaseMigrations : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -14,7 +14,7 @@ namespace reactTwo.Migrations
                 columns: table => new
                 {
                     AdminId = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     achterNaam = table.Column<string>(nullable: true),
                     functie = table.Column<string>(nullable: true),
                     mail = table.Column<string>(nullable: true),
@@ -31,7 +31,7 @@ namespace reactTwo.Migrations
                 columns: table => new
                 {
                     BestellingId = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     bestellingDatum = table.Column<DateTime>(nullable: false),
                     klantId = table.Column<int>(nullable: false),
                     productId = table.Column<int>(nullable: false),
@@ -48,7 +48,7 @@ namespace reactTwo.Migrations
                 columns: table => new
                 {
                     BetalingId = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     bedrag = table.Column<decimal>(nullable: false),
                     betalingsDatum = table.Column<DateTime>(nullable: false)
                 },
@@ -62,7 +62,7 @@ namespace reactTwo.Migrations
                 columns: table => new
                 {
                     KlantId = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     klantAchternaam = table.Column<string>(nullable: true),
                     klantMail = table.Column<string>(nullable: true),
                     klantNaam = table.Column<string>(nullable: true),
@@ -84,7 +84,7 @@ namespace reactTwo.Migrations
                 columns: table => new
                 {
                     ProductId = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     aantalInVooraad = table.Column<int>(nullable: false),
                     consoleType = table.Column<string>(nullable: true),
                     productGenre = table.Column<string>(nullable: true),
@@ -106,7 +106,7 @@ namespace reactTwo.Migrations
                 columns: table => new
                 {
                     WenslijstId = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     KlantId = table.Column<int>(nullable: false),
                     productNmr = table.Column<int>(nullable: false),
                     toevoegDatum = table.Column<DateTime>(nullable: false)
