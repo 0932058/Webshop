@@ -1,8 +1,5 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
-import {shoppingCartdata} from "../DatabaseSimulation/FakeDatabase";
-import {game,storage, product}  from '../DatabaseSimulation/TableTypes';
-import {shoppingCart}  from '../DatabaseSimulation/TableTypes';
 import {List} from "linqts";
 import {AbstractStorage,StorageState} from "../Storage/ReusableComponents/Storage";
 import {User} from "../User/User";
@@ -18,15 +15,7 @@ export class Afrekenen extends AbstractStorage {
         this.EmptyShoppingCart = this.EmptyShoppingCart.bind(this);
     }
     EmptyShoppingCart(){
-        var itemsToDelete = shoppingCartdata.Where(item => item.accountFK == User.GetPK());
-        console.log(itemsToDelete.Count() + " BEFORE DELETE!")
-        while(itemsToDelete.Count() > 0){
-            shoppingCartdata.RemoveAt(itemsToDelete.Count()-1);
-            itemsToDelete = shoppingCartdata.Where(item => item.accountFK == User.GetPK());
-        }
-        console.log(itemsToDelete.Count() + " AFTER DELETE!")
-        this.setState({totalPrice: 0})
-        alert("Uw bestelling is voltooid")
+        
    
     }
 

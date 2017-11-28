@@ -3,7 +3,7 @@ import * as React from 'react';
 import { Route } from 'react-router-dom';
 import { UserNotLoggedInMenu } from "./LoginAndLogout/UserNotLoggedInMenuLayout";
 import {ZijMenu} from './ZijMenu';
-import {SearchBarMenu} from "./Search/SearchBarMenu";
+//import {SearchBarMenu} from "./Search/SearchBarMenu";
 import {UserLoggedInMenu} from "./LoginAndLogout/UserLoggedInMenuLayout";
 import {User} from "./User/User";
 import { ItemPage } from "../components/ProductPage/ItemPage";

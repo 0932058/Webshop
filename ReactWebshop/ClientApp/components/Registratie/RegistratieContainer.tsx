@@ -1,7 +1,6 @@
 import * as React from 'react';
 import {List} from "linqts";
-import {Klant} from "../DatabaseSimulation/TableTypes";
-import {accountsTableData} from "../DatabaseSimulation/FakeDatabase";
+import {Klant} from "../../../TypescriptModels/Klant"
 import { RouteComponentProps } from 'react-router';
 import { Redirect } from 'react-router';
 

@@ -1,8 +1,9 @@
-import {Klant} from "../DatabaseSimulation/TableTypes";
+import Klant from "../../../TypescriptModels/Klant";
 
 //The class for the user that logs in
 //It stores the data of the user
 //It has also a method that can be used to check if an user is logged in.
+
 
 export class User{
     private static pk: number;

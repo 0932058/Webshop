@@ -1,8 +1,5 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
-import {game, console,product, category} from "../DatabaseSimulation/TableTypes";
-import {gameTableData} from "../DatabaseSimulation/FakeDatabase";
-import {consoleType} from "../DatabaseSimulation/ConsoleTable";
 import {User} from "../User/User";
 
 interface ProductPageState{
@@ -32,7 +29,7 @@ export class ProductPageComponent extends React.Component<ProductPageProps, Prod
                 <div className="ProductPageComponentInfo">                                   
                 <h2> Beschrijving:</h2><p> {JSON.parse(this.state.product).description} </p>
                 <h2> Prijs: €{JSON.parse(this.state.product).price.toFixed(2)} </h2>
-                {JSON.parse(this.state.product).category == category.games?
+                {JSON.parse(this.state.product).category == null?
                 <div>
                 <h2> Leeftijd: {JSON.parse(this.state.product).age} </h2>
                 <h2> Genre: {JSON.parse(this.state.product).genreCategory} </h2>

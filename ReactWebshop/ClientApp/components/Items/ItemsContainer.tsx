@@ -1,6 +1,4 @@
 import * as React from 'react';
-import {gameTableData, consoleTableData, accessoiresTableData, accountsTableData} from "../DatabaseSimulation/FakeDatabase";
-import {product, user} from "../DatabaseSimulation/TableTypes";
 import {List} from "linqts";
 import {ProductPage} from "../ProductPage/ProductPageContainer";
 import { RouteComponentProps } from 'react-router';

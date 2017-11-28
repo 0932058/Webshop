@@ -1,9 +1,6 @@
 import * as React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { RouteComponentProps } from 'react-router';
-import {shoppingCartdata} from "../../DatabaseSimulation/FakeDatabase";
-import {game,storage, product}  from '../../DatabaseSimulation/TableTypes';
-import {shoppingCart}  from '../../DatabaseSimulation/TableTypes';
 import {List} from "linqts";
 import {AbstractStorage,StorageState} from "../ReusableComponents/Storage";
 import {WinkelMandComponent} from "./WinkelmandComponent";

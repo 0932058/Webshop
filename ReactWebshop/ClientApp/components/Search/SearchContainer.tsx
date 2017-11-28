@@ -1,6 +1,4 @@
 import * as React from 'react';
-import {gameTableData, consoleTableData, accessoiresTableData, accountsTableData} from "../DatabaseSimulation/FakeDatabase";
-import {product, user} from "../DatabaseSimulation/TableTypes";
 import {List} from "linqts";
 import {ProductPage} from "../ProductPage/ProductPageContainer";
 import { RouteComponentProps } from 'react-router';
@@ -63,7 +61,7 @@ export class SearchContainer extends React.Component<RouteComponentProps<{}>, It
 
             <button onClick={ this.postProduct } > click me to add a product </button>
             
-                { this.state.loaded? 
+                {/* { this.state.loaded? 
                     this.state.products.map(
                         item => {
                             return (
@@ -83,7 +81,7 @@ export class SearchContainer extends React.Component<RouteComponentProps<{}>, It
                     )
                     :
                     <h1> still loading... </h1>
-                }
+                } */}
 
             </div>
 

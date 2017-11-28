@@ -18,11 +18,11 @@ namespace reactTwo.Controllers
         }
 
         [HttpGet("[action]")]
-        public Product[] Get(string searchTerm)
+        public void Get(string searchTerm)
         {
-            var foundProducts = _context.Producten.Where( p => p.productNaam == searchTerm);
+            // var foundProducts = _context.Producten.Where( p => p.productNaam == searchTerm);
 
-            return foundProducts
+            // return foundProducts;
         }
 
         [HttpPost("Post")]
