@@ -1,4 +1,4 @@
-import {user} from "../DatabaseSimulation/TableTypes";
+import {Klant} from "../DatabaseSimulation/TableTypes";
 
 //The class for the user that logs in
 //It stores the data of the user
@@ -34,19 +34,17 @@ export class User{
     }
     //When the user logs the data
     //Come into this method and then the user gets created
-    public SetAccount(account: user){
+    public SetAccount(account: Klant){
         User.isLoggedIn = true;
-        User.pk = account.pk;
-        User.firstName = account.firstName;
-        User.lastName = account.lastName;
-        User.email = account.email;
-        User.username = account.username;
+        User.pk = account.KlantId;
+        User.firstName = account.klantNaam;
+        User.lastName = account.klantAchternaam;
+        User.email = account.klantMail;
+        User.username = account.username
         User.password = account.password;
-        User.streetname = account.streetname;
-        User.postcode = account.postcode;
-        User.wishListFK = account.wishListFK;
-        User.shoppingCartFK = account.shoppingCartFK;
-        User.orderFK = account.orderFK
+        User.streetname = account.klantStraat;
+        User.postcode = account.klantPostcode;
+
     }
     public static LogUserOut(){
         User.isLoggedIn = false;

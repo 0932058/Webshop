@@ -70,7 +70,9 @@ namespace reactTwo.Migrations
                     klantStraat = table.Column<string>(nullable: true),
                     klantStraatnmr = table.Column<string>(nullable: true),
                     klantTel = table.Column<int>(nullable: false),
-                    klantTussenvoegsel = table.Column<string>(nullable: true)
+                    klantTussenvoegsel = table.Column<string>(nullable: true),
+                    password = table.Column<string>(nullable: true),
+                    username = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {

@@ -12,16 +12,16 @@ export class WensLijstContainer extends AbstractStorage {
     constructor(){
         super();    
         var loggedInUserPK = User.IsUserLoggedIn? User.GetPK() : 0
-        this.state = {storageProducts: null, convertedStorageProducts: null,customerID: loggedInUserPK, isShoppingCart:false, loaded:false, totalPrice: 0}
+        this.state = {products: null,customerID: loggedInUserPK, isShoppingCart:true, loaded:false, totalPrice: 0}
     }
     render() {
         return (
         <div className={"Container"}>
             <h1>Wenslijst</h1>
-            {this.state.convertedStorageProducts.map((storageProduct,index) =>
-            <WensLijstComponent key={index} WenslijstProduct={storageProduct} RemoveItemFromStorage={this.RemoveItemFromStorage}/>)  
+            {this.state.products.map((storageProduct,index) =>
+            <WensLijstComponent key={index} WenslijstProduct={storageProduct} RemoveItemFromStorage={null}/>)  
             }
-            <h1> Total items: {this.state.convertedStorageProducts.length}</h1>
+            <h1> Total items: {this.state.products.length}</h1>
             <h1> Total Price: €{this.state.totalPrice.toFixed(2)}</h1>
             <h1> <button> Finalize order </button> </h1>
             </div>          
