@@ -1,7 +1,5 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
-import {game,storage, product}  from '../DatabaseSimulation/TableTypes';
-import {shoppingCart}  from '../DatabaseSimulation/TableTypes';
 import {List} from "linqts";
 import {AbstractStorage,StorageState} from "../Storage/ReusableComponents/Storage";
 import {User} from "../User/User";
@@ -13,9 +11,15 @@ export class Afrekenen extends AbstractStorage {
         super();    
         //Gets the pk of the logged in user
         var loggedInUserPK = User.IsUserLoggedIn? User.GetPK() : 0;
-        this.state = {storageProducts: null, convertedStorageProducts: null,customerID: loggedInUserPK, isShoppingCart:true, loaded:false, totalPrice: 0};
+        this.state = {products: null,customerID: loggedInUserPK, isShoppingCart:true, loaded:false, totalPrice: 0};
         this.EmptyShoppingCart = this.EmptyShoppingCart.bind(this);
         this.GetCartData = this.GetCartData.bind(this);
+        this.PostOrderToDatabase = this.PostOrderToDatabase.bind(this);
+        this.FinalizeOrder = this.FinalizeOrder.bind(this);
+    }
+    async PostOrderToDatabase(klantId, productId){
+        let apiUrl = 'api/Bestelling/Post'
+        let apiResponse = await fetch(apiUrl, {method: 'POST', body: JSON.stringify({klant: klantId,product: productId}) , headers: new Headers({'content-type' : 'application/json'})});
     }
     GetCartData(){
         var shoppingCartData = [];
@@ -24,7 +28,6 @@ export class Afrekenen extends AbstractStorage {
     }
     EmptyShoppingCart(){
         localStorage.removeItem("shoppingcart");
-        alert("Zooi is leeg")
    
     }
     CalcPrice(){
@@ -38,12 +41,14 @@ export class Afrekenen extends AbstractStorage {
         return totalPrice;
     }
     FinalizeOrder(){
-        var Orderlist = [];
-        Orderlist = this.GetCartData();
-        Orderlist.forEach(order => {
-            order
-            
+        var CartItems = this.GetCartData();
+        CartItems.forEach(item => {
+            if (User.IsUserLoggedIn()){
+                this.PostOrderToDatabase(User.GetPK,item.productId)
+            }
         });
+        this.EmptyShoppingCart();
+        alert("Bestelling geplaatst");
     }
 
     render() {
@@ -82,7 +87,7 @@ export class Afrekenen extends AbstractStorage {
                     <li><input placeholder="postcode" type="text" name="postcode" /> </li> 
                 </form>
                 <p> Total Price: €{this.CalcPrice}</p>
-                <p> <button onClick={this.EmptyShoppingCart}> Bestellen </button> </p>
+                <p> <button onClick={this.FinalizeOrder}> Bestellen </button> </p>
                 </div>
             )
         }

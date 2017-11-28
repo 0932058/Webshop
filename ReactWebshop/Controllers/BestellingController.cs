@@ -17,31 +17,27 @@ namespace reactTwo.Controllers
             _context = context;
         }
 
-        [HttpGet("Get/{id"})]
-        public IActionResult Get(int id){
-        
-            using (var db = new normieContext())
-            var foundBestelling = db.Bestelling.Where(user => user.pk == id).FirstOrDefault();
-            if(foundUser != null){
-                return Ok(foundBestelling);
+        [HttpGet("Get/{KlantId}")]
+        public IActionResult Get(int KlantId){
+            var foundOrder = this._context.Bestellingen.Where(order => order.klantId  == KlantId).ToArray();
+            if(foundOrder != null){
+                return Ok(foundOrder);
+
             }
             else{
-                return NotFound(foundBestelling);
+                return NotFound(foundOrder);
             }
         }
         [HttpPost("Post")]
-        public IActionResult Post(int product, int klant){
-            using (var db = new normieContext())
-            Bestelling bestelling = new Bestelling();
-            bestelling.BestellingId = _context.Bestelling.Count() + 1;
-            bestelling.productId = product;
-            bestelling.klantId = klant;
-            bestelling.bestellingDatum = DateTime.Now;
-            bestelling.status = "In behandeling";
-            
-            db.Bestellingen.Add(bestelling);
-            
-            return View();
+        public void Post([FromBody]dynamic info){
+            Bestelling Order = new Bestelling();
+            Order.bestellingDatum = DateTime.Now;
+            Order.BestellingId = this._context.Bestellingen.Count()+1;
+            Order.productId = info.product;
+            Order.klantId = info.klant;
+            Order.status = "In behandeling";
+            this._context.Bestellingen.Add(Order);
+            this._context.SaveChanges();
         }
 
         
