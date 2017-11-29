@@ -23,11 +23,11 @@ export class Afrekenen extends AbstractStorage {
     }
     GetCartData(){
         var shoppingCartData = [];
-        shoppingCartData = JSON.parse(localStorage.getItem("shoppingcart"));
+        shoppingCartData = JSON.parse(localStorage.getItem("Winkelmand"));
         return shoppingCartData;
     }
     EmptyShoppingCart(){
-        localStorage.removeItem("shoppingcart");
+        localStorage.removeItem("Winkelmand");
    
     }
     CalcPrice(){
