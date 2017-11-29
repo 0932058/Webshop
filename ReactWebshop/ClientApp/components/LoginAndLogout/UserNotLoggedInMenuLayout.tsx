@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Link, NavLink } from 'react-router-dom';
+import { Nav, Navbar, Button, FormGroup, FormControl, NavItem, Container, Row, Col } from 'reactstrap';
 //import {SearchBarMenu} from "../Search/SearchBarMenu";
 
 //The navigation menu of the top bar when the user is not logged in

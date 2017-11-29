@@ -1,8 +1,16 @@
 {
   "ExpandedNodes": [
     "",
-    "\\Images"
+    "\\ReactWebshop",
+    "\\ReactWebshop\\ClientApp",
+    "\\ReactWebshop\\ClientApp\\components",
+    "\\ReactWebshop\\ClientApp\\components\\Items",
+    "\\ReactWebshop\\ClientApp\\components\\LoginAndLogout",
+    "\\ReactWebshop\\ClientApp\\components\\ProductPage",
+    "\\ReactWebshop\\ClientApp\\components\\Registratie",
+    "\\ReactWebshop\\ClientApp\\components\\Search",
+    "\\ReactWebshop\\Controllers"
   ],
-  "SelectedNode": "\\Zoeken.html",
+  "SelectedNode": "\\ReactWebshop\\ClientApp\\components\\LoginAndLogout\\UserNotLoggedInMenuLayout.tsx",
   "PreviewInSolutionExplorer": false
 }
