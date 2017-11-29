@@ -82,7 +82,7 @@ export class RegistratieContainer extends React.Component<RouteComponentProps<{}
         this.IsNoEmptyField() ? 
 
         this.ConnectWithApiToCheckIfUserExist()
-        .then(_ => alert("Username already exists"))
+        .then(_ => alert("Username already exists!"))
         .catch(_ =>{
             this.PostUserToDatabase();
         })
