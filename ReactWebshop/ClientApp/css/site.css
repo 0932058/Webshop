@@ -1,5 +1,6 @@
 body{
     background-color: #232B2B;
+    display: block;
 }
 /*keeps the text behind the home and side balk and in the middle */
 label span {
@@ -63,15 +64,13 @@ ul, li{
 }
 
 .Container, .Searches
-{
-    
+{  
     background: #DC3D24;
     padding: 1%;
     border-radius: 1%;
-    margin-top: 8.8%;
-    margin-left: -10%;
-	margin-bottom:100em;
-	position:fixed;
+    display: block;
+    width: auto;
+    margin-top: 10em;
 }
 .ItemPageComponent{
 	padding: 1%;
@@ -176,10 +175,9 @@ a{
 
 }
 .Zijbalk{
-    margin-top: 8.8%;
+    margin-top: 10em;
 	margin-left:1%;
 	margin-right:3%;
-    position: fixed;
 	background-color: #DC3D24;
 
 }
