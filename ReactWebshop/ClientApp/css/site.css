@@ -68,20 +68,19 @@ ul, li{
     background: #DC3D24;
     padding: 1%;
     border-radius: 1%;
+    margin-left: 1em;
     display: block;
-    width: auto;
+    max-width: 60em;
     margin-top: 10em;
 }
 .ItemPageComponent{
-	padding: 1%;
-    background: #DC3D24;
-    padding-right: 22.5%;
-	padding-left:1%;
-	padding-right:1%;
+	background: #DC3D24;
+    padding: 1%;
     border-radius: 1%;
-    margin-top: 8.8%;
-    margin-left: -11.4em;
-	position:fixed;
+    margin-left: 1em;
+    display: block;
+    max-width: 50em;
+    margin-top: 10em;
 
 }
 .ItemPageComponentScroll{
@@ -176,9 +175,9 @@ a{
 }
 .Zijbalk{
     margin-top: 10em;
-	margin-left:1%;
-	margin-right:3%;
-	background-color: #DC3D24;
+	margin-left:1em;
+    background-color: #DC3D24;
+    max-width: 15em;
 
 }
 
