@@ -1,57 +1,77 @@
 import * as React from 'react';
-import {List} from "linqts";
-import {ProductPage} from "../ProductPage/ProductPageContainer";
+import { List } from "linqts";
+import { ProductPage } from "../ProductPage/ProductPageContainer";
 import { RouteComponentProps } from 'react-router';
-//import * as moment from "moment"; //For the date
-import {User} from "../User/User";
+import { User } from "../User/User";
 import { Link, NavLink } from 'react-router-dom';
-import { Game } from "./ItemsInterfaces"
+
 
 interface ItemsContainerState{
     loaded : boolean;
-    games : Game[] | null; //The products get put in the list by date
-    isHome : string;
+    items : Product[] | null; //The products get put in the list by date
 }
 export class ItemsContainer extends React.Component<RouteComponentProps<{}>, ItemsContainerState> {
+    months : string[];
+
     constructor(props){
         super(props);
 
+        this.months = ["Januari", "Februari", "Maart", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"
+        ],
+
         this.state = {
             loaded : false,
-            games : null,
-            isHome : "",
+            items : null,
         };
 
-        console.log(this.props.location.pathname);
+        //this determines what needs to be loaded, according to the pathname of the route
+        var xtra = '';
+        if (this.props.location.pathname === '/'){
+            xtra = '/Home';
+        }else{
+            xtra = this.props.location.pathname
+        }
 
-        fetch('api/Items' + this.props.location.pathname + (this.props.location.pathname ? "Home" : ""))
-        .then(response => response.json() as Promise<Game[]>)
+
+        fetch('api/Items' + xtra)
+        .then(response => response.json() as Promise<Product[]>)
         .then(data => {
-            this.setState({ games : data, loaded : true});
+            console.log(data)
+            this.setState({ items : data, loaded : true});
         });
-
     }
 
     render(){
    
         return(
             <div  className={"Container"}>
-            <div> <h1>Nieuwste producten van maand {new Date().getMonth() + 1}! </h1> </div> 
+
+            <div> <h1>Nieuwste producten van maand { this.months[new Date().getMonth()] }! </h1> </div> 
+
             <div  className={"ItemsContainerScroll"}> 
-            
-                { this.state.loaded? 
-                    this.state.games.map(
+                {this.state.loaded? 
+
+                    this.state.items.map(
                         item => {
+
                             return (
                                 <div className={"Component"}>
-                                <img src={ item.img }/>
+
+                                <img src={ item.productImg }/>
+
                                     <div className="ComponentInfo"> 
-                                    <h2>{ item.name } </h2>
+
+                                    <h2>{ item.productNaam } </h2>
+
                                     <p> Console: PS + XBOX </p>
-                                    <p> Prijs: {"€" + item.price} </p>
-                                    <NavLink to={ '/Item/' + item.id } exact activeClassName='Active'className='LinksSide'>
+
+                                    <p> Prijs: {"€" + item.productPrijs } </p>
+
+                                    <NavLink to={ '/Item/' + item.ProductId } exact activeClassName='Active'className='LinksSide'>
                                         naar Product
                                     </NavLink>
+
                                     </div> 
                                 </div>
                             )

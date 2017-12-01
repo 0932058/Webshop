@@ -7,6 +7,7 @@ import { Link, NavLink } from 'react-router-dom';
 export class UserNotLoggedInMenu extends React.Component<{}, {}> {
     constructor(){
         super();
+
     }
     public render() {
         return <nav className="UserNotLoggedInMenuLayout">
