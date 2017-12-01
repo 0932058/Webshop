@@ -27,10 +27,16 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
 
         //this determines what needs to be loaded, according to the pathname of the route
         var xtra = '';
-        if (this.props.location.pathname === '/'){
+        if ( this.props.location.pathname === '/' ){
             xtra = '/Home';
         }else{
-            xtra = this.props.location.pathname
+            if(  this.props.location.pathname === '/?'  ){
+                //xtra = "/Get/" + sessionStorage.getItem("search")
+                console.log("am i in search?")
+            }else{
+                xtra = this.props.location.pathname
+            }
+            
         }
 
 
@@ -45,9 +51,32 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
     render(){
    
         return(
+
             <div  className={"Container"}>
 
-            <div> <h1>Nieuwste producten van maand { this.months[new Date().getMonth()] }! </h1> </div> 
+            <div className="UserNotLoggedInMenuLayout" >  
+
+                <nav className="UserNotLoggedInMenuLayout">
+                                <NavLink to={ '/' } exact activeClassName='active' className='LinksNav'>
+                                    Home
+                                </NavLink>
+
+                                <NavLink to={ '/Login' } exact activeClassName='active'className='LinksNav'>
+                                    Login
+                                </NavLink>
+
+                                <NavLink to={ '/Registratie' } exact activeClassName='active'className='LinksNav'>
+                                    Registreer
+                                </NavLink>
+
+                                <NavLink to={ '/Winkelmand' } exact activeClassName='active'className='LinksNav'>
+                                    Winkelmand
+                                </NavLink>
+                </nav>
+
+            </div>
+
+            <div> <h1>Nieuwste producten van maand { this.months[new Date().getMonth()] + this.props.location.pathname}! </h1> </div> 
 
             <div  className={"ItemsContainerScroll"}> 
                 {this.state.loaded? 

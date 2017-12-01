@@ -57,18 +57,16 @@ export class Layout extends React.Component<LayoutProps, LayoutState> {
     public render() {
         return <div className='container-fluid'>
             <div className='row'>
-                <div className='col-sm-3'>         
-                        
-                    {User.IsUserLoggedIn() ?
-                    <UserLoggedInMenu/>
-                    :
-                    <UserNotLoggedInMenu />                  
-                }           
-                <ZijMenu/>                                                      
+                <div className='col-sm-3'> 
+
+                <ZijMenu/>       
+
                 </div>
+                
                 <div className='col-sm-9'>
                     { this.props.children }
                 </div>
+
             </div>
         </div>;
     }
