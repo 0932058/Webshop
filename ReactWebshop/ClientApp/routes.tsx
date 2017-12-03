@@ -57,5 +57,5 @@ export var routes = <Layout>
     <Route path="/Accessoires/Headsets"  component={ItemsContainer}/>
     <Route path="/Accessoires/Racewheels"  component={ItemsContainer}/>
 
-    <Route path="/?"  component={SearchContainer}/>
+    <Route path="/Search"  component={ItemsContainer}/>
 </Layout>;

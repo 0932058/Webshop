@@ -28,6 +28,7 @@ export class Layout extends React.Component<LayoutProps, LayoutState> {
         }
     }
 
+    /*
     componentDidMount(){
         fetch('api/Items/GetAllId')
         .then(response => response.json() as Promise<number[]>)
@@ -51,23 +52,21 @@ export class Layout extends React.Component<LayoutProps, LayoutState> {
             console.log(newList[28])
             console.log(this.props.children[0])
         });
-    }
+    }*/
 
     public render() {
         return <div className='container-fluid'>
             <div className='row'>
-                <div className='col-sm-3'>         
-                        
-                    {User.IsUserLoggedIn() ?
-                    <UserLoggedInMenu/>
-                    :
-                    <UserNotLoggedInMenu />                  
-                }           
-                <ZijMenu/>                                                      
+                <div className='col-sm-3'> 
+
+                <ZijMenu/>       
+
                 </div>
+                
                 <div className='col-sm-9'>
-                    { this.state.pages }
+                    { this.props.children }
                 </div>
+
             </div>
         </div>;
     }
