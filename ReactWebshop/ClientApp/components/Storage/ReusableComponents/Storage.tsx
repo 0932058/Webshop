@@ -16,10 +16,11 @@ export interface StorageState{
     constructor(){
         super();
         this.GiveNotifcation = this.GiveNotifcation.bind(this);
-        this.LoadShoppingCartFromLocalStorage = this.LoadShoppingCartFromLocalStorage.bind(this);
-        this.GetCustomerProducts = this.GetCustomerProducts.bind(this);
+        //this.LoadShoppingCartFromLocalStorage = this.LoadShoppingCartFromLocalStorage.bind(this);
+        //this.GetCustomerProducts = this.GetCustomerProducts.bind(this);
         this.LoadProductsFromApi = this.LoadProductsFromApi.bind(this);
     }
+    /*
     componentWillMount(){
         this.GetCustomerProducts();
     }
@@ -28,6 +29,7 @@ export interface StorageState{
             this.LoadShoppingCartFromLocalStorage();
         }
     }
+    
     LoadShoppingCartFromLocalStorage(){
         var shoppingCartList = [];
         shoppingCartList = JSON.parse(localStorage.getItem("Winkelmand"));
@@ -41,7 +43,7 @@ export interface StorageState{
             .catch(errorMessage => console.log("Api error, what exactly went wrong is unknown"))   
         }}
         
-    }
+    }*/
     async LoadProductsFromApi(apiLink:string) : Promise<any>{
         let apiLinkConverted: string = "api" + apiLink;
         console.log(apiLinkConverted)
