@@ -87,7 +87,7 @@ export class Afrekenen extends AbstractStorage {
                     <li><input placeholder="postcode" type="text" name="postcode" /> </li> 
                 </form>
                 <p> Total Price: €{this.CalcPrice}</p>
-                <p> <button onClick={this.FinalizeOrder}> Bestellen </button> </p>
+                <p> <button onClick={this.EmptyShoppingCart}> Bestellen </button> </p>
                 </div>
             )
         }
