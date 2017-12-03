@@ -13,7 +13,16 @@ export class WinkelMandComponent extends React.Component<WinkelmandProps, {}> {
         this.RemoveItemFromStorage = this.RemoveItemFromStorage.bind(this);   
     }
     RemoveItemFromStorage(){
-        this.props.RemoveItemFromStorage(this.props.shoppingCartProduct, this.props.shoppingCartProduct.category)
+        var oldlist = [];
+        var newlist = [];
+        oldlist = JSON.parse(localStorage.getItem("Winkelmand"));
+        oldlist.forEach(product =>{
+            if (product.index != this.props.shoppingCartProduct.index){
+                newlist.push(product);
+            }
+        });
+        localStorage.setItem("Winkelmand" , JSON.stringify(newlist));
+
     }
     render(){
         return <div className={"Component"}>                  

@@ -11,7 +11,7 @@ import {User} from "../../User/User";
 export class Winkelmand extends AbstractStorage {
     constructor(){
         super();
-        this.state = {customerID: null, isShoppingCart:true, loaded:false, totalPrice: 0, products: this.GetCartContent()}
+        this.state = {customerID: null, isShoppingCart:true, loaded:false, totalPrice: this.GetTotalPrice(), products: this.GetCartContent()}
     }
     GetCartContent(){
         var cart = [];
@@ -22,22 +22,38 @@ export class Winkelmand extends AbstractStorage {
         }
         
     }
-    AddTestItemToStorage(){
-        var item = {"name" : "Vidja", "id" : 1, "price": 60};
-        var itemlist = this.state.products;
-        if (itemlist != null){
-            itemlist.push(item)
-            localStorage.setItem("Winkelmand", JSON.stringify(itemlist));
-            this.setState({products: this.GetCartContent()});
+    GetTotalPrice(){
+        var cart = this.GetCartContent();
+        if (cart != []){
+            var res = 0;
+            cart.forEach(product =>{
+                res += product.price;
+            }
+            )
+            return res;
         }
         else{
+            return 0;
+        }
+    }
+
+    AddTestItemToStorage(){
+        var itemlist = this.state.products;
+        if (itemlist != null){
+            var item = {"name" : "Vidja", "id" : 1, "price": 60, "index" : itemlist.length};
+            itemlist.push(item)
+            localStorage.setItem("Winkelmand", JSON.stringify(itemlist));
+            this.setState({totalPrice: this.GetTotalPrice(), products: this.GetCartContent()});
+        }
+        else{
+            var item = {"name" : "Vidja", "id" : 1, "price": 60, "index" : 0};
             itemlist = [item]
             localStorage.setItem("Winkelmand", JSON.stringify(itemlist));
-            this.setState({products: this.GetCartContent()});
+            this.setState({totalPrice: this.GetTotalPrice(), products: this.GetCartContent()});
         }
         
     }
-    
+
     render() {
         return (
             
