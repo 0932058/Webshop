@@ -11,7 +11,7 @@ export class Afrekenen extends AbstractStorage {
         super();    
         //Gets the pk of the logged in user
         var loggedInUserPK = User.IsUserLoggedIn? User.GetPK() : 0;
-        this.state = {products: null,customerID: loggedInUserPK, isShoppingCart:true, loaded:false, totalPrice: 0};
+        this.state = {products: this.GetCartData(),customerID: loggedInUserPK, isShoppingCart:true, loaded:false, totalPrice: this.CalcPrice()};
         this.EmptyShoppingCart = this.EmptyShoppingCart.bind(this);
         this.GetCartData = this.GetCartData.bind(this);
         this.PostOrderToDatabase = this.PostOrderToDatabase.bind(this);
@@ -24,10 +24,18 @@ export class Afrekenen extends AbstractStorage {
     GetCartData(){
         var shoppingCartData = [];
         shoppingCartData = JSON.parse(localStorage.getItem("Winkelmand"));
-        return shoppingCartData;
+        if (shoppingCartData != null){
+            return shoppingCartData;
+        }
+        else{
+            return [];
+        }
+        
     }
     EmptyShoppingCart(){
         localStorage.removeItem("Winkelmand");
+        this.setState({products: this.GetCartData(), totalPrice: this.CalcPrice()});
+        alert("Uw bestelling is geplaatst.")
    
     }
     CalcPrice(){
@@ -70,7 +78,7 @@ export class Afrekenen extends AbstractStorage {
                         <p>{User.getPostcode()}</p>
                     </li>
                 </ul>
-                <p> Total Price: €{this.CalcPrice}</p>
+                <p> Total Price: €{this.state.totalPrice}</p>
                 <p> <button onClick={this.EmptyShoppingCart}> Bestellen </button> </p>
                 </div>
             )
@@ -86,7 +94,7 @@ export class Afrekenen extends AbstractStorage {
                     <li><input placeholder='straatnaam' type="text" name="streetname" /> </li>
                     <li><input placeholder="postcode" type="text" name="postcode" /> </li> 
                 </form>
-                <p> Total Price: €{this.CalcPrice}</p>
+                <p> Total Price: €{this.state.totalPrice}</p>
                 <p> <button onClick={this.EmptyShoppingCart}> Bestellen </button> </p>
                 </div>
             )

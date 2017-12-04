@@ -155,7 +155,7 @@ a{
 }
 /* Keep the homebalk and sidebalk independent of scrolling and on top of other items */
 .UserLoggedInMenuLayout{
-    position: fixed; 
+    position: fixed;
 	margin-top:1%;
 	margin-left:1%;
 	margin-bottom: 2%;
@@ -163,8 +163,11 @@ a{
 	background-color: #DC3D24;
     z-index: 1;
 }
+.UserLoggedInMenuLayout h1,.UserLoggedInMenuLayout h2, .UserNotLoggedInMenuLayout h1, .UserNotLoggedInMenuLayout h2{
+    display: inline;
+}
 .UserNotLoggedInMenuLayout{
-    position: fixed; 
+    position: fixed;
 	margin-top:1%;
 	margin-left:1%;
 	margin-bottom: 2%;
