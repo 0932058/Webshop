@@ -220,14 +220,14 @@ export class Layout extends React.Component<LayoutProps, LayoutState> {
         return <div className='container-fluid'>
             <div className='row'>
                 <div className='col-sm-3'> 
-
-                { ZijMenu }
         
                 {
                     User.IsUserLoggedIn()?
                         topBarLoggedIn :
                             topBar
                 }
+
+                { ZijMenu }
 
                 </div>
 

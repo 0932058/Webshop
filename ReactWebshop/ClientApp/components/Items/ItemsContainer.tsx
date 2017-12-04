@@ -4,11 +4,12 @@ import { ProductPage } from "../ProductPage/ProductPageContainer";
 import { RouteComponentProps } from 'react-router';
 import { User } from "../User/User";
 import { Link, NavLink } from 'react-router-dom';
-import ReactInterval from 'react-interval';
+import { ReactInterval } from 'react-interval';
 
 interface ItemsContainerState{
     loaded : boolean;
     items : Product[] | null; //The products get put in the list by date
+    currentSearch : string;
 }
 export class ItemsContainer extends React.Component<RouteComponentProps<{}>, ItemsContainerState> {
     months : string[];
@@ -26,6 +27,7 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
         this.state = {
             loaded : false,
             items : null,
+            currentSearch : "",
         };
     }
 
@@ -41,7 +43,9 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
         }else{
             if( this.props.location.pathname === '/Search' ){
                 api = 'api/Search/SearchFor/' + sessionStorage.getItem("Search").toString()
-                console.log(sessionStorage.getItem("Search").toString())
+                this.setState({
+                    currentSearch : sessionStorage.getItem("Search").toString()
+                })
             }else{
                 api = 'api/Items' + this.props.location.pathname
             }
@@ -66,7 +70,20 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
 
             <div  className={"Container"}>
 
+            {this.props.location.pathname.toString() === "/"?
             <div> <h1>Nieuwste producten van maand { this.months[new Date().getMonth()]}! </h1> </div> 
+            :
+            <div/>
+            }
+
+            <ReactInterval timeout={500} enabled={true}
+                callback={
+                    () => this.state.currentSearch != sessionStorage.getItem("Search")? 
+                            this.getItems() :
+                            console.log(this.state.currentSearch, sessionStorage.getItem("Search"))
+                    } 
+                    />
+
 
             <div  className={"ItemsContainerScroll"}> 
                 {this.state.loaded? 
