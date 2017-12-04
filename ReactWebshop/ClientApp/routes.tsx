@@ -8,8 +8,8 @@ import { WensLijstContainer } from './components/Storage/Wenslijst/WensLijstCont
 import { Winkelmand } from './components/Storage/ShoppingCart/WinkelmandContainer';
 import { ProductPage } from './components/ProductPage/ProductPageContainer';
 import { ItemsContainer } from "./components/Items/ItemsContainer";
+import { SearchContainer } from "./components/Items/SearchContainer";
 import { ItemPage } from "./components/ProductPage/ItemPage";
-import {SearchContainer} from "./components/Search/SearchContainer";
 import {LoginContainer} from "./components/LoginAndLogout/LoginContainer";
 import {RegistratieContainer} from "./components/Registratie/RegistratieContainer";
 import {GegevensContainer} from "./components/Profile/Gegevens/GegevensContainer";
@@ -30,8 +30,6 @@ export var routes = <Layout>
 
     <Route path={"/Login"} component={LoginContainer} />
     <Route path ={"/Logout"} component={LogoutContainer}/>
-
-    <Route path={"/Search"} component={SearchContainer} />
     
     <Route path='/Wenslijst' component={ WensLijstContainer } />
     <Route path='/Winkelmand' component={ Winkelmand } />
@@ -39,10 +37,12 @@ export var routes = <Layout>
 
     <Route path='/Bestellingen' component={ BestellingenContainer } />
 
+    <Route path="/Search" component={ ItemsContainer }/>
+
     <Route path="/Games/All"  component={ItemsContainer}/>
     <Route path="/Games/Action"  component={ItemsContainer}/>
     <Route path="/Games/Shooter" component={ItemsContainer}/>
-    <Route path="/Games/Fantasy" component={ItemsContainer}/>
+    <Route path="/Games/Fantasie" component={ItemsContainer}/>
     <Route path="/Games/Sport"  component={ItemsContainer}/>
     <Route path="/Games/Fight"  component={ItemsContainer}/>
     <Route path="/Games/Sandbox"  component={ItemsContainer}/>
@@ -56,6 +56,5 @@ export var routes = <Layout>
     <Route path="/Accessoires/All"  component={ItemsContainer}/>
     <Route path="/Accessoires/Headsets"  component={ItemsContainer}/>
     <Route path="/Accessoires/Racewheels"  component={ItemsContainer}/>
-
-    <Route path="/Search"  component={ItemsContainer}/>
+    
 </Layout>;

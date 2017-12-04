@@ -17,49 +17,34 @@ namespace reactTwo.Controllers
             _context = context;
         }
 
-        [HttpGet("[action]")]
-        public void Get(string searchTerm)
-        {
-            // var foundProducts = _context.Producten.Where( p => p.productNaam == searchTerm);
+        private Product[] rightItems ( Func<Product, bool> pred) {
+            List<Product> rightProducts = new List<Product>();
 
-            // return foundProducts;
+            IEnumerable<Product> productList = _context.Producten.AsEnumerable();
+
+            foreach(Product product in productList){
+                if ( pred(product) ) {
+                    rightProducts.Add(product);
+                }
+            };
+
+            return rightProducts.ToArray();
         }
 
-        [HttpPost("Post")]
-        public void Post()
+        [HttpGet("[action]/{searchTerm}")]
+        public Product[] SearchFor(string searchTerm)
         {
-            Product p = new Product{
-                    ProductId = 42,
-                    productNaam = "Pubg",
-                    productUitgever = "Konami",
-                    productOmschr = "nice game",
-                    aantalInVooraad = 30,
-                    productPrijs = 40.00m,
-                    productType = "Game",
-                    productOntwikkelaar = "Konami",
-                    productImg = "nothing",
-                    productGenre = "Battle royale",
-                    consoleType = "PS4",
-                };
+            return this.rightItems( p => 
+                p.productNaam.Contains(searchTerm)          || 
 
-            _context.Producten.Add(p);
-            _context.SaveChanges();
+                p.productType.Contains(searchTerm)          ||
+
+                p.productGenre.Contains(searchTerm)         ||
+
+                p.productOntwikkelaar.Contains(searchTerm)  ||
+
+                p.productUitgever.Contains(searchTerm)
+            );
         }
-
-        /*
-        //Shopping cart testing
-        [HttpGet("{id}")]
-        public IActionResult Get(int id){
-            Game[] gamesList = new Game[10];
-            for (int i = 0; i < gamesList.Count(); i++){  
-                    gamesList[i] = new Game(i);
-                }  
-            for (int i = 0; i < gamesList.Count(); i++){  
-                if(gamesList[i].id == id){
-                     return Ok(gamesList[i]);
-                }  
-            }
-            return NotFound();
-        }*/
     }
 }

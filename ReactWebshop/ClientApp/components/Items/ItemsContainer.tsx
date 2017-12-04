@@ -4,7 +4,7 @@ import { ProductPage } from "../ProductPage/ProductPageContainer";
 import { RouteComponentProps } from 'react-router';
 import { User } from "../User/User";
 import { Link, NavLink } from 'react-router-dom';
-
+import ReactInterval from 'react-interval';
 
 interface ItemsContainerState{
     loaded : boolean;
@@ -16,6 +16,9 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
     constructor(props){
         super(props);
 
+        this.getItems = this.getItems.bind(this);
+        this.putNewItem = this.putNewItem.bind(this);
+
         this.months = ["Januari", "Februari", "Maart", "April", "May", "June",
         "July", "August", "September", "October", "November", "December"
         ],
@@ -24,28 +27,37 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
             loaded : false,
             items : null,
         };
+    }
 
+    componentDidMount(){
+        this.getItems();
+    }
+
+    getItems(){
         //this determines what needs to be loaded, according to the pathname of the route
-        var xtra = '';
-        if ( this.props.location.pathname === '/' ){
-            xtra = '/Home';
+        var api = '';
+        if ( this.props.location.pathname === '/'){
+            api = 'api/Items/Home';
         }else{
-            if(  this.props.location.pathname === '/?'  ){
-                //xtra = "/Get/" + sessionStorage.getItem("search")
-                console.log("am i in search?")
+            if( this.props.location.pathname === '/Search' ){
+                api = 'api/Search/SearchFor/' + sessionStorage.getItem("Search").toString()
+                console.log(sessionStorage.getItem("Search").toString())
             }else{
-                xtra = this.props.location.pathname
+                api = 'api/Items' + this.props.location.pathname
             }
-            
         }
 
 
-        fetch('api/Items' + xtra)
+        fetch(api)
         .then(response => response.json() as Promise<Product[]>)
         .then(data => {
-            console.log(data)
             this.setState({ items : data, loaded : true});
         });
+    }
+
+    putNewItem(){
+        fetch('api/Items/Post', {method: 'POST', headers : new Headers({'content-type' : 'application/json'})});
+        this.getItems();
     }
 
     render(){
@@ -54,29 +66,7 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
 
             <div  className={"Container"}>
 
-            <div className="UserNotLoggedInMenuLayout" >  
-
-                <nav className="UserNotLoggedInMenuLayout">
-                                <NavLink to={ '/' } exact activeClassName='active' className='LinksNav'>
-                                    Home
-                                </NavLink>
-
-                                <NavLink to={ '/Login' } exact activeClassName='active'className='LinksNav'>
-                                    Login
-                                </NavLink>
-
-                                <NavLink to={ '/Registratie' } exact activeClassName='active'className='LinksNav'>
-                                    Registreer
-                                </NavLink>
-
-                                <NavLink to={ '/Winkelmand' } exact activeClassName='active'className='LinksNav'>
-                                    Winkelmand
-                                </NavLink>
-                </nav>
-
-            </div>
-
-            <div> <h1>Nieuwste producten van maand { this.months[new Date().getMonth()] + this.props.location.pathname}! </h1> </div> 
+            <div> <h1>Nieuwste producten van maand { this.months[new Date().getMonth()]}! </h1> </div> 
 
             <div  className={"ItemsContainerScroll"}> 
                 {this.state.loaded? 
@@ -93,11 +83,13 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
 
                                     <h2>{ item.productNaam } </h2>
 
-                                    <p> Console: PS + XBOX </p>
+                                    <p> Console: {item.consoleType} </p>
 
                                     <p> Prijs: {"€" + item.productPrijs } </p>
 
-                                    <NavLink to={ '/Item/' + item.ProductId } exact activeClassName='Active'className='LinksSide'>
+                                    <p> { item.aantalInVooraad + " " } in voorraad </p>
+
+                                    <NavLink to={ '/Item/' + item.productId } exact activeClassName='Active'className='LinksSide'>
                                         naar Product
                                     </NavLink>
 
@@ -107,7 +99,7 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
                         }
                     )
                     :
-                    <h1> still loading... </h1>
+                    <h1> nothing found... </h1>
                 }
 
             </div>

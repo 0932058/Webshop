@@ -5,7 +5,7 @@ interface Wenslijst {
     KlantId : number 
 }    
 interface Product {
-    ProductId : number 
+    productId : number 
     productNaam : string
     productUitgever : string
     productOmschr : string
