@@ -106,7 +106,7 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
 
                                     <p> { item.aantalInVooraad + " " } in voorraad </p>
 
-                                    <NavLink to={ '/Item/' + item.productId } exact activeClassName='Active'className='LinksSide'>
+                                    <NavLink to={ '/Item/' + item.productId } exact activeClassName='Active'className='button_to_product'>
                                         naar Product
                                     </NavLink>
 
