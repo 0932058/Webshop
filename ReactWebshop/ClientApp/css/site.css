@@ -166,6 +166,9 @@ a{
 .UserLoggedInMenuLayout h1,.UserLoggedInMenuLayout h2, .UserNotLoggedInMenuLayout h1, .UserNotLoggedInMenuLayout h2{
     display: inline;
 }
+#SearchButton{
+    color: black;
+}
 .UserNotLoggedInMenuLayout{
     position: fixed;
 	margin-top:1%;

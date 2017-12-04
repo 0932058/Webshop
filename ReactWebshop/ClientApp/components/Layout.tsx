@@ -109,7 +109,7 @@ export class Layout extends React.Component<LayoutProps, LayoutState> {
 
                     <form onSubmit={ this.handleSubmit } >
                         <input placeholder="Zoek naar product" type="text" value={this.state.search} onChange={this.handleChange} />
-                        <NavLink to={ '/Search' } exact activeClassName='active'className='LinksNav'> 
+                        <NavLink to={ '/Search' } exact activeClassName='active'className='LinksNav' id="SearchButton"> 
                             <input type="submit" value="Zoek naar product"/>
                         </NavLink>
                     </form>
