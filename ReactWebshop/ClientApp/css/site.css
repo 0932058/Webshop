@@ -94,6 +94,10 @@ ul, li{
 	overflow-y:scroll;
 }
 
+#Afrekenform li{
+    margin: 1em;
+}
+
 
 .SearchButton{
     align-content: center

@@ -86,9 +86,9 @@ export class Afrekenen extends AbstractStorage {
         else
             {return (
                 <div className={"Container"}>
-                <h1>Afrekenen</h1>\
+                <h1>Afrekenen</h1>
                 <p>Adres voor bezorging en incasso.</p>
-                <form>
+                <form id="Afrekenform">
                     <li><input placeholder="voornaam" type="text" name="firstname" /> </li>
                     <li><input placeholder="achternaam" type="text" name="lastname" /> </li>
                     <li><input placeholder='straatnaam' type="text" name="streetname" /> </li>
