@@ -34,15 +34,20 @@ export class ItemPage extends React.Component<RouteComponentProps<{}>, ItemPageS
     }
 
     AddProductToShoppingCartLocalStorage(){
-        var shoppingCartList = [];
-        if(localStorage.getItem("Winkelmand") != null){
-            shoppingCartList = JSON.parse(localStorage.getItem("Winkelmand"));
-            shoppingCartList.push(this.props.location.pathname);
-            localStorage.setItem("Winkelmand", JSON.stringify(shoppingCartList));
+        var itemlist = [];
+        itemlist = JSON.parse(localStorage.getItem("Winkelmand"));
+        if (itemlist != null){
+            var item = {"name" : this.state.product.productNaam, "id" : this.state.product.productId, "price": this.state.product.productPrijs, "index" : itemlist.length, "console": this.state.product.consoleType, "image": this.state.product.productImg};
+            itemlist.push(item)
+            localStorage.setItem("Winkelmand", JSON.stringify(itemlist));
+            alert(this.state.product.productNaam +" is aan de winkelmand toegevoegd.")
         }
         else{
-            var shoppingCartList = [];
-            localStorage.setItem("Winkelmand", JSON.stringify(shoppingCartList));
+            var item = {"name" : this.state.product.productNaam, "id" : this.state.product.productId, "price": this.state.product.productPrijs, "index" : 0, "console": this.state.product.consoleType, "image": this.state.product.productImg};
+            itemlist = [item]
+            localStorage.setItem("Winkelmand", JSON.stringify(itemlist));
+            
+            alert(this.state.product.productNaam +" is aan de winkelmand toegevoegd.")
         }
     }
     //The objects have to be parsed to json because this.state doesn't allow an single object in the state
@@ -57,7 +62,7 @@ export class ItemPage extends React.Component<RouteComponentProps<{}>, ItemPageS
                 <h1> { this.state.product.productNaam } </h1>
                 <div>      
 
-                    <img src={ this.state.product.productImg }  width={300} height={50} />   
+                    <img src={ this.state.product.productImg }  width={300} />   
                     
                     <div className="ItemPageComponentInfo">   
 

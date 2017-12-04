@@ -10,78 +10,125 @@ import {User} from "../../User/User";
 
 export class Winkelmand extends AbstractStorage {
     constructor(){
-        super();    
-        //Gets the pk of the logged in user
-        var loggedInUserPK = User.IsUserLoggedIn? User.GetPK() : 0
-        this.state = {customerID: loggedInUserPK, isShoppingCart:true, loaded:false, totalPrice: 0, products: null}
+        super();
+        this.state = {customerID: null, isShoppingCart:true, loaded:false, totalPrice: this.GetTotalPrice(), products: this.GetCartContent()}
     }
+    /*
+    BuildComponents(){
+        var cart = this.GetCartContent()
+        if (cart == []){
+            return <div>
+                <h2>Uw winkelmand is leeg.</h2>
+            </div>
+        }
+        else{
+            var res;
+            cart.forEach(product =>{
+                res += 
+                <div className={"Component"}>
+                    <h1>{product.name}</h1>
+                    <img src={product.image}/>
+                    <div> 
+                        <h2> Naam: {product.name} </h2>
+                        <h2> Prijs: {"€" + product.price.toFixed(2)} </h2>
+                        <h2> <button onClick={() => this.RemoveItemFromStorage(product.index)}> Verwijderen </button> </h2>        
+                    </div>
+                </div>
+
+            });
+            return res
+        }
+    }
+    */    
+    RemoveItemFromStorage(id){
+        var oldlist = [];
+        var newlist = [];
+        oldlist = JSON.parse(localStorage.getItem("Winkelmand"));
+        oldlist.forEach(item =>{
+            if (item.index != id){
+                newlist.push(item);
+            }
+        });
+        localStorage.setItem("Winkelmand" , JSON.stringify(newlist));
+        this.setState({totalPrice: this.GetTotalPrice(), products: this.GetCartContent()});
+
+    }
+    GetCartContent(){
+        var cart = [];
+        cart = JSON.parse(localStorage.getItem("Winkelmand"));
+        if (cart != null){return cart;}
+        else{
+            return [];
+        }
+        
+    }
+    GetTotalPrice(){
+        var cart = this.GetCartContent();
+        if (cart != []){
+            var res = 0;
+            cart.forEach(product =>{
+                res += product.price;
+            }
+            )
+            return res;
+        }
+        else{
+            return 0;
+        }
+    }
+
+    AddTestItemToStorage(){
+        var itemlist = this.state.products;
+        if (itemlist != null){
+            var item = {"name" : "Vidja", "id" : 1, "price": 60, "index" : itemlist.length, "console": "PoTatOS"};
+            itemlist.push(item)
+            localStorage.setItem("Winkelmand", JSON.stringify(itemlist));
+            this.setState({totalPrice: this.GetTotalPrice(), products: this.GetCartContent()});
+        }
+        else{
+            var item = {"name" : "Vidja", "id" : 1, "price": 60, "index" : 0, "console": "PoTatOS"};
+            itemlist = [item]
+            localStorage.setItem("Winkelmand", JSON.stringify(itemlist));
+            this.setState({totalPrice: this.GetTotalPrice(), products: this.GetCartContent()});
+        }
+        
+    }
+
     render() {
         return (
             
         <div className={"Container"}>
-            <h1>Winkelmand</h1>
-            {this.state.products.map((product,index) =>
-            <WinkelMandComponent key={index} shoppingCartProduct={product} RemoveItemFromStorage={null}/>)
-            }
+                <h1>Winkelmand</h1>
+                <div>
+                {
+                    this.state.products != []?
+                        this.state.products.map(
+                            product =>{
+                                return(
+                                    <div className={"Component"}>
+                                        <h1>{product.name}</h1>
+                                        <img src={product.image}/>
+                                        <div> 
+                                            <h2> Naam: {product.name} </h2>
+                                            <h2> Console: {product.console}</h2>
+                                            <h2> Prijs: {"€" + product.price.toFixed(2)} </h2>
+                                            <h2> <button onClick={() => this.RemoveItemFromStorage(product.index)}> Verwijderen </button> </h2>        
+                                        </div>
+                                    </div>
+                                )
+                            }
 
-            {/* {this.state.convertedStorageProducts.map((storageProduct,index) =>
-            <WinkelMandComponent key={index} shoppingCartProduct={storageProduct} RemoveItemFromStorage={this.RemoveItemFromStorage}/>)  
-            }
-            <p> Total items: {this.state.convertedStorageProducts.length}</p>
-            <p> Total Price: €{this.state.totalPrice.toFixed(2)}</p>
-            <h2> <NavLink to={ '/Afrekenen' } exact activeClassName='active' className='AfrekenLink'> Naar Afrekenen </NavLink> </h2>
-            </div>           */}
-            </div>
+                        )
+                        :
+                        <h2>Uw winkelmand is leeg</h2>
+                }
+                </div>
+                <h2> Aantal producten: {this.state.products.length}</h2>
+                <h2> Totaal prijs: €{this.state.totalPrice.toFixed(2)}</h2>
+                <h2> <NavLink to={ '/afrekenen' }>
+                   Afrekenen
+                </NavLink> </h2>
+                <h2><button onClick={() => this.AddTestItemToStorage()}>Testitem toevoegen</button></h2>
+        </div>
         )}
 }
-
-{
-    //Old comments
-    
-    /* //localstorage related files
-
-// var games = JSON.parse(String(localStorage.getItem('winkelmand')));
-// var gamesList: game[] = games.list;
-
-// localStorage.setItem('winkelmand', JSON.stringify({list: gamesList }));
-
-// this.ConvertJson();
-// // }
-// ConvertJson() : any{
-//     //hier wordt de value van wenslijst naar string gecast om vervolgens naar een JSON object te worden gecast
-//     var games = JSON.parse(String(localStorage.getItem('winkelmand')));    
-//     if(games != null){
-//         this.setState({gampes: games.list})
-//     }
-// createStorageAndState(){
-//     localStorage.setItem('winkelmand', JSON.stringify({list: []}));
-   
-// }
-// addWinkelmandToBestellingen() {
-//     // localStorage.setItem('bestellingen', JSON.stringify({list: []}));
-//     // var bestellingen = JSON.parse(String(localStorage.getItem('bestellingen')));
-//     // var winkelmand = JSON.parse(String(localStorage.getItem('winkelmand')));
-
-//     // var winkelmandList: BestellingenGame[] = winkelmand.list;
-//     // var bestellingenList: BestellingenGame[] = bestellingen.list;
-    
-//     // winkelmandList.map(item => {
-//     //     bestellingenList.push(item);
-//     // });
-
-//     // localStorage.setItem('bestellingen', JSON.stringify({list: bestellingenList}));
-
-//     // localStorage.setItem('winkelmand', JSON.stringify({list: []}));
-//     // this.ConvertJson();
-
-            //If the user is not logged in then this code below will be activated
-        // var wenslijst = JSON.parse(String(localStorage.getItem('winkelmand')));
-
-        // var wenslijstList: game[] = wenslijst.list;
-        // if(this.state.game != null){
-        //     wenslijstList.push(this.state.game);
-        // }
-        
-
-        // localStorage.setItem('winkelmand', JSON.stringify({list: wenslijstList}));
-// */}

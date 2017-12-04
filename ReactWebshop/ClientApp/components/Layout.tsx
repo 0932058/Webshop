@@ -85,25 +85,31 @@ export class Layout extends React.Component<LayoutProps, LayoutState> {
     public render() {
         const topBar = (
             <div className="UserNotLoggedInMenuLayout" >  
+                <h1>
                 <NavLink to={ '/' } exact activeClassName='active' className='LinksNav'>
                     Home
                 </NavLink>
-            
+                </h1>    
+                <h2>
                 <NavLink to={ '/Login' } exact activeClassName='active'className='LinksNav'>
                     Login
                 </NavLink>
-            
+                </h2> 
+                <h2>
                 <NavLink to={ '/Registratie' } exact activeClassName='active'className='LinksNav'>
                     Registreer
                 </NavLink>
-
+                </h2> 
+                <h2>
                 <NavLink to={ '/Winkelmand' } exact activeClassName='active'className='LinksNav'>
                      Winkelmand
                 </NavLink>
+                </h2> 
+                
 
                     <form onSubmit={ this.handleSubmit } >
                         <input placeholder="Zoek naar product" type="text" value={this.state.search} onChange={this.handleChange} />
-                        <NavLink to={ '/Search' } exact activeClassName='active'className='LinksNav'> 
+                        <NavLink to={ '/Search' } exact activeClassName='active'className='LinksNav' id="SearchButton"> 
                             <input type="submit" value="Zoek naar product"/>
                         </NavLink>
                     </form>
@@ -113,29 +119,36 @@ export class Layout extends React.Component<LayoutProps, LayoutState> {
 
         const topBarLoggedIn = (
             <div className="UserLoggedInMenuLayout">                     
+                <h1>
                 <NavLink to={ '/' } exact activeClassName='active' className='LinksNav'>
                     Home
-                </NavLink>    
-
+                </NavLink>
+                </h1>    
+                <h2>
                 <NavLink to={ '/Profile' } exact activeClassName='active' className='LinksNav'>
                     Profile
                 </NavLink>  
-
+                </h2> 
+                <h2>
                 <NavLink to={ '/Bestellingen' } exact activeClassName='active'className='LinksNav'>
                     Bestellingen
                 </NavLink>
-
+                </h2>
+                <h2>
                 <NavLink to={ '/Wenslijst' } exact activeClassName='active'className='LinksNav'>
                     Wenslijst
                 </NavLink>
-
+                </h2>
+                <h2>
                 <NavLink to={ '/Winkelmand' } exact activeClassName='active'className='LinksNav'>
                     Winkelmand
                 </NavLink> 
-
+                </h2>
+                <h2>
                 <NavLink to={ '/Logout' } exact activeClassName='active'className='LinksNav'>
                     Log uit
                 </NavLink>
+                </h2>
 
                 
 
