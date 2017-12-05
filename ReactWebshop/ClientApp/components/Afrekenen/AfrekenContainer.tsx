@@ -19,7 +19,6 @@ export class Afrekenen extends AbstractStorage {
             isShoppingCart:true, 
             loaded:false, 
             totalPrice: this.CalcPrice(),
-            ordered : false,
         };
 
         this.EmptyShoppingCart = this.EmptyShoppingCart.bind(this);
@@ -46,9 +45,7 @@ export class Afrekenen extends AbstractStorage {
         localStorage.removeItem("Winkelmand");
         this.setState({products: this.GetCartData(), totalPrice: this.CalcPrice()});
         alert("Uw bestelling is geplaatst.")
-        this.setState({
-            ordered : true
-        })
+
    
     }
     CalcPrice(){
@@ -95,11 +92,6 @@ export class Afrekenen extends AbstractStorage {
                 
                 <p> <button onClick={this.EmptyShoppingCart} > Bestellen </button> </p>
                 
-                { this.state.ordered?
-                    <Redirect exact to={"/"} push={true}/>
-                    :
-                    null
-                }
                 </div>
             )
         }
@@ -108,21 +100,15 @@ export class Afrekenen extends AbstractStorage {
                 <div className={"Container"}>
                 <h1>Afrekenen</h1>
                 <p>Adres voor bezorging en incasso.</p>
-                <form id="Afrekenform">
+                <form action={"/"} id="Afrekenform">
                     <li><input placeholder="voornaam" type="text" name="firstname" /> </li>
                     <li><input placeholder="achternaam" type="text" name="lastname" /> </li>
                     <li><input placeholder='straatnaam' type="text" name="streetname" /> </li>
                     <li><input placeholder="postcode" type="text" name="postcode" /> </li> 
+                    <li><input value="afrekenen" type="submit" /> </li>  
                 </form>
                 <p> Total Price: €{this.state.totalPrice}</p>
                 <p> <button onClick={this.EmptyShoppingCart } > Bestellen </button> </p>
-
-                { this.state.ordered?
-
-                    <Redirect exact to={"/"} push={true}/>
-                    :
-                    null
-                }
                 
                 </div>
             )
