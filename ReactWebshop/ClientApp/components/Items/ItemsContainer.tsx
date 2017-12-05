@@ -92,6 +92,8 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
                         item => {
 
                             return (
+                                <NavLink to={ '/Item/' + item.productId } exact activeClassName='Active'>
+
                                 <div className={"Component"}>
 
                                 <img src={ item.productImg }/>
@@ -109,9 +111,9 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
                                     <NavLink to={ '/Item/' + item.productId } exact activeClassName='Active'className='button_to_product'>
                                         naar Product
                                     </NavLink>
-
-                                    </div> 
+                                    </div>
                                 </div>
+                            </NavLink>
                             )
                         }
                     )
