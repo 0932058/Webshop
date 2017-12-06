@@ -1,8 +1,8 @@
-body{
+/*body{
     background-color: #232B2B;
     display: block;
 }
-/*keeps the text behind the home and side balk and in the middle */
+/*keeps the text behind the home and side balk and in the middle *//*
 label span {
     color: white;
 }
@@ -123,7 +123,7 @@ a:hover{
 	margin: 0.1em; 
     text-decoration: none;
 }
-/* Links in the side menu*/
+/* Links in the side menu*//*
 .LinksSide{
     color: #FFFFFF;
     padding: 0.1em;
@@ -157,7 +157,7 @@ a{
     color: white;
 
 }
-/* Keep the homebalk and sidebalk independent of scrolling and on top of other items */
+/* Keep the homebalk and sidebalk independent of scrolling and on top of other items *//*
 .UserLoggedInMenuLayout{
     position: fixed;
 	margin-top:1%;
@@ -226,4 +226,5 @@ nav form{
 form{
     vertical-align: middle;
 }
+*/
 
