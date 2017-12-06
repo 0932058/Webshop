@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
 import Img from 'react-image';
-import {BestellingenComponent} from "./BestellingenComponent";
 import {List} from "linqts";
 import {User} from "../User/User";
 
@@ -18,8 +17,8 @@ export class BestellingenContainer extends React.Component<RouteComponentProps<{
         var loggedInUserPK = User.IsUserLoggedIn? User.GetPK() : 0;
         this.state = {orders: [], orderAndProductCombined: [], loaded: false, PKLoggedInUser: loggedInUserPK}
     }
-    GetOrders(klantId){
-        fetch('api/Bestellingen' + klantId)
+    GetOrders(){
+        fetch('api/Bestellingen' + this.state.PKLoggedInUser)
         .then(response => response.json() as Promise<Bestelling[]>)
         .then(data =>{
             this.setState({orders: data});
@@ -38,9 +37,15 @@ export class BestellingenContainer extends React.Component<RouteComponentProps<{
         var OrderProducts = [];
         this.state.orders.forEach(order =>{
             var product = this.GetOrderData(order.productId);
-            var Orderproduct = {"Productnaam": product.productNaam,"Besteldatum": order.bestellingDatum, "Verstuurdatum": order.verstuurDatum, "Status": order.status}
-            OrderProducts.push()
+            var Orderproduct = {"Productnaam": product.productNaam,"Image": product.productImg ,"Besteldatum": order.bestellingDatum, "Verstuurdatum": order.verstuurDatum, "Status": order.status,"Prijs": product.productPrijs};
+            OrderProducts.push();
         })
+        this.setState({orderAndProductCombined: OrderProducts});
+    }
+    componentDidMount(){
+        this.GetOrders();
+        this.MakeOrderProducts();
+        this.setState({loaded: true});
     }
 
     render() {   
@@ -48,9 +53,24 @@ export class BestellingenContainer extends React.Component<RouteComponentProps<{
             <div className={"Container"}>
             <h1>Bestellingen</h1>
                 {this.state.loaded? 
-                this.state.orderAndProductCombined.map((order,index) => 
-                    <BestellingenComponent key={index} image={order.image} name={order.name}
-                    price={order.price} orderDate={order.orderDate} orderStatus={order.orderStatus}/>)
+                this.state.orderAndProductCombined.map((order) => 
+                {return (
+                    <div className={"Component"}>
+                    <img src={order.Image}/>
+                    <div className="ComponentInfo">
+                     <h1> Naam: {order.Productnaam} </h1> 
+                     <h2> Prijs: {"€" + order.Prijs.toFixed(2)} </h2> 
+                     <h2> Besteld op: {order.bestellingDatum} </h2>
+                     <h2> Status: {order.Status} </h2>
+                     {order.Verstuurdatum != null? (
+                         <h2> Verzonden op: {order.Verstuurdatum}</h2>
+                     ) 
+                     :
+                     (<h2>Nog niet verzonden.</h2>)   
+                     }
+                    </div> 
+                    </div>       
+                    );})
                 :
                 <h1> Loading the orders... </h1>           
             }
