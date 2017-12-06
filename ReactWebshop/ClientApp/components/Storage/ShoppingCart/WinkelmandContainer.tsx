@@ -112,7 +112,7 @@ export class Winkelmand extends AbstractStorage {
                                 <div> 
                                     <h2> Naam: {stack.product.name} </h2>
                                     <h2> Console: {stack.product.console}</h2>
-                                    <h2> Aantal: {this.state.products.length}</h2>
+                                    <h2> Aantal: {stack.amount}</h2>
                                     <h2> Prijs: {"€" + (stack.product.price*stack.amount).toFixed(2)} </h2>
                                     <h2> <button onClick={() => this.AddItemToStorage(stack.product)}> + </button> </h2> 
                                     <h2> <button onClick={() => this.RemoveItemFromStorage(stack.product.id)}> - </button> </h2>        
