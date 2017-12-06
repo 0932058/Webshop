@@ -80,9 +80,9 @@ export class ItemPage extends React.Component<RouteComponentProps<{}>, ItemPageS
                 </div>
 
                     <h2>
-                    <button onClick={this.AddProductToShoppingCartLocalStorage}  > Toevoegen aan winkelwagen</button>
+                    <button className="btn btn-primary" onClick={this.AddProductToShoppingCartLocalStorage}  > Toevoegen aan winkelwagen</button>
                         {User.IsUserLoggedIn() ?
-                        <button > Toevoegen aan wenslijst</button>
+                        <button className="btn btn-primary" > Toevoegen aan wenslijst</button>
                         :
                         <div> </div>
                         }

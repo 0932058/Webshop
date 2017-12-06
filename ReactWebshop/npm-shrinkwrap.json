@@ -1363,7 +1363,8 @@
       }
     },
     "bootstrap": {
-      "version": "https://registry.npmjs.org/bootstrap/-/bootstrap-3.3.7.tgz",
+      "version": "3.3.7",
+      "resolved": "https://registry.npmjs.org/bootstrap/-/bootstrap-3.3.7.tgz",
       "integrity": "sha1-WjiTlFSfIzMIdaOxUGVldPip63E=",
       "dev": true
     },
