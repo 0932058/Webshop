@@ -114,7 +114,8 @@ export class Afrekenen extends AbstractStorage {
                     <li><input placeholder="voornaam" type="text" name="firstname" /> </li>
                     <li><input placeholder="achternaam" type="text" name="lastname" /> </li>
                     <li><input placeholder='straatnaam' type="text" name="streetname" /> </li>
-                    <li><input placeholder="postcode" type="text" name="postcode" /> </li> 
+                    <li><input placeholder="postcode" type="text" name="postcode" /> </li>
+                    <li><input placeholder="email" type="text" name="email" /> </li>
                 </form>
                 
                 <p> Total Price: €{this.state.totalPrice}</p>
