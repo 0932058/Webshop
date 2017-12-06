@@ -4,10 +4,9 @@ import {List} from "linqts";
 import {AbstractStorage,StorageState} from "../Storage/ReusableComponents/Storage";
 import {User} from "../User/User";
 import { Redirect } from 'react-router';
+import 'bootstrap';
 
 //Container voor afrekenmenu
-
-
 export class Afrekenen extends AbstractStorage {
     constructor(){
         super();    
@@ -19,6 +18,7 @@ export class Afrekenen extends AbstractStorage {
             isShoppingCart:true, 
             loaded:false, 
             totalPrice: this.CalcPrice(),
+            ordered: false,
         };
 
         this.EmptyShoppingCart = this.EmptyShoppingCart.bind(this);
@@ -43,8 +43,7 @@ export class Afrekenen extends AbstractStorage {
     }
     EmptyShoppingCart(){
         localStorage.removeItem("Winkelmand");
-        this.setState({products: this.GetCartData(), totalPrice: this.CalcPrice()});
-        alert("Uw bestelling is geplaatst.")
+        this.setState({products: this.GetCartData(), totalPrice: this.CalcPrice(), ordered: true});
     }
     CalcPrice(){
         var totalPrice = 0;
@@ -64,11 +63,10 @@ export class Afrekenen extends AbstractStorage {
             }
         });
         this.EmptyShoppingCart();
-        alert("Bestelling geplaatst");
     }
 
     render() {
-        if (User.IsUserLoggedIn() == true) {
+        if (User.IsUserLoggedIn() == true && this.state.ordered == false) {
             return (
                 <div className={"Container"}>
                 <h1>Afrekenen</h1>
@@ -89,7 +87,16 @@ export class Afrekenen extends AbstractStorage {
                 <p> Total Price: €{this.state.totalPrice}</p>
                 
                 <p> <button onClick={this.EmptyShoppingCart} > Bestellen </button> </p>
-                
+
+                </div>
+            )
+        }
+        else if (this.state.ordered == true){
+            return (
+                <div className={"Container"}>
+                    <div className="alert alert-success alert-dismissable">
+                        <strong>Success! </strong>
+                    </div>
                 </div>
             )
         }
@@ -104,9 +111,9 @@ export class Afrekenen extends AbstractStorage {
                     <li><input placeholder='straatnaam' type="text" name="streetname" /> </li>
                     <li><input placeholder="postcode" type="text" name="postcode" /> </li> 
                 </form>
-                <p> Total Price: €{this.state.totalPrice}</p>
-                <p> <button onClick={this.EmptyShoppingCart } > Bestellen </button> </p>
                 
+                <p> Total Price: €{this.state.totalPrice}</p>
+                <p> <button onClick={this.FinalizeOrder} > bestelling </button> </p> 
                 </div>
             )
         }
