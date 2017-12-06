@@ -155,7 +155,7 @@ const topBarLoggedIn = (
                 </ul>
             </li>
             <li className="dropdown">
-                <a className="dropdown-toggle" data-toggle="dropdown" href="#">Consoles
+                <a className="dropdown-toggle" data-toggle="dropdown" href="#">Games
                     <span className="caret"></span>
                 </a>
                 <ul className="dropdown-menu">
@@ -168,7 +168,7 @@ const topBarLoggedIn = (
                 </ul>
             </li>
             <li className="dropdown">
-                <a className="dropdown-toggle" data-toggle="dropdown" href="#">Consoles
+                <a className="dropdown-toggle" data-toggle="dropdown" href="#">Accessoires
                     <span className="caret"></span>
                 </a>
                 <ul className="dropdown-menu">
