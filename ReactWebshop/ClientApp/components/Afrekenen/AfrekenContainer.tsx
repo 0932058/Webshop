@@ -3,15 +3,25 @@ import { RouteComponentProps } from 'react-router';
 import {List} from "linqts";
 import {AbstractStorage,StorageState} from "../Storage/ReusableComponents/Storage";
 import {User} from "../User/User";
+import { Redirect } from 'react-router';
 
 //Container voor afrekenmenu
+
 
 export class Afrekenen extends AbstractStorage {
     constructor(){
         super();    
         //Gets the pk of the logged in user
         var loggedInUserPK = User.IsUserLoggedIn? User.GetPK() : 0;
-        this.state = {products: this.GetCartData(),customerID: loggedInUserPK, isShoppingCart:true, loaded:false, totalPrice: this.CalcPrice()};
+        this.state = { 
+            products: this.GetCartData(), 
+            customerID: loggedInUserPK, 
+            isShoppingCart:true, 
+            loaded:false, 
+            totalPrice: this.CalcPrice(),
+            ordered : false,
+        };
+
         this.EmptyShoppingCart = this.EmptyShoppingCart.bind(this);
         this.GetCartData = this.GetCartData.bind(this);
         this.PostOrderToDatabase = this.PostOrderToDatabase.bind(this);
@@ -36,6 +46,9 @@ export class Afrekenen extends AbstractStorage {
         localStorage.removeItem("Winkelmand");
         this.setState({products: this.GetCartData(), totalPrice: this.CalcPrice()});
         alert("Uw bestelling is geplaatst.")
+        this.setState({
+            ordered : true
+        })
    
     }
     CalcPrice(){
@@ -79,23 +92,38 @@ export class Afrekenen extends AbstractStorage {
                     </li>
                 </ul>
                 <p> Total Price: €{this.state.totalPrice}</p>
-                <p> <button onClick={this.EmptyShoppingCart}> Bestellen </button> </p>
+                
+                <p> <button onClick={this.EmptyShoppingCart} > Bestellen </button> </p>
+                
+                { this.state.ordered?
+                    <Redirect exact to={"/"} push={true}/>
+                    :
+                    null
+                }
                 </div>
             )
         }
         else
             {return (
                 <div className={"Container"}>
-                <h1>Afrekenen</h1>\
+                <h1>Afrekenen</h1>
                 <p>Adres voor bezorging en incasso.</p>
-                <form>
+                <form id="Afrekenform">
                     <li><input placeholder="voornaam" type="text" name="firstname" /> </li>
                     <li><input placeholder="achternaam" type="text" name="lastname" /> </li>
                     <li><input placeholder='straatnaam' type="text" name="streetname" /> </li>
                     <li><input placeholder="postcode" type="text" name="postcode" /> </li> 
                 </form>
                 <p> Total Price: €{this.state.totalPrice}</p>
-                <p> <button onClick={this.EmptyShoppingCart}> Bestellen </button> </p>
+                <p> <button onClick={this.EmptyShoppingCart } > Bestellen </button> </p>
+
+                { this.state.ordered?
+
+                    <Redirect exact to={"/"} push={true}/>
+                    :
+                    null
+                }
+                
                 </div>
             )
         }
