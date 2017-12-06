@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
 import {User} from "../User/User";
+import { ItemsContainer } from "../Items/ItemsContainer";
+import { NavLink } from 'react-router-dom';
 
 interface ItemPageState{
     product: Product | null;
@@ -40,56 +42,57 @@ export class ItemPage extends React.Component<RouteComponentProps<{}>, ItemPageS
             var item = {"name" : this.state.product.productNaam, "id" : this.state.product.productId, "price": this.state.product.productPrijs, "index" : itemlist.length, "console": this.state.product.consoleType, "image": this.state.product.productImg};
             itemlist.push(item)
             localStorage.setItem("Winkelmand", JSON.stringify(itemlist));
-            alert(this.state.product.productNaam +" is aan de winkelmand toegevoegd.")
+            
         }
         else{
             var item = {"name" : this.state.product.productNaam, "id" : this.state.product.productId, "price": this.state.product.productPrijs, "index" : 0, "console": this.state.product.consoleType, "image": this.state.product.productImg};
             itemlist = [item]
             localStorage.setItem("Winkelmand", JSON.stringify(itemlist));
-            
-            alert(this.state.product.productNaam +" is aan de winkelmand toegevoegd.")
         }
     }
     //The objects have to be parsed to json because this.state doesn't allow an single object in the state
     render() {
         return <div  className={"ItemPageComponent"}>
-                 
-
                 { this.state.loaded ?
-
-                <div className="ItemPageComponentScroll">
-
-                <h1> { this.state.product.productNaam } </h1>
-                <div>      
-
-                    <img src={ this.state.product.productImg }  width={300} />   
-                    
-                    <div className="ItemPageComponentInfo">   
-
-                        <h2> Beschrijving:</h2><p> { this.state.product.productOmschr } </p>
-                        <h2> Prijs: € { this.state.product.productPrijs } </h2>
-
-                        <div>
+                    <div className="container">
+                        <h1> { this.state.product.productNaam } </h1>
+                        <div className='col-md-3'>      
+                            <img className="img-responsive" src={ this.state.product.productImg }/> 
+                            <h2>
+                                    {User.IsUserLoggedIn() ?
+                                <button className="btn btn-primary" > Toevoegen aan wenslijst</button>
+                                    :
+                                <div> </div>
+                                         }
+                            </h2>                          
+                            <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#myModal" onClick={this.AddProductToShoppingCartLocalStorage}>Toevoegen aan winkelmand</button>
+                            <div className="modal fade" id="myModal" role="dialog">
+                                <div className="modal-dialog modal-sm">
+                                <div className="modal-content">
+                                    <div className="modal-header">
+                                    <button type="button" className="close" data-dismiss="modal">&times;</button>
+                                    <h4 className="modal-title">Product is toegevoegd!</h4>
+                                    </div>
+                                    <div className="modal-body">
+                                    <p>het door u gekozen item is succesvol toegevoegd aan de winkelmand</p>
+                                    <button type="button" className="btn btn-default" data-dismiss="modal" data-backdrop="false">verder winkelen</button>
+                                    <a href='/Winkelmand'><button type="button" className="btn btn-default" data-backdrop="false" >naar winkelmand</button></a>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>  
+                        </div>
+                        <div className='col-md-4'>    
+                            <h2> Prijs: €{ this.state.product.productPrijs }</h2>
                             <h2> Leeftijd: { "dit moet nog ff toegevoegd worden" } </h2>
                             <h2> Genre: { this.state.product.productGenre } </h2>
                             <h2> Console: { this.state.product.consoleType } </h2>
-                            
-                        </div>  
-                        
-                    </div>
-                </div>
+                            <h2> Beschrijving:</h2><p> { this.state.product.productOmschr } </p>      
+                        </div>
+                        <div className='col-md-3'>
 
-                    <h2>
-                    <button className="btn btn-primary" onClick={this.AddProductToShoppingCartLocalStorage}  > Toevoegen aan winkelwagen</button>
-                        {User.IsUserLoggedIn() ?
-                        <button className="btn btn-primary" > Toevoegen aan wenslijst</button>
-                        :
-                        <div> </div>
-                        }
-             
-                </h2> 
-
-                </div> 
+                        </div>                
+                    </div> 
 
                 : <div> <h2> item is still being loaded... </h2> </div>
                 }   

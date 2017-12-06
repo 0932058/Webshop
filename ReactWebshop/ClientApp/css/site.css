@@ -227,6 +227,10 @@ form{
     vertical-align: middle;
 }
 */
+.container #maingame .col-md-2{
+    margin-bottom:2%;
+
+}
 
 .sk-fading-circle {
     margin: 100px auto;

@@ -4,10 +4,10 @@ import {List} from "linqts";
 import {AbstractStorage,StorageState} from "../Storage/ReusableComponents/Storage";
 import {User} from "../User/User";
 import { Redirect } from 'react-router';
+import { Link, NavLink } from 'react-router-dom';
+import 'bootstrap';
 
 //Container voor afrekenmenu
-
-
 export class Afrekenen extends AbstractStorage {
     constructor(){
         super();    
@@ -19,6 +19,7 @@ export class Afrekenen extends AbstractStorage {
             isShoppingCart:true, 
             loaded:false, 
             totalPrice: this.CalcPrice(),
+            ordered: false,
         };
 
         this.EmptyShoppingCart = this.EmptyShoppingCart.bind(this);
@@ -43,8 +44,7 @@ export class Afrekenen extends AbstractStorage {
     }
     EmptyShoppingCart(){
         localStorage.removeItem("Winkelmand");
-        this.setState({products: this.GetCartData(), totalPrice: this.CalcPrice()});
-        alert("Uw bestelling is geplaatst.")
+        this.setState({products: this.GetCartData(), totalPrice: this.CalcPrice(), ordered: true});
     }
     CalcPrice(){
         var totalPrice = 0;
@@ -64,11 +64,10 @@ export class Afrekenen extends AbstractStorage {
             }
         });
         this.EmptyShoppingCart();
-        alert("Bestelling geplaatst");
     }
 
     render() {
-        if (User.IsUserLoggedIn() == true) {
+        if (User.IsUserLoggedIn() == true && this.state.ordered == false) {
             return (
                 <div className={"Container"}>
                 <h1>Afrekenen</h1>
@@ -88,8 +87,21 @@ export class Afrekenen extends AbstractStorage {
                 </ul>
                 <p> Total Price: €{this.state.totalPrice}</p>
                 
-                <p> <button onClick={this.EmptyShoppingCart} > Bestellen </button> </p>
-                
+                <p> <button onClick={this.FinalizeOrder} > Bestellen </button> </p>
+
+                </div>
+            )
+        }
+        else if (this.state.ordered == true){
+            return (
+                <div className={"Container"}>
+                    <div className="alert alert-success">
+                        <strong>Bestelling successvol afgerond!</strong> De bestelling wordt verwerkt
+                    </div>
+                    <h3>U ontvangt een email ter bevestiging</h3>
+                    <NavLink to={ '/' } exact activeClassName='active' className='LinksNav'>
+                        <button className="btn btn-primary">Home</button>
+                    </NavLink>
                 </div>
             )
         }
@@ -102,11 +114,12 @@ export class Afrekenen extends AbstractStorage {
                     <li><input placeholder="voornaam" type="text" name="firstname" /> </li>
                     <li><input placeholder="achternaam" type="text" name="lastname" /> </li>
                     <li><input placeholder='straatnaam' type="text" name="streetname" /> </li>
-                    <li><input placeholder="postcode" type="text" name="postcode" /> </li> 
+                    <li><input placeholder="postcode" type="text" name="postcode" /> </li>
+                    <li><input placeholder="email" type="text" name="email" /> </li>
                 </form>
-                <p> Total Price: €{this.state.totalPrice}</p>
-                <p> <button onClick={this.EmptyShoppingCart } > Bestellen </button> </p>
                 
+                <p> Total Price: €{this.state.totalPrice}</p>
+                <p> <button onClick={this.FinalizeOrder} > bestelling </button> </p> 
                 </div>
             )
         }
