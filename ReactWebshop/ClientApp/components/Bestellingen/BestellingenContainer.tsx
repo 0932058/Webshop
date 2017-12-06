@@ -47,7 +47,7 @@ export class BestellingenContainer extends React.Component<RouteComponentProps<{
         this.MakeOrderProducts();
         this.setState({loaded: true});
     }
-
+a
     render() {   
         return ( 
             <div className={"Container"}>
