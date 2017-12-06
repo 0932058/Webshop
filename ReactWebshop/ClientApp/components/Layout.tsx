@@ -66,20 +66,10 @@ export class Layout extends React.Component<LayoutProps, LayoutState> {
             search,
         })
 
-        sessionStorage.Search = event.target.value
-
         console.log(sessionStorage.Search);
-
-        event.preventDefault();
     }
 
     handleSubmit(event : any){
-
-        this.setState({
-            search : ""
-        })
-
-        event.preventDefault();
     }
 
     public render() {
@@ -102,16 +92,13 @@ export class Layout extends React.Component<LayoutProps, LayoutState> {
                 </h2> 
                 <h2>
                 <NavLink to={ '/Winkelmand' } exact activeClassName='active'className='LinksNav'>
-                     Winkelmand
+                     Winkelmand {" (" + JSON.parse(localStorage.getItem("Winkelmand")).length + ")"}
                 </NavLink>
                 </h2> 
-                
 
-                    <form onSubmit={ this.handleSubmit } >
+                    <form action={"/Search/" + this.state.search} onSubmit={ this.handleSubmit } >
                         <input placeholder="Zoek naar product" type="text" value={this.state.search} onChange={this.handleChange} />
-                        <NavLink to={ '/Search' } exact activeClassName='active'className='LinksNav' id="SearchButton"> 
-                            <input type="submit" value="Zoek naar product"/>
-                        </NavLink>
+                        <input type="submit" value="Zoek naar product"/>
                     </form>
 
             </div>
