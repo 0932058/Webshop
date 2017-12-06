@@ -1,5 +1,5 @@
 import * as React from 'react';
-
+import 'bootstrap';
 import { Route } from 'react-router-dom';
 import { UserNotLoggedInMenu } from "./LoginAndLogout/UserNotLoggedInMenuLayout";
 import { ZijMenu } from './ZijMenu';
@@ -83,175 +83,206 @@ export class Layout extends React.Component<LayoutProps, LayoutState> {
     }
 
     public render() {
-        const topBar = (
-            <div className="UserNotLoggedInMenuLayout" >  
-                <h1>
-                <NavLink to={ '/' } exact activeClassName='active' className='LinksNav'>
-                    Home
-                </NavLink>
-                </h1>    
-                <h2>
-                <NavLink to={ '/Login' } exact activeClassName='active'className='LinksNav'>
-                    Login
-                </NavLink>
-                </h2> 
-                <h2>
-                <NavLink to={ '/Registratie' } exact activeClassName='active'className='LinksNav'>
-                    Registreer
-                </NavLink>
-                </h2> 
-                <h2>
-                <NavLink to={ '/Winkelmand' } exact activeClassName='active'className='LinksNav'>
-                     Winkelmand
-                </NavLink>
-                </h2> 
-                
-
-                    <form onSubmit={ this.handleSubmit } >
-                        <input placeholder="Zoek naar product" type="text" value={this.state.search} onChange={this.handleChange} />
-                        <NavLink to={ '/Search' } exact activeClassName='active'className='LinksNav' id="SearchButton"> 
-                            <input type="submit" value="Zoek naar product"/>
-                        </NavLink>
-                    </form>
-
+const topBar = (
+    <div className="Mainlink_Notlogged"> 
+        <nav className="navbar navbar-inverse">
+            <div className="container-fluid">
+                <div className="navbar-header">
+                    <NavLink to={"/"} className="navbar-brand">Normies</NavLink>
+                </div>
+                    <ul className="nav navbar-nav">
+                        <li className="dropdown">
+                            <a className="dropdown-toggle" data-toggle="dropdown" href="#">Consoles
+                        <span className="caret"></span>
+                            </a>
+                    <ul className="dropdown-menu">
+                        <li><NavLink to={"/Consoles/Xbox360"}>Xbox 360</NavLink></li>
+                        <li><NavLink to={"/Consoles/XboxOne"}>Xbox One</NavLink></li>
+                        <li><NavLink to={"/Consoles/Playstation3"}>Playstation 3</NavLink></li>
+                        <li><NavLink to={"/Consoles/Playstation4"}>Playstation 4</NavLink></li>
+                    </ul>
+                </li>
+                <li className="dropdown">
+                    <a className="dropdown-toggle" data-toggle="dropdown" href="#">Consoles
+                        <span className="caret"></span>
+                    </a>
+                    <ul className="dropdown-menu">
+                    <li><NavLink to={"/Games/Action"}>Action</NavLink></li>
+                    <li><NavLink to={"/Games/Shooter"}>Shooter</NavLink></li>
+                    <li><NavLink to={"/Games/Fantasie"}>Fantasie</NavLink></li>
+                    <li><NavLink to={"/Games/Sport"}>Sport</NavLink></li>
+                    <li><NavLink to={"/Games/Sandbox"}>Sandbox</NavLink></li>
+                    <li><NavLink to={"/Games/Fight"}>Fight</NavLink></li>
+                    </ul>
+                </li>
+                <li className="dropdown">
+                    <a className="dropdown-toggle" data-toggle="dropdown" href="#">Consoles
+                        <span className="caret"></span>
+                    </a>
+                    <ul className="dropdown-menu">
+                    <li><NavLink to={"/Accessoires/Headsets"} >Headsets</NavLink></li>
+                    <li><NavLink to={"/Accessoires/Racewheels"}>Race-Wheels</NavLink></li>
+                    </ul>
+                </li>
+                <form className="navbar-form navbar-left" onSubmit={ this.handleSubmit }>
+                <div className="input-group">
+                  <input type="text" className="form-control" placeholder="Zoek naar product" value={this.state.search} onChange={this.handleChange}/>
+                  <div className="input-group-btn">
+                    <NavLink to ={"/Search"} className="btn btn-default" type="submit">
+                      <i className="glyphicon glyphicon-search"></i>
+                    </NavLink>
+                  </div>
+                </div>
+              </form>
+                </ul>
+                <ul className="nav navbar-nav navbar-right">
+                    <li><NavLink to={"/Login"}><span className="glyphicon glyphicon-log-in"></span>Login</NavLink></li>
+                    <li><NavLink to={"/Winkelmand"}>Winkelmand</NavLink></li>
+                    <li><NavLink to={"/Registratie"}>Registreer</NavLink></li>
+                </ul>
             </div>
-        )
-
-        const topBarLoggedIn = (
-            <div className="UserLoggedInMenuLayout">                     
-                <h1>
-                <NavLink to={ '/' } exact activeClassName='active' className='LinksNav'>
-                    Home
-                </NavLink>
-                </h1>    
-                <h2>
-                <NavLink to={ '/Profile' } exact activeClassName='active' className='LinksNav'>
-                    Profile
-                </NavLink>  
-                </h2> 
-                <h2>
-                <NavLink to={ '/Bestellingen' } exact activeClassName='active'className='LinksNav'>
-                    Bestellingen
-                </NavLink>
-                </h2>
-                <h2>
-                <NavLink to={ '/Wenslijst' } exact activeClassName='active'className='LinksNav'>
-                    Wenslijst
-                </NavLink>
-                </h2>
-                <h2>
-                <NavLink to={ '/Winkelmand' } exact activeClassName='active'className='LinksNav'>
-                    Winkelmand
-                </NavLink> 
-                </h2>
-                <h2>
-                <NavLink to={ '/Logout' } exact activeClassName='active'className='LinksNav'>
-                    Log uit
-                </NavLink>
-                </h2>
-
-                
-
-            </div>
-        )
-
-        const ZijMenu = (
-            <nav className="Zijbalk">
-            <h2>Consoles</h2>
-            <ul>
-            <li>
-                <NavLink to={ '/Consoles/Xbox360' } exact activeClassName='active' className='LinksSide'>
-                   Xbox 360
-                </NavLink>
-                </li>
-                <li>
-                <NavLink to={ '/Consoles/XboxOne' } exact activeClassName='active'className='LinksSide'>
-                    Xbox One
-                </NavLink>
-                </li>
-                <li>
-                <NavLink to={ '/Consoles/Playstation3' } exact activeClassName='active' className='LinksSide'>
-                   Playstation 3
-                </NavLink>
-                </li>
-                <li>
-                <NavLink to={ '/Consoles/Playstation4' } exact activeClassName='active' className='LinksSide'>
-                   Playstation 4
-                </NavLink>
-                </li>
-            </ul>
-            <h2>Games</h2>
-            <ul>
-                <li>
-                <NavLink to={ '/Games/Action' } exact activeClassName='Active'className='LinksSide'>
-                    Action
-                </NavLink>
-                </li>
-                <li>
-                <NavLink to={ '/Games/Shooter' } exact activeClassName='Avontuur'className='LinksSide'>
-                    Shooter
-                </NavLink>
-                </li>
-                <li>
-                <NavLink to={ '/Games/Fantasie' } exact activeClassName='active'className='LinksSide'>
-                    Fantasie
-                </NavLink>
-                </li>
-                <li>
-                <NavLink to={ '/Games/Sport' } exact activeClassName='active'className='LinksSide'>
-                    Sport
-                </NavLink>
-                </li>
-                <li>
-                <NavLink to={ '/Games/Sandbox' } exact activeClassName='active'className='LinksSide'>
-                    Sandbox
-                </NavLink>
-                </li>
-                <li>
-                <NavLink to={ '/Games/Fight' } exact activeClassName='active'className='LinksSide'>
-                    Fight
-                </NavLink>
-                </li>
-                
-            </ul>
-            <h2>Accessoires</h2>
-            <ul>
-                <li>
-                <NavLink to={ '/Accessoires/Headsets' } exact activeClassName='active'className='LinksSide'>
-                    Headsets
-                </NavLink>
-                </li>
-                <li>
-                <NavLink to={ '/Accessoires/Racewheels' } exact activeClassName='active'className='LinksSide'>
-                    Race-Wheels
-                </NavLink>
-                </li>
-            </ul>
         </nav>
-        )
-
-        return <div className='container-fluid'>
-            <div className='row'>
-                <div className='col-sm-3'> 
         
+    </div>
+)
+const topBarLoggedIn = (
+    <div className="Mainlink_Logged"> 
+        <nav className="navbar navbar-inverse">
+            <div className="navbar-header">
+                <NavLink to={"/"} className="navbar-brand" >Home</NavLink>
+            </div>
+            <div className="collapse navbar-collapse">
+                <ul className="nav navbar-nav">
+                <li className="dropdown">
+                    <a className="dropdown-toggle" data-toggle="dropdown" href="#">Consoles
+                        <span className="caret"></span>
+                    </a>
+                    <ul className="dropdown-menu">
+                    <li><NavLink to={"/Consoles/Xbox360"}>Xbox 360</NavLink></li>
+                    <li><NavLink to={"/Consoles/XboxOne"}>Xbox One</NavLink></li>
+                    <li><NavLink to={"/Consoles/Playstation3"}>Playstation 3</NavLink></li>
+                    <li><NavLink to={"/Consoles/Playstation4"}>Playstation 4</NavLink></li>
+                </ul>
+            </li>
+            <li className="dropdown">
+                <a className="dropdown-toggle" data-toggle="dropdown" href="#">Consoles
+                    <span className="caret"></span>
+                </a>
+                <ul className="dropdown-menu">
+                <li><NavLink to={"/Games/Action"}>Action</NavLink></li>
+                <li><NavLink to={"/Games/Shooter"}>Shooter</NavLink></li>
+                <li><NavLink to={"/Games/Fantasie"}>Fantasie</NavLink></li>
+                <li><NavLink to={"/Games/Sport"}>Sport</NavLink></li>
+                <li><NavLink to={"/Games/Sandbox"}>Sandbox</NavLink></li>
+                <li><NavLink to={"/Games/Fight"}>Fight</NavLink></li>
+                </ul>
+            </li>
+            <li className="dropdown">
+                <a className="dropdown-toggle" data-toggle="dropdown" href="#">Consoles
+                    <span className="caret"></span>
+                </a>
+                <ul className="dropdown-menu">
+                <li><NavLink to={"/Accessoires/Headsets"} >Headsets</NavLink></li>
+                <li><NavLink to={"/Accessoires/Racewheels"}>Race-Wheels</NavLink></li>
+                </ul>
+            </li>
+
+
+            <form className="navbar-form navbar-left" onSubmit={ this.handleSubmit }>
+                <div className="input-group">
+                  <input type="text" className="form-control" placeholder="Zoek naar product" value={this.state.search} onChange={this.handleChange}/>
+                  <div className="input-group-btn">
+                    <NavLink to ={"/Search"} className="btn btn-default" type="submit">
+                      <i className="glyphicon glyphicon-search"></i>
+                    </NavLink>
+                  </div>
+                </div>
+              </form>
+                </ul>
+                <ul className="nav navbar-nav navbar-right">
+                    <li><NavLink to="/Winkelmand">Winkelmand</NavLink></li>
+                    <li><NavLink to="/Bestellingen">Bestellingen</NavLink></li>
+                    <li><NavLink to="/Wenslijst">Wenslijst</NavLink></li>
+                    <li><NavLink to="/Profile"><span></span>Profile</NavLink></li>
+                    <li><NavLink to="/Logout"><span className="glyphicon glyphicon-log-out"></span>Log uit</NavLink></li>    
+                </ul>
+            </div>
+        </nav>
+    </div>
+)
+/*const ZijMenu = (
+    <nav className="Zijbalk">
+        <div className="panel-group">
+            <div className="panel panel-default">
+                <div className="panel-heading">
+                    <h4 className="panel-title">
+                        <a data-toggle="collapse" href="#collapse1">Consoles</a>
+                    </h4>
+                </div>
+                <div id="collapse1" className="panel-collapse collapse ">
+                    <div className="panel-body"><a href="/Consoles/Xbox360">Xbox 360</a></div>
+                    <div className="panel-body"><a href="/Consoles/XboxOne">Xbox One</a></div>
+                    <div className="panel-body"><a href="/Consoles/Playstation3">Playstation 3</a></div>
+                    <div className="panel-body"><a href="/Consoles/Playstation4">Playstation 4</a></div>
+                 </div>
+            </div>
+        </div>
+        
+        <div className="panel-group">
+            <div className="panel panel-default">
+                <div className="panel-heading">
+                    <h4 className="panel-title">
+                        <a data-toggle="collapse" href="#collapse2">Games</a>
+                    </h4>
+                </div>
+                <div id="collapse2" className="panel-collapse collapse in">
+                    <div className="panel-body"><a href="/Games/Action">Action</a></div>
+                    <div className="panel-body"><a href="/Games/Shooter">Shooter</a></div>
+                    <div className="panel-body"><a href="/Games/Fantasie">Fantasie</a></div>
+                    <div className="panel-body"><a href="/Games/Sport">Sport</a></div>
+                    <div className="panel-body"><a href="/Games/Sandbox">Sandbox</a></div>
+                    <div className="panel-body"><a href="/Games/Fight">Fight</a></div>
+                 </div>
+            </div>
+        </div>
+
+        <div className="panel-group">
+            <div className="panel panel-default">
+                <div className="panel-heading">
+                    <h4 className="panel-title">
+                        <a data-toggle="collapse" href="#collapse3">Consoles</a>
+                    </h4>
+                </div>
+                <div id="collapse3" className="panel-collapse collapse in">
+                    <div className="panel-body" ><a href="/Accessoires/Headsets" >Headsets</a></div>
+                    <div className="panel-body" ><a href="/Accessoires/Racewheels">Race-Wheels</a></div>
+                 </div>
+            </div>
+        </div> 
+    </nav>
+)*/
+
+        return <div className='homepage'>
+        <div className='container'>
+            <div className='col-md-12'> 
                 {
                     User.IsUserLoggedIn()?
                         topBarLoggedIn :
-                            topBar
+                        topBar
                 }
+            </div>
+        </div>
+        <div className='container'>
+            <div className='col-md-2'>
 
-                { ZijMenu }
-
-                </div>
-
-                <div  className='col-sm-9'>
-
+            </div>
+                <div className='col-md-1'></div>
+                <div  className='col-md-8'>
                     { this.state.pages } 
-
                 </div>
+        </div>
 
                 
-            </div>
-        </div>;
+            </div>;
     }
 }
