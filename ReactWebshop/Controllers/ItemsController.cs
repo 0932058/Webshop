@@ -9,7 +9,7 @@ using Models;
 
 namespace reactTwo.Controllers
 {
-    [Route("api/Items")]
+    [Route("api/Items/")]
     public class ItemsController : Controller
     {
         private readonly normieContext _context;
