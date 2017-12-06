@@ -84,25 +84,26 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
                     } 
                     />
 
+            <div  className={"ItemsContainerScroll"}>
 
-            <div  className={"ItemsContainerScroll"}> 
                 {this.state.loaded? 
 
                     this.state.items.map(
+                        
                         item => {
 
                             return (
                                 <div className={"Component"}>
-                                    <div className='container'>
+                                    <div className='container' id='maingame'>
                                         <div className='col-md-2'>
                                             <img className="img-responsive" src={ item.productImg }/>
                                         </div>
-                                        <div className='col-md-7'>
+                                        <div className='col-md-2'>
                                             <h2>{ item.productNaam } </h2>
                                             <p> Console: {item.consoleType} </p>
                                             <p> Prijs: {"€" + item.productPrijs } </p>
                                             <p> { item.aantalInVooraad + " " } in voorraad </p>
-                                            <NavLink to={ '/Item/' + item.productId } exact activeClassName='Active'className='button_to_product'>
+                                            <NavLink to={ '/Item/' + item.productId } exact className="btn btn-primary">
                                                 naar Product
                                             </NavLink>
                                         </div>
