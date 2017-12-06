@@ -37,7 +37,7 @@ export var routes = <Layout>
 
     <Route path='/Bestellingen' component={ BestellingenContainer } />
 
-    <Route path="/Search" component={ ItemsContainer }/>
+    <Route path="/Search/:searchQuery" component={ ItemsContainer }/>
 
     <Route path="/Games/All"  component={ItemsContainer}/>
     <Route path="/Games/Action"  component={ItemsContainer}/>

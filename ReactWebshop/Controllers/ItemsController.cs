@@ -71,6 +71,24 @@ namespace reactTwo.Controllers
             return idList.ToArray();
         }
 
+        [HttpGet("[action]/{searchTerm}")]
+        public Product[] Search(string searchTerm)
+        {
+            return this.rightItems( p => 
+                p.productNaam.Contains(searchTerm)          || 
+
+                p.productType.Contains(searchTerm)          ||
+
+                p.productGenre.Contains(searchTerm)         ||
+
+                p.productOntwikkelaar.Contains(searchTerm)  ||
+
+                p.productUitgever.Contains(searchTerm)      ||
+
+                p.consoleType.Contains(searchTerm)
+            );
+        }
+
         //Shopping cart testing
         [HttpGet("[action]/{id}")]
         public Product[] Item(int id){

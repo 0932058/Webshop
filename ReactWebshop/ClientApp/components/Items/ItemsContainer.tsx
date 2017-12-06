@@ -41,16 +41,8 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
         if ( this.props.location.pathname === '/'){
             api = 'api/Items/Home';
         }else{
-            if( this.props.location.pathname === '/Search' ){
-                api = 'api/Search/SearchFor/' + sessionStorage.getItem("Search").toString()
-                this.setState({
-                    currentSearch : sessionStorage.getItem("Search").toString()
-                })
-            }else{
-                api = 'api/Items' + this.props.location.pathname
-            }
+            api = 'api/Items' + this.props.location.pathname
         }
-
 
         fetch(api)
         .then(response => response.json() as Promise<Product[]>)
@@ -75,15 +67,6 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
             :
             <div/>
             }
-
-            <ReactInterval timeout={500} enabled={true}
-                callback={
-                    () => this.state.currentSearch != sessionStorage.getItem("Search")? 
-                            this.getItems() :
-                            console.log(this.state.currentSearch, sessionStorage.getItem("Search"))
-                    } 
-                    />
-
 
             <div  className={"ItemsContainerScroll"}> 
                 {this.state.loaded? 
