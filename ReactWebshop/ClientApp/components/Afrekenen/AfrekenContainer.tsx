@@ -19,7 +19,6 @@ export class Afrekenen extends AbstractStorage {
             isShoppingCart:true, 
             loaded:false, 
             totalPrice: this.CalcPrice(),
-            ordered : false,
         };
 
         this.EmptyShoppingCart = this.EmptyShoppingCart.bind(this);
@@ -46,10 +45,6 @@ export class Afrekenen extends AbstractStorage {
         localStorage.removeItem("Winkelmand");
         this.setState({products: this.GetCartData(), totalPrice: this.CalcPrice()});
         alert("Uw bestelling is geplaatst.")
-        this.setState({
-            ordered : true
-        })
-   
     }
     CalcPrice(){
         var totalPrice = 0;
@@ -95,11 +90,6 @@ export class Afrekenen extends AbstractStorage {
                 
                 <p> <button onClick={this.EmptyShoppingCart} > Bestellen </button> </p>
                 
-                { this.state.ordered?
-                    <Redirect exact to={"/"} push={true}/>
-                    :
-                    null
-                }
                 </div>
             )
         }
@@ -116,13 +106,6 @@ export class Afrekenen extends AbstractStorage {
                 </form>
                 <p> Total Price: €{this.state.totalPrice}</p>
                 <p> <button onClick={this.EmptyShoppingCart } > Bestellen </button> </p>
-
-                { this.state.ordered?
-
-                    <Redirect exact to={"/"} push={true}/>
-                    :
-                    null
-                }
                 
                 </div>
             )
