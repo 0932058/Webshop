@@ -1,4 +1,3 @@
-
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
 import Img from 'react-image';
@@ -7,8 +6,8 @@ import {List} from "linqts";
 import {User} from "../User/User";
 
 interface BestellingenContainerState{
-    orders: List<null> //The order of the customers without the products combined with it
-    orderAndProductCombined: List<any>  //Customer order information and product information combined
+    orders: any[];
+    orderAndProductCombined: any[];
     loaded: boolean; //In case the orders are not loaded, a load text appears on screen
     PKLoggedInUser: number; //Primary key of the logged in user
 }
@@ -16,38 +15,40 @@ export class BestellingenContainer extends React.Component<RouteComponentProps<{
     constructor(){
         super();
         //If the user is logged in, it gets the PK of the logged in user and adds it to the state
-        var loggedInUserPK = User.IsUserLoggedIn? User.GetPK() : 0
-        this.GetCustomerOrders = this.GetCustomerOrders.bind(this);
-        this.LoopThroughOrders = this.LoopThroughOrders.bind(this);
-        this.state = {orders: new List<null>(), orderAndProductCombined: new List<any>(), loaded: false, PKLoggedInUser: loggedInUserPK}
+        var loggedInUserPK = User.IsUserLoggedIn? User.GetPK() : 0;
+        this.state = {orders: [], orderAndProductCombined: [], loaded: false, PKLoggedInUser: loggedInUserPK}
     }
-    //loadData method is an async operation, the program counter continues while the items are being fetched from the database
-    //GetCustomersOrders is given as argument the PK of the customer who is logged in
-    componentWillMount(){
-        let loadData : () => void = () =>
-        this.GetCustomerOrders().then(foundOrders => this.setState({orders: foundOrders}))
-        .then(this.LoopThroughOrders)
-        .catch(loadData)
-        loadData();
+    GetOrders(klantId){
+        fetch('api/Bestellingen' + klantId)
+        .then(response => response.json() as Promise<Bestelling[]>)
+        .then(data =>{
+            this.setState({orders: data});
+        });
     }
-    //Gets the orders of the customer
-    GetCustomerOrders(): Promise<List<null>>{
-        //var foundOrders = orderTabledata.Where(order => order.accountFK == this.state.PKLoggedInUser);
-        return Promise.resolve<List<null>>(null);
-   }  
-   //Combines the order and product information
-   LoopThroughOrders(){
-    //    var foundGames = this.state.orders.Where(o => o.productForeignKeyReference == category.games).Join(gameTableData, order => order.productFK, game => game.pk, (o,g) =>  ({image: g.image, name: g.name, price: g.price, orderDate: o.orderdate, orderStatus: o.statusOfOrder})); 
-    //    var foundConsoles = this.state.orders.Where(o => o.productForeignKeyReference == category.consoles).Join(consoleTableData, order => order.productFK, game => game.pk, (o,g) =>  ({image: g.image, name: g.name, price: g.price, orderDate: o.orderdate, orderStatus: o.statusOfOrder})); 
-    //    var productsCombined = foundGames.Concat(foundConsoles).ToList() // combines the games and consoles
-    //    this.setState({orderAndProductCombined: productsCombined, loaded: true})
-   }
+    GetOrderData(productId){
+        var product;
+        fetch('api/Items/' + productId)
+        .then(response => response.json() as Promise<Product[]>)
+        .then(data => {
+            product = data[0];
+        });
+        return product;
+    }
+    MakeOrderProducts(){
+        var OrderProducts = [];
+        this.state.orders.forEach(order =>{
+            var product = this.GetOrderData(order.productId);
+            var Orderproduct = {"Productnaam": product.productNaam,"Besteldatum": order.bestellingDatum, "Verstuurdatum": order.verstuurDatum, "Status": order.status}
+            OrderProducts.push()
+        })
+    }
+
     render() {   
         return ( 
             <div className={"Container"}>
             <h1>Bestellingen</h1>
                 {this.state.loaded? 
-                this.state.orderAndProductCombined.ToArray().map((order,index) => 
+                this.state.orderAndProductCombined.map((order,index) => 
                     <BestellingenComponent key={index} image={order.image} name={order.name}
                     price={order.price} orderDate={order.orderDate} orderStatus={order.orderStatus}/>)
                 :
