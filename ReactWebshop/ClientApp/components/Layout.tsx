@@ -263,13 +263,10 @@ const topBarLoggedIn = (
             </div>
         </div>
         <div className='container'>
-            <div className='col-md-2'>
-
-            </div>
-                <div className='col-md-1'></div>
-                <div  className='col-md-8'>
+                <div  className='col-md-5'>
                     { this.state.pages } 
                 </div>
+                <div className='col-md-7'></div>
         </div>
 
                 

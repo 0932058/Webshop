@@ -4,7 +4,7 @@ import { ProductPage } from "../ProductPage/ProductPageContainer";
 import { RouteComponentProps } from 'react-router';
 import { User } from "../User/User";
 import { Link, NavLink } from 'react-router-dom';
-import { ReactInterval } from 'react-interval';
+import { ReactInterval } from 'react-interval'; 
 
 interface ItemsContainerState{
     loaded : boolean;
@@ -41,8 +41,16 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
         if ( this.props.location.pathname === '/'){
             api = 'api/Items/Home';
         }else{
-            api = 'api/Items' + this.props.location.pathname
+            if( this.props.location.pathname === '/Search' ){
+                api = 'api/Search/SearchFor/' + sessionStorage.getItem("Search").toString()
+                this.setState({
+                    currentSearch : sessionStorage.getItem("Search").toString()
+                })
+            }else{
+                api = 'api/Items' + this.props.location.pathname
+            }
         }
+
 
         fetch(api)
         .then(response => response.json() as Promise<Product[]>)
@@ -60,13 +68,22 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
    
         return(
 
-            <div  className={"Container"}>
-
+            <div  className="container">
             {this.props.location.pathname.toString() === "/"?
-            <div> <h1>Nieuwste producten van maand { this.months[new Date().getMonth()]}! </h1> </div> 
+            <div className='co-md-12'> <h1>Nieuwste producten van maand { this.months[new Date().getMonth()]}! </h1> </div> 
+
             :
             <div/>
             }
+
+            <ReactInterval timeout={500} enabled={true}
+                callback={
+                    () => this.state.currentSearch != sessionStorage.getItem("Search")? 
+                            this.getItems() :
+                            console.log(this.state.currentSearch, sessionStorage.getItem("Search"))
+                    } 
+                    />
+
 
             <div  className={"ItemsContainerScroll"}> 
                 {this.state.loaded? 
@@ -75,28 +92,22 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
                         item => {
 
                             return (
-                                <NavLink to={ '/Item/' + item.productId } exact activeClassName='Active'>
-
                                 <div className={"Component"}>
-
-                                <img src={ item.productImg }/>
-
-                                    <div className="ComponentInfo"> 
-
-                                    <h2>{ item.productNaam } </h2>
-
-                                    <p> Console: {item.consoleType} </p>
-
-                                    <p> Prijs: {"€" + item.productPrijs } </p>
-
-                                    <p> { item.aantalInVooraad + " " } in voorraad </p>
-
-                                    <NavLink to={ '/Item/' + item.productId } exact activeClassName='Active'className='button_to_product'>
-                                        naar Product
-                                    </NavLink>
+                                    <div className='container'>
+                                        <div className='col-md-2'>
+                                            <img className="img-responsive" src={ item.productImg }/>
+                                        </div>
+                                        <div className='col-md-7'>
+                                            <h2>{ item.productNaam } </h2>
+                                            <p> Console: {item.consoleType} </p>
+                                            <p> Prijs: {"€" + item.productPrijs } </p>
+                                            <p> { item.aantalInVooraad + " " } in voorraad </p>
+                                            <NavLink to={ '/Item/' + item.productId } exact activeClassName='Active'className='button_to_product'>
+                                                naar Product
+                                            </NavLink>
+                                        </div>
                                     </div>
-                                </div>
-                            </NavLink>
+                                </div> 
                             )
                         }
                     )
