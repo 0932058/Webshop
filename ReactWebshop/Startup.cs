@@ -14,6 +14,8 @@ using Controllers;
 using Models;
 using Pomelo.EntityFrameworkCore.MySql;
 
+
+
 namespace reactTwo
 {
     public class Startup
@@ -33,6 +35,9 @@ namespace reactTwo
             services.AddDbContext<normieContext> (
                  opt => opt.UseMySql(@"Host=185.56.145.149;Database=stefan2q_WebshopProjectDB;Username=stefan2q_normieUSER;Password=NormiePassword5009!;"));
             services.AddMvc();
+
+          
+        
         }
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
