@@ -18,7 +18,7 @@ export class BestellingenContainer extends React.Component<RouteComponentProps<{
         this.state = {orders: [], orderAndProductCombined: [], loaded: false, PKLoggedInUser: loggedInUserPK}
     }
     GetOrders(){
-        fetch('api/Bestellingen' + this.state.PKLoggedInUser)
+        fetch('api/Bestellingen/Get/' + this.state.PKLoggedInUser)
         .then(response => response.json() as Promise<Bestelling[]>)
         .then(data =>{
             this.setState({orders: data});
@@ -47,7 +47,7 @@ export class BestellingenContainer extends React.Component<RouteComponentProps<{
         this.MakeOrderProducts();
         this.setState({loaded: true});
     }
-
+a
     render() {   
         return ( 
             <div className={"Container"}>

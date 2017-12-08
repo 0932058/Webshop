@@ -28,7 +28,7 @@ export class Afrekenen extends AbstractStorage {
         this.FinalizeOrder = this.FinalizeOrder.bind(this);
     }
     async PostOrderToDatabase(klantId, productId){
-        let apiUrl = 'api/Bestelling/Post'
+        let apiUrl = 'api/Bestellingen/Post';
         let apiResponse = await fetch(apiUrl, {method: 'POST', body: JSON.stringify({klant: klantId,product: productId}) , headers: new Headers({'content-type' : 'application/json'})});
     }
     GetCartData(){
