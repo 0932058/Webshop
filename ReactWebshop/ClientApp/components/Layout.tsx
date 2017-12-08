@@ -63,7 +63,6 @@ export class Layout extends React.Component<LayoutProps, LayoutState> {
             })
         });
     }
-
     handleChange(event : any){
         var search = event.target.value
 
@@ -150,9 +149,9 @@ const topBar = (
               </form>
                 </ul>
                 <ul className="nav navbar-nav navbar-right">
-                    <li><NavLink to={"/Login"}><span className="glyphicon glyphicon-log-in"></span>Login</NavLink></li>
-                    <li><NavLink to={"/Winkelmand"}>Winkelmand</NavLink></li>
+                    <li><NavLink to={"/Winkelmand"}>Winkelmand <span className="badge">0</span> </NavLink></li>
                     <li><NavLink to={"/Registratie"}>Registreer</NavLink></li>
+                    <li><NavLink to={"/Login"}><span className="glyphicon glyphicon-log-in"> </span>    Login</NavLink></li>
                 </ul>
             </div>
         </nav>
@@ -214,11 +213,18 @@ const topBarLoggedIn = (
               </form>
                 </ul>
                 <ul className="nav navbar-nav navbar-right">
-                    <li><NavLink to="/Winkelmand">Winkelmand</NavLink></li>
-                    <li><NavLink to="/Bestellingen">Bestellingen</NavLink></li>
-                    <li><NavLink to="/Wenslijst">Wenslijst</NavLink></li>
-                    <li><NavLink to="/Profile"><span></span>Profile</NavLink></li>
-                    <li><NavLink to="/Logout"><span className="glyphicon glyphicon-log-out"></span>Log uit</NavLink></li>    
+                    <li><NavLink to="/Winkelmand">Winkelmand <span className="badge">0</span> </NavLink></li>
+                    <li className="dropdown">
+                    <a className="dropdown-toggle" data-toggle="dropdown" href="#">Profiel
+                        <span className="caret"></span>
+                    </a>
+                    <ul className="dropdown-menu">
+                    <li><NavLink to={"/Profile/Gegevens"} >Gegevens</NavLink></li>
+                    <li><NavLink to={"/Wenslijst"}>Wenslijst</NavLink></li>
+                    <li><NavLink to={"/Bestellingen"}>Bestellingen</NavLink></li>
+                    </ul>
+                </li>
+                    <li><NavLink to="/Logout"><span className="glyphicon glyphicon-log-out"> </span>    Log uit</NavLink></li>    
                 </ul>
             </div>
         </nav>
