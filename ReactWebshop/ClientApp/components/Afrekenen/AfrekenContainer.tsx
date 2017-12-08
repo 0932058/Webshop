@@ -4,6 +4,7 @@ import {List} from "linqts";
 import {AbstractStorage,StorageState} from "../Storage/ReusableComponents/Storage";
 import {User} from "../User/User";
 import { Redirect } from 'react-router';
+import { Link, NavLink } from 'react-router-dom';
 import 'bootstrap';
 
 //Container voor afrekenmenu
@@ -94,9 +95,13 @@ export class Afrekenen extends AbstractStorage {
         else if (this.state.ordered == true){
             return (
                 <div className={"Container"}>
-                    <div className="alert alert-success alert-dismissable">
-                        <strong>Success! </strong>
+                    <div className="alert alert-success">
+                        <strong>Bestelling successvol afgerond!</strong> De bestelling wordt verwerkt
                     </div>
+                    <h3>U ontvangt een email ter bevestiging</h3>
+                    <NavLink to={ '/' } exact activeClassName='active' className='LinksNav'>
+                        <button className="btn btn-primary">Home</button>
+                    </NavLink>
                 </div>
             )
         }
@@ -109,7 +114,8 @@ export class Afrekenen extends AbstractStorage {
                     <li><input placeholder="voornaam" type="text" name="firstname" /> </li>
                     <li><input placeholder="achternaam" type="text" name="lastname" /> </li>
                     <li><input placeholder='straatnaam' type="text" name="streetname" /> </li>
-                    <li><input placeholder="postcode" type="text" name="postcode" /> </li> 
+                    <li><input placeholder="postcode" type="text" name="postcode" /> </li>
+                    <li><input placeholder="email" type="text" name="email" /> </li>
                 </form>
                 
                 <p> Total Price: €{this.state.totalPrice}</p>

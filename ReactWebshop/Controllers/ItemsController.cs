@@ -9,7 +9,7 @@ using Models;
 
 namespace reactTwo.Controllers
 {
-    [Route("api/Items")]
+    [Route("api/Items/")]
     public class ItemsController : Controller
     {
         private readonly normieContext _context;
@@ -41,19 +41,19 @@ namespace reactTwo.Controllers
         [HttpGet("[action]/{cat}")]
         public Product[] Games(string cat)
         {
-            return this.rightItems( Product => Product.productGenre == cat && Product.productType == "Game");
+            return this.rightItems( Product => Product.productGenre.Contains(cat) && Product.productType == "Game");
         }
 
         [HttpGet("[action]/{cat}")]
         public Product[] Accessoires(string cat)
         {
-            return this.rightItems( Product => Product.productGenre == cat && Product.productType == "Accessoire");
+            return this.rightItems( Product => Product.productGenre.Contains(cat) && Product.productType == "Accessoire");
         }
 
         [HttpGet("[action]/{cat}")]
         public Product[] Consoles(string cat)
         {
-            return this.rightItems( Product => Product.productGenre == cat && Product.productType == "Console");
+            return this.rightItems( Product => Product.productGenre.Contains(cat) && Product.productType == "Console");
         }
 
         //Shopping cart testing

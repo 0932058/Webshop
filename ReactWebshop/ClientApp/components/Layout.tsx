@@ -10,6 +10,7 @@ import { ItemPage } from "../components/ProductPage/ItemPage";
 import { ItemsContainer } from "../components/Items/ItemsContainer";
 import { Link, NavLink } from 'react-router-dom';
 import { withRouter } from 'react-router';
+import {Klant} from "./../../TypescriptModels/Klant";
 
 //The components used for the layout is in the render method
 //The components are always displayed on screen
@@ -31,6 +32,10 @@ export class Layout extends React.Component<LayoutProps, LayoutState> {
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+
+        this.CheckAlreadyLoggedIn = this.CheckAlreadyLoggedIn.bind(this);
+        this.CreateLoggedInUser = this.CreateLoggedInUser.bind(this);
+        this.GetUserFromApi = this.GetUserFromApi.bind(this);
 
         this.state = {
             pages : [],
@@ -65,11 +70,30 @@ export class Layout extends React.Component<LayoutProps, LayoutState> {
         this.setState({
             search,
         })
-
-        console.log(sessionStorage.Search);
     }
 
     handleSubmit(event : any){
+    }
+
+    async GetUserFromApi() : Promise<Klant>{
+        let apiLink = 'api/User/Get/' + localStorage.getItem("currentklant")
+        let apiResponse = await fetch(apiLink, {method: 'get', credentials: 'include', headers: new Headers({'content-type' : 'application/json'})});
+        let apiResponseJson = await apiResponse.json();
+        return apiResponseJson;
+    }
+
+    CheckAlreadyLoggedIn(){
+        
+        this.GetUserFromApi()
+        .then(foundUser => {
+            this.CreateLoggedInUser(foundUser)
+            console.log("wow")
+        })
+    }
+    //Fetches the data (Pk, name etc) of the logged in user 
+    CreateLoggedInUser(userAccount: Klant){
+        var loggedInUser = User.CreateUser();
+        loggedInUser.SetAccount(userAccount);
     }
 
     public render() {
@@ -93,7 +117,7 @@ const topBar = (
                     </ul>
                 </li>
                 <li className="dropdown">
-                    <a className="dropdown-toggle" data-toggle="dropdown" href="#">Consoles
+                    <a className="dropdown-toggle" data-toggle="dropdown" href="#">Games
                         <span className="caret"></span>
                     </a>
                     <ul className="dropdown-menu">
@@ -106,7 +130,7 @@ const topBar = (
                     </ul>
                 </li>
                 <li className="dropdown">
-                    <a className="dropdown-toggle" data-toggle="dropdown" href="#">Consoles
+                    <a className="dropdown-toggle" data-toggle="dropdown" href="#">Accessoires
                         <span className="caret"></span>
                     </a>
                     <ul className="dropdown-menu">
@@ -155,7 +179,7 @@ const topBarLoggedIn = (
                 </ul>
             </li>
             <li className="dropdown">
-                <a className="dropdown-toggle" data-toggle="dropdown" href="#">Consoles
+                <a className="dropdown-toggle" data-toggle="dropdown" href="#">Games
                     <span className="caret"></span>
                 </a>
                 <ul className="dropdown-menu">
@@ -168,7 +192,7 @@ const topBarLoggedIn = (
                 </ul>
             </li>
             <li className="dropdown">
-                <a className="dropdown-toggle" data-toggle="dropdown" href="#">Consoles
+                <a className="dropdown-toggle" data-toggle="dropdown" href="#">Accessoires
                     <span className="caret"></span>
                 </a>
                 <ul className="dropdown-menu">
@@ -182,9 +206,9 @@ const topBarLoggedIn = (
                 <div className="input-group">
                   <input type="text" className="form-control" placeholder="Zoek naar product" value={this.state.search} onChange={this.handleChange}/>
                   <div className="input-group-btn">
-                    <NavLink to ={"/Search"} className="btn btn-default" type="submit">
-                      <i className="glyphicon glyphicon-search"></i>
-                    </NavLink>
+                    <button className={"btn btn-default"} type={"submit"}> 
+                        <i className="glyphicon glyphicon-search"/> 
+                    </button>
                   </div>
                 </div>
               </form>
@@ -257,8 +281,19 @@ const topBarLoggedIn = (
             <div className='col-md-12'> 
                 {
                     User.IsUserLoggedIn()?
-                        topBarLoggedIn :
-                        topBar
+
+                        User.GetPK.toString() === localStorage.getItem("currentklant")?
+                        topBarLoggedIn
+                        :
+                        <div>
+                            {() => User.LogUserOut()}
+                            {() => this.CheckAlreadyLoggedIn()}
+                            {topBarLoggedIn}
+                        </div>
+                            :
+                            this.CheckAlreadyLoggedIn()?
+                                topBarLoggedIn :
+                                    topBar 
                 }
             </div>
         </div>
