@@ -37,7 +37,7 @@ export class User{
     //Come into this method and then the user gets created
     public SetAccount(account: Klant){
         User.isLoggedIn = true;
-        User.pk = account.KlantId;
+        User.pk = account.klantId;
         User.firstName = account.klantNaam;
         User.lastName = account.klantAchternaam;
         User.email = account.klantMail;

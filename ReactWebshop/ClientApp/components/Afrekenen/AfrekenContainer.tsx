@@ -27,10 +27,18 @@ export class Afrekenen extends AbstractStorage {
         this.PostOrderToDatabase = this.PostOrderToDatabase.bind(this);
         this.FinalizeOrder = this.FinalizeOrder.bind(this);
     }
-    async PostOrderToDatabase(klantId, productId){
-        let apiUrl = 'api/Bestellingen/Post';
-        let apiResponse = await fetch(apiUrl, {method: 'POST', body: JSON.stringify({klant: klantId,product: productId}) , headers: new Headers({'content-type' : 'application/json'})});
-    }
+    async PostOrderToDatabase(klantId, id){
+        let apiUrl = 'api/Bestellingen/Post'
+        let orderToPost: Bestelling = {
+            BestellingId: 0, 
+            klantId: klantId,
+            productId: id,
+            bestellingDatum: new Date(),
+            verstuurDatum: new Date(),
+            status: 'In behandeling'
+        }
+        let apiResponse = await fetch(apiUrl, {method: 'POST', body:JSON.stringify(orderToPost), headers: new Headers({'content-type' : 'application/json'})});
+        }
     GetCartData(){
         var shoppingCartData = [];
         shoppingCartData = JSON.parse(localStorage.getItem("Winkelmand"));
@@ -60,7 +68,7 @@ export class Afrekenen extends AbstractStorage {
         var CartItems = this.GetCartData();
         CartItems.forEach(item => {
             if (User.IsUserLoggedIn()){
-                this.PostOrderToDatabase(User.GetPK,item.productId)
+                this.PostOrderToDatabase(User.GetPK(),item.id)
             }
         });
         this.EmptyShoppingCart();

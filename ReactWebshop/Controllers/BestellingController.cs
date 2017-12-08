@@ -29,18 +29,10 @@ namespace reactTwo.Controllers
             }
         }
         [HttpPost("Post")]
-        public void Post([FromBody]dynamic info){
-            Bestelling Order = new Bestelling();
-            Order.bestellingDatum = DateTime.Now;
-            Order.verstuurDatum = DateTime.Now;
-            Order.BestellingId = this._context.Bestellingen.Count()+1;
-            Order.productId = info.product;
-            Order.klantId = info.klant;
-            Order.status = "In behandeling";
-            this._context.Bestellingen.Add(Order);
+        public void Post([FromBody]Bestelling order){
+            order.BestellingId = this._context.Bestellingen.Count() + 1;
+            this._context.Bestellingen.Add(order);
             this._context.SaveChanges();
-        }
-
-        
     }
+}
 }
