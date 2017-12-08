@@ -71,6 +71,7 @@ export class Afrekenen extends AbstractStorage {
                 this.PostOrderToDatabase(User.GetPK(),item.id)
             }
         });
+        
         this.EmptyShoppingCart();
     }
 
