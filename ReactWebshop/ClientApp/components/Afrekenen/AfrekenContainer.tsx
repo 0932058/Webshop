@@ -27,7 +27,7 @@ export class Afrekenen extends AbstractStorage {
         this.FinalizeOrder = this.FinalizeOrder.bind(this);
     }
     async PostOrderToDatabase(klantId, productId){
-        let apiUrl = 'api/Bestelling/Post'
+        let apiUrl = 'api/Bestellingen/Post';
         let apiResponse = await fetch(apiUrl, {method: 'POST', body: JSON.stringify({klant: klantId,product: productId}) , headers: new Headers({'content-type' : 'application/json'})});
     }
     GetCartData(){
@@ -86,7 +86,7 @@ export class Afrekenen extends AbstractStorage {
                 </ul>
                 <p> Total Price: €{this.state.totalPrice}</p>
                 
-                <p> <button onClick={this.EmptyShoppingCart} > Bestellen </button> </p>
+                <p> <button onClick={this.FinalizeOrder} > Bestellen </button> </p>
 
                 </div>
             )
