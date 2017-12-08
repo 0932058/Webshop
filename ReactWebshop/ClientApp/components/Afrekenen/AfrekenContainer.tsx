@@ -119,7 +119,7 @@ export class Afrekenen extends AbstractStorage {
                 </form>
                 
                 <p> Total Price: €{this.state.totalPrice}</p>
-                <p> <button onClick={this.FinalizeOrder} > bestelling </button> </p> 
+                <p> <button onClick={this.FinalizeOrder} > Bestellen </button> </p> 
                 </div>
             )
         }
