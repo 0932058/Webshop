@@ -57,7 +57,7 @@ export class LoginContainer extends React.Component<RouteComponentProps<{}>, Log
     CreateLoggedInUser(userAccount: Klant){
         var loggedInUser = User.CreateUser();
         loggedInUser.SetAccount(userAccount);
-        localStorage.setItem("currentklant", userAccount.klantId.toString())
+        localStorage.setItem("currentklant", ( ( userAccount.klantId + 547 ) ).toString() )
         this.setState({userLoggedIn: true})
     }
     //When the user clicks the register button

@@ -11,6 +11,7 @@ import { ItemsContainer } from "../components/Items/ItemsContainer";
 import { Link, NavLink } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import {Klant} from "./../../TypescriptModels/Klant";
+import {ReactInterval} from 'react-interval';
 
 //The components used for the layout is in the render method
 //The components are always displayed on screen
@@ -23,6 +24,7 @@ interface LayoutState {
     pages : React.ReactNode;
     foundProducts : Product[];
     search : string;
+    loggedIn : boolean
 }
 
 export class Layout extends React.Component<LayoutProps, LayoutState> {
@@ -36,11 +38,15 @@ export class Layout extends React.Component<LayoutProps, LayoutState> {
         this.CheckAlreadyLoggedIn = this.CheckAlreadyLoggedIn.bind(this);
         this.CreateLoggedInUser = this.CreateLoggedInUser.bind(this);
         this.GetUserFromApi = this.GetUserFromApi.bind(this);
+        this.updateMenuState = this.updateMenuState.bind(this);
+
+        this.correctDB = this.correctDB.bind(this);
 
         this.state = {
             pages : [],
             foundProducts : [],
             search : "",
+            loggedIn : false,
         }
 
         fetch('api/Items/GetAllId')
@@ -64,6 +70,10 @@ export class Layout extends React.Component<LayoutProps, LayoutState> {
         });
     }
 
+    correctDB(){
+        fetch('api/Items/Change', {method: 'POST', headers : new Headers({'content-type' : 'application/json'})});
+    }
+
     handleChange(event : any){
         var search = event.target.value
 
@@ -73,27 +83,72 @@ export class Layout extends React.Component<LayoutProps, LayoutState> {
     }
 
     handleSubmit(event : any){
+
     }
 
     async GetUserFromApi() : Promise<Klant>{
-        let apiLink = 'api/User/Get/' + localStorage.getItem("currentklant")
+        let apiLink = 'api/User/Get/' + User.getStorageId()
         let apiResponse = await fetch(apiLink, {method: 'get', credentials: 'include', headers: new Headers({'content-type' : 'application/json'})});
         let apiResponseJson = await apiResponse.json();
         return apiResponseJson;
     }
 
     CheckAlreadyLoggedIn(){
-        
         this.GetUserFromApi()
         .then(foundUser => {
             this.CreateLoggedInUser(foundUser)
-            console.log("wow")
         })
     }
     //Fetches the data (Pk, name etc) of the logged in user 
     CreateLoggedInUser(userAccount: Klant){
         var loggedInUser = User.CreateUser();
         loggedInUser.SetAccount(userAccount);
+        this.setState({loggedIn : true})
+        
+    }
+
+    updateMenuState() : boolean{
+
+        //loc no, user no
+        if( User.getStorageId() === 0 && User.IsUserLoggedIn() === false )
+        {
+            this.setState({loggedIn : false})
+            return false
+        }
+        // loc yes, user no
+        if( User.getStorageId() !== 0 && User.IsUserLoggedIn() === false)
+        {
+            
+            this.CheckAlreadyLoggedIn()
+
+            
+            if(User.IsUserLoggedIn()){
+                
+                return true
+            }
+            this.setState({loggedIn : false})
+            
+            return false
+        }
+        // loc yes, user yes,
+        if( User.getStorageId() !== 0 && User.IsUserLoggedIn() ){
+            if(User.getStorageId() === User.GetPK()){
+                null
+            }else{
+                User.LogUserOut()
+                this.CheckAlreadyLoggedIn()
+            }
+            User.IsUserLoggedIn()
+            this.setState({loggedIn : true})
+            return true
+        }
+        // loc no, user yes
+        if( User.getStorageId() === 0 && User.IsUserLoggedIn() ){
+            User.LogUserOut()
+            this.setState({loggedIn : false})
+            User.IsUserLoggedIn()
+            return false
+        } 
     }
 
     public render() {
@@ -134,8 +189,8 @@ const topBar = (
                         <span className="caret"></span>
                     </a>
                     <ul className="dropdown-menu">
-                    <li><NavLink to={"/Accessoires/Headsets"} >Headsets</NavLink></li>
-                    <li><NavLink to={"/Accessoires/Racewheels"}>Race-Wheels</NavLink></li>
+                    <li><NavLink to={"/Accessoires/Headset"} >Headsets</NavLink></li>
+                    <li><NavLink to={"/Accessoires/Racewheel"}>Race-Wheels</NavLink></li>
                     </ul>
                 </li>
                 <form className="navbar-form navbar-left" action={"/Search/" + this.state.search} onSubmit={ this.handleSubmit }>
@@ -279,22 +334,19 @@ const topBarLoggedIn = (
         return <div className='homepage'>
         <div className='container'>
             <div className='col-md-12'> 
-                {
-                    User.IsUserLoggedIn()?
 
-                        User.GetPK.toString() === localStorage.getItem("currentklant")?
-                        topBarLoggedIn
-                        :
-                        <div>
-                            {() => User.LogUserOut()}
-                            {() => this.CheckAlreadyLoggedIn()}
-                            {topBarLoggedIn}
-                        </div>
-                            :
-                            this.CheckAlreadyLoggedIn()?
-                                topBarLoggedIn :
-                                    topBar 
+                <button onClick={this.correctDB} > </button>
+
+                <ReactInterval timeout={1000} enabled={true}
+                    callback={() => this.updateMenuState()} />
+
+                {
+                    this.state.loggedIn?
+                    topBarLoggedIn
+                    :
+                    topBar
                 }
+
             </div>
         </div>
         <div className='container'>

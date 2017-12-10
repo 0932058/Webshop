@@ -41,7 +41,7 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
             api = 'api/Items/Home';
         }else{
             api = 'api/Items' + this.props.location.pathname
-            
+            console.log('api/Items' + this.props.location.pathname)
         }
 
 
@@ -49,6 +49,7 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
         .then(response => response.json() as Promise<Product[]>)
         .then(data => {
             this.setState({ items : data, loaded : true});
+            console.log(data[0])
         });
     }
 
