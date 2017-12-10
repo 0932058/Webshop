@@ -40,8 +40,6 @@ export class Layout extends React.Component<LayoutProps, LayoutState> {
         this.GetUserFromApi = this.GetUserFromApi.bind(this);
         this.updateMenuState = this.updateMenuState.bind(this);
 
-        this.correctDB = this.correctDB.bind(this);
-
         this.state = {
             pages : [],
             foundProducts : [],
@@ -336,7 +334,7 @@ const topBarLoggedIn = (
         return <div className='homepage'>
         <div className='container'>
             <div className='col-md-12'> 
-                
+
                 <ReactInterval timeout={1000} enabled={true}
                     callback={() => this.updateMenuState()} />
 
