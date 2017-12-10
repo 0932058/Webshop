@@ -119,29 +119,29 @@ export class Winkelmand extends AbstractStorage {
                 {this.state.products.map(
                     stack =>{
                         return(
-<div className={"Component"}>
-<div className='container'>
-    <div className="panel panel-default">    
-        <div className='col-md-2'>
-            <div className="panel-body"><img className="img-responsive" src={stack.product.image}/></div>
-        </div>
-        <div className='col-md-4'>
-            <p>{stack.product.name}</p>
-            <p>Naam: {stack.product.name}</p>
-            <p>Console: {stack.product.console}</p>
-            <p>Prijs: {"€" + (stack.product.price*stack.amount).toFixed(2)}</p>
-            </div>
-            <div className='col-md-4'>
-            <p>Aantal: 
-            <button className="btn btn-danger" onClick={() => this.RemoveItemFromStorage(stack.product.id)}> - </button>
-            {stack.amount}
-            <button className="btn btn-success" onClick={() => this.AddItemToStorage(stack.product)}> + </button>
-             </p>
-            </div>
-        </div>
-    </div>
+                            <div className={"Component"}>
+                            <div className='container'>
+                                <div className="panel panel-default">    
+                                    <div className='col-md-2'>
+                                        <div className="panel-body"><img className="img-responsive" src={stack.product.image}/></div>
+                                    </div>
+                                    <div className='col-md-4'>
+                                        <p>{stack.product.name}</p>
+                                        <p>Naam: {stack.product.name}</p>
+                                        <p>Console: {stack.product.console}</p>
+                                        <p>Prijs: {"€" + (stack.product.price*stack.amount).toFixed(2)}</p>
+                                        </div>
+                                        <div className='col-md-4'>
+                                        <p>Aantal: 
+                                        <button className="btn btn-danger" onClick={() => this.RemoveItemFromStorage(stack.product.id)}> - </button>
+                                        {stack.amount}
+                                        <button className="btn btn-success" onClick={() => this.AddItemToStorage(stack.product)}> + </button>
+                                        </p>
+                                        </div>
+                                    </div>
+                                </div>
 
-</div>
+                            </div>
                         )
                     }
 

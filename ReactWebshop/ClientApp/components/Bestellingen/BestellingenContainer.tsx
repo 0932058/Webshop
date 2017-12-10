@@ -3,26 +3,23 @@ import { RouteComponentProps } from 'react-router';
 import Img from 'react-image';
 import {List} from "linqts";
 import {User} from "../User/User";
+import {AbstractStorage,StorageState} from "../Storage/ReusableComponents/Storage";
 
-interface BestellingenContainerState{
-    orders: any[];
-    orderAndProductCombined: any[];
-    loaded: boolean; //In case the orders are not loaded, a load text appears on screen
-    PKLoggedInUser: number; //Primary key of the logged in user
-}
-export class BestellingenContainer extends React.Component<RouteComponentProps<{}>, BestellingenContainerState> {
+export class BestellingenContainer extends AbstractStorage {
     constructor(){
         super();
         //If the user is logged in, it gets the PK of the logged in user and adds it to the state
         var loggedInUserPK = User.IsUserLoggedIn? User.GetPK() : 0;
-        this.state = {orders: [], orderAndProductCombined: [], loaded: false, PKLoggedInUser: loggedInUserPK}
+        this.state = {products: this.MakeOrderProducts(), isShoppingCart:false, loaded:false, totalPrice: 0, ordered: true, customerID: loggedInUserPK}
     }
     GetOrders(){
-        fetch('api/Bestellingen/Get/' + this.state.PKLoggedInUser)
+        var res = [];
+        fetch('api/Bestellingen/Get/' + this.state.customerID)
         .then(response => response.json() as Promise<Bestelling[]>)
         .then(data =>{
-            this.setState({orders: data});
+           res = data;
         });
+        return res;
     }
     GetOrderData(productId){
         var product;
@@ -35,47 +32,94 @@ export class BestellingenContainer extends React.Component<RouteComponentProps<{
     }
     MakeOrderProducts(){
         var OrderProducts = [];
-        this.state.orders.forEach(order =>{
+        this.GetOrders().forEach(order =>{
             var product = this.GetOrderData(order.productId);
             var Orderproduct = {"Productnaam": product.productNaam,"Image": product.productImg ,"Besteldatum": order.bestellingDatum, "Verstuurdatum": order.verstuurDatum, "Status": order.status,"Prijs": product.productPrijs};
             OrderProducts.push();
-        })
-        this.setState({orderAndProductCombined: OrderProducts});
+        });
+        return OrderProducts;
     }
-    componentDidMount(){
-        this.GetOrders();
-        this.MakeOrderProducts();
-        this.setState({loaded: true});
-    }
-a
     render() {   
-        return ( 
-            <div className={"Container"}>
-            <h1>Bestellingen</h1>
-                {this.state.loaded? 
-                this.state.orderAndProductCombined.map((order) => 
-                {return (
-                    <div className={"Component"}>
-                    <img src={order.Image}/>
-                    <div className="ComponentInfo">
-                     <h1> Naam: {order.Productnaam} </h1> 
-                     <h2> Prijs: {"€" + order.Prijs.toFixed(2)} </h2> 
-                     <h2> Besteld op: {order.bestellingDatum} </h2>
-                     <h2> Status: {order.Status} </h2>
-                     {order.Verstuurdatum != null? (
-                         <h2> Verzonden op: {order.Verstuurdatum}</h2>
-                     ) 
-                     :
-                     (<h2>Nog niet verzonden.</h2>)   
-                     }
-                    </div> 
-                    </div>       
-                    );})
-                :
-                <h1> Loading the orders... </h1>           
-            }
-            </div> 
-        );
+        return (
+            
+        <div className={"Container"}>
+            <div className='container'>
+                <div className='col-md-9'>
+                <h1>Bestellingen</h1>
+            </div>
+            </div>
+                <div>
+                            <div className={"Component"}>
+                            <div className='container'>
+                                <div className="panel panel-default">    
+                                    <div className='col-md-2'>
+                                        <div className="panel-body"><img className="img-responsive"/></div>
+                                    </div>
+                                    <div className='col-md-4'>
+                                        <p>Productnaam</p>
+                                        <p>Productnaam</p>
+                                        <p>Prijs</p>
+                                        <p>Status</p>
+                                        <p>Besteldatum</p>
+                                        <p>Verstuurdatum</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        )
+                    }
+
+                }
+
+
+                </div>
+
+
+        </div>
+        );/*
+        return (
+            
+        <div className={"Container"}>
+            <div className='container'>
+                <div className='col-md-9'>
+                <h1>Bestellingen</h1>
+            </div>
+            </div>
+                <div>
+                {this.state.orderAndProductCombined.map(
+                    order =>{
+                        return(
+                            <div className={"Component"}>
+                            <div className='container'>
+                                <div className="panel panel-default">    
+                                    <div className='col-md-2'>
+                                        <div className="panel-body"><img className="img-responsive" src={order.Image}/></div>
+                                    </div>
+                                    <div className='col-md-4'>
+                                        <p>{order.Productnaam}</p>
+                                        <p>Naam: {order.Productnaam}</p>
+                                        <p>Prijs: {order.Prijs}</p>
+                                        <p>Status: {order.Status}</p>
+                                        <p>Besteldatum: {order.Besteldatum}</p>
+                                        <p>Verstuurdatum: {order.Verstuurdatum}</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        )
+                    }
+
+                )
+                }
+
+
+                </div>
+
+
+        </div>
+        );*/
     }
 }           
 export default BestellingenContainer;
