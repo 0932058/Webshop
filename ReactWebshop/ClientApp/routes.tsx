@@ -53,8 +53,8 @@ export var routes = <Layout>
     <Route path="/Consoles/Playstation3"  component={ItemsContainer}/>
     <Route path="/Consoles/Playstation4"  component={ItemsContainer}/>
 
-    <Route path="/Accessoires/All"  component={ItemsContainer}/>
-    <Route path="/Accessoires/Headset"  component={ItemsContainer}/>
-    <Route path="/Accessoires/Racewheel"  component={ItemsContainer}/>
+    <Route path="/Accessoires/All" component={ItemsContainer}/>
+    <Route path="/Accessoires/Headset" component={ItemsContainer}/>
+    <Route path="/Accessoires/Racewheel" component={ItemsContainer}/>
     
 </Layout>;

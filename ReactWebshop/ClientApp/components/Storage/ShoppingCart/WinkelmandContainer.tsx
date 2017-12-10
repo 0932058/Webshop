@@ -10,7 +10,7 @@ import {User} from "../../User/User";
 export class Winkelmand extends AbstractStorage {
     constructor(){
         super();
-        this.state = {customerID: null, isShoppingCart:true, loaded:false, totalPrice: this.GetTotalPrice(), products: this.BuildItemStack(), ordered: false,}
+        this.state = {customerID: null, isShoppingCart:true, loaded:false, totalPrice: this.GetTotalPrice(), products: this.BuildItemStack(), ordered: false, }
     }
     BuildItemStack(){
         var cart = this.GetCartContent();
@@ -106,7 +106,7 @@ export class Winkelmand extends AbstractStorage {
                 <h1>Winkelmand</h1>
                 </div>
                 <div className='col-md-3'>
-                <h4> Aantal producten: {() => this.GetCartContent().length}</h4>
+                <h4> Aantal producten: {this.GetCartContent().length}</h4>
                 <h4> Totaal prijs: €{this.state.totalPrice.toFixed(2)}</h4>
                 <NavLink  to={ '/afrekenen' } className="btn btn-primary">
                    Afrekenen
@@ -132,7 +132,11 @@ export class Winkelmand extends AbstractStorage {
             <p>Prijs: {"€" + (stack.product.price*stack.amount).toFixed(2)}</p>
             </div>
             <div className='col-md-4'>
-            <p>Aantal: <button className="btn btn-success" onClick={() => this.AddItemToStorage(stack.product)}> + </button>{stack.amount} <button className="btn btn-danger" onClick={() => this.RemoveItemFromStorage(stack.product.id)}> - </button></p>
+            <p>Aantal: 
+            <button className="btn btn-danger" onClick={() => this.RemoveItemFromStorage(stack.product.id)}> - </button>
+            {stack.amount}
+            <button className="btn btn-success" onClick={() => this.AddItemToStorage(stack.product)}> + </button>
+             </p>
             </div>
         </div>
     </div>
