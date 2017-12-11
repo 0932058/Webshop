@@ -331,6 +331,56 @@ const topBarLoggedIn = (
     </nav>
 )*/
 
+const ZijFilter =(
+    <div className='ZijFilter'>
+        <div className='Gamefilter'>
+            <h4>Categorie</h4>
+            <div className="checkbox">
+                <label><input type="checkbox" value=""/>Action</label>
+            </div>
+            <div className="checkbox">
+                <label><input type="checkbox" value=""/>Shooter</label>
+            </div>
+            <div className="checkbox">
+                <label><input type="checkbox" value=""/>Fantasie</label>
+            </div>
+            <div className="checkbox">
+                <label><input type="checkbox" value=""/>Sport</label>
+            </div>
+            <div className="checkbox">
+                <label><input type="checkbox" value=""/>Sandbox</label>
+            </div>
+            <div className="checkbox">
+                <label><input type="checkbox" value=""/>Fight</label>
+            </div>
+        </div>
+        <div className='Consolefilter'>
+            <h4>Consoles</h4>
+            <div className="checkbox">
+                <label><input type="checkbox" value=""/>Playstation 3</label>
+            </div>
+            <div className="checkbox">
+                <label><input type="checkbox" value=""/>Playstation 4</label>
+            </div>
+            <div className="checkbox">
+                <label><input type="checkbox" value=""/>Xbox 360</label>
+            </div>
+            <div className="checkbox">
+                <label><input type="checkbox" value=""/>Xbox One</label>
+            </div>
+        </div>
+        <div className='Accefilter'>
+            <h4>Accessoires</h4>
+            <div className="checkbox">
+                <label><input type="checkbox" value=""/>Headsets</label>
+            </div>
+            <div className="checkbox">
+                <label><input type="checkbox" value=""/>Racewheels</label>
+            </div>
+        </div>
+    </div>
+)
+
         return <div className='homepage'>
         <div className='container'>
             <div className='col-md-12'> 
@@ -348,10 +398,13 @@ const topBarLoggedIn = (
             </div>
         </div>
         <div className='container'>
+                <div className='col-md-2'>
+                    {ZijFilter}
+                </div>
                 <div  className='col-md-5'>
                     { this.state.pages } 
                 </div>
-                <div className='col-md-7'></div>
+                <div className='col-md-5'></div>
         </div>
 
                 
