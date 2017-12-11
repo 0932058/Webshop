@@ -113,23 +113,44 @@ export class RegistratieContainer extends React.Component<RouteComponentProps<{}
             <div className={"Container"}>
                 <h1> Registreer</h1>
 
-                <ul><form  onSubmit={this.CheckIfAccountExists } onChange={this.HandleInputFieldsChange}>
+                <ul className='reg_ul'><form action="/action_page.php"  onSubmit={this.CheckIfAccountExists } onChange={this.HandleInputFieldsChange}>
                 
-                    <li><input placeholder="voornaam" type="text" name="firstname" value={this.state.firstname} /> </li>              
-                   
-                    <li><input placeholder="achternaam" type="text" name="lastname"  value={this.state.lastname} /> </li>            
-
-                    <li><input placeholder="email" type="text" name="email"  value={this.state.email} /> </li>            
-                
-                    <li><input placeholder="gebruikersnaam" type="text" name="username"  value={this.state.username} /> </li>            
-                  
-                    <li><input placeholder="wachtwoord" type="text" name="password"  value={this.state.password} /> </li>            
-                 
-                    <li><input placeholder='straatnaam' type="text" name="streetname"  value={this.state.streetname} /> </li>            
-                  
-                    <li><input placeholder="postcode" type="text" name="postcode"  value={this.state.postcode} /> </li>            
-
-                    <li><input placeholder="Registreer" type="submit" value="Registreer"  /> </li>
+                    <li className='reg_li'>
+                        <p>Voornaam</p>
+                        <input placeholder="voornaam" pattern="[a-z]{1,15}" title="voornaam moet bestaan uit 1 tot en met 15 letters"
+                        type="text" name="firstname" className="form-control" value={this.state.firstname} />
+                    </li>              
+                    <li className='reg_li'>
+                        <p>Achternaam</p>
+                        <input placeholder="achternaam" pattern="[a-z]{1,30}" title="achternaam moet bestaan uit 1 tot 30 letters" 
+                        type="text" name="lastname" className="form-control"  value={this.state.lastname} />
+                    </li>            
+                    <li className='reg_li'>
+                        <p>Email</p>
+                        <input placeholder="email" 
+                        type="email" name="email"className="form-control"  value={this.state.email} />
+                    </li>            
+                    <li className='reg_li'>
+                        <p>Gebruikersnaam</p>
+                        <input placeholder="gebruikersnaam" pattern="[a-zA-Z0-9]{3,8}" title="gebruikers naam mag maximaal uit 8 tekens bestaan"
+                        type="text" name="username"className="form-control"  value={this.state.username} />
+                    </li>            
+                    <li className='reg_li'>
+                        <p>Wachtwoord</p>
+                        <input placeholder="wachtwoord" pattern=".{6,}"  title="wachtwoord moet minstens 6 waardes bevatten"
+                        type="password" name="password"className="form-control"  value={this.state.password} /> 
+                    </li>            
+                    <li className='reg_li'>
+                        <p>Straatnaam</p>
+                        <input placeholder='straatnaam' pattern="([a-zA-Z]).{2,30}([0-9]).{0,3}" title="vul een juist adres in"
+                        type="text" name="streetname"className="form-control"  value={this.state.streetname} />
+                    </li>            
+                    <li className='reg_li'>
+                        <p>Postcode</p>
+                        <input placeholder="postcode" pattern="([0-9]){4}([A-Z]){2}" title="postcode moet uit 4 cijfers en 2 letters bestaan" 
+                        type="text" name="postcode"className="form-control"  value={this.state.postcode} />
+                    </li>            
+                    <li><input placeholder="Registreer" type="submit" value="Registreer"/> </li>
                 </form></ul>
 
             {this.state.isNoEmptyInputFields ?

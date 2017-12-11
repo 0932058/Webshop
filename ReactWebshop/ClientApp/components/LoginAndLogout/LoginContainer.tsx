@@ -81,12 +81,12 @@ export class LoginContainer extends React.Component<RouteComponentProps<{}>, Log
             <form  onSubmit={this.CheckIfLoginIsCorrect} onChange={this.HandleChangeToInputFields}>
                 <div className="input-group">
                     <span className="input-group-addon"> <i className="glyphicon glyphicon-user"> </i> </span> 
-                    <input type="text" name="username" value={this.state.typedInUsername} />
+                    <input type="text" name="username" className="form-control" id="usr" value={this.state.typedInUsername}/>
                 </div>
 
                 <div className="input-group"> 
                     <span className="input-group-addon"><i className="glyphicon glyphicon-lock"></i></span>
-                    <input type="text" name="password"  value={this.state.typedInPassword} />       
+                    <input type="password" name="password" className="form-control" id="pwd" value={this.state.typedInPassword}/>    
                 </div>
 
                 <div className="input-group">
