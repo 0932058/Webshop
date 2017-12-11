@@ -11,15 +11,17 @@ export interface StorageState{
     loaded: boolean
     totalPrice: number;
     products: any[];
+    ordered: boolean;
 }
  export abstract class AbstractStorage  extends React.Component<RouteComponentProps<{}>, StorageState> {
     constructor(){
         super();
         this.GiveNotifcation = this.GiveNotifcation.bind(this);
-        this.LoadShoppingCartFromLocalStorage = this.LoadShoppingCartFromLocalStorage.bind(this);
-        this.GetCustomerProducts = this.GetCustomerProducts.bind(this);
+        //this.LoadShoppingCartFromLocalStorage = this.LoadShoppingCartFromLocalStorage.bind(this);
+        //this.GetCustomerProducts = this.GetCustomerProducts.bind(this);
         this.LoadProductsFromApi = this.LoadProductsFromApi.bind(this);
     }
+    /*
     componentWillMount(){
         this.GetCustomerProducts();
     }
@@ -28,10 +30,11 @@ export interface StorageState{
             this.LoadShoppingCartFromLocalStorage();
         }
     }
+    
     LoadShoppingCartFromLocalStorage(){
         var shoppingCartList = [];
         shoppingCartList = JSON.parse(localStorage.getItem("Winkelmand"));
-        for (let index = 0; index < shoppingCartList.length; index++) {
+        if (shoppingCartList != null){for (let index = 0; index < shoppingCartList.length; index++) {
             this.LoadProductsFromApi(shoppingCartList[index])
             .then(itemFromApi => {
                 var stateProducts = this.state.products;
@@ -39,8 +42,9 @@ export interface StorageState{
                 this.setState({products: stateProducts})
             })
             .catch(errorMessage => console.log("Api error, what exactly went wrong is unknown"))   
-        }
-    }
+        }}
+        
+    }*/
     async LoadProductsFromApi(apiLink:string) : Promise<any>{
         let apiLinkConverted: string = "api" + apiLink;
         console.log(apiLinkConverted)

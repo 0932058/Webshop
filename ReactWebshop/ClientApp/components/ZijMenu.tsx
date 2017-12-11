@@ -42,8 +42,8 @@ export class ZijMenu extends React.Component<{}, {}> {
                 </NavLink>
                 </li>
                 <li>
-                <NavLink to={ '/Games/Fantasy' } exact activeClassName='active'className='LinksSide'>
-                    Fantasy
+                <NavLink to={ '/Games/Fantasie' } exact activeClassName='active'className='LinksSide'>
+                    Fantasie
                 </NavLink>
                 </li>
                 <li>

@@ -21,20 +21,22 @@
     "isomorphic-fetch": "2.2.1",
     "jquery": "3.2.1",
     "json-loader": "0.5.4",
-    "react": "^15.6.1",
+    "react": "^15.6.2",
     "react-dom": "15.6.1",
     "react-hot-loader": "3.0.0-beta.7",
     "react-router-dom": "4.1.1",
     "style-loader": "0.18.2",
     "typescript": "2.4.1",
     "url-loader": "0.5.9",
-    "webpack": "2.5.1",
+    "webpack": "^2.5.1",
     "webpack-hot-middleware": "2.18.2"
   },
   "dependencies": {
     "linqts": "https://registry.npmjs.org/linqts/-/linqts-1.10.0.tgz",
     "moment": "^2.19.1",
+    "office-ui-fabric-react": "^5.28.0",
     "react-image": "^1.0.1",
+    "react-interval": "^2.0.2",
     "react-router": "^4.2.0"
   }
 }

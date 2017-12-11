@@ -9,7 +9,7 @@ export class WensLijstContainer extends AbstractStorage {
     constructor(){
         super();    
         var loggedInUserPK = User.IsUserLoggedIn? User.GetPK() : 0
-        this.state = {products: null,customerID: loggedInUserPK, isShoppingCart:true, loaded:false, totalPrice: 0}
+        this.state = {products: null,customerID: loggedInUserPK, isShoppingCart:true, loaded:false, totalPrice: 0, ordered: false,}
     }
     render() {
         return (
