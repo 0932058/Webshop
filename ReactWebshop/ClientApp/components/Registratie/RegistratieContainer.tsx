@@ -117,22 +117,23 @@ export class RegistratieContainer extends React.Component<RouteComponentProps<{}
                 
                     <li className='reg_li'>
                         <p>Voornaam</p>
-                        <input placeholder="voornaam" pattern="[a-z]{1,15}" title="voornaam moet bestaan uit 1 tot en met 15 letters"
+                        <input placeholder="voornaam" pattern="[a-zA-Z]{1,15}" title="voornaam moet bestaan uit 1 tot en met 15 letters"
                         type="text" name="firstname" className="form-control" value={this.state.firstname} />
                     </li>              
                     <li className='reg_li'>
                         <p>Achternaam</p>
-                        <input placeholder="achternaam" pattern="[a-z]{1,30}" title="achternaam moet bestaan uit 1 tot 30 letters" 
+                        <input placeholder="achternaam" pattern="[a-zA-Z]{1,30}" title="achternaam moet bestaan uit 1 tot 30 letters" 
                         type="text" name="lastname" className="form-control"  value={this.state.lastname} />
                     </li>            
                     <li className='reg_li'>
                         <p>Email</p>
-                        <input placeholder="email" 
-                        type="email" name="email"className="form-control"  value={this.state.email} />
+                        <input placeholder="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+[.]+[a-z]{2,3}$" 
+                        title='zorg dat het een juist email is vb. characters@characters.domain'
+                        type="text" name="email"className="form-control"  value={this.state.email} />
                     </li>            
                     <li className='reg_li'>
                         <p>Gebruikersnaam</p>
-                        <input placeholder="gebruikersnaam" pattern="[a-zA-Z0-9]{3,8}" title="gebruikers naam mag maximaal uit 8 tekens bestaan"
+                        <input placeholder="gebruikersnaam" pattern="[a-zA-Z0-9]{3,15}" title="gebruikers naam mag maximaal uit 8 tekens bestaan"
                         type="text" name="username"className="form-control"  value={this.state.username} />
                     </li>            
                     <li className='reg_li'>
