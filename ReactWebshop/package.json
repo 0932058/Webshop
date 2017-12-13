@@ -32,6 +32,7 @@
     "webpack-hot-middleware": "2.18.2"
   },
   "dependencies": {
+    "history": "^4.7.2",
     "linqts": "https://registry.npmjs.org/linqts/-/linqts-1.10.0.tgz",
     "moment": "^2.19.1",
     "office-ui-fabric-react": "^5.28.0",

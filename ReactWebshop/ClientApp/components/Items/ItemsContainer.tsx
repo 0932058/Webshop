@@ -4,6 +4,7 @@ import { ProductPage } from "../ProductPage/ProductPageContainer";
 import { RouteComponentProps } from 'react-router';
 import { User } from "../User/User";
 import { Link, NavLink } from 'react-router-dom';
+import { Product } from 'ClientApp/components/Items/ItemsInterfaces';
 import { ZijFilter } from '../Layout';
 
 interface ItemsContainerState{

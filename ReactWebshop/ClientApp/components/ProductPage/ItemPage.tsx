@@ -3,6 +3,7 @@ import { RouteComponentProps } from 'react-router';
 import {User} from "../User/User";
 import { ItemsContainer } from "../Items/ItemsContainer";
 import { NavLink } from 'react-router-dom';
+import { Product } from 'ClientApp/components/Items/ItemsInterfaces';
 
 interface ItemPageState{
     product: Product | null;
