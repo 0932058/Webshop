@@ -26,6 +26,7 @@ export class Afrekenen extends AbstractStorage {
         this.GetCartData = this.GetCartData.bind(this);
         this.PostOrderToDatabase = this.PostOrderToDatabase.bind(this);
         this.FinalizeOrder = this.FinalizeOrder.bind(this);
+        this.SendBestellingenEmail = this.SendBestellingenEmail.bind(this);
     }
     async PostOrderToDatabase(klantId, id){
         let apiUrl = 'api/Bestellingen/Post'
@@ -66,6 +67,7 @@ export class Afrekenen extends AbstractStorage {
     }
     FinalizeOrder(){
         var CartItems = this.GetCartData();
+        this.SendBestellingenEmail(CartItems);
         CartItems.forEach(item => {
             if (User.IsUserLoggedIn()){
                 this.PostOrderToDatabase(User.GetPK(),item.id)
@@ -73,6 +75,18 @@ export class Afrekenen extends AbstractStorage {
         });
         
         this.EmptyShoppingCart();
+    }
+    async SendBestellingenEmail(bestellingen){
+        //TODO: remove hardcoded value from the body method, read it from the form input
+        var toJsonProducten = JSON.stringify(bestellingen);
+        bestellingen.forEach(element => {
+            console.log(element)
+            
+        });
+        var klantEmail = "0926477@hr.nl";
+        var apiUrl = "api/Bestellingen/Post/Mail/" + toJsonProducten + "/" + klantEmail;
+        let apiResponse = await fetch(apiUrl, {method: 'POST', body: null, headers: new Headers({'content-type' : 'application/json'})});
+
     }
 
     render() {

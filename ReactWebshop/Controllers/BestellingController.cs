@@ -39,23 +39,28 @@ namespace reactTwo.Controllers
             this._context.SaveChanges();
         
         }
-        [HttpPost("Post/Mail")]
-         public void SendEmail(List<Bestelling> bestellingen, string klantEmail){
+        [HttpPost("Post/Mail/{bestellingen}/{klantEmail}")]
+         public void SendEmail(ProductBestelling[] productBestellingen, string klantEmail){
             var message = new MimeMessage();
             message.From.Add(new MailboxAddress("normiewebshop@stefanpesic.nl"));
+            
             message.To.Add(new MailboxAddress(klantEmail));
             message.Subject = "Bestelling Normiewebshop";
 
-            var productNamen = this._context.Producten.Join(bestellingen, p => p.ProductId, b => b.productId, (p,b) => p.productNaam
-            
-
+            string productenNamen = "";
+            foreach (var ProductBestelling in productBestellingen){
+                productenNamen += ProductBestelling.name + "\r\n";    
+                                         
+            }          
             message.Body = new TextPart("plain"){
                 Text = String.Format(
-                    "Bedankt voor uw bestelling bij de Normiewebshop!\r" +
+                    "Bedankt voor uw bestelling bij de Normiewebshop!" +
                     "\r" +
-                    "Dit zijn de bestellingen die jij gemaakt hebt:\r") 
-
-
+                    "Dit zijn de bestellingen die jij gemaakt hebt:" + 
+                    "\r" +
+                    productenNamen)
+            };
+                    
 
             using (var client = new SmtpClient()){
                 client.Connect("mail.stefanpesic.nl", 465, true);
