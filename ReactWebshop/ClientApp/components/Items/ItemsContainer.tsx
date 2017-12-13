@@ -41,7 +41,7 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
             api = 'api/Items/Home';
         }else{
             api = 'api/Items' + this.props.location.pathname
-            
+            console.log('api/Items' + this.props.location.pathname)
         }
 
 
@@ -49,6 +49,7 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
         .then(response => response.json() as Promise<Product[]>)
         .then(data => {
             this.setState({ items : data, loaded : true});
+            console.log(data[0])
         });
     }
 
@@ -81,7 +82,7 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
                                 <div className={"Component"}>
                                     <div className='container' id='maingame'>
                                         <div className='col-md-2'>
-                                            <img className="img-responsive" src={ item.productImg }/>
+                                            <NavLink to={'/Item/'+ item.productId}><img className="img-responsive" src={ item.productImg }/></NavLink>
                                         </div>
                                         <div className='col-md-2'>
                                             <h2>{ item.productNaam } </h2>

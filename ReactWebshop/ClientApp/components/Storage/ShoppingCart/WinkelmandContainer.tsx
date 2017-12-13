@@ -106,7 +106,7 @@ export class Winkelmand extends AbstractStorage {
                 <h1>Winkelmand</h1>
                 </div>
                 <div className='col-md-3'>
-                <h4> Aantal producten: {() => this.GetCartContent().length}</h4>
+                <h4> Aantal producten: {this.GetCartContent().length}</h4>
                 <h4> Totaal prijs: €{this.state.totalPrice.toFixed(2)}</h4>
                 <NavLink  to={ '/afrekenen' } className="btn btn-primary">
                    Afrekenen
@@ -116,28 +116,41 @@ export class Winkelmand extends AbstractStorage {
 
                 <div className="panel-heading"><h2>Producten</h2></div>
                 <div>
+                    { this.GetCartContent().length == 0?
+                    <div>
+                        <h4>Er staan geen artikelen in de winkelmand</h4>
+                        <NavLink to={"/"}>
+                            <button className="btn btn-primary">Verder winkelen</button>
+                        </NavLink>
+                    </div>
+                    :
+                    null}
                 {this.state.products.map(
                     stack =>{
                         return(
-<div className={"Component"}>
-<div className='container'>
-    <div className="panel panel-default">    
-        <div className='col-md-2'>
-            <div className="panel-body"><img className="img-responsive" src={stack.product.image}/></div>
-        </div>
-        <div className='col-md-4'>
-            <p>{stack.product.name}</p>
-            <p>Naam: {stack.product.name}</p>
-            <p>Console: {stack.product.console}</p>
-            <p>Prijs: {"€" + (stack.product.price*stack.amount).toFixed(2)}</p>
-            </div>
-            <div className='col-md-4'>
-            <p>Aantal: <button className="btn btn-success" onClick={() => this.AddItemToStorage(stack.product)}> + </button>{stack.amount} <button className="btn btn-danger" onClick={() => this.RemoveItemFromStorage(stack.product.id)}> - </button></p>
-            </div>
-        </div>
-    </div>
+                            <div className={"Component"}>
+                            <div className='container'>
+                                <div className="panel panel-default">    
+                                    <div className='col-md-2'>
+                                        <div className="panel-body"><img className="img-responsive" src={stack.product.image}/></div>
+                                    </div>
+                                    <div className='col-md-4'>
+                                        <p>{stack.product.name}</p>
+                                        <p>Naam: {stack.product.name}</p>
+                                        <p>Console: {stack.product.console}</p>
+                                        <p>Prijs: {"€" + (stack.product.price*stack.amount).toFixed(2)}</p>
+                                        </div>
+                                        <div className='col-md-4'>
+                                        <p>Aantal: 
+                                        <button className="btn btn-danger" onClick={() => this.RemoveItemFromStorage(stack.product.id)}> - </button>
+                                        {stack.amount}
+                                        <button className="btn btn-success" onClick={() => this.AddItemToStorage(stack.product)}> + </button>
+                                        </p>
+                                        </div>
+                                    </div>
+                                </div>
 
-</div>
+                            </div>
                         )
                     }
 

@@ -33,6 +33,27 @@ export class User{
     public static IsUserLoggedIn() : boolean{
         return User.isLoggedIn;
     }
+    public static getStorageId() : number{
+        let locId = Number(localStorage.getItem("currentklant"))
+        if(locId === 0){
+            return locId
+        }
+
+        locId = locId - 547
+
+        return  locId
+    }
+
+    public static putStorageId(id : number) : void {
+        let locId = Number(localStorage.getItem("currentklant"))
+        
+        locId = locId - 547
+        
+        locId = locId * 0.0001 
+        
+        localStorage.setItem("currentklant", locId.toString())
+    }
+
     //When the user logs the data
     //Come into this method and then the user gets created
     public SetAccount(account: Klant){

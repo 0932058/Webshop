@@ -10,11 +10,11 @@ export class ProfileSideMenuLayout extends React.Component<LayoutProps, {}> {
     public render() {
         return <div className='ProfileSideMenuLayout'>
             <div className='row'>
-                <div className='col-sm-3'>
+                <div className='col-sm-5'>
                     <ProfileSideMenuLinks/>                                                                     
                 </div>
-                <div className='col-sm-9'>
-                    { this.props.children }
+                <div className='col-sm-7'>
+                { this.props.children }
                 </div>
             </div>
         </div>;
