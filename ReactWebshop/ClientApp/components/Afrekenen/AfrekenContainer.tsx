@@ -20,6 +20,7 @@ export class Afrekenen extends AbstractStorage {
             loaded:false, 
             totalPrice: this.CalcPrice(),
             ordered: false,
+            email: ""
         };
 
         this.EmptyShoppingCart = this.EmptyShoppingCart.bind(this);
@@ -78,8 +79,7 @@ export class Afrekenen extends AbstractStorage {
     }
     async SendBestellingenEmail(bestellingen){
         //TODO: remove hardcoded value from the body method, read it from the form input
-        var klantEmail = "0926477@hr.nl";
-        var apiUrl = "api/Bestellingen/Post/Mail/" + klantEmail;
+        var apiUrl = "api/Bestellingen/Post/Mail/" + this.state.email + "/"
         console.log(apiUrl)
         let apiResponse = await fetch(apiUrl, {method: 'POST', body: JSON.stringify(bestellingen), headers: new Headers({'content-type' : 'application/json'})});
 
@@ -134,7 +134,7 @@ export class Afrekenen extends AbstractStorage {
                     <li><input placeholder="achternaam" type="text" name="lastname" /> </li>
                     <li><input placeholder='straatnaam' type="text" name="streetname" /> </li>
                     <li><input placeholder="postcode" type="text" name="postcode" /> </li>
-                    <li><input placeholder="email" type="text" name="email" /> </li>
+                    <li><input placeholder="email" type="text" name="email" onChange={(event: any) => {this.setState({email: event.target.value})}}/> </li>
                 </form>
                 
                 <p> Total Price: €{this.state.totalPrice}</p>

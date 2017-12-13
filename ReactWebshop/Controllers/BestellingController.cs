@@ -44,7 +44,7 @@ namespace reactTwo.Controllers
             var message = new MimeMessage();
             message.From.Add(new MailboxAddress("normiewebshop@stefanpesic.nl"));
             
-            message.To.Add(new MailboxAddress("0926477@hr.nl"));
+            message.To.Add(new MailboxAddress(klantEmail));
             message.Subject = "Bestelling Normiewebshop";
 
             string productenNamen = "";
