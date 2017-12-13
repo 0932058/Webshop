@@ -253,6 +253,12 @@ const topBar = (
                 <div className="navbar-header">
                     <NavLink to={"/"} className="navbar-brand">Normies</NavLink>
                 </div>
+                <button type="button" className="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span className="icon-bar"></span>
+                    <span className="icon-bar"></span>
+                    <span className="icon-bar"></span>                        
+                </button>
+                <div className="collapse navbar-collapse" id="myNavbar">
                     <ul className="nav navbar-nav">
                         <li className="dropdown">
                             <a className="dropdown-toggle" data-toggle="dropdown" href="#">Consoles
@@ -287,7 +293,7 @@ const topBar = (
                     <li><NavLink to={"/Accessoires/Racewheel"}>Race-Wheels</NavLink></li>
                     </ul>
                 </li>
-                <form className="navbar-form navbar-left" action={"/Search/" + this.state.search} onSubmit={ this.handleSubmit }>
+                <form className="navbar-form navbar-right" action={"/Search/" + this.state.search} onSubmit={ this.handleSubmit }>
                 <div className="input-group">
                   <input type="text" className="form-control" placeholder="Zoek naar product" value={this.state.search} onChange={this.handleChange}/>
                   <div className="input-group-btn">
@@ -304,8 +310,8 @@ const topBar = (
                     <li><NavLink to={"/Login"}><span className="glyphicon glyphicon-log-in"> </span>    Login</NavLink></li>
                 </ul>
             </div>
+            </div>
         </nav>
-        
     </div>
 )
 const topBarLoggedIn = (
