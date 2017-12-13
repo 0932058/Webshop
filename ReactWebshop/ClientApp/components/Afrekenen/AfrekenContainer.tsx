@@ -118,13 +118,36 @@ export class Afrekenen extends AbstractStorage {
                 <div className={"Container"}>
                 <h1>Afrekenen</h1>
                 <p>Adres voor bezorging en incasso.</p>
-                <form id="Afrekenform">
-                    <li><input placeholder="voornaam" type="text" name="firstname" /> </li>
-                    <li><input placeholder="achternaam" type="text" name="lastname" /> </li>
-                    <li><input placeholder='straatnaam' type="text" name="streetname" /> </li>
-                    <li><input placeholder="postcode" type="text" name="postcode" /> </li>
-                    <li><input placeholder="email" type="text" name="email" /> </li>
-                </form>
+                <ul>
+                <form action="/action_page.php">
+                <li className='reg_li'>
+                        <p>Voornaam</p>
+                        <input placeholder="voornaam" pattern="[a-z]{1,15}" title="voornaam moet bestaan uit 1 tot en met 15 letters"
+                        type="text" name="firstname" className="form-control" />
+                    </li>              
+                    <li className='reg_li'>
+                        <p>Achternaam</p>
+                        <input placeholder="achternaam" pattern="[a-z]{1,30}" title="achternaam moet bestaan uit 1 tot 30 letters" 
+                        type="text" name="lastname" className="form-control"  />
+                    </li>            
+                    <li className='reg_li'>
+                        <p>Straatnaam</p>
+                        <input placeholder='straatnaam' pattern="([a-zA-Z]).{2,30}([0-9]).{0,3}" title="vul een juist adres in"
+                        type="text" name="streetname"className="form-control"   />
+                    </li>            
+                    <li className='reg_li'>
+                        <p>Postcode</p>
+                        <input placeholder="postcode" pattern="([0-9]){4}([A-Z]){2}" title="postcode moet uit 4 cijfers en 2 letters bestaan" 
+                        type="text" name="postcode"className="form-control"   />
+                    </li>
+                    <li className='reg_li'>
+                        <p>Email</p>
+                        <input placeholder="email" 
+                        type="email" name="email"className="form-control"  />
+                    </li> 
+                    <li><input placeholder="Registreer" type="submit" value="Registreer"/> </li>
+                    </form>
+                    </ul>
                 
                 <p> Total Price: €{this.state.totalPrice}</p>
                 <p> <button onClick={this.FinalizeOrder} > Bestellen </button> </p> 

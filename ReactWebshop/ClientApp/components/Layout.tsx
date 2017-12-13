@@ -32,22 +32,34 @@ export const ZijFilter =(
                 </div>
                 <div id="collapse1" className="panel-collapse collapse in">
                     <div className="checkbox">
-                        <label><input type="checkbox" value=""/>Action</label>
+                        <label>
+                            <input type="checkbox" value=""/>Action
+                        </label>
                     </div>
                     <div className="checkbox">
-                        <label><input type="checkbox" value=""/>Shooter</label>
+                        <label>
+                            <input type="checkbox" value=""/>Shooter
+                        </label>
                     </div>
                     <div className="checkbox">
-                        <label><input type="checkbox" value=""/>Fantasie</label>
+                        <label>
+                            <input type="checkbox" value=""/>Fantasie
+                        </label>
                     </div>
                     <div className="checkbox">
-                        <label><input type="checkbox" value=""/>Sport</label>
+                        <label>
+                            <input type="checkbox" value=""/>Sport
+                        </label>
                     </div>
                     <div className="checkbox">
-                        <label><input type="checkbox" value=""/>Sandbox</label>
+                        <label>
+                            <input type="checkbox" value=""/>Sandbox
+                        </label>
                     </div>
                     <div className="checkbox">
-                        <label><input type="checkbox" value=""/>Fight</label>
+                        <label>
+                            <input type="checkbox" value=""/>Fight
+                        </label>
                     </div>
                 </div>
             </div>
@@ -60,16 +72,24 @@ export const ZijFilter =(
                 </div>
                 <div id="collapse2" className="panel-collapse collapse in">
                     <div className="checkbox">
-                        <label><input type="checkbox" value=""/>Playstation 3</label>
+                        <label>
+                            <input type="checkbox" value=""/>Playstation 3
+                        </label>
                     </div>
                     <div className="checkbox">
-                        <label><input type="checkbox" value=""/>Playstation 4</label>
+                        <label>
+                            <input type="checkbox" value=""/>Playstation 4
+                        </label>
                     </div>
                     <div className="checkbox">
-                        <label><input type="checkbox" value=""/>Xbox 360</label>
+                        <label>
+                            <input type="checkbox" value=""/>Xbox 360
+                        </label>
                     </div>
                     <div className="checkbox">
-                        <label><input type="checkbox" value=""/>Xbox One</label>
+                        <label>
+                            <input type="checkbox" value=""/>Xbox One
+                        </label>
                     </div>
                 </div>
             </div>
@@ -82,10 +102,14 @@ export const ZijFilter =(
                 </div>
                 <div id="collapse3" className="panel-collapse collapse in">
                     <div className="checkbox">
-                        <label><input type="checkbox" value=""/>Headsets</label>
+                        <label>
+                            <input type="checkbox" value=""/>Headsets
+                        </label>
                     </div>
                     <div className="checkbox">
-                        <label><input type="checkbox" value=""/>Racewheels</label>
+                        <label>
+                            <input type="checkbox" value=""/>Racewheels
+                        </label>
                     </div>
                 </div>
             </div>
