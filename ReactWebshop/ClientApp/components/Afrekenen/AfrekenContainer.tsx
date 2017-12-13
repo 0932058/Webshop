@@ -119,7 +119,7 @@ export class Afrekenen extends AbstractStorage {
                 <h1>Afrekenen</h1>
                 <p>Adres voor bezorging en incasso.</p>
                 <ul>
-                <form action="/action_page.php">
+                <form action="/action_page.php" onSubmit={this.FinalizeOrder} >
                 <li className='reg_li'>
                         <p>Voornaam</p>
                         <input placeholder="voornaam" pattern="[a-z]{1,15}" title="voornaam moet bestaan uit 1 tot en met 15 letters"
@@ -141,16 +141,16 @@ export class Afrekenen extends AbstractStorage {
                         type="text" name="postcode"className="form-control"   />
                     </li>
                     <li className='reg_li'>
-                        <p>Email</p>
-                        <input placeholder="email" 
-                        type="email" name="email"className="form-control"  />
-                    </li> 
-                    <li><input placeholder="Registreer" type="submit" value="Registreer"/> </li>
+                    <p>Email</p>
+                    <input placeholder="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+[.]+[a-z]{2,3}$" 
+                    title='zorg dat het een juist email is vb. characters@characters.domain'
+                    type="text" name="email"className="form-control"/>
+                </li> 
+                    <li><input placeholder="Registreer" type="submit" value="Bestellen"/> </li>
                     </form>
                     </ul>
                 
                 <p> Total Price: €{this.state.totalPrice}</p>
-                <p> <button onClick={this.FinalizeOrder} > Bestellen </button> </p> 
                 </div>
             )
         }
