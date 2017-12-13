@@ -12,7 +12,12 @@ export interface StorageState{
     totalPrice: number;
     products: any[];
     ordered: boolean;
-    email: string
+    formVoornaam:string;
+    formAchternaam:string;
+    formStraatnaam:string;
+    formPostcode: string;
+    formEmail: string
+
 }
  export abstract class AbstractStorage  extends React.Component<RouteComponentProps<{}>, StorageState> {
     constructor(){

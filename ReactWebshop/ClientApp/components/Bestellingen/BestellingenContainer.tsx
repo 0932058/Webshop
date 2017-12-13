@@ -4,13 +4,26 @@ import Img from 'react-image';
 import {List} from "linqts";
 import {User} from "../User/User";
 import {AbstractStorage,StorageState} from "../Storage/ReusableComponents/Storage";
+import { Product, Bestelling } from 'ClientApp/components/Items/ItemsInterfaces';
 
 export class BestellingenContainer extends AbstractStorage {
     constructor(){
         super();
         //If the user is logged in, it gets the PK of the logged in user and adds it to the state
         var loggedInUserPK = User.IsUserLoggedIn? User.GetPK() : 0;
-        this.state = {products: this.MakeOrderProducts(), isShoppingCart:false, loaded:false, totalPrice: 0, ordered: true, customerID: loggedInUserPK}
+        this.state = {
+            products: this.MakeOrderProducts(), 
+            isShoppingCart:false, 
+            loaded:false, 
+            totalPrice: 0, 
+            ordered: true, 
+            customerID: loggedInUserPK, 
+            formVoornaam: "",
+            formAchternaam: "",
+            formStraatnaam: "",
+            formPostcode: "",
+            formEmail: ""
+        }
     }
     GetOrders(){
         var res = [];

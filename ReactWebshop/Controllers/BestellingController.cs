@@ -39,31 +39,43 @@ namespace reactTwo.Controllers
             this._context.SaveChanges();
         
         }
-        [HttpPost("Post/Mail/{klantEmail}")]
-         public void SendEmail([FromBody] dynamic[] productBestellingen, string klantEmail){
+        [HttpPost("Post/Mail/")]
+         public void SendEmail([FromBody] KlantEnBestelling klantEnBestelling){
             var message = new MimeMessage();
             message.From.Add(new MailboxAddress("normiewebshop@stefanpesic.nl"));
-            
-            message.To.Add(new MailboxAddress(klantEmail));
+            message.To.Add(new MailboxAddress(klantEnBestelling.klant.email));
             message.Subject = "Bestelling Normiewebshop";
 
             string productenNamen = "";
-            foreach (var ProductBestelling in productBestellingen){
-                productenNamen += ProductBestelling.name + " " + ProductBestelling.console + "\r\n";    
+            foreach (var productBestelling in klantEnBestelling.bestellingen){
+                productenNamen += productBestelling.name + " " + productBestelling.console + "\r\n";    
                                          
             }          
             message.Body = new TextPart("plain"){
                 Text = String.Format(
-                    "Bedankt voor uw bestelling bij de Normiewebshop!" +
+                    "Bedankt voor uw bestelling!" +
                     "\r" +
-                    "Dit zijn de bestellingen die u gemaakt hebt:" + 
+                    "Uw ingevoerde gegevens: " +
+                    "\r" +
+                    "Voornaam: {0}" + 
+                    "\r" + 
+                    "Achternaam: {1}" + 
+                    "\r" +
+                    "Straatnaam: {2}" + 
+                    "\r" +
+                    "Postcode: {3}" + 
+                    "\r" +
+                    "bestellingen:" + 
                     "\r" +
                     productenNamen +
                     "\r" +
                     "Met vriendelijke groet" + 
                     "\r" +
-                    "De normie shop"
-                    )
+                    "De normie shop", 
+                    klantEnBestelling.klant.voornaam,
+                    klantEnBestelling.klant.achternaam,
+                    klantEnBestelling.klant.straatnaam,
+                    klantEnBestelling.klant.postcode)                 
             };
                     
 
@@ -75,5 +87,6 @@ namespace reactTwo.Controllers
                 client.Disconnect(true);             
             }
          }
+
     }
 }

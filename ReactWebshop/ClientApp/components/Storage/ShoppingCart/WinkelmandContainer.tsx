@@ -10,7 +10,19 @@ import {User} from "../../User/User";
 export class Winkelmand extends AbstractStorage {
     constructor(){
         super();
-        this.state = {customerID: null, isShoppingCart:true, loaded:false, totalPrice: this.GetTotalPrice(), products: this.BuildItemStack(), ordered: false, }
+        this.state = {
+            customerID: null, 
+            isShoppingCart:true, 
+            loaded:false, 
+            totalPrice: this.GetTotalPrice(), 
+            products: this.BuildItemStack(), 
+            ordered: false, 
+            formVoornaam: "",
+            formAchternaam: "",
+            formStraatnaam: "",
+            formPostcode: "",
+            formEmail: ""
+        }
     }
     BuildItemStack(){
         var cart = this.GetCartContent();

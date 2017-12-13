@@ -6,6 +6,7 @@ import {User} from "../User/User";
 import { Redirect } from 'react-router';
 import { Link, NavLink } from 'react-router-dom';
 import 'bootstrap';
+import {Bestelling, Klant, KlantEnBestelling} from "../Items/ItemsInterfaces";
 
 //Container voor afrekenmenu
 export class Afrekenen extends AbstractStorage {
@@ -20,7 +21,11 @@ export class Afrekenen extends AbstractStorage {
             loaded:false, 
             totalPrice: this.CalcPrice(),
             ordered: false,
-            email: ""
+            formVoornaam: "",
+            formAchternaam: "",
+            formStraatnaam: "",
+            formPostcode: "",
+            formEmail: ""
         };
 
         this.EmptyShoppingCart = this.EmptyShoppingCart.bind(this);
@@ -74,14 +79,30 @@ export class Afrekenen extends AbstractStorage {
                 this.PostOrderToDatabase(User.GetPK(),item.id)
             }
         });
-        
         this.EmptyShoppingCart();
     }
     async SendBestellingenEmail(bestellingen){
-        //TODO: remove hardcoded value from the body method, read it from the form input
-        var apiUrl = "api/Bestellingen/Post/Mail/" + this.state.email + "/"
-        console.log(apiUrl)
-        let apiResponse = await fetch(apiUrl, {method: 'POST', body: JSON.stringify(bestellingen), headers: new Headers({'content-type' : 'application/json'})});
+        if(User.IsUserLoggedIn()){
+            var klant: Klant = {
+                voornaam: User.GetFirstname(),
+                achternaam: User.GetLastname(),
+                straatnaam: User.GetStreetname(),
+                postcode: User.getPostcode(),
+                email: User.GetEmail()}        
+        }
+        else{
+            var klant: Klant = {
+                voornaam: this.state.formVoornaam,
+                achternaam: this.state.formAchternaam,
+                straatnaam: this.state.formStraatnaam,
+                postcode: this.state.formPostcode,
+                email: this.state.formEmail}
+        }
+        var klantEnBestelling: KlantEnBestelling = {
+            klant: klant,
+            bestellingen: bestellingen}
+        var apiUrl = "api/Bestellingen/Post/Mail/"
+        let apiResponse = await fetch(apiUrl, {method: 'POST', body: JSON.stringify(klantEnBestelling), headers: new Headers({'content-type' : 'application/json'})});
 
     }
 
@@ -130,11 +151,11 @@ export class Afrekenen extends AbstractStorage {
                 <h1>Afrekenen</h1>
                 <p>Adres voor bezorging en incasso.</p>
                 <form id="Afrekenform">
-                    <li><input placeholder="voornaam" type="text" name="firstname" /> </li>
-                    <li><input placeholder="achternaam" type="text" name="lastname" /> </li>
-                    <li><input placeholder='straatnaam' type="text" name="streetname" /> </li>
-                    <li><input placeholder="postcode" type="text" name="postcode" /> </li>
-                    <li><input placeholder="email" type="text" name="email" onChange={(event: any) => {this.setState({email: event.target.value})}}/> </li>
+                    <li><input placeholder="voornaam" type="text" name="firstname" onChange={(event: any) => {this.setState({formVoornaam: event.target.value})}}/> </li>
+                    <li><input placeholder="achternaam" type="text" name="lastname" onChange={(event: any) => {this.setState({formAchternaam: event.target.value})}} /> </li>
+                    <li><input placeholder='straatnaam' type="text" name="streetname" onChange={(event: any) => {this.setState({formStraatnaam: event.target.value})}}/> </li>
+                    <li><input placeholder="postcode" type="text" name="postcode" onChange={(event: any) => {this.setState({formPostcode: event.target.value})}}/> </li>
+                    <li><input placeholder="email" type="text" name="email" onChange={(event: any) => {this.setState({formEmail: event.target.value})}}/> </li>
                 </form>
                 
                 <p> Total Price: €{this.state.totalPrice}</p>

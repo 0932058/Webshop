@@ -12,6 +12,7 @@ import { Link, NavLink } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import {Klant} from "./../../TypescriptModels/Klant";
 import {ReactInterval} from 'react-interval';
+import { Product } from 'ClientApp/components/Items/ItemsInterfaces';
 
 //The components used for the layout is in the render method
 //The components are always displayed on screen
