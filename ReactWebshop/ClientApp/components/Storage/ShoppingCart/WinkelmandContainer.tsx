@@ -116,6 +116,15 @@ export class Winkelmand extends AbstractStorage {
 
                 <div className="panel-heading"><h2>Producten</h2></div>
                 <div>
+                    { this.GetCartContent().length == 0?
+                    <div>
+                        <h4>Er staan geen artikelen in de winkelmand</h4>
+                        <NavLink to={"/"}>
+                            <button className="btn btn-primary">Verder winkelen</button>
+                        </NavLink>
+                    </div>
+                    :
+                    null}
                 {this.state.products.map(
                     stack =>{
                         return(
