@@ -151,9 +151,8 @@ export class RegistratieContainer extends React.Component<RouteComponentProps<{}
                         <input placeholder="postcode" pattern="([0-9]){4}([A-Z]){2}" title="postcode moet uit 4 cijfers en 2 letters bestaan" 
                         type="text" name="postcode"className="form-control"  value={this.state.postcode} />
                     </li>            
-                    <li><input placeholder="Registreer" type="submit" value="Registreer"/> </li>
                 </form></ul>
-
+            <input placeholder="Registreer" type="submit" value="Registreer"/>
             {this.state.isNoEmptyInputFields ?
             <Redirect to={"/Registratiesuccessfull"} push={true}/>
             :
