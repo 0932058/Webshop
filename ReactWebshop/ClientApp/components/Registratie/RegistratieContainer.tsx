@@ -8,6 +8,7 @@ interface RegistratieContainerState{
     firstname: string;
     lastname: string;
     email: string;
+    phonenumber: string;
     username: string;
     password: string;
     streetname: string;
@@ -21,7 +22,7 @@ export class RegistratieContainer extends React.Component<RouteComponentProps<{}
         this.CheckIfAccountExists = this.CheckIfAccountExists.bind(this);
         this.ConnectWithApiToCheckIfUserExist = this.ConnectWithApiToCheckIfUserExist.bind(this);
         this.PostUserToDatabase = this.PostUserToDatabase.bind(this);
-        this.state = {firstname: "", lastname: "", email: "", username:"", password:"", streetname: "", postcode:"", isNoEmptyInputFields:false}       
+        this.state = {firstname: "", lastname: "", email: "", phonenumber: "", username:"", password:"", streetname: "", postcode:"", isNoEmptyInputFields:false}       
     }
     //When an input field gets typed in this method gets called
     HandleInputFieldsChange(event: any){     
@@ -34,6 +35,9 @@ export class RegistratieContainer extends React.Component<RouteComponentProps<{}
                 break;
             case("email"):
                 this.setState({email: event.target.value});  
+                break;
+            case("phonenumber"):
+                this.setState({phonenumber: event.target.value})
                 break;
             case("username"):
                 this.setState({username: event.target.value});  
@@ -61,6 +65,7 @@ export class RegistratieContainer extends React.Component<RouteComponentProps<{}
         inputFields.Add(this.state.email);
         inputFields.Add(this.state.streetname);
         inputFields.Add(this.state.postcode);
+        inputFields.Add(this.state.phonenumber);
     
         var EmptyFieldCheckResult = inputFields.Where(input => input.length == 0)
         if(EmptyFieldCheckResult.Count() == 0){
@@ -76,19 +81,19 @@ export class RegistratieContainer extends React.Component<RouteComponentProps<{}
         let apiResponseJson = await apiResponse.json();
         return apiResponseJson;
     }
+
     CheckIfAccountExists(event: any){  
-        event.preventDefault();
-
-        this.IsNoEmptyField() ? 
-
-        this.ConnectWithApiToCheckIfUserExist()
-        .then(_ => alert("Username already exists!"))
-        .catch(_ =>{
-            this.PostUserToDatabase();
-        })
-
-        :   
-        alert("There are  empty fields left!")
+    event.preventDefault();
+        if (!this.IsNoEmptyField) {
+            this.ConnectWithApiToCheckIfUserExist()
+                .then(_ => alert("Username already exists!"))
+                .catch(_ =>{
+                    this.PostUserToDatabase();
+                    })
+                }
+            else {
+                alert("Niet alle velden zijn ingevuld")
+            }
     }
     //Based on the filled in information that the user gave, they are send to the api
     async PostUserToDatabase(){
@@ -98,7 +103,7 @@ export class RegistratieContainer extends React.Component<RouteComponentProps<{}
             klantNaam: this.state.firstname, 
             klantAchternaam: this.state.lastname,
             klantTussenvoegsel: this.state.firstname, 
-            klantTel: 150,
+            klantTel: parseInt(this.state.phonenumber),
             klantMail: this.state.email,
             klantStraat: this.state.streetname, 
             klantPostcode: this.state.postcode, 
@@ -130,8 +135,13 @@ export class RegistratieContainer extends React.Component<RouteComponentProps<{}
                         <input placeholder="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+[.]+[a-z]{2,3}$" 
                         title='zorg dat het een juist email is vb. characters@characters.domain'
                         type="text" name="email"className="form-control"  value={this.state.email} />
-                    </li>            
+                    </li>
                     <li className='reg_li'>
+                        <p>Telefoonnummer</p>
+                        <input placeholder="telefoonnummer" pattern="[0=9]{1,30}"
+                        type="tel" name="phonenumber" className="form-control"  value={this.state.phonenumber} />
+                    </li>                        
+                    <li className='reg_li'> 
                         <p>Gebruikersnaam</p>
                         <input placeholder="gebruikersnaam" pattern="[a-zA-Z0-9]{3,15}" title="gebruikers naam mag maximaal uit 8 tekens bestaan"
                         type="text" name="username"className="form-control"  value={this.state.username} />
@@ -150,9 +160,11 @@ export class RegistratieContainer extends React.Component<RouteComponentProps<{}
                         <p>Postcode</p>
                         <input placeholder="postcode" pattern="([0-9]){4}([A-Z]){2}" title="postcode moet uit 4 cijfers en 2 letters bestaan" 
                         type="text" name="postcode"className="form-control"  value={this.state.postcode} />
-                    </li>            
-                    <li><input placeholder="Registreer" type="submit" value="Registreer"/> </li>
+                    </li>      
+                    <div> </div>
+                    <input placeholder="Registreer" type="submit" value="Registreer"/>      
                 </form></ul>
+
 
             {this.state.isNoEmptyInputFields ?
             <Redirect to={"/Registratiesuccessfull"} push={true}/>

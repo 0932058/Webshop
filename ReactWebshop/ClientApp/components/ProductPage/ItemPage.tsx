@@ -63,11 +63,27 @@ export class ItemPage extends React.Component<RouteComponentProps<{}>, ItemPageS
                                     {User.IsUserLoggedIn() ?
                                 <button className="btn btn-primary" > Toevoegen aan wenslijst</button>
                                     :
-                                <div> </div>
+                                <div>
+                                <button className="btn btn-danger"  data-toggle="modal" data-target="#myModalW"> Toevoegen aan wenslijst </button>
+                                <div className="modal fade" id="myModalW" role="dialog">
+                                <div className="modal-dialog modal-sm">
+                                <div className="modal-content">
+                                    <div className="modal-header">
+                                    <button type="button" className="close" data-dismiss="modal">&times;</button>
+                                    <h4 className="modal-title">Error</h4>
+                                    </div>
+                                    <div className="modal-body">
+                                    <h4>Je moet ingelogd zijn om de wenslijst te kunnen gebruiken!</h4>
+                                    <button type="button" className="btn btn-default" data-dismiss="modal" data-backdrop="false">Terug</button>
+                                    </div>
+                                </div>
+                                </div>
+                                </div>
+                                </div>  
                                          }
                             </h2>                          
-                            <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#myModal" onClick={this.AddProductToShoppingCartLocalStorage}>Toevoegen aan winkelmand</button>
-                            <div className="modal fade" id="myModal" role="dialog">
+                            <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#myModalM" onClick={this.AddProductToShoppingCartLocalStorage}>Toevoegen aan winkelmand</button>
+                            <div className="modal fade" id="myModalM" role="dialog">
                                 <div className="modal-dialog modal-sm">
                                 <div className="modal-content">
                                     <div className="modal-header">
