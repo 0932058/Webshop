@@ -45,7 +45,9 @@ namespace reactTwo.Controllers
 
                 p.productUitgever.Contains(searchTerm)      ||
 
-                p.consoleType.Contains(searchTerm)
+                p.consoleType.Contains(searchTerm)          ||
+
+                p.consoleType.Contains(searchTerm.Trim())
             );
         }
     }

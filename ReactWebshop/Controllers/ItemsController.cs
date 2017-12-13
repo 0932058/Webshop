@@ -9,7 +9,7 @@ using Models;
 
 namespace reactTwo.Controllers
 {
-    [Route("api/Items")]
+    [Route("api/Items/")]
     public class ItemsController : Controller
     {
         private readonly normieContext _context;
@@ -41,19 +41,19 @@ namespace reactTwo.Controllers
         [HttpGet("[action]/{cat}")]
         public Product[] Games(string cat)
         {
-            return this.rightItems( Product => Product.productGenre == cat && Product.productType == "Game");
+            return this.rightItems( Product => Product.productGenre.Contains(cat) && Product.productType == "Game");
         }
 
         [HttpGet("[action]/{cat}")]
         public Product[] Accessoires(string cat)
         {
-            return this.rightItems( Product => Product.productGenre == cat && Product.productType == "Accessoire");
+            return this.rightItems( Product => Product.productGenre.Contains(cat) && Product.productType == "Accessoire");
         }
 
         [HttpGet("[action]/{cat}")]
         public Product[] Consoles(string cat)
         {
-            return this.rightItems( Product => Product.productGenre == cat && Product.productType == "Console");
+            return this.rightItems( Product => Product.consoleType.Contains(cat) && Product.productType == "Console");
         }
 
         //Shopping cart testing
@@ -69,6 +69,26 @@ namespace reactTwo.Controllers
             }
 
             return idList.ToArray();
+        }
+
+        [HttpGet("[action]/{searchTerm}")]
+        public Product[] Search(string searchTerm)
+        {
+            return this.rightItems( p => 
+                p.productNaam.ToLower().Contains(searchTerm.ToLower())          || 
+
+                p.productType.ToLower().Contains(searchTerm.ToLower())          ||
+
+                p.productGenre.ToLower().Contains(searchTerm.ToLower())         ||
+
+                p.productOntwikkelaar.ToLower().Contains(searchTerm.ToLower())  ||
+
+                p.productUitgever.ToLower().Contains(searchTerm.ToLower())      ||
+
+                p.consoleType.ToLower().Contains(searchTerm.ToLower())          ||
+
+                p.consoleType.ToLower().Contains(searchTerm.Trim().ToLower())
+            );
         }
 
         //Shopping cart testing
@@ -117,25 +137,20 @@ namespace reactTwo.Controllers
             mail.Body = "this is my test email body";
 
             client.Send(mail);
+        }
 
-            /*
-            Product p = new Product{
-                    ProductId = 504,
-                    productNaam = "Fifa 18",
-                    productUitgever = "EA_sports",
-                    productOmschr = "Scoor je weg naar de top en wordt het beste team in de wereld met Fifa 18!",
-                    aantalInVooraad = 25,
-                    productPrijs = 60.00m,
-                    productType = "Game",
-                    productOntwikkelaar = "EA_sports",
-                    productImg = "https://s.s-bol.com/imgbase0/imagebase3/large/FC/9/3/8/9/9200000031209839.jpg",
-                    productGenre = "Sport",
-                    consoleType = "PS4",
-            };
 
-            _context.Producten.Add(p);
+        [HttpPost("Change")]
+        public void Change()
+        {
+            foreach(Product p in _context.Producten){
+                if(p.productType == "Accessoire"       &&
+                p.productGenre == "Koptelefoon"){
+                    p.productGenre = "Headset";
+                }
+            }
+            
             _context.SaveChanges();
-            */
         }
     }
 }

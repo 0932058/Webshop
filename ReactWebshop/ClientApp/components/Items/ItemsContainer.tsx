@@ -4,7 +4,7 @@ import { ProductPage } from "../ProductPage/ProductPageContainer";
 import { RouteComponentProps } from 'react-router';
 import { User } from "../User/User";
 import { Link, NavLink } from 'react-router-dom';
-import { ReactInterval } from 'react-interval';
+import { ZijFilter } from '../Layout';
 
 interface ItemsContainerState{
     loaded : boolean;
@@ -41,14 +41,8 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
         if ( this.props.location.pathname === '/'){
             api = 'api/Items/Home';
         }else{
-            if( this.props.location.pathname === '/Search' ){
-                api = 'api/Search/SearchFor/' + sessionStorage.getItem("Search").toString()
-                this.setState({
-                    currentSearch : sessionStorage.getItem("Search").toString()
-                })
-            }else{
-                api = 'api/Items' + this.props.location.pathname
-            }
+            api = 'api/Items' + this.props.location.pathname
+            console.log('api/Items' + this.props.location.pathname)
         }
 
 
@@ -56,6 +50,7 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
         .then(response => response.json() as Promise<Product[]>)
         .then(data => {
             this.setState({ items : data, loaded : true});
+            console.log(data[0])
         });
     }
 
@@ -68,60 +63,72 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
    
         return(
 
-            <div  className={"Container"}>
-
+            <div  className="container">
             {this.props.location.pathname.toString() === "/"?
-            <div> <h1>Nieuwste producten van maand { this.months[new Date().getMonth()]}! </h1> </div> 
+            <div className='co-md-12'> <h1>Nieuwste producten van maand { this.months[new Date().getMonth()]}! </h1> </div> 
+
             :
+            
             <div/>
             }
+            <div className='container'>
+                <div className='col-md-2'>
+                    {ZijFilter}
+                </div>
+                <div className='col-md-10'>
 
-            <ReactInterval timeout={500} enabled={true}
-                callback={
-                    () => this.state.currentSearch != sessionStorage.getItem("Search")? 
-                            this.getItems() :
-                            console.log(this.state.currentSearch, sessionStorage.getItem("Search"))
-                    } 
-                    />
-
-
-            <div  className={"ItemsContainerScroll"}> 
+            
+            <div  className={"ItemsContainerScroll"}>
                 {this.state.loaded? 
 
                     this.state.items.map(
+                        
                         item => {
 
                             return (
                                 <div className={"Component"}>
+                                    <div className='container' id='maingame'>
+                                        <div className='col-md-2'>
+                                            <NavLink to={'/Item/'+ item.productId}><img className="img-responsive" src={ item.productImg }/></NavLink>
+                                        </div>
+                                        <div className='col-md-2'>
+                                            <h2>{ item.productNaam } </h2>
+                                            <p> Console: {item.consoleType} </p>
+                                            <p> Prijs: {"€" + item.productPrijs } </p>
+                                            <p> { item.aantalInVooraad + " " } in voorraad </p>
+                                            <NavLink to={ '/Item/' + item.productId } exact activeClassName='Active'className='button_to_product'>
+                                                <button className={"btn btn-primary"} > naar product </button>
+                                            </NavLink>
 
-                                <img src={ item.productImg }/>
 
-                                    <div className="ComponentInfo"> 
-
-                                    <h2>{ item.productNaam } </h2>
-
-                                    <p> Console: {item.consoleType} </p>
-
-                                    <p> Prijs: {"€" + item.productPrijs } </p>
-
-                                    <p> { item.aantalInVooraad + " " } in voorraad </p>
-
-                                    <NavLink to={ '/Item/' + item.productId } exact activeClassName='Active'className='LinksSide'>
-                                        naar Product
-                                    </NavLink>
-
-                                    </div> 
-                                </div>
+                                        </div>
+                                    </div>
+                                </div> 
                             )
                         }
                     )
                     :
-                    <h1> nothing found... </h1>
+                    <div className="sk-fading-circle">
+                        <div className="sk-circle1 sk-circle"></div>
+                        <div className="sk-circle2 sk-circle"></div>
+                        <div className="sk-circle3 sk-circle"></div>
+                        <div className="sk-circle4 sk-circle"></div>
+                        <div className="sk-circle5 sk-circle"></div>
+                        <div className="sk-circle6 sk-circle"></div>
+                        <div className="sk-circle7 sk-circle"></div>
+                        <div className="sk-circle8 sk-circle"></div>
+                        <div className="sk-circle9 sk-circle"></div>
+                        <div className="sk-circle10 sk-circle"></div>
+                        <div className="sk-circle11 sk-circle"></div>
+                        <div className="sk-circle12 sk-circle"></div>
+                    </div>
                 }
 
             </div>
+            </div>
 
 
             </div>
+            </div>  
         )}
 }
