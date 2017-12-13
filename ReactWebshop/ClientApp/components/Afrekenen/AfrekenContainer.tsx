@@ -78,14 +78,10 @@ export class Afrekenen extends AbstractStorage {
     }
     async SendBestellingenEmail(bestellingen){
         //TODO: remove hardcoded value from the body method, read it from the form input
-        var toJsonProducten = JSON.stringify(bestellingen);
-        bestellingen.forEach(element => {
-            console.log(element)
-            
-        });
         var klantEmail = "0926477@hr.nl";
-        var apiUrl = "api/Bestellingen/Post/Mail/" + toJsonProducten + "/" + klantEmail;
-        let apiResponse = await fetch(apiUrl, {method: 'POST', body: null, headers: new Headers({'content-type' : 'application/json'})});
+        var apiUrl = "api/Bestellingen/Post/Mail/" + klantEmail;
+        console.log(apiUrl)
+        let apiResponse = await fetch(apiUrl, {method: 'POST', body: JSON.stringify(bestellingen), headers: new Headers({'content-type' : 'application/json'})});
 
     }
 

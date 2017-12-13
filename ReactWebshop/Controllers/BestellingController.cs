@@ -39,26 +39,31 @@ namespace reactTwo.Controllers
             this._context.SaveChanges();
         
         }
-        [HttpPost("Post/Mail/{bestellingen}/{klantEmail}")]
-         public void SendEmail(ProductBestelling[] productBestellingen, string klantEmail){
+        [HttpPost("Post/Mail/{klantEmail}")]
+         public void SendEmail([FromBody] dynamic[] productBestellingen, string klantEmail){
             var message = new MimeMessage();
             message.From.Add(new MailboxAddress("normiewebshop@stefanpesic.nl"));
             
-            message.To.Add(new MailboxAddress(klantEmail));
+            message.To.Add(new MailboxAddress("0926477@hr.nl"));
             message.Subject = "Bestelling Normiewebshop";
 
             string productenNamen = "";
             foreach (var ProductBestelling in productBestellingen){
-                productenNamen += ProductBestelling.name + "\r\n";    
+                productenNamen += ProductBestelling.name + " " + ProductBestelling.console + "\r\n";    
                                          
             }          
             message.Body = new TextPart("plain"){
                 Text = String.Format(
                     "Bedankt voor uw bestelling bij de Normiewebshop!" +
                     "\r" +
-                    "Dit zijn de bestellingen die jij gemaakt hebt:" + 
+                    "Dit zijn de bestellingen die u gemaakt hebt:" + 
                     "\r" +
-                    productenNamen)
+                    productenNamen +
+                    "\r" +
+                    "Met vriendelijke groet" + 
+                    "\r" +
+                    "De normie shop"
+                    )
             };
                     
 
@@ -69,6 +74,6 @@ namespace reactTwo.Controllers
                 client.Send(message);
                 client.Disconnect(true);             
             }
-        }
+         }
     }
 }
