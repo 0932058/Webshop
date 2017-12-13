@@ -181,9 +181,7 @@ export class Afrekenen extends AbstractStorage {
                 </li> 
                     <li><input placeholder="Registreer" type="submit" value="Bestellen"/> </li>
                     </form>
-                    </ul>
->>>>>>> master
-                
+                    </ul>            
                 <p> Total Price: €{this.state.totalPrice}</p>
                 </div>
             )
