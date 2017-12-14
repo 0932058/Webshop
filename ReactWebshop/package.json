@@ -38,6 +38,7 @@
     "office-ui-fabric-react": "^5.28.0",
     "react-image": "^1.0.1",
     "react-interval": "^2.0.2",
-    "react-router": "^4.2.0"
+    "react-router": "^4.2.0",
+    "react-validation": "^3.0.7"
   }
 }
