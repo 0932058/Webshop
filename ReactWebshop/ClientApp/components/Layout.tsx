@@ -2,7 +2,6 @@ import * as React from 'react';
 import 'bootstrap';
 import { Route } from 'react-router-dom';
 import { UserNotLoggedInMenu } from "./LoginAndLogout/UserNotLoggedInMenuLayout";
-import { ZijMenu } from './ZijMenu';
 import { SearchContainer } from "../components/Items/SearchContainer";
 import { UserLoggedInMenu } from "./LoginAndLogout/UserLoggedInMenuLayout";
 import { User } from "./User/User";
@@ -25,6 +24,37 @@ export const ZijFilter =(
             </h4>
         </div>
         <div id="collapse4" className="collapse">
+            
+            <div className="panel panel-default">
+                <div className="panel-heading">
+                    <h4 className="panel-title">
+                        <a data-toggle="collapse" href="#collapse2">Console</a>
+                    </h4>
+                </div>
+                <div id="collapse2" className="panel-collapse collapse in">
+                    <div className="checkbox">
+                        <label>
+                            <input type="checkbox" value=""/>Playstation 3
+                        </label>
+                    </div>
+                    <div className="checkbox">
+                        <label>
+                            <input type="checkbox" value=""/>Playstation 4
+                        </label>
+                    </div>
+                    <div className="checkbox">
+                        <label>
+                            <input type="checkbox" value=""/>Xbox 360
+                        </label>
+                    </div>
+                    <div className="checkbox">
+                        <label>
+                            <input type="checkbox" value=""/>Xbox One
+                        </label>
+                    </div>
+                </div>
+            </div>
+
             <div className="panel panel-default">
                 <div className="panel-heading">
                     <h4 className="panel-title">
@@ -60,36 +90,6 @@ export const ZijFilter =(
                     <div className="checkbox">
                         <label>
                             <input type="checkbox" value=""/>Fight
-                        </label>
-                    </div>
-                </div>
-            </div>
-
-            <div className="panel panel-default">
-                <div className="panel-heading">
-                    <h4 className="panel-title">
-                        <a data-toggle="collapse" href="#collapse2">Console</a>
-                    </h4>
-                </div>
-                <div id="collapse2" className="panel-collapse collapse in">
-                    <div className="checkbox">
-                        <label>
-                            <input type="checkbox" value=""/>Playstation 3
-                        </label>
-                    </div>
-                    <div className="checkbox">
-                        <label>
-                            <input type="checkbox" value=""/>Playstation 4
-                        </label>
-                    </div>
-                    <div className="checkbox">
-                        <label>
-                            <input type="checkbox" value=""/>Xbox 360
-                        </label>
-                    </div>
-                    <div className="checkbox">
-                        <label>
-                            <input type="checkbox" value=""/>Xbox One
                         </label>
                     </div>
                 </div>
@@ -319,7 +319,7 @@ const topBarLoggedIn = (
     <div className="Mainlink_Logged"> 
         <nav className="navbar navbar-inverse">
             <div className="navbar-header">
-                <NavLink to={"/"} className="navbar-brand" >Home</NavLink>
+                <NavLink to={"/"} className="navbar-brand" >Normies</NavLink>
             </div>
             <div className="collapse navbar-collapse">
                 <ul className="nav navbar-nav">
@@ -457,10 +457,9 @@ const topBarLoggedIn = (
             </div>
         </div>
         <div className='container'>
-                <div  className='col-md-5'>
+                <div  className='col-md-12'>
                     { this.state.pages } 
                 </div>
-                <div className='col-md-5'></div>
         </div>
 
                 
