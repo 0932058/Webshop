@@ -16,7 +16,8 @@ export interface StorageState{
     formAchternaam:string;
     formStraatnaam:string;
     formPostcode: string;
-    formEmail: string
+    formEmail: string;
+    productdata: any[];
 
 }
  export abstract class AbstractStorage  extends React.Component<RouteComponentProps<{}>, StorageState> {

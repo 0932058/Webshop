@@ -20,7 +20,8 @@ export class WensLijstContainer extends AbstractStorage {
             formAchternaam: "",
             formStraatnaam: "",
             formPostcode: "",
-            formEmail: ""
+            formEmail: "",
+            productdata: []
         }
     }
     AddProductToShoppingCartLocalStorage(product){

@@ -26,7 +26,8 @@ export class Afrekenen extends AbstractStorage {
             formAchternaam: "",
             formStraatnaam: "",
             formPostcode: "",
-            formEmail: ""
+            formEmail: "",
+            productdata: []
         };
 
         this.EmptyShoppingCart = this.EmptyShoppingCart.bind(this);
