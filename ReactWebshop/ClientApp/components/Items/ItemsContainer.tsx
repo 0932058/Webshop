@@ -109,22 +109,22 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
                         <div id="collapse2" className="panel-collapse collapse">
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value=""/>Playstation 3
+                                    <input type="checkbox" value="Playstation3"/>Playstation 3
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value=""/>Playstation 4
+                                    <input type="checkbox" value="Playstation4"/>Playstation 4
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value=""/>Xbox 360
+                                    <input type="checkbox" value="Xbox360"/>Xbox 360
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value=""/>Xbox One
+                                    <input type="checkbox" value="XboxOne"/>Xbox One
                                 </label>
                             </div>
                         </div>
@@ -139,104 +139,104 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
                         <div id="collapse1" className="panel-collapse collapse">
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value=""/>Bethesda
+                                    <input type="checkbox" value="Bethesda"/>Bethesda
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value=""/>Activision
+                                    <input type="checkbox" value="Activision"/>Activision
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value=""/>EA Sports
+                                    <input type="checkbox" value="EA_sports"/>EA Sports
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value=""/>Microsoft
+                                    <input type="checkbox" value="Microsoft"/>Microsoft
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value=""/>Sony
+                                    <input type="checkbox" value="Sony"/>Sony
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value=""/>Realtime Worlds
+                                    <input type="checkbox" value="Realtime Worlds"/>Realtime Worlds
                                 </label>
                                 <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value=""/>Electronic Arts
+                                    <input type="checkbox" value="Electronic Arts"/>Electronic Arts
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value=""/>Trion Worlds
+                                    <input type="checkbox" value="Trion Worlds"/>Trion Worlds
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value=""/>Disney Interactive Entertainment
+                                    <input type="checkbox" value="Disney Interactive Studios"/>Disney Interactive Entertainment
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value=""/>Square
+                                    <input type="checkbox" value="Square"/>Square
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value=""/>Sony Computer Entertainment
+                                    <input type="checkbox" value="Sony Computer Entertainment"/>Sony Computer Entertainment
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value=""/>Rockstar Games
+                                    <input type="checkbox" value="Rockstar Games"/>Rockstar Games
                                 </label>
                                 <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value=""/>Microsoft Game Studios
+                                    <input type="checkbox" value="Microsoft Game Studios"/>Microsoft Game Studios
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value=""/>THQ
+                                    <input type="checkbox" value="THQ"/>THQ
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value=""/>Konami
+                                    <input type="checkbox" value="Konami"/>Konami
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value=""/>Sega
+                                    <input type="checkbox" value="Sega"/>Sega
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value=""/>Cloud Imperium Games
+                                    <input type="checkbox" value="Cloud Imperium Games"/>Cloud Imperium Games
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value=""/>Warner Bros
+                                    <input type="checkbox" value="Warner Bros. Interactive Entertainment"/>Warner Bros
                                 </label>
                                 <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value=""/>Ubisoft
+                                    <input type="checkbox" value="Ubisoft"/>Ubisoft
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value=""/>Square Enix
+                                    <input type="checkbox" value="Square Enix"/>Square Enix
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value=""/>Blizzard Entertainment
+                                    <input type="checkbox" value="Blizzard Entertainment"/>Blizzard Entertainment
                                 </label>
                             </div>
                         </div>
@@ -253,167 +253,167 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
                         <div id="collapse3" className="panel-collapse collapse">
                         <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value=""/>Bethesda
+                                    <input type="checkbox" value="Bethesda"/>Bethesda
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value=""/>Activision
+                                    <input type="checkbox" value="Activision"/>Activision
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value=""/>EA Sports
+                                    <input type="checkbox" value="EA_sports"/>EA Sports
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value=""/>Microsoft
+                                    <input type="checkbox" value="Microsoft"/>Microsoft
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value=""/>Sony
+                                    <input type="checkbox" value="Sony"/>Sony
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value=""/>Realtime Worlds
+                                    <input type="checkbox" value="Realtime Worlds"/>Realtime Worlds
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value=""/>Beachhead Studios
+                                    <input type="checkbox" value="Beachhead Studios"/>Beachhead Studios
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value=""/>Crytek Frankfurt
+                                    <input type="checkbox" value="Crytek Frankfurt"/>Crytek Frankfurt
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value=""/>Sony Online Entertainment
+                                    <input type="checkbox" value="Sony Online Entertainment"/>Sony Online Entertainment
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value=""/>High Moon Studios
+                                    <input type="checkbox" value="High Moon Studios"/>High Moon Studios
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value=""/>Trion Worlds
+                                    <input type="checkbox" value="Trion Worlds"/>Trion Worlds
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value=""/>Bungie
+                                    <input type="checkbox" value="Bungie"/>Bungie
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value=""/>Avalanche Software
+                                    <input type="checkbox" value="Avalanche Software"/>Avalanche Software
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value=""/>Square
+                                    <input type="checkbox" value="Square"/>Square
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value=""/>Polyphony Digital
+                                    <input type="checkbox" value="Polyphony Digital"/>Polyphony Digital
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value=""/>Rockstar North
+                                    <input type="checkbox" value="Rockstar North"/>Rockstar North
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value=""/>Ensemble Studios
+                                    <input type="checkbox" value="Ensemble Studios"/>Ensemble Studios
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value=""/>Quantic Dream
+                                    <input type="checkbox" value="Quantic Dream"/>Quantic Dream
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value=""/>Koas Studios
+                                    <input type="checkbox" value="Kaos Studios"/>Koas Studios
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value=""/>Team Bondi
+                                    <input type="checkbox" value="Team Bondi"/>Team Bondi
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value=""/>Rockstar Studios
+                                    <input type="checkbox" value="Rockstar Studios"/>Rockstar Studios
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value=""/>Kojima Productions
+                                    <input type="checkbox" value="Kojima Productions"/>Kojima Productions
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value=""/>Rockstar San Diego
+                                    <input type="checkbox" value="Rockstar San Diego"/>Rockstar San Diego
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value=""/>Sega AM2
+                                    <input type="checkbox" value="Sega AM2"/>Sega AM2
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value=""/>Cloud Imperium Games
+                                    <input type="checkbox" value="Cloud Imperium Games"/>Cloud Imperium Games
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value=""/>BioWare
+                                    <input type="checkbox" value="BioWare"/>BioWare
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value=""/>Funcom
+                                    <input type="checkbox" value="Funcom"/>Funcom
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value=""/>Surreal Sotfware
+                                    <input type="checkbox" value="Surreal Software"/>Surreal Sotfware
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value=""/>Ubisoft Paris
+                                    <input type="checkbox" value="Ubisoft Paris"/>Ubisoft Paris
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value=""/>Crystal Dynamics
+                                    <input type="checkbox" value="Crystal Dynamics"/>Crystal Dynamics
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value=""/>Silicon Knights
+                                    <input type="checkbox" value="Silicon Knights"/>Silicon Knights
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value=""/>Ubisoft Montreal
+                                    <input type="checkbox" value="Ubisoft Montreal"/>Ubisoft Montreal
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value=""/>Blizzard Entertainment
+                                    <input type="checkbox" value="Blizzard Entertainment"/>Blizzard Entertainment
                                 </label>
                             </div>
                         </div>
