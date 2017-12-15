@@ -157,12 +157,12 @@ export class ProductsPage extends React.Component<{}, ProductsState> {
         let userToPost: Product = {
             productId : 0,
             productNaam : this.state.productNaam,
-            productGenre : this.state.productGenre,
+            productGenre : this.state.productGenre,/*
             productOmschr : ,
             productOntwikkelaar : ,
             productPrijs : ,
             productType : ,
-            productUitgever : ,
+            productUitgever : ,*/
         }
         let apiResponse = await fetch(apiUrl, {method: 'POST', body:JSON.stringify(userToPost), headers: new Headers({'content-type' : 'application/json'})});
         this.setState({isNoEmptyInputFields: true})
