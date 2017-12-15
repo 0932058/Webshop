@@ -10,7 +10,19 @@ import {User} from "../../User/User";
 export class Winkelmand extends AbstractStorage {
     constructor(){
         super();
-        this.state = {customerID: null, isShoppingCart:true, loaded:false, totalPrice: this.GetTotalPrice(), products: this.BuildItemStack(), ordered: false, }
+        this.state = {
+            customerID: null, 
+            isShoppingCart:true, 
+            loaded:false, 
+            totalPrice: this.GetTotalPrice(), 
+            products: this.BuildItemStack(), 
+            ordered: false, 
+            formVoornaam: "",
+            formAchternaam: "",
+            formStraatnaam: "",
+            formPostcode: "",
+            formEmail: ""
+        }
     }
     BuildItemStack(){
         var cart = this.GetCartContent();
@@ -116,6 +128,15 @@ export class Winkelmand extends AbstractStorage {
 
                 <div className="panel-heading"><h2>Producten</h2></div>
                 <div>
+                    { this.GetCartContent().length == 0?
+                    <div>
+                        <h4>Er staan geen artikelen in de winkelmand</h4>
+                        <NavLink to={"/"}>
+                            <button className="btn btn-primary">Verder winkelen</button>
+                        </NavLink>
+                    </div>
+                    :
+                    null}
                 {this.state.products.map(
                     stack =>{
                         return(

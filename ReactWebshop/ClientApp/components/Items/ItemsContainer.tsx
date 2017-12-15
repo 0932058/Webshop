@@ -4,6 +4,8 @@ import { ProductPage } from "../ProductPage/ProductPageContainer";
 import { RouteComponentProps } from 'react-router';
 import { User } from "../User/User";
 import { Link, NavLink } from 'react-router-dom';
+import { Product } from 'ClientApp/components/Items/ItemsInterfaces';
+import { ZijFilter } from '../Layout';
 
 interface ItemsContainerState{
     loaded : boolean;
@@ -71,11 +73,17 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
             <div className='co-md-12'> <h1>Nieuwste producten van maand { this.months[new Date().getMonth()]}! </h1> </div> 
 
             :
+            
             <div/>
             }
+            <div className='container'>
+                <div className='col-md-2'>
+                    {ZijFilter}
+                </div>
+                <div className='col-md-10'>
+
             
             <div  className={"ItemsContainerScroll"}>
-
                 {this.state.loaded? 
 
                     this.state.items.map(
@@ -122,8 +130,10 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
                 }
 
             </div>
+            </div>
 
 
             </div>
+            </div>  
         )}
 }

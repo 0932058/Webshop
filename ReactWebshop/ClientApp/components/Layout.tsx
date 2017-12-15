@@ -2,7 +2,6 @@ import * as React from 'react';
 import 'bootstrap';
 import { Route } from 'react-router-dom';
 import { UserNotLoggedInMenu } from "./LoginAndLogout/UserNotLoggedInMenuLayout";
-import { ZijMenu } from './ZijMenu';
 import { SearchContainer } from "../components/Items/SearchContainer";
 import { UserLoggedInMenu } from "./LoginAndLogout/UserLoggedInMenuLayout";
 import { User } from "./User/User";
@@ -12,9 +11,112 @@ import { Link, NavLink } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import {Klant} from "./../../TypescriptModels/Klant";
 import {ReactInterval} from 'react-interval';
+import { Product } from 'ClientApp/components/Items/ItemsInterfaces';
 
 //The components used for the layout is in the render method
 //The components are always displayed on screen
+
+export const ZijFilter =(
+    <div className="panel panel">
+        <div className="panel-heading">
+            <h4 className="panel-title">
+                <a data-toggle="collapse" href="#collapse4">Zoek resultaten verfijnen</a>
+            </h4>
+        </div>
+        <div id="collapse4" className="collapse">
+            
+            <div className="panel panel-default">
+                <div className="panel-heading">
+                    <h4 className="panel-title">
+                        <a data-toggle="collapse" href="#collapse2">Console</a>
+                    </h4>
+                </div>
+                <div id="collapse2" className="panel-collapse collapse in">
+                    <div className="checkbox">
+                        <label>
+                            <input type="checkbox" value=""/>Playstation 3
+                        </label>
+                    </div>
+                    <div className="checkbox">
+                        <label>
+                            <input type="checkbox" value=""/>Playstation 4
+                        </label>
+                    </div>
+                    <div className="checkbox">
+                        <label>
+                            <input type="checkbox" value=""/>Xbox 360
+                        </label>
+                    </div>
+                    <div className="checkbox">
+                        <label>
+                            <input type="checkbox" value=""/>Xbox One
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div className="panel panel-default">
+                <div className="panel-heading">
+                    <h4 className="panel-title">
+                        <a data-toggle="collapse" href="#collapse1">Categorie</a>
+                    </h4>
+                </div>
+                <div id="collapse1" className="panel-collapse collapse in">
+                    <div className="checkbox">
+                        <label>
+                            <input type="checkbox" value=""/>Action
+                        </label>
+                    </div>
+                    <div className="checkbox">
+                        <label>
+                            <input type="checkbox" value=""/>Shooter
+                        </label>
+                    </div>
+                    <div className="checkbox">
+                        <label>
+                            <input type="checkbox" value=""/>Fantasie
+                        </label>
+                    </div>
+                    <div className="checkbox">
+                        <label>
+                            <input type="checkbox" value=""/>Sport
+                        </label>
+                    </div>
+                    <div className="checkbox">
+                        <label>
+                            <input type="checkbox" value=""/>Sandbox
+                        </label>
+                    </div>
+                    <div className="checkbox">
+                        <label>
+                            <input type="checkbox" value=""/>Fight
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div className="panel panel-default">
+                <div className="panel-heading">
+                    <h4 className="panel-title">
+                        <a data-toggle="collapse" href="#collapse3">Accessoires</a>
+                    </h4>
+                </div>
+                <div id="collapse3" className="panel-collapse collapse in">
+                    <div className="checkbox">
+                        <label>
+                            <input type="checkbox" value=""/>Headsets
+                        </label>
+                    </div>
+                    <div className="checkbox">
+                        <label>
+                            <input type="checkbox" value=""/>Racewheels
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+)
 
 export interface LayoutProps {
     children?: React.ReactNode;
@@ -169,6 +271,12 @@ const topBar = (
                 <div className="navbar-header">
                     <NavLink to={"/"} className="navbar-brand">Normies</NavLink>
                 </div>
+                <button type="button" className="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span className="icon-bar"></span>
+                    <span className="icon-bar"></span>
+                    <span className="icon-bar"></span>                        
+                </button>
+                <div className="collapse navbar-collapse" id="myNavbar">
                     <ul className="nav navbar-nav">
                         <li className="dropdown">
                             <a className="dropdown-toggle" data-toggle="dropdown" href="#">Consoles
@@ -203,7 +311,7 @@ const topBar = (
                     <li><NavLink to={"/Accessoires/Racewheel"}>Race-Wheels</NavLink></li>
                     </ul>
                 </li>
-                <form className="navbar-form navbar-left" action={"/Search/" + this.state.search} onSubmit={ this.handleSubmit }>
+                <form className="navbar-form navbar-right" action={"/Search/" + this.state.search} onSubmit={ this.handleSubmit }>
                 <div className="input-group">
                   <input type="text" className="form-control" placeholder="Zoek naar product" value={this.state.search} onChange={this.handleChange}/>
                   <div className="input-group-btn">
@@ -220,15 +328,15 @@ const topBar = (
                     <li><NavLink to={"/Login"}><span className="glyphicon glyphicon-log-in"> </span>    Login</NavLink></li>
                 </ul>
             </div>
+            </div>
         </nav>
-        
     </div>
 )
 const topBarLoggedIn = (
     <div className="Mainlink_Logged"> 
         <nav className="navbar navbar-inverse">
             <div className="navbar-header">
-                <NavLink to={"/"} className="navbar-brand" >Home</NavLink>
+                <NavLink to={"/"} className="navbar-brand" >Normies</NavLink>
             </div>
             <div className="collapse navbar-collapse">
                 <ul className="nav navbar-nav">
@@ -348,6 +456,7 @@ const topBarLoggedIn = (
     </nav>
 )*/
 
+
         return <div className='homepage'>
         <div className='container'>
             <div className='col-md-12'> 
@@ -366,10 +475,9 @@ const topBarLoggedIn = (
             </div>
         </div>
         <div className='container'>
-                <div  className='col-md-5'>
+                <div  className='col-md-12'>
                     { this.state.pages } 
                 </div>
-                <div className='col-md-7'></div>
         </div>
 
                 

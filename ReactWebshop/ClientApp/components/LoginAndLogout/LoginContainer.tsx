@@ -94,8 +94,12 @@ export class LoginContainer extends React.Component<RouteComponentProps<{}>, Log
                 <div className="input-group">
                     <input className="btn" type="submit" value="Inloggen"  />
                 </div>
-
-                <button className="btn-primary" onClick={() => this.getDotAmount()}> Registeer </button>
+                <div>
+                    Nog geen account? Registreer nu! 
+                <div>
+                <button className="btn btn-primary"> Registeer </button>
+                </div>
+                </div>
             </form>
 
             <div>            

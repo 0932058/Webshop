@@ -4,11 +4,24 @@ import {List} from "linqts";
 import {AbstractStorage,StorageState} from "../ReusableComponents/Storage";
 import {WensLijstComponent} from "./WensLijstComponent";
 import {User} from "../../User/User";
+import { Product, Bestelling } from 'ClientApp/components/Items/ItemsInterfaces';
 
 export class WensLijstContainer extends AbstractStorage {
     constructor(){
         super();
-        this.state = {customerID: null, isShoppingCart:false, loaded:false, totalPrice: null, products: this.GetWishlist(), ordered: false, }
+        this.state = {
+            customerID: null, 
+            isShoppingCart:false, 
+            loaded:false, 
+            totalPrice: null,
+            products: this.GetWishlist(), 
+            ordered: false, 
+            formVoornaam: "",
+            formAchternaam: "",
+            formStraatnaam: "",
+            formPostcode: "",
+            formEmail: ""
+        }
     }
     AddProductToShoppingCartLocalStorage(product){
         var itemlist = [];
