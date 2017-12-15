@@ -180,7 +180,8 @@ export class Afrekenen extends AbstractStorage {
                     title='zorg dat het een juist email is vb. characters@characters.domain'
                     type="text" name="email"className="form-control" onChange={(event: any) => {this.setState({formEmail: event.target.value})}}/>
                 </li> 
-                    <li><input placeholder="Registreer" type="submit" value="Bestellen"/> </li>
+                <br/>
+                    <input placeholder="Afrekenen" type="submit" value="Bestellen"/>
                     </form>
                     </ul>            
                 <p> Total Price: €{this.state.totalPrice}</p>

@@ -71,7 +71,7 @@ export class RegistratieContainer extends React.Component<RouteComponentProps<{}
                     </li>              
                     <li className='reg_li'>
                         <p>Achternaam</p>
-                        <input placeholder="achternaam" pattern="[a-zA-Z]{1,30}" title="achternaam moet bestaan uit 1 tot 30 letters" 
+                        <input placeholder="achternaam" pattern="[a-zA-Z /s]{1,30}" title="achternaam moet bestaan uit 1 tot 30 letters" 
                         type="text" name="lastname" className="form-control"  value={this.state.lastname} required={true}
                         onChange={(e:any) => this.setState({lastname: e.target.value})}
                          />
@@ -108,7 +108,7 @@ export class RegistratieContainer extends React.Component<RouteComponentProps<{}
                     </li>            
                     <li className='reg_li'>
                         <p>Straatnaam</p>
-                        <input placeholder='straatnaam' pattern="[a-zA-Z]{2,30}" title="vul een juist adres in"
+                        <input placeholder='straatnaam' pattern="[a-zA-Z /s]{2,30}" title="vul een juist adres in"
                         type="text" name="streetname"className="form-control"  value={this.state.streetname}  required={true}
                         onChange={(e:any) => this.setState({streetname: e.target.value})}
                          />
@@ -122,20 +122,22 @@ export class RegistratieContainer extends React.Component<RouteComponentProps<{}
                     </li>            
                     <li className='reg_li'>
                         <p>Postcode</p>
-                        <input placeholder="postcode" pattern="([0-9]){4}([A-Z]){2}" title="postcode moet uit 4 cijfers en 2 letters bestaan" 
+                        <input placeholder="postcode" pattern="([0-9]){4}+/s([A-Z]){2}" title="postcode moet uit 4 cijfers en 2 letters bestaan" 
                         type="text" name="postcode"className="form-control"  value={this.state.postcode}  required={true}
                         onChange={(e:any) => this.setState({postcode: e.target.value})}
                          />
                     </li>      
-                    <div> </div>
-                    <input placeholder="Registreer" type="submit" value="Registreer"/>      
+                    <br/>
+                    <button className="btn btn-primary"placeholder="Registreer" type="submit" value="Registreer">    
+                        Registreer  
+                    </button>
                 </form></ul>
 
 
             {this.state.isNoEmptyInputFields ?
             <Redirect to={"/Registratiesuccessfull"} push={true}/>
             :
-            <div> </div>
+            null
             }                  
             </div>
         )}
