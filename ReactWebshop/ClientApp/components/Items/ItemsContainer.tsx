@@ -5,7 +5,6 @@ import { RouteComponentProps } from 'react-router';
 import { User } from "../User/User";
 import { Link, NavLink } from 'react-router-dom';
 import { Product } from 'ClientApp/components/Items/ItemsInterfaces';
-import { ZijFilter } from '../Layout';
 
 interface ItemsContainerState{
     loaded : boolean;
@@ -65,6 +64,108 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
     }
 
     render(){
+
+        const ZijFilter =(
+            <div className="panel panel">
+                <div className="panel-heading">
+                    <h4 className="panel-title">
+                        <a data-toggle="collapse" href="#collapse4">Zoek resultaten verfijnen</a>
+                    </h4>
+                </div>
+                <div id="collapse4" className="collapse">
+                    
+                    <div className="panel panel-default">
+                        <div className="panel-heading">
+                            <h4 className="panel-title">
+                                <a data-toggle="collapse" href="#collapse2" >Console</a>
+                            </h4>
+                        </div>
+                        <div id="collapse2" className="panel-collapse collapse in">
+                            <div className="checkbox">
+                                <label>
+                                    <input type="checkbox" value=""/>Playstation 3
+                                </label>
+                            </div>
+                            <div className="checkbox">
+                                <label>
+                                    <input type="checkbox" value=""/>Playstation 4
+                                </label>
+                            </div>
+                            <div className="checkbox">
+                                <label>
+                                    <input type="checkbox" value=""/>Xbox 360
+                                </label>
+                            </div>
+                            <div className="checkbox">
+                                <label>
+                                    <input type="checkbox" value=""/>Xbox One
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+        
+                    <div className="panel panel-default">
+                        <div className="panel-heading">
+                            <h4 className="panel-title">
+                                <a data-toggle="collapse" href="#collapse1">Categorie</a>
+                            </h4>
+                        </div>
+                        <div id="collapse1" className="panel-collapse collapse in">
+                            <div className="checkbox">
+                                <label>
+                                    <input type="checkbox" value=""/>Action
+                                </label>
+                            </div>
+                            <div className="checkbox">
+                                <label>
+                                    <input type="checkbox" value=""/>Shooter
+                                </label>
+                            </div>
+                            <div className="checkbox">
+                                <label>
+                                    <input type="checkbox" value=""/>Fantasie
+                                </label>
+                            </div>
+                            <div className="checkbox">
+                                <label>
+                                    <input type="checkbox" value=""/>Sport
+                                </label>
+                            </div>
+                            <div className="checkbox">
+                                <label>
+                                    <input type="checkbox" value=""/>Sandbox
+                                </label>
+                            </div>
+                            <div className="checkbox">
+                                <label>
+                                    <input type="checkbox" value=""/>Fight
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+        
+                    <div className="panel panel-default">
+                        <div className="panel-heading">
+                            <h4 className="panel-title">
+                                <a data-toggle="collapse" href="#collapse3">Accessoires</a>
+                            </h4>
+                        </div>
+                        <div id="collapse3" className="panel-collapse collapse in">
+                            <div className="checkbox">
+                                <label>
+                                    <input type="checkbox" value=""/>Headsets
+                                </label>
+                            </div>
+                            <div className="checkbox">
+                                <label>
+                                    <input type="checkbox" value=""/>Racewheels
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        )
    
         return(
 
