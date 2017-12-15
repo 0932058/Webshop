@@ -7,6 +7,7 @@ import { Redirect } from 'react-router';
 import { Link, NavLink } from 'react-router-dom';
 import 'bootstrap';
 import {Bestelling, Klant, KlantEnBestelling} from "../Items/ItemsInterfaces";
+import { Product } from 'ClientApp/components/Items/ItemsInterfaces';
 
 //Container voor afrekenmenu
 export class Afrekenen extends AbstractStorage {

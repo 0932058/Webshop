@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
 import { List } from "linqts";
+import { Product } from 'ClientApp/components/Items/ItemsInterfaces';
 
 //When the profile gets clicked it gets redirected to this empty profile page
 
