@@ -10,6 +10,8 @@ interface ItemsContainerState{
     loaded : boolean;
     items : Product[] | null; //The products get put in the list by date
     currentSearch : string;
+    filteredItems : Product[] | null,
+    filters : string[],
 }
 export class ItemsContainer extends React.Component<RouteComponentProps<{}>, ItemsContainerState> {
     months : string[];
@@ -19,6 +21,8 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
 
         this.getItems = this.getItems.bind(this);
         this.putNewItem = this.putNewItem.bind(this);
+        this.selectFilter = this.selectFilter.bind(this);
+        this.filterItems = this.filterItems.bind(this);
 
         this.months = ["Januari", "Februari", "Maart", "April", "May", "June",
         "July", "August", "September", "October", "November", "December"
@@ -28,6 +32,8 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
             loaded : false,
             items : null,
             currentSearch : "",
+            filteredItems : null,
+            filters : [],
         };
     }
 
@@ -49,7 +55,7 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
         fetch(api)
         .then(response => response.json() as Promise<Product[]>)
         .then(data => {
-            this.setState({ items : data, loaded : true});
+            this.setState({ items : data, filteredItems : data, loaded : true});
             console.log(data[0])
         }).catch(
             error => {
@@ -61,6 +67,37 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
     putNewItem(){
         fetch('api/Items/Post', {method: 'POST', headers : new Headers({'content-type' : 'application/json'})});
         this.getItems();
+    }
+
+    filterItems(){
+        //we copy the items list
+        let splicedList = this.state.items
+
+        for(let filter of this.state.filters){
+            console.log(filter)
+        }
+    }
+
+    selectFilter(pFilter){
+        let filters = this.state.filters
+        for(let filter of this.state.filters){
+            if(filter === pFilter){
+                console.log("nothing")
+                filters.splice(filters.indexOf(filter), 1)
+                this.setState({
+                    filters
+                })
+                this.filterItems()
+                return;
+            }
+        }
+
+        filters.push(pFilter)
+
+        this.setState({
+            filters
+        })
+        this.filterItems()
     }
 
     render(){
@@ -83,7 +120,7 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
                         <div id="collapse2" className="panel-collapse collapse in">
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value=""/>Playstation 3
+                                    <input type="checkbox" value="Playstation3" onClick={() => this.selectFilter("Playstation3")} />Playstation 3
                                 </label>
                             </div>
                             <div className="checkbox">
@@ -187,7 +224,7 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
             <div  className={"ItemsContainerScroll"}>
                 {this.state.loaded? 
 
-                    this.state.items.map(
+                    this.state.filteredItems.map(
                         
                         item => {
 
