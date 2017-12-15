@@ -50,7 +50,11 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
         .then(data => {
             this.setState({ items : data, loaded : true});
             console.log(data[0])
-        });
+        }).catch(
+            error => {
+                this.setState({ loaded : false })
+            }
+        )
     }
 
     putNewItem(){

@@ -75,6 +75,8 @@ export class LoginContainer extends React.Component<RouteComponentProps<{}>, Log
     render(){
         return(
             <div className={"Container"}>
+
+            {User.IsUserLoggedIn()? <Redirect to="/"/> : null}
             
             <div> <h1> Log in </h1> </div>
 

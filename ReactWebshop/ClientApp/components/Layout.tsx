@@ -24,7 +24,8 @@ interface LayoutState {
     pages : React.ReactNode;
     foundProducts : Product[];
     search : string;
-    loggedIn : boolean
+    loggedIn : boolean;
+    WMItems : number;
 }
 
 export class Layout extends React.Component<LayoutProps, LayoutState> {
@@ -39,17 +40,22 @@ export class Layout extends React.Component<LayoutProps, LayoutState> {
         this.CreateLoggedInUser = this.CreateLoggedInUser.bind(this);
         this.GetUserFromApi = this.GetUserFromApi.bind(this);
         this.updateMenuState = this.updateMenuState.bind(this);
+        this.GetCartContent = this.GetCartContent.bind(this);
 
         this.state = {
             pages : [],
             foundProducts : [],
             search : "",
             loggedIn : false,
+            WMItems : 0,
         }
+
+        this.GetCartContent()
 
         fetch('api/Items/GetAllId')
         .then(response => response.json() as Promise<number[]>)
         .then(data => {
+            console.log(data[0])
             var newList = [];
 
             for(var x = 0; x < 26; x++){
@@ -66,6 +72,8 @@ export class Layout extends React.Component<LayoutProps, LayoutState> {
                 pages : newList,
             })
         });
+
+        
     }
     handleChange(event : any){
         var search = event.target.value
@@ -77,6 +85,15 @@ export class Layout extends React.Component<LayoutProps, LayoutState> {
 
     handleSubmit(event : any){
 
+    }
+
+    GetCartContent(){
+        var cart = [];
+        cart = JSON.parse(localStorage.getItem("Winkelmand"));
+        if (cart != null){this.setState({WMItems : cart.length});}
+        else{
+            this.setState({WMItems : 0});
+        }
     }
 
     async GetUserFromApi() : Promise<Klant>{
@@ -198,7 +215,7 @@ const topBar = (
               </form>
                 </ul>
                 <ul className="nav navbar-nav navbar-right">
-                    <li><NavLink to={"/Winkelmand"}>Winkelmand <span className="badge">0</span> </NavLink></li>
+                    <li><NavLink to={"/Winkelmand"}>Winkelmand <span className="badge">{this.state.WMItems}</span> </NavLink></li>
                     <li><NavLink to={"/Registratie"}>Registreer</NavLink></li>
                     <li><NavLink to={"/Login"}><span className="glyphicon glyphicon-log-in"> </span>    Login</NavLink></li>
                 </ul>
@@ -262,7 +279,7 @@ const topBarLoggedIn = (
               </form>
                 </ul>
                 <ul className="nav navbar-nav navbar-right">
-                    <li><NavLink to="/Winkelmand">Winkelmand <span className="badge">0</span> </NavLink></li>
+                    <li><NavLink to="/Winkelmand">Winkelmand <span className="badge">{this.state.WMItems}</span> </NavLink></li>
                     <li className="dropdown">
                     <a className="dropdown-toggle" data-toggle="dropdown" href="#">Profiel
                         <span className="caret"></span>
@@ -335,8 +352,9 @@ const topBarLoggedIn = (
         <div className='container'>
             <div className='col-md-12'> 
 
-                <ReactInterval timeout={1000} enabled={true}
-                    callback={() => this.updateMenuState()} />
+                <ReactInterval timeout={500} enabled={true}
+                    callback={() => {this.updateMenuState(); this.GetCartContent()}} />
+
 
                 {
                     this.state.loggedIn?

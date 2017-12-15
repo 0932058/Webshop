@@ -18,12 +18,15 @@ import {ProfileContainer} from "./components/Profile/ProfileContainer";
 import {LogoutContainer} from "./components/LoginAndLogout/LogoutContainer";
 import {RegistratieSuccesfullContainer} from "./components/Registratie/RegistratieSuccesfullContainer";
 import {Afrekenen} from "./components/Afrekenen/AfrekenContainer";
+import {AdminContainer} from "./components/AdminProfile/AdminContainer";
 
 export var routes = <Layout>
     <Route exact path={"/"} component={ItemsContainer} />
     
     <Route path ={"/Profile"} component={ProfileContainer}/>
     <Route path={"/Profile/Gegevens"} component={GegevensContainer} />
+
+    <Route path ={"/Admin"} component={AdminContainer}/>
 
     <Route path={"/Registratie"} component={RegistratieContainer} />
     <Route path={"/Registratiesuccessfull"} component={RegistratieSuccesfullContainer} />
