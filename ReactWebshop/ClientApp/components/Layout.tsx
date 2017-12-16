@@ -354,6 +354,26 @@ const topBarLoggedIn = (
         </div> 
     </nav>
 )*/
+const Footer = (
+    <div className="container text-center">
+  <div className="row">
+    <div className="col-lg-12">
+        <ul className="nav nav-pills nav-justified">
+          <li><a href="#">About us</a></li>
+          <li><a href="#">​Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+        </ul>
+    </div>
+  </div>
+    <div className="row">
+        <div className="col-lg-12">
+            <ul className="nav nav-pills nav-justified">
+                <li><a href="/">© 2017 Normies.</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+)
 
 
         return <div className='homepage'>
@@ -378,8 +398,11 @@ const topBarLoggedIn = (
                     { this.state.pages } 
                 </div>
         </div>
-
-                
+        <div className='container'>
+            <div className='col-md-12'>
+                {Footer}
+            </div>
+        </div> 
             </div>;
     }
 }

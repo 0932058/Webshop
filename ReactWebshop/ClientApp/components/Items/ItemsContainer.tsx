@@ -112,8 +112,8 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
                 <div id="collapse4" className="collapse in">
 
                 <div className="panel panel-default">
-                        <div className="panel-heading">
-                            <h4 className="panel-title">
+                        <div data-toggle="collapse" href="#collapsePrijs" className="panel-heading">
+                            <h4  className="panel-title">
                                 <a data-toggle="collapse" href="#collapsePrijs" >Prijs</a>
                             </h4>
                         </div>
@@ -138,8 +138,8 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
 
 
                     <div className="panel panel-default">
-                        <div className="panel-heading">
-                            <h4 className="panel-title">
+                        <div data-toggle="collapse" href="#collapse2" className="panel-heading">
+                            <h4  className="panel-title">
                                 <a data-toggle="collapse" href="#collapse2" >Console</a>
                             </h4>
                         </div>
@@ -168,8 +168,8 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
                     </div>
         
                     <div className="panel panel-default">
-                        <div className="panel-heading">
-                            <h4 className="panel-title">
+                        <div data-toggle="collapse" href="#collapse1" className="panel-heading">
+                            <h4  className="panel-title">
                                 <a data-toggle="collapse" href="#collapse1">Uitgevers</a>
                             </h4>
                         </div>
@@ -282,7 +282,7 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
             </div>
         </div>
                     <div className="panel panel-default">
-                        <div className="panel-heading">
+                        <div data-toggle="collapse" href="#collapse3" className="panel-heading">
                             <h4 className="panel-title">
                                 <a data-toggle="collapse" href="#collapse3">Ontwikkelaars</a>
                             </h4>
@@ -473,7 +473,7 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
                 <div className='col-md-2'>
                     {ZijFilter}
                 </div>
-                <div className='col-md-10'>
+                <div className='col-md-1'>
 
             
             <div  className={"ItemsContainerScroll"}>
@@ -497,7 +497,6 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
                                             <NavLink to={ '/Item/' + item.productId } exact activeClassName='Active'className='button_to_product'>
                                                 <button className={"btn btn-primary"} > naar product </button>
                                             </NavLink>
-
 
                                         </div>
                                     </div>
