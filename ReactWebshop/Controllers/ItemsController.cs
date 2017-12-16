@@ -41,18 +41,27 @@ namespace reactTwo.Controllers
         [HttpGet("[action]/{cat}")]
         public Product[] Games(string cat)
         {
+            if(cat == "All"){
+                return this.rightItems( Product => Product.productType == "Game");
+            }
             return this.rightItems( Product => Product.productGenre.Contains(cat) && Product.productType == "Game");
         }
 
         [HttpGet("[action]/{cat}")]
         public Product[] Accessoires(string cat)
         {
+            if(cat == "All"){
+                return this.rightItems( Product => Product.productType == "Accessoire");
+            }
             return this.rightItems( Product => Product.productGenre.Contains(cat) && Product.productType == "Accessoire");
         }
 
         [HttpGet("[action]/{cat}")]
         public Product[] Consoles(string cat)
         {
+            if(cat == "All"){
+                return this.rightItems( Product => Product.productType == "Console");
+            }
             return this.rightItems( Product => Product.consoleType.Contains(cat) && Product.productType == "Console");
         }
 

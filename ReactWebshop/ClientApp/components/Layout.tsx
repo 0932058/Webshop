@@ -182,6 +182,7 @@ const topBar = (
                         <span className="caret"></span>
                             </a>
                     <ul className="dropdown-menu">
+                        <li><NavLink to={"/Consoles/All"}>Alle Consoles</NavLink></li>
                         <li><NavLink to={"/Consoles/Xbox360"}>Xbox 360</NavLink></li>
                         <li><NavLink to={"/Consoles/XboxOne"}>Xbox One</NavLink></li>
                         <li><NavLink to={"/Consoles/Playstation3"}>Playstation 3</NavLink></li>
@@ -193,6 +194,7 @@ const topBar = (
                         <span className="caret"></span>
                     </a>
                     <ul className="dropdown-menu">
+                    <li><NavLink to={"/Games/All"}>Alle Games</NavLink></li>
                     <li><NavLink to={"/Games/Action"}>Action</NavLink></li>
                     <li><NavLink to={"/Games/Shooter"}>Shooter</NavLink></li>
                     <li><NavLink to={"/Games/Fantasie"}>Fantasie</NavLink></li>
@@ -206,6 +208,7 @@ const topBar = (
                         <span className="caret"></span>
                     </a>
                     <ul className="dropdown-menu">
+                    <li><NavLink to={"/Accessoires/All"} >Alle Assecoires</NavLink></li>
                     <li><NavLink to={"/Accessoires/Headset"} >Headsets</NavLink></li>
                     <li><NavLink to={"/Accessoires/Racewheel"}>Race-Wheels</NavLink></li>
                     </ul>

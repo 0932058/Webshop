@@ -35,7 +35,6 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
             filteredItems : null,
             filters : [],
         };
-        console.log('api/Items' + this.props.location.pathname)
     }
 
     componentDidMount(){
@@ -49,7 +48,6 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
             api = 'api/Items/Home';
         }else{
             api = 'api/Items' + this.props.location.pathname
-            console.log('api/Items' + this.props.location.pathname)
         }
 
 
@@ -57,7 +55,6 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
         .then(response => response.json() as Promise<Product[]>)
         .then(data => {
             this.setState({ items : data, filteredItems : data, loaded : true});
-            console.log(data[0])
         }).catch(
             error => {
                 this.setState({ loaded : false })
@@ -83,7 +80,7 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
         let filters = this.state.filters
         for(let filter of this.state.filters){
             if(filter === pFilter){
-                console.log("nothing")
+                console.log(filter + " " + "eruit gegooid")
                 filters.splice(filters.indexOf(filter), 1)
                 this.setState({
                     filters
