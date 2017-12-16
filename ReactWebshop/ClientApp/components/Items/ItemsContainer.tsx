@@ -35,6 +35,7 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
             filteredItems : null,
             filters : [],
         };
+        console.log('api/Items' + this.props.location.pathname)
     }
 
     componentDidMount(){

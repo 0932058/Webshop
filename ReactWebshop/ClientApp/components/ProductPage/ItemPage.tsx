@@ -101,7 +101,7 @@ export class ItemPage extends React.Component<RouteComponentProps<{}>, ItemPageS
                         </div>
                         <div className='col-md-4'>    
                             <h2> Prijs: €{ this.state.product.productPrijs }</h2>
-                            <h2> Leeftijd: { "dit moet nog ff toegevoegd worden" } </h2>
+                            { /* <h2> Leeftijd: { "dit moet nog ff toegevoegd worden" } </h2>  */}
                             <h2> Genre: { this.state.product.productGenre } </h2>
                             <h2> Console: { this.state.product.consoleType } </h2>
                             <h2> Beschrijving:</h2><p> { this.state.product.productOmschr } </p>      

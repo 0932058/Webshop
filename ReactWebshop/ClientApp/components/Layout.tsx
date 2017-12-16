@@ -59,7 +59,7 @@ export class Layout extends React.Component<LayoutProps, LayoutState> {
             console.log(data[0])
             var newList = [];
 
-            for(var x = 0; x < 26; x++){
+            for(var x = 0; x < 30; x++){
                 newList[x] = this.props.children[x];
             }
 
