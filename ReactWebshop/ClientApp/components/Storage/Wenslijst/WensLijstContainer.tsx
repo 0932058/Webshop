@@ -1,81 +1,84 @@
 import * as React from 'react';
-import { RouteComponentProps } from 'react-router';
+import { RouteComponentProps } from "react-router";
+import Img from "react-image";
 import {List} from "linqts";
-import {AbstractStorage,StorageState} from "../ReusableComponents/Storage";
-import {WensLijstComponent} from "./WensLijstComponent";
 import {User} from "../../User/User";
-import { Product, Bestelling } from 'ClientApp/components/Items/ItemsInterfaces';
+import { Link, NavLink } from 'react-router-dom';
+import {AbstractStorage,StorageState} from "../ReusableComponents/Storage";
+import { Product, Wenslijst } from "ClientApp/components/Items/ItemsInterfaces";
 
-export class WensLijstContainer extends AbstractStorage {
+export class WenslijstContainer extends AbstractStorage {
     constructor(){
         super();
+        //If the user is logged in, it gets the PK of the logged in user and adds it to the state;
         this.state = {
-            customerID: null, 
+            customerID: User.getStorageId(), 
             isShoppingCart:false, 
             loaded:false, 
-            totalPrice: null,
-            products: this.GetWishlist(), 
-            ordered: false, 
+            products: [], 
+            totalPrice: 0, 
+            ordered: true,
             formVoornaam: "",
             formAchternaam: "",
             formStraatnaam: "",
             formPostcode: "",
             formEmail: "",
-            productdata: []
-        }
-    }
-    AddProductToShoppingCartLocalStorage(product){
-        var itemlist = [];
-        itemlist = JSON.parse(localStorage.getItem("Winkelmand"));
-        if (itemlist != null){
-            var item = {"name" : product.productNaam, "id" : product.productId, "price": product.productPrijs, "index" : itemlist.length, "console": product.consoleType, "image": product.productImg};
-            itemlist.push(item)
-            localStorage.setItem("Winkelmand", JSON.stringify(itemlist));
-            
-        }
-        else{
-            var item = {"name" : product.productNaam, "id" : product.productId, "price": product.productPrijs, "index" : 0, "console": product.consoleType, "image": product.productImg};
-            itemlist = [item]
-            localStorage.setItem("Winkelmand", JSON.stringify(itemlist));
-        }
-    }
-    RemoveItemFromStorage(naam){
-        var oldlist = [];
-        var newlist = [];
-        oldlist = this.GetWishlist();
-        var producttoremove = oldlist.find(product => product.productNaam == naam);
-        oldlist.forEach(product => {
-            if (product.productNaam != producttoremove.productNaam){
-                newlist.push(product);
-            }
-        })
+            productdata: []}
 
-        this.setState({products: newlist});
-    }
-    GetOrderData(productId){
-        var product;
-        fetch('api/Items/' + productId)
-        .then(response => response.json() as Promise<Product[]>)
-        .then(data => {
-            product = data[0];
-        });
-        return product;
     }
     GetWishlist(){
-        var wishlist = [];
-        fetch('api/Wenslijsten/Get/' + User.GetPK())
-        .then(response => response.json() as Promise<Bestelling[]>)
+        console.log(this.state.customerID)
+        fetch('api/Wenslijsten/Get/' + this.state.customerID)
+        .then(response => response.json() as Promise<Wenslijst[]>)
         .then(data =>{
-            wishlist = data;
+           console.log("GetWishlist geeft " + data[0]);
+           this.setState({products: data})
         });
-        var res = [];
-        wishlist.forEach(wishlistitem =>{
-            var product = this.GetOrderData(wishlistitem.productId);
-            var productdata = {"Productnaam": product.productNaam,"Image": product.productImg , "Prijs": product.productPrijs};
-            res.push(productdata);
-        })
-        return res;
         
+    }
+    FetchProductData(){
+        this.state.products.forEach(order => {
+            fetch('api/Items/Item/' + order.productNmr)
+            .then(response => response.json() as Promise<Product[]>)
+            .then(data => {
+                var datastorage = [];
+                datastorage = this.state.productdata;
+                var dataset = { "Naam" : data[0].productNaam, "Image" : data[0].productImg, "Id" : order.productNmr};
+                datastorage.push(dataset);
+                this.setState({productdata: datastorage, loaded: true});
+            });
+        })
+        
+    }
+    GetProductDataFromState(id){
+        if (this.state.loaded != true){
+        this.FetchProductData();
+        }
+        var datastorage = [];
+        function idmatch(item){
+            return item.Id == id;
+        }
+        datastorage = this.state.productdata;
+        var res = datastorage.find(idmatch);
+        return res;
+    }
+    CheckLogin(){
+        if (this.state.customerID == 0)
+        {
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
+    DeleteItem(id){
+        let apiUrl = 'api/Wenslijsten/Delete/' + id;
+        console.log("WenslijstItem met id " + id + " zou verwijderd moeten zijn")
+        this.GetWishlist();
+        this.FetchProductData();
+    }
+    componentDidMount(){
+        this.GetWishlist();
     }
     render() {
         return (
@@ -83,51 +86,50 @@ export class WensLijstContainer extends AbstractStorage {
         <div className={"Container"}>
             <div className='container'>
                 <div className='col-md-9'>
-                <h1>Wenslijst</h1>
-                </div>
-                <div className='col-md-3'>
-                </div>
+                <h1>Uw wenslijst</h1>
+            </div>
             </div>
                 <div>
                 {this.state.products.map(
-                    product =>{
+                    listitem =>{
+                        var data = this.GetProductDataFromState(listitem.productNmr);
                         return(
-<div className={"Component"}>
-<div className='container'>
-    <div className="panel panel-default">    
-        <div className='col-md-2'>
-            <div className="panel-body"><img className="img-responsive" src={product.image}/></div>
-        </div>
-        <div className='col-md-4'>
-            <p>{product.name}</p>
-            <p>Naam: {product.name}</p>
-            <p>Console: {product.console}</p>
-            <p>Prijs: {"€" + (product.price).toFixed(2)}</p>
-            </div>
-            <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#myModal" onClick={this.AddProductToShoppingCartLocalStorage}>Toevoegen aan winkelmand</button>
-                            <div className="modal fade" id="myModal" role="dialog">
+                            <div className={"Component"}>
+                            <div className='container'>
+                                <div className="panel panel-default">    
+                                <div className='col-md-2'>
+                                        <div className="panel-body"><img className="img-responsive" src={data.Image}/></div>
+                                    </div>
+                                    <div className='col-md-4'>
+                                        <p>{data.Naam}</p>
+                                        </div>
+                                        <NavLink to={ '/Item/' + listitem.productNmr } exact activeClassName='Active'className='button_to_product'>
+                                                <button className={"btn btn-primary"} > naar product </button>
+                                            </NavLink>
+                                        <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#myModalM" onClick={() => this.DeleteItem(listitem.wenslijstId)}>Verwijderen</button>
+                                        <div className="modal fade" id="myModalM" role="dialog">
                                 <div className="modal-dialog modal-sm">
                                 <div className="modal-content">
                                     <div className="modal-header">
                                     <button type="button" className="close" data-dismiss="modal">&times;</button>
-                                    <h4 className="modal-title">Product is toegevoegd!</h4>
+                                    <h4 className="modal-title">Product is verwijderd!</h4>
                                     </div>
                                     <div className="modal-body">
-                                    <p>het door u gekozen item is succesvol toegevoegd aan de winkelmand</p>
-                                    <button type="button" className="btn btn-default" data-dismiss="modal" data-backdrop="false">verder winkelen</button>
-                                    <a href='/Winkelmand'><button type="button" className="btn btn-default" data-backdrop="false" >naar winkelmand</button></a>
+                                    <p>het door u gekozen item is succesvol van de wenslijst verwijderd</p>
+                                    <button type="button" className="btn btn-default" data-dismiss="modal" data-backdrop="false">Ok</button>
                                     </div>
                                 </div>
                                 </div>
                             </div>
-        </div>
-    </div>
+                                    </div>
+                                </div>
 
-</div>
+                            </div>
                         )
                     }
 
                 )
+                
                 }
 
 
@@ -135,5 +137,7 @@ export class WensLijstContainer extends AbstractStorage {
 
 
         </div>
-        )}
-}
+        );
+    }
+}           
+export default WenslijstContainer;

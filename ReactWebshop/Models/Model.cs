@@ -24,9 +24,8 @@ namespace Models
     }
 
     public class Wenslijst {
-        public int WenslijstId { get; set; }
+        public int wenslijstId { get; set; }
         public int productNmr { get; set; }
-        public DateTime toevoegDatum { get; set;}
         public int klantId { get; set; }
 }                          
     public class Klant {

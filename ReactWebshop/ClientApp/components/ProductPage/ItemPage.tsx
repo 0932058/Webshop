@@ -3,7 +3,7 @@ import { RouteComponentProps } from 'react-router';
 import {User} from "../User/User";
 import { ItemsContainer } from "../Items/ItemsContainer";
 import { NavLink } from 'react-router-dom';
-import { Product } from 'ClientApp/components/Items/ItemsInterfaces';
+import { Product, Wenslijst } from 'ClientApp/components/Items/ItemsInterfaces';
 
 interface ItemPageState{
     product: Product | null;
@@ -14,6 +14,7 @@ export class ItemPage extends React.Component<RouteComponentProps<{}>, ItemPageS
     constructor(props){
         super(props);
         this.AddProductToShoppingCartLocalStorage = this.AddProductToShoppingCartLocalStorage.bind(this)
+        this.AddProductToWishList = this.AddProductToWishList.bind(this)
         this.getItem = this.getItem.bind(this)
 
         this.state = {
@@ -51,6 +52,16 @@ export class ItemPage extends React.Component<RouteComponentProps<{}>, ItemPageS
             localStorage.setItem("Winkelmand", JSON.stringify(itemlist));
         }
     }
+    async AddProductToWishList(){
+        let apiUrl = 'api/Wenslijsten/Post'
+        let productToPost: Wenslijst = {
+            wenslijstId: 0, 
+            klantId: User.getStorageId(),
+            productNmr: this.state.product.productId
+        }
+        let apiResponse = await fetch(apiUrl, {method: 'POST', body:JSON.stringify(productToPost), headers: new Headers({'content-type' : 'application/json'})});
+        
+    }
     //The objects have to be parsed to json because this.state doesn't allow an single object in the state
     render() {
         return <div  className={"ItemPageComponent"}>
@@ -61,7 +72,7 @@ export class ItemPage extends React.Component<RouteComponentProps<{}>, ItemPageS
                             <img className="img-responsive" src={ this.state.product.productImg }/> 
                             <h2>
                                     {User.IsUserLoggedIn() ?
-                                <button className="btn btn-primary" > Toevoegen aan wenslijst</button>
+                                <button className="btn btn-primary" onClick={this.AddProductToWishList}> Toevoegen aan wenslijst</button>
                                     :
                                 <div>
                                 <button className="btn btn-danger"  data-toggle="modal" data-target="#myModalW"> Toevoegen aan wenslijst </button>
