@@ -1,8 +1,7 @@
 export interface Wenslijst {
-    WenslijstId : number 
-    productNmr : number 
-    toevoegDatum : Date 
-    KlantId : number 
+    wenslijstId : number 
+    productId : number 
+    klantId : number 
 }    
 export interface Product {
     productId : number 

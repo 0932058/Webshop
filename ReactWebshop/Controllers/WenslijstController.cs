@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace reactTwo.Controllers
 {
-    [Route("api/Wenslijsten")]
+    [Route("api/Wenslijst")]
     public class WenslijstenController : Controller
     {
         private readonly normieContext _context;
@@ -29,9 +29,9 @@ namespace reactTwo.Controllers
             }
         }
         [HttpPost("Post")]
-        public void Post([FromBody]Wenslijst lijst){
-            lijst.WenslijstId = this._context.Wenslijsten.Count() + 1;
-            this._context.Wenslijsten.Add(lijst);
+        public void Post([FromBody]WenslijstItem item){
+            item.wenslijstId = this._context.Wenslijsten.Count() + 1;
+            this._context.Wenslijsten.Add(item);
             this._context.SaveChanges();
         }/* 
         [HttpDelete("Delete/{KlantId}")]

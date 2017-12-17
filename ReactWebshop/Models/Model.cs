@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Models 
 {
     public class normieContext : DbContext {
-        public DbSet<Wenslijst> Wenslijsten { get; set; }
+        public DbSet<WenslijstItem> Wenslijsten { get; set; }
         public DbSet<Klant> Klanten { get; set; }
         public DbSet<Admin> Admins { get; set; }
         public DbSet<Bestelling> Bestellingen { get; set; }
@@ -23,10 +23,9 @@ namespace Models
         
     }
 
-    public class Wenslijst {
-        public int WenslijstId { get; set; }
-        public int productNmr { get; set; }
-        public DateTime toevoegDatum { get; set;}
+    public class WenslijstItem {
+        public int wenslijstId { get; set; }
+        public int productId { get; set; }
         public int klantId { get; set; }
 }                          
     public class Klant {
