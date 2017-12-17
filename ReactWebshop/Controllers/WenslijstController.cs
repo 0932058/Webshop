@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace reactTwo.Controllers
 {
-    [Route("api/Wenslijst")]
+    [Route("api/Wenslijsten")]
     public class WenslijstenController : Controller
     {
         private readonly normieContext _context;
@@ -18,8 +18,8 @@ namespace reactTwo.Controllers
         }
 
         [HttpGet("Get/{KlantId}")]
-        public IActionResult Get(int KlantId){
-            var foundOrder = this._context.Wenslijsten.Where(order => order.klantId  == KlantId).ToArray();
+        public IActionResult Get(int klantId){
+            var foundOrder = this._context.Wenslijsten.Where(order => order.klantId  == klantId).ToArray();
             if(foundOrder != null){
                 return Ok(foundOrder);
 
@@ -29,18 +29,16 @@ namespace reactTwo.Controllers
             }
         }
         [HttpPost("Post")]
-        public void Post([FromBody]WenslijstItem item){
+        public void Post([FromBody]Wenslijst item){
             item.wenslijstId = this._context.Wenslijsten.Count() + 1;
             this._context.Wenslijsten.Add(item);
             this._context.SaveChanges();
-        }/* 
-        [HttpDelete("Delete/{KlantId}")]
-        public void Delete(int KlantId){
-            var foundList = this._context.Wenslijsten.Where(order => order.klantId  == KlantId).Cast<Models.Wenslijst>();
-            if(foundList != null){
-                this._context.Wenslijsten.Remove(foundList);
-            }
+        } 
+        [HttpDelete("Delete/{wenslijstId}")]
+        public void Delete(int wenslijstId){
+            var foundList = this._context.Wenslijsten.Where(order => order.wenslijstId  == wenslijstId) as Models.Wenslijst;
+            this._context.Wenslijsten.Remove(foundList);
+            this._context.SaveChanges();
         }
-        */
     }
 }

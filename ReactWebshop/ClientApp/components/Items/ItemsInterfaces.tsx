@@ -1,6 +1,6 @@
 export interface Wenslijst {
     wenslijstId : number 
-    productId : number 
+    productNmr : number 
     klantId : number 
 }    
 export interface Product {

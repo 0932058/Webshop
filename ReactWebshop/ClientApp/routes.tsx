@@ -4,7 +4,7 @@ import * as React from 'react';
 import { Route } from 'react-router-dom';
 import { Layout } from './components/Layout';
 import {BestellingenContainer} from './components/Bestellingen/BestellingenContainer';
-import { WensLijstContainer } from './components/Storage/Wenslijst/WensLijstContainer';
+import { WenslijstContainer } from './components/Storage/Wenslijst/WensLijstContainer';
 import { Winkelmand } from './components/Storage/ShoppingCart/WinkelmandContainer';
 import { ProductPage } from './components/ProductPage/ProductPageContainer';
 import { ItemsContainer } from "./components/Items/ItemsContainer";
@@ -34,7 +34,7 @@ export var routes = <Layout>
     <Route path={"/Login"} component={LoginContainer} />
     <Route path ={"/Logout"} component={LogoutContainer}/>
     
-    <Route path='/Wenslijst' component={ WensLijstContainer } />
+    <Route path='/Wenslijst' component={ WenslijstContainer } />
     <Route path='/Winkelmand' component={ Winkelmand } />
     <Route path='/Afrekenen' component={Afrekenen} />
 

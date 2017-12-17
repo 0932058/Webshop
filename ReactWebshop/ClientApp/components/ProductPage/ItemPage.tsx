@@ -53,11 +53,11 @@ export class ItemPage extends React.Component<RouteComponentProps<{}>, ItemPageS
         }
     }
     async AddProductToWishList(){
-        let apiUrl = 'api/Wenslijst/Post'
+        let apiUrl = 'api/Wenslijsten/Post'
         let productToPost: Wenslijst = {
             wenslijstId: 0, 
             klantId: User.getStorageId(),
-            productId: this.state.product.productId
+            productNmr: this.state.product.productId
         }
         let apiResponse = await fetch(apiUrl, {method: 'POST', body:JSON.stringify(productToPost), headers: new Headers({'content-type' : 'application/json'})});
         
@@ -72,10 +72,10 @@ export class ItemPage extends React.Component<RouteComponentProps<{}>, ItemPageS
                             <img className="img-responsive" src={ this.state.product.productImg }/> 
                             <h2>
                                     {User.IsUserLoggedIn() ?
-                                <button className="btn btn-primary" > Toevoegen aan wenslijst</button>
+                                <button className="btn btn-primary" onClick={this.AddProductToWishList}> Toevoegen aan wenslijst</button>
                                     :
                                 <div>
-                                <button className="btn btn-danger"  data-toggle="modal" data-target="#myModalW" onClick={this.AddProductToWishList}> Toevoegen aan wenslijst </button>
+                                <button className="btn btn-danger"  data-toggle="modal" data-target="#myModalW"> Toevoegen aan wenslijst </button>
                                 <div className="modal fade" id="myModalW" role="dialog">
                                 <div className="modal-dialog modal-sm">
                                 <div className="modal-content">
