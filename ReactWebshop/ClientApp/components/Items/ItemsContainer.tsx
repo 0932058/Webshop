@@ -69,28 +69,68 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
 
     filterItems(){
         //we copy the items list
-        let splicedList = this.state.items
+        let splicedList = this.state.filteredItems
+        let newFilteredList : Product[] = [];
 
-        for(let filter of this.state.filters){
-            console.log(filter)
+        for(let product of splicedList){
+
+            for(let filter of this.state.filters){
+                
+
+                let popProduct : boolean = false
+
+                if(product.consoleType.includes(filter)){
+                    popProduct = true
+                }
+
+                if(product.productUitgever.includes(filter)){
+                    popProduct = true
+                }
+
+                if(product.productOntwikkelaar.includes(filter)){
+                    popProduct = true
+                }
+                    
+                if(popProduct){
+                    console.log(product.productNaam + " zit in lijst" )
+                    newFilteredList.push(product);
+                }   
+            }
         }
+
+        this.setState({
+            filteredItems : newFilteredList
+        })
+
     }
 
-    selectFilter(pFilter){
+    selectFilter(event){
+        //if the filter is already in the filter list, pop it out, if the filter list is empty, make the filtered items equal to items, we never change this.state.items
         let filters = this.state.filters
         for(let filter of this.state.filters){
-            if(filter === pFilter){
+            if(filter === event.target.value){
+
                 console.log(filter + " " + "eruit gegooid")
+
                 filters.splice(filters.indexOf(filter), 1)
                 this.setState({
                     filters
                 })
+
                 this.filterItems()
+
+                if(this.state.filters.length === 0){
+                    console.log("items zijn nu heel")
+                    let allItems : Product[] = this.state.items
+                    this.setState({
+                        filteredItems : allItems
+                    })
+                }
                 return;
             }
         }
 
-        filters.push(pFilter)
+        filters.push(event.target.value)
 
         this.setState({
             filters
@@ -144,22 +184,22 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
                         <div id="collapse2" className="panel-collapse collapse">
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Playstation3"/>Playstation 3
+                                    <input type="checkbox" value="Playstation3" onClick={this.selectFilter}/>Playstation 3
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Playstation4"/>Playstation 4
+                                    <input type="checkbox" value="Playstation4" onClick={this.selectFilter}/>Playstation 4
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Xbox360"/>Xbox 360
+                                    <input type="checkbox" value="Xbox360" onClick={this.selectFilter}/>Xbox 360
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="XboxOne"/>Xbox One
+                                    <input type="checkbox" value="XboxOne" onClick={this.selectFilter}/>Xbox One
                                 </label>
                             </div>
                         </div>
@@ -174,104 +214,104 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
                         <div id="collapse1" className="panel-collapse collapse">
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Bethesda"/>Bethesda
+                                    <input type="checkbox" value="Bethesda" onClick={this.selectFilter}/>Bethesda
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Activision"/>Activision
+                                    <input type="checkbox" value="Activision" onClick={this.selectFilter}/>Activision
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="EA_sports"/>EA Sports
+                                    <input type="checkbox" value="EA_sports" onClick={this.selectFilter}/>EA Sports
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Microsoft"/>Microsoft
+                                    <input type="checkbox" value="Microsoft" onClick={this.selectFilter}/>Microsoft
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Sony"/>Sony
+                                    <input type="checkbox" value="Sony" onClick={this.selectFilter}/>Sony
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Realtime Worlds"/>Realtime Worlds
+                                    <input type="checkbox" value="Realtime Worlds" onClick={this.selectFilter}/>Realtime Worlds
                                 </label>
                                 <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Electronic Arts"/>Electronic Arts
+                                    <input type="checkbox" value="Electronic Arts" onClick={this.selectFilter}/>Electronic Arts
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Trion Worlds"/>Trion Worlds
+                                    <input type="checkbox" value="Trion Worlds" onClick={this.selectFilter}/>Trion Worlds
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Disney Interactive Studios"/>Disney Interactive Entertainment
+                                    <input type="checkbox" value="Disney Interactive Studios" onClick={this.selectFilter}/>Disney Interactive Entertainment
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Square"/>Square
+                                    <input type="checkbox" value="Square" onClick={this.selectFilter}/>Square
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Sony Computer Entertainment"/>Sony Computer Entertainment
+                                    <input type="checkbox" value="Sony Computer Entertainment" onClick={this.selectFilter}/>Sony Computer Entertainment
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Rockstar Games"/>Rockstar Games
+                                    <input type="checkbox" value="Rockstar Games" onClick={this.selectFilter}/>Rockstar Games
                                 </label>
                                 <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Microsoft Game Studios"/>Microsoft Game Studios
+                                    <input type="checkbox" value="Microsoft Game Studios" onClick={this.selectFilter}/>Microsoft Game Studios
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="THQ"/>THQ
+                                    <input type="checkbox" value="THQ" onClick={this.selectFilter}/>THQ
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Konami"/>Konami
+                                    <input type="checkbox" value="Konami" onClick={this.selectFilter}/>Konami
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Sega"/>Sega
+                                    <input type="checkbox" value="Sega" onClick={this.selectFilter}/>Sega
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Cloud Imperium Games"/>Cloud Imperium Games
+                                    <input type="checkbox" value="Cloud Imperium Games" onClick={this.selectFilter}/>Cloud Imperium Games
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Warner Bros. Interactive Entertainment"/>Warner Bros
+                                    <input type="checkbox" value="Warner Bros. Interactive Entertainment" onClick={this.selectFilter}/>Warner Bros
                                 </label>
                                 <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Ubisoft"/>Ubisoft
+                                    <input type="checkbox" value="Ubisoft" onClick={this.selectFilter}/>Ubisoft
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Square Enix"/>Square Enix
+                                    <input type="checkbox" value="Square Enix" onClick={this.selectFilter}/>Square Enix
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Blizzard Entertainment"/>Blizzard Entertainment
+                                    <input type="checkbox" value="Blizzard Entertainment" onClick={this.selectFilter}/>Blizzard Entertainment
                                 </label>
                             </div>
                         </div>
@@ -288,167 +328,167 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
                         <div id="collapse3" className="panel-collapse collapse">
                         <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Bethesda"/>Bethesda
+                                    <input type="checkbox" value="Bethesda" onClick={this.selectFilter}/>Bethesda
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Activision"/>Activision
+                                    <input type="checkbox" value="Activision" onClick={this.selectFilter}/>Activision
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="EA_sports"/>EA Sports
+                                    <input type="checkbox" value="EA_sports" onClick={this.selectFilter}/>EA Sports
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Microsoft"/>Microsoft
+                                    <input type="checkbox" value="Microsoft" onClick={this.selectFilter}/>Microsoft
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Sony"/>Sony
+                                    <input type="checkbox" value="Sony" onClick={this.selectFilter}/>Sony
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Realtime Worlds"/>Realtime Worlds
+                                    <input type="checkbox" value="Realtime Worlds" onClick={this.selectFilter}/>Realtime Worlds
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Beachhead Studios"/>Beachhead Studios
+                                    <input type="checkbox" value="Beachhead Studios" onClick={this.selectFilter}/>Beachhead Studios
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Crytek Frankfurt"/>Crytek Frankfurt
+                                    <input type="checkbox" value="Crytek Frankfurt" onClick={this.selectFilter}/>Crytek Frankfurt
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Sony Online Entertainment"/>Sony Online Entertainment
+                                    <input type="checkbox" value="Sony Online Entertainment" onClick={this.selectFilter}/>Sony Online Entertainment
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="High Moon Studios"/>High Moon Studios
+                                    <input type="checkbox" value="High Moon Studios" onClick={this.selectFilter}/>High Moon Studios
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Trion Worlds"/>Trion Worlds
+                                    <input type="checkbox" value="Trion Worlds" onClick={this.selectFilter}/>Trion Worlds
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Bungie"/>Bungie
+                                    <input type="checkbox" value="Bungie" onClick={this.selectFilter}/>Bungie
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Avalanche Software"/>Avalanche Software
+                                    <input type="checkbox" value="Avalanche Software" onClick={this.selectFilter}/>Avalanche Software
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Square"/>Square
+                                    <input type="checkbox" value="Square" onClick={this.selectFilter}/>Square
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Polyphony Digital"/>Polyphony Digital
+                                    <input type="checkbox" value="Polyphony Digital" onClick={this.selectFilter}/>Polyphony Digital
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Rockstar North"/>Rockstar North
+                                    <input type="checkbox" value="Rockstar North" onClick={this.selectFilter}/>Rockstar North
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Ensemble Studios"/>Ensemble Studios
+                                    <input type="checkbox" value="Ensemble Studios" onClick={this.selectFilter}/>Ensemble Studios
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Quantic Dream"/>Quantic Dream
+                                    <input type="checkbox" value="Quantic Dream" onClick={this.selectFilter}/>Quantic Dream
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Kaos Studios"/>Koas Studios
+                                    <input type="checkbox" value="Kaos Studios" onClick={this.selectFilter}/>Koas Studios
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Team Bondi"/>Team Bondi
+                                    <input type="checkbox" value="Team Bondi" onClick={this.selectFilter}/>Team Bondi
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Rockstar Studios"/>Rockstar Studios
+                                    <input type="checkbox" value="Rockstar Studios" onClick={this.selectFilter}/>Rockstar Studios
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Kojima Productions"/>Kojima Productions
+                                    <input type="checkbox" value="Kojima Productions" onClick={this.selectFilter}/>Kojima Productions
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Rockstar San Diego"/>Rockstar San Diego
+                                    <input type="checkbox" value="Rockstar San Diego" onClick={this.selectFilter}/>Rockstar San Diego
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Sega AM2"/>Sega AM2
+                                    <input type="checkbox" value="Sega AM2" onClick={this.selectFilter}/>Sega AM2
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Cloud Imperium Games"/>Cloud Imperium Games
+                                    <input type="checkbox" value="Cloud Imperium Games" onClick={this.selectFilter}/>Cloud Imperium Games
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="BioWare"/>BioWare
+                                    <input type="checkbox" value="BioWare" onClick={this.selectFilter}/>BioWare
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Funcom"/>Funcom
+                                    <input type="checkbox" value="Funcom" onClick={this.selectFilter}/>Funcom
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Surreal Software"/>Surreal Sotfware
+                                    <input type="checkbox" value="Surreal Software" onClick={this.selectFilter}/>Surreal Sotfware
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Ubisoft Paris"/>Ubisoft Paris
+                                    <input type="checkbox" value="Ubisoft Paris" onClick={this.selectFilter}/>Ubisoft Paris
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Crystal Dynamics"/>Crystal Dynamics
+                                    <input type="checkbox" value="Crystal Dynamics" onClick={this.selectFilter}/>Crystal Dynamics
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Silicon Knights"/>Silicon Knights
+                                    <input type="checkbox" value="Silicon Knights" onClick={this.selectFilter}/>Silicon Knights
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Ubisoft Montreal"/>Ubisoft Montreal
+                                    <input type="checkbox" value="Ubisoft Montreal" onClick={this.selectFilter}/>Ubisoft Montreal
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Blizzard Entertainment"/>Blizzard Entertainment
+                                    <input type="checkbox" value="Blizzard Entertainment" onClick={this.selectFilter}/>Blizzard Entertainment
                                 </label>
                             </div>
                         </div>
