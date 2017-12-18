@@ -13,6 +13,7 @@ export class User{
     private static username:string;
     private static password: string;
     private static streetname: string;
+    private static streetnumber: string;
     private static postcode: string;
     private static wishListFK: number;
     private static shoppingCartFK: number;
@@ -62,9 +63,10 @@ export class User{
         User.firstName = account.klantNaam;
         User.lastName = account.klantAchternaam;
         User.email = account.klantMail;
-        User.username = account.username
+        User.username = account.username;
         User.password = account.password;
         User.streetname = account.klantStraat;
+        User.streetnumber = account.klantStraatnmr;
         User.postcode = account.klantPostcode;
 
     }
@@ -92,6 +94,9 @@ export class User{
     }
     public static GetStreetname(){
         return User.streetname;
+    }
+    public static GetStreetnumber(){
+        return User.streetnumber;
     }
     public static getPostcode(){
         return User.postcode;

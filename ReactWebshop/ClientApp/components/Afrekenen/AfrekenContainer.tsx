@@ -25,6 +25,7 @@ export class Afrekenen extends AbstractStorage {
             formVoornaam: "",
             formAchternaam: "",
             formStraatnaam: "",
+            formStraatnummer: "",
             formPostcode: "",
             formEmail: "",
             productdata: []
@@ -89,6 +90,7 @@ export class Afrekenen extends AbstractStorage {
                 voornaam: User.GetFirstname(),
                 achternaam: User.GetLastname(),
                 straatnaam: User.GetStreetname(),
+                straatnummer: User.GetStreetnumber(),
                 postcode: User.getPostcode(),
                 email: User.GetEmail()}        
         }
@@ -97,6 +99,7 @@ export class Afrekenen extends AbstractStorage {
                 voornaam: this.state.formVoornaam,
                 achternaam: this.state.formAchternaam,
                 straatnaam: this.state.formStraatnaam,
+                straatnummer: this.state.formStraatnummer,
                 postcode: this.state.formPostcode,
                 email: this.state.formEmail}
         }
@@ -149,40 +152,62 @@ export class Afrekenen extends AbstractStorage {
         }
         else
             {return (
-                <div className={"Container"}>
+                <div className="Container col-md-6">
                 <h1>Afrekenen</h1>
                 <p>Adres voor bezorging en incasso.</p>
                 <ul>
                 <form action="/action_page.php" onSubmit={this.FinalizeOrder} >
-                <li className='reg_li'>
-                        <p>Voornaam</p>
-                        <input required placeholder="voornaam"  pattern="[a-z]{1,15}" title="voornaam moet bestaan uit 1 tot en met 15 letters"
-                        type="text" name="firstname" className="form-control"  onChange={(event: any) => {this.setState({formVoornaam: event.target.value})}} />
-                        
-                    </li>              
-                    <li className='reg_li'>
-                        <p>Achternaam</p>
-                        <input required placeholder="achternaam" pattern="[a-z]{1,30}" title="achternaam moet bestaan uit 1 tot 30 letters" 
-                        type="text" name="lastname" className="form-control"  onChange={(event: any) => {this.setState({formAchternaam: event.target.value})}} />
-                    </li>            
-                    <li className='reg_li'>
-                        <p>Straatnaam</p>
-                        <input required placeholder='straatnaam' pattern="([a-zA-Z]).{2,30}([0-9]).{0,3}" title="vul een juist adres in"
-                        type="text" name="streetname"className="form-control" onChange={(event: any) => {this.setState({formStraatnaam: event.target.value})}}  />
-                    </li>            
-                    <li className='reg_li'>
-                        <p>Postcode</p>
-                        <input required placeholder="postcode" pattern="([0-9]){4}([A-Z]){2}" title="postcode moet uit 4 cijfers en 2 letters bestaan" 
-                        type="text" name="postcode"className="form-control"  onChange={(event: any) => {this.setState({formPostcode: event.target.value})}} />
-                    </li>
-                    <li className='reg_li'>
-                    <p>Email</p>
-                    <input required placeholder="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+[.]+[a-z]{2,3}$" 
-                    title='zorg dat het een juist email is vb. characters@characters.domain'
-                    type="text" name="email"className="form-control" onChange={(event: any) => {this.setState({formEmail: event.target.value})}}/>
-                </li> 
-                <br/>
-                    <input placeholder="Afrekenen" type="submit" value="Bestellen"/>
+                    <div className="row">
+                        <div className="col-md-6">
+                            <p>Voornaam*</p>
+                            <input required placeholder="voornaam"  pattern="[a-z]{1,15}" title="voornaam moet bestaan uit 1 tot en met 15 letters"
+                            type="text" name="firstname" className="form-control"  onChange={(event: any) => {this.setState({formVoornaam: event.target.value})}} />
+                        </div>
+                        <div className="col-md-6">
+                            <p>Achternaam*</p>
+                            <input required placeholder="achternaam" pattern="[a-z]{1,30}" title="achternaam moet bestaan uit 1 tot 30 letters" 
+                            type="text" name="lastname" className="form-control"  onChange={(event: any) => {this.setState({formAchternaam: event.target.value})}} />
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col-md-6">
+                            <p>Straatnaam*</p>
+                            <input required placeholder='straatnaam' pattern="([a-zA-Z]).{2,30}([0-9]).{0,3}" title="vul een juist adres in"
+                            type="text" name="streetname"className="form-control" onChange={(event: any) => {this.setState({formStraatnaam: event.target.value})}}  />
+                        </div>
+                        <div className="col-md-3">
+                            <p>Straatnummer*</p>
+                                <input placeholder='bijv. 66' pattern="[0-9]{0,3}" 
+                                type="number" name="streetnumber" className="form-control" onChange={(event: any) => {this.setState({formStraatnummer: event.target.value})}} />
+                            </div>
+                        <div className="col-md-3">
+                            <p>Toevoeging</p>
+                                <input placeholder="bijv. 'b'" pattern="[a-z]{1}"
+                                type="text" name="numberaddition" className="form-control"/>
+                            </div>
+                        </div>
+                    <div className="row">
+                        <div className="col-md-6">
+                            <p>Postcode*</p>
+                            <input required placeholder="postcode" pattern="([0-9]){4}([A-Z]){2}" title="postcode moet uit 4 cijfers en 2 letters bestaan" 
+                            type="text" name="postcode"className="form-control"  onChange={(event: any) => {this.setState({formPostcode: event.target.value})}} />
+                        </div>
+                        <div className="col-md-6">
+                            <p>Telefoonnummer*</p>
+                            <input placeholder="telefoonnummer" pattern="[0-9]{1,30}" title="Telefoonnummer moet alleen uit cijfers bestaan"
+                            type="tel" name="phonenumber" className="form-control" required={true} />
+                        </div>
+                    </div>
+                    <div>
+                        <p>Email*</p>
+                        <input required placeholder="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+[.]+[a-z]{2,3}$" 
+                        title='zorg dat het een juist email is vb. characters@characters.domain'
+                        type="text" name="email"className="form-control" onChange={(event: any) => {this.setState({formEmail: event.target.value})}}/>
+                    </div>
+                    <h6>
+                        <strong>Velden met * zijn verplicht!</strong>
+                    </h6>
+                    <input className="btn btn-success"placeholder="Afrekenen" type="submit" value="Bestellen"/>
                     </form>
                     </ul>            
                 <p> Total Price: €{this.state.totalPrice}</p>
