@@ -129,6 +129,7 @@ export class WenslijstContainer extends AbstractStorage {
                                                 <NavLink to={ '/Item/' + listitem.productNmr } exact activeClassName='Active'className='button_to_product'>
                                                     <button className={"btn btn-primary"} > naar product </button>
                                                 </NavLink>
+                                                <p></p>
                                                 <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#myModalM" onClick={() => this.AddProductToShoppingCartLocalStorage(data)}>Toevoegen aan winkelmand</button>
                                                 <div className="modal fade" id="myModalM" role="dialog">
                                                     <div className="modal-dialog modal-sm">
@@ -145,6 +146,7 @@ export class WenslijstContainer extends AbstractStorage {
                                                     </div>
                                                     </div>
                                                 </div>
+                                                <p></p>
                                                 <button type="button" className="btn btn-primary" onClick={() => this.DeleteItem(listitem)}>Verwijderen</button>
 
                                             </div>
