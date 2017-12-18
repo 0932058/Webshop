@@ -156,28 +156,28 @@ export class Afrekenen extends AbstractStorage {
                 <form action="/action_page.php" onSubmit={this.FinalizeOrder} >
                 <li className='reg_li'>
                         <p>Voornaam</p>
-                        <input placeholder="voornaam" pattern="[a-z]{1,15}" title="voornaam moet bestaan uit 1 tot en met 15 letters"
+                        <input required placeholder="voornaam"  pattern="[a-z]{1,15}" title="voornaam moet bestaan uit 1 tot en met 15 letters"
                         type="text" name="firstname" className="form-control"  onChange={(event: any) => {this.setState({formVoornaam: event.target.value})}} />
                         
                     </li>              
                     <li className='reg_li'>
                         <p>Achternaam</p>
-                        <input placeholder="achternaam" pattern="[a-z]{1,30}" title="achternaam moet bestaan uit 1 tot 30 letters" 
+                        <input required placeholder="achternaam" pattern="[a-z]{1,30}" title="achternaam moet bestaan uit 1 tot 30 letters" 
                         type="text" name="lastname" className="form-control"  onChange={(event: any) => {this.setState({formAchternaam: event.target.value})}} />
                     </li>            
                     <li className='reg_li'>
                         <p>Straatnaam</p>
-                        <input placeholder='straatnaam' pattern="([a-zA-Z]).{2,30}([0-9]).{0,3}" title="vul een juist adres in"
+                        <input required placeholder='straatnaam' pattern="([a-zA-Z]).{2,30}([0-9]).{0,3}" title="vul een juist adres in"
                         type="text" name="streetname"className="form-control" onChange={(event: any) => {this.setState({formStraatnaam: event.target.value})}}  />
                     </li>            
                     <li className='reg_li'>
                         <p>Postcode</p>
-                        <input placeholder="postcode" pattern="([0-9]){4}([A-Z]){2}" title="postcode moet uit 4 cijfers en 2 letters bestaan" 
+                        <input required placeholder="postcode" pattern="([0-9]){4}([A-Z]){2}" title="postcode moet uit 4 cijfers en 2 letters bestaan" 
                         type="text" name="postcode"className="form-control"  onChange={(event: any) => {this.setState({formPostcode: event.target.value})}} />
                     </li>
                     <li className='reg_li'>
                     <p>Email</p>
-                    <input placeholder="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+[.]+[a-z]{2,3}$" 
+                    <input required placeholder="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+[.]+[a-z]{2,3}$" 
                     title='zorg dat het een juist email is vb. characters@characters.domain'
                     type="text" name="email"className="form-control" onChange={(event: any) => {this.setState({formEmail: event.target.value})}}/>
                 </li> 

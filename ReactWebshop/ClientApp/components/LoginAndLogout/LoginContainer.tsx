@@ -97,7 +97,7 @@ export class LoginContainer extends React.Component<RouteComponentProps<{}>, Log
                 <div>
                     Nog geen account? Registreer nu! 
                 <div>
-                <button className="btn btn-primary"> Registeer </button>
+                <button className="btn btn-primary"><a className="ahref"href="/Registratie"> Registeer</a></button>
                 </div>
                 </div>
             </form>

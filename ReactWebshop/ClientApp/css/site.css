@@ -227,6 +227,10 @@ form{
     vertical-align: middle;
 }
 */
+.ahref, .ahref:hover{
+    text-decoration: none;
+    color: white;
+}
 .container #maingame .col-md-2{
     margin-bottom:2%;
 
