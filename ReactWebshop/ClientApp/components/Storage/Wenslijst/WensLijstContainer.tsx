@@ -75,8 +75,8 @@ export class WenslijstContainer extends AbstractStorage {
         let apiUrl = 'api/Wenslijsten/Delete';
         let apiResponse = await fetch(apiUrl, {method: 'Delete',body: JSON.stringify(item) , headers: new Headers({'content-type' : 'application/json'})});
         console.log("WenslijstItem met id " + item.wenslijstId + " zou verwijderd moeten zijn")
-        //this.GetWishlist();
-        //this.FetchProductData();
+        this.GetWishlist();
+        this.FetchProductData();
     }
     componentDidMount(){
         this.GetWishlist();
