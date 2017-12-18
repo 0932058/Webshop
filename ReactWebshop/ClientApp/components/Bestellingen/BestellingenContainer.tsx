@@ -20,6 +20,7 @@ export class BestellingenContainer extends AbstractStorage {
             formVoornaam: "",
             formAchternaam: "",
             formStraatnaam: "",
+            formStraatnummer: "",
             formPostcode: "",
             formEmail: "",
             productdata: []}

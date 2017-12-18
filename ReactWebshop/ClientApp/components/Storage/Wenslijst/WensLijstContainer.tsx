@@ -21,6 +21,7 @@ export class WenslijstContainer extends AbstractStorage {
             formVoornaam: "",
             formAchternaam: "",
             formStraatnaam: "",
+            formStraatnummer:"",
             formPostcode: "",
             formEmail: "",
             productdata: []}
