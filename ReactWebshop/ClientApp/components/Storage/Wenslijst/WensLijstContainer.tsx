@@ -79,6 +79,21 @@ export class WenslijstContainer extends AbstractStorage {
         this.GetWishlist();
         this.FetchProductData();
     }
+    AddProductToShoppingCartLocalStorage(product){
+        var itemlist = [];
+        itemlist = JSON.parse(localStorage.getItem("Winkelmand"));
+        if (itemlist != null){
+            var item = {"name" : product.Naam, "id" : product.productNmr, "price": product.Prijs, "index" : itemlist.length, "console": product.Console, "image": product.Image};
+            itemlist.push(item)
+            localStorage.setItem("Winkelmand", JSON.stringify(itemlist));
+            
+        }
+        else{
+            var item = {"name" : product.Naam, "id" : product.productNmr, "price": product.Prijs, "index" : 0, "console": product.Console, "image": product.Image};
+            itemlist = [item]
+            localStorage.setItem("Winkelmand", JSON.stringify(itemlist));
+        }
+    }
     componentDidMount(){
         this.GetWishlist();
     }
@@ -114,8 +129,24 @@ export class WenslijstContainer extends AbstractStorage {
                                                 <NavLink to={ '/Item/' + listitem.productNmr } exact activeClassName='Active'className='button_to_product'>
                                                     <button className={"btn btn-primary"} > naar product </button>
                                                 </NavLink>
-                                                <p></p>
-                                                <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#myModalM" onClick={() => this.DeleteItem(listitem)}>Verwijderen</button>
+                                                <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#myModalM" onClick={() => this.AddProductToShoppingCartLocalStorage(data)}>Toevoegen aan winkelmand</button>
+                                                <div className="modal fade" id="myModalM" role="dialog">
+                                                    <div className="modal-dialog modal-sm">
+                                                    <div className="modal-content">
+                                                        <div className="modal-header">
+                                                        <button type="button" className="close" data-dismiss="modal">&times;</button>
+                                                        <h4 className="modal-title">Product is toegevoegd!</h4>
+                                                        </div>
+                                                        <div className="modal-body">
+                                                        <p>het door u gekozen item is succesvol toegevoegd aan de winkelmand</p>
+                                                        <button type="button" className="btn btn-default" data-dismiss="modal" data-backdrop="false">verder winkelen</button>
+                                                        <a href='/Winkelmand'><button type="button" className="btn btn-default" data-backdrop="false" >naar winkelmand</button></a>
+                                                        </div>
+                                                    </div>
+                                                    </div>
+                                                </div>
+                                                <button type="button" className="btn btn-primary" onClick={() => this.DeleteItem(listitem)}>Verwijderen</button>
+
                                             </div>
                                         </div>
                                     </div>
