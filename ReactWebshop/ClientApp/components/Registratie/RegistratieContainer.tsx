@@ -65,7 +65,7 @@ export class RegistratieContainer extends React.Component<RouteComponentProps<{}
                     <div className="row">
                         <div className="col-md-4 col-md-offset-4">
                             <p>Voornaam*</p>
-                            <input placeholder="voornaam" pattern="[a-zA-Z]{1,15}" title="voornaam moet bestaan uit 1 tot en met 15 letters"
+                            <input placeholder="voornaam" pattern="[a-zA-Z /s]{1,15}" title="voornaam moet bestaan uit 1 tot en met 15 letters"
                             type="text" name="firstname" className="form-control" value={this.state.firstname} required={true}
                             onChange={(e:any) => this.setState({firstname: e.target.value})}/>
                         </div>

@@ -99,14 +99,14 @@ export class LoginContainer extends React.Component<RouteComponentProps<{}>, Log
                     <input className="btn" type="submit" value="Inloggen"  />
                 </div>
 
-                <div>
+               
+            </form>
+            <div>
                     Nog geen account? Registreer nu! 
                 <div>
                 <button className="btn btn-primary"><a className="ahref"href="/Registratie"> Registeer</a></button>
                 </div>
                 </div>
-            </form>
-
             <div>            
             </div>    
             {this.state.userLoggedIn ?
