@@ -31,13 +31,18 @@ namespace reactTwo.Controllers
         [HttpPost("Post")]
         public void Post([FromBody]Wenslijst item){
             item.wenslijstId = this._context.Wenslijsten.Count() + 1;
-            this._context.Wenslijsten.Add(item);
-            this._context.SaveChanges();
+            var checkOrder = this._context.Wenslijsten.Where(order => (order.klantId == item.klantId && order.productNmr == item.productNmr)).ToArray();
+            if (checkOrder == null){
+                this._context.Wenslijsten.Add(item);
+                this._context.SaveChanges();
+                }
+            
+            
         } 
-        [HttpDelete("Delete/{wenslijstId}")]
-        public void Delete(int wenslijstId){
-            var foundList = this._context.Wenslijsten.Where(order => order.wenslijstId  == wenslijstId) as Models.Wenslijst;
-            this._context.Wenslijsten.Remove(foundList);
+        [HttpDelete("Delete")]
+        public void Delete([FromBody]Wenslijst list){
+            var itemsToRemove = this._context.Wenslijsten.Where(item => (item.klantId == list.klantId && item.productNmr == list.productNmr));
+            this._context.Wenslijsten.RemoveRange(itemsToRemove);
             this._context.SaveChanges();
         }
     }

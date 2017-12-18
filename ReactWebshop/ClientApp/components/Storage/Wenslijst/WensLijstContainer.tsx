@@ -43,7 +43,7 @@ export class WenslijstContainer extends AbstractStorage {
             .then(data => {
                 var datastorage = [];
                 datastorage = this.state.productdata;
-                var dataset = { "Naam" : data[0].productNaam, "Image" : data[0].productImg, "Id" : order.productNmr};
+                var dataset = { "Naam" : data[0].productNaam, "Prijs":data[0].productPrijs, "Console" :data[0].consoleType, "Genre" :data[0].productGenre, "Image" : data[0].productImg, "Id" : order.productNmr};
                 datastorage.push(dataset);
                 this.setState({productdata: datastorage, loaded: true});
             });
@@ -95,35 +95,44 @@ export class WenslijstContainer extends AbstractStorage {
                         var data = this.GetProductDataFromState(listitem.productNmr);
                         return(
                             <div className={"Component"}>
-                            <div className='container'>
-                                <div className="panel panel-default">    
-                                <div className='col-md-2'>
-                                        <div className="panel-body"><img className="img-responsive" src={data.Image}/></div>
-                                    </div>
-                                    <div className='col-md-4'>
-                                        <p>{data.Naam}</p>
-                                        </div>
-                                        <NavLink to={ '/Item/' + listitem.productNmr } exact activeClassName='Active'className='button_to_product'>
-                                                <button className={"btn btn-primary"} > naar product </button>
-                                            </NavLink>
-                                        <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#myModalM" onClick={() => this.DeleteItem(listitem.wenslijstId)}>Verwijderen</button>
-                                        <div className="modal fade" id="myModalM" role="dialog">
-                                <div className="modal-dialog modal-sm">
-                                <div className="modal-content">
-                                    <div className="modal-header">
-                                    <button type="button" className="close" data-dismiss="modal">&times;</button>
-                                    <h4 className="modal-title">Product is verwijderd!</h4>
-                                    </div>
-                                    <div className="modal-body">
-                                    <p>het door u gekozen item is succesvol van de wenslijst verwijderd</p>
-                                    <button type="button" className="btn btn-default" data-dismiss="modal" data-backdrop="false">Ok</button>
-                                    </div>
-                                </div>
-                                </div>
-                            </div>
-                                    </div>
-                                </div>
+                                <div className='container'>
+                                    <div className="panel panel-default">
+                                        <div className="panel-body">
+                                                <div className='col-md-2'>
+                                                    <img className="img-responsive" src={data.Image}/>
+                                            </div>
+                                            <div className='col-md-2'>
+                                                <p><b>{data.Naam}</b></p>
+                                                <p>Naam: {data.Naam}</p>
+                                                <p>Genre: {data.Genre}</p>
+                                                <p>Console: {data.Console}</p>
+                                                <p>Prijs: €{data.Prijs}</p>
+                                            </div>
+                                            <div className="col-md-4">
+                                                <NavLink to={ '/Item/' + listitem.productNmr } exact activeClassName='Active'className='button_to_product'>
+                                                    <button className={"btn btn-primary"} > naar product </button>
+                                                </NavLink>
+                                                <p></p>
 
+                                                <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#myModalM" onClick={() => this.DeleteItem(listitem.wenslijstId)}>Verwijderen</button>
+                                                <div className="modal fade" id="myModalM" role="dialog">
+                                                    <div className="modal-dialog modal-sm">
+                                                        <div className="modal-content">
+                                                            <div className="modal-header">
+                                                                <button type="button" className="close" data-dismiss="modal">&times;</button>
+                                                                <h4 className="modal-title">Product is verwijderd!</h4>
+                                                            </div>
+                                                            <div className="modal-body">
+                                                                <p>het door u gekozen item is succesvol van de wenslijst verwijderd</p>
+                                                                <button type="button" className="btn btn-default" data-dismiss="modal" data-backdrop="false">Ok</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         )
                     }
