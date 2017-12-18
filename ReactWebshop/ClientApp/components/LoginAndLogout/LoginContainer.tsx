@@ -77,10 +77,12 @@ export class LoginContainer extends React.Component<RouteComponentProps<{}>, Log
             <div className={"Container"}>
 
             {User.IsUserLoggedIn()? <Redirect to="/"/> : null}
-            
+
             <div> <h1> Log in </h1> </div>
 
             <form  onSubmit={this.CheckIfLoginIsCorrect} onChange={this.HandleChangeToInputFields}>
+            <div className="container">
+            <div className="col-md-4">
                 <div className="input-group">
                     <span className="input-group-addon"> <i className="glyphicon glyphicon-user"> </i> </span> 
                     <input type="text" name="username" className="form-control" id="usr" value={this.state.typedInUsername}/>
@@ -90,14 +92,17 @@ export class LoginContainer extends React.Component<RouteComponentProps<{}>, Log
                     <span className="input-group-addon"><i className="glyphicon glyphicon-lock"></i></span>
                     <input type="password" name="password" className="form-control" id="pwd" value={this.state.typedInPassword}/>    
                 </div>
+            </div>
+            </div>
 
                 <div className="input-group">
                     <input className="btn" type="submit" value="Inloggen"  />
                 </div>
+
                 <div>
                     Nog geen account? Registreer nu! 
                 <div>
-                <button className="btn btn-primary"> Registeer </button>
+                <button className="btn btn-primary"><a className="ahref"href="/Registratie"> Registeer</a></button>
                 </div>
                 </div>
             </form>

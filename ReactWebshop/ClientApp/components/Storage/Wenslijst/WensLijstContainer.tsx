@@ -71,11 +71,12 @@ export class WenslijstContainer extends AbstractStorage {
             return true;
         }
     }
-    DeleteItem(id){
-        let apiUrl = 'api/Wenslijsten/Delete/' + id;
-        console.log("WenslijstItem met id " + id + " zou verwijderd moeten zijn")
-        this.GetWishlist();
-        this.FetchProductData();
+    async DeleteItem(item){
+        let apiUrl = 'api/Wenslijsten/Delete';
+        let apiResponse = await fetch(apiUrl, {method: 'Delete',body: JSON.stringify(item) , headers: new Headers({'content-type' : 'application/json'})});
+        console.log("WenslijstItem met id " + item.wenslijstId + " zou verwijderd moeten zijn")
+        //this.GetWishlist();
+        //this.FetchProductData();
     }
     componentDidMount(){
         this.GetWishlist();
@@ -106,7 +107,7 @@ export class WenslijstContainer extends AbstractStorage {
                                         <NavLink to={ '/Item/' + listitem.productNmr } exact activeClassName='Active'className='button_to_product'>
                                                 <button className={"btn btn-primary"} > naar product </button>
                                             </NavLink>
-                                        <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#myModalM" onClick={() => this.DeleteItem(listitem.wenslijstId)}>Verwijderen</button>
+                                        <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#myModalM" onClick={() => this.DeleteItem(listitem)}>Verwijderen</button>
                                         <div className="modal fade" id="myModalM" role="dialog">
                                 <div className="modal-dialog modal-sm">
                                 <div className="modal-content">

@@ -13,6 +13,7 @@ interface RegistratieContainerState{
     password: string;
     streetname: string;
     streetnumber: string,
+    numberaddition: string,
     postcode: string;
     isNoEmptyInputFields: boolean;
 }
@@ -22,7 +23,7 @@ export class RegistratieContainer extends React.Component<RouteComponentProps<{}
         this.CheckIfAccountExists = this.CheckIfAccountExists.bind(this);
         this.ConnectWithApiToCheckIfUserExist = this.ConnectWithApiToCheckIfUserExist.bind(this);
         this.PostUserToDatabase = this.PostUserToDatabase.bind(this);
-        this.state = {firstname: "", lastname: "", email: "", phonenumber: "", username:"", password:"", streetname: "", postcode:"", streetnumber: "", isNoEmptyInputFields:false}       
+        this.state = {firstname: "", lastname: "", email: "", phonenumber: "", username:"", password:"", streetname: "", postcode:"", streetnumber: "", numberaddition: "", isNoEmptyInputFields:false}       
     }
     async ConnectWithApiToCheckIfUserExist() : Promise<Klant>{
         let apiUrl = 'api/User/Get/Username/' + this.state.username
@@ -59,79 +60,104 @@ export class RegistratieContainer extends React.Component<RouteComponentProps<{}
     render(){
         return(
             <div className={"Container"}>
-                <h1> Registreer</h1>
-
-                <ul className='reg_ul'><form action="/action_page.php"  onSubmit={this.CheckIfAccountExists } >
-
-                    <li className='reg_li'>
-                        <p>Voornaam</p>
-                        <input placeholder="voornaam" pattern="[a-zA-Z]{1,15}" title="voornaam moet bestaan uit 1 tot en met 15 letters"
-                        type="text" name="firstname" className="form-control" value={this.state.firstname} required={true}
-                        onChange={(e:any) => this.setState({firstname: e.target.value})}/>
-                    </li>              
-                    <li className='reg_li'>
-                        <p>Achternaam</p>
-                        <input placeholder="achternaam" pattern="[a-zA-Z /s]{1,30}" title="achternaam moet bestaan uit 1 tot 30 letters" 
-                        type="text" name="lastname" className="form-control"  value={this.state.lastname} required={true}
-                        onChange={(e:any) => this.setState({lastname: e.target.value})}
-                         />
-                    </li>            
-                    <li className='reg_li'>
-                        <p>Email</p>
+                <div className="col-md-offset-5"><h1>Registreer</h1></div>
+                    <form action="/action_page.php"  onSubmit={this.CheckIfAccountExists } >
+                    <div className="row">
+                        <div className="col-md-4 col-md-offset-4">
+                            <p>Voornaam*</p>
+                            <input placeholder="voornaam" pattern="[a-zA-Z]{1,15}" title="voornaam moet bestaan uit 1 tot en met 15 letters"
+                            type="text" name="firstname" className="form-control" value={this.state.firstname} required={true}
+                            onChange={(e:any) => this.setState({firstname: e.target.value})}/>
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col-md-4 col-md-offset-4">
+                            <p>Achternaam*</p>
+                            <input placeholder="achternaam" pattern="[a-zA-Z /s]{1,30}" title="achternaam moet bestaan uit 1 tot 30 letters" 
+                            type="text" name="lastname" className="form-control"  value={this.state.lastname} required={true}
+                            onChange={(e:any) => this.setState({lastname: e.target.value})}
+                            />
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col-md-4 col-md-offset-4">
+                        <p>Email*</p>
                         <input placeholder="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+[.]+[a-z]{2,3}$" 
                         title='zorg dat het een juist email is vb. characters@characters.domain'
                         type="text" name="email"className="form-control"  value={this.state.email}  required={true}
                         onChange={(e:any) => this.setState({email: e.target.value})}
                         />
-                    </li>
-                    <li className='reg_li'>
-                        <p>Telefoonnummer</p>
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col-md-4 col-md-offset-4">
+                        <p>Telefoonnummer*</p>
                         <input placeholder="telefoonnummer" pattern="[0-9]{1,30}"
                         title="Telefoonnummer moet alleen uit cijfers bestaan"
                         type="tel" name="phonenumber" className="form-control"  value={this.state.phonenumber} required={true}
                         onChange={(e:any) => this.setState({phonenumber: e.target.value})}
                          />
-                    </li>                        
-                    <li className='reg_li'> 
-                        <p>Gebruikersnaam</p>
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col-md-4 col-md-offset-4">
+                        <p>Gebruikersnaam*</p>
                         <input placeholder="gebruikersnaam" pattern="[a-zA-Z0-9]{3,15}" title="gebruikers naam mag maximaal uit 8 tekens bestaan"
                         type="text" name="username"className="form-control"  value={this.state.username}  required={true}
                         onChange={(e:any) => this.setState({username: e.target.value})}
                          />
-                    </li>            
-                    <li className='reg_li'>
-                        <p>Wachtwoord</p>
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col-md-4 col-md-offset-4">
+                        <p>Wachtwoord*</p>
                         <input placeholder="wachtwoord" pattern=".{6,}"  title="wachtwoord moet minstens 6 waardes bevatten"
                         type="password" name="password"className="form-control"  value={this.state.password}  required={true}
                         onChange={(e:any) => this.setState({password: e.target.value})}
                          /> 
-                    </li>            
-                    <li className='reg_li'>
-                        <p>Straatnaam</p>
-                        <input placeholder='straatnaam' pattern="[a-zA-Z /s]{2,30}" title="vul een juist adres in"
-                        type="text" name="streetname"className="form-control"  value={this.state.streetname}  required={true}
-                        onChange={(e:any) => this.setState({streetname: e.target.value})}
-                         />
-                    </li>     
-                    <li className='reg_li'>
-                        <p>Straatnummer</p>
-                        <input placeholder='straatnummer' pattern="[0-9]{0,5}" title="vul een geldige huisnummer in"
-                        type="text" name="streetnummer"className="form-control"  value={this.state.streetnumber}  required={true}
-                        onChange={(e:any) => this.setState({streetnumber: e.target.value})}
-                         />
-                    </li>            
-                    <li className='reg_li'>
-                        <p>Postcode</p>
+                        </div>
+                    </div>
+                    <div className="row">     
+                        <div className="col-md-4 col-md-offset-4"> 
+                            <p>Straatnaam*</p>
+                            <input placeholder='straatnaam' pattern="[a-zA-Z /s]{2,30}" title="vul een juist adres in"
+                            type="text" name="streetname"className="form-control"  value={this.state.streetname}  required={true}
+                            onChange={(e:any) => this.setState({streetname: e.target.value})}
+                            />
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col-md-2 col-md-offset-4">
+                            <p>Straatnummer*</p>
+                            <input placeholder='straatnummer' pattern="[0-9]{0,5}" title="vul een geldige huisnummer in"
+                            type="text" name="streetnumber"className="form-control"  value={this.state.streetnumber}  required={true}
+                            onChange={(e:any) => this.setState({streetnumber: e.target.value})}
+                            />
+                        </div>  
+                        <div className="col-md-2">
+                            <p>Toevoeging</p>
+                            <input placeholder='Toevoeging' pattern="[a-z]{1}"
+                            type="text" name="nummertoevoeging"className="form-control"  value={this.state.numberaddition}
+                            onChange={(e:any) => this.setState({numberaddition: e.target.value})}
+                            />
+                        </div> 
+                    </div>        
+                    <div className="row">
+                        <div className="col-md-4 col-md-offset-4">
+                        <p>Postcode*</p>
                         <input placeholder="postcode" pattern="([0-9]){4}+/s([A-Z]){2}" title="postcode moet uit 4 cijfers en 2 letters bestaan" 
                         type="text" name="postcode"className="form-control"  value={this.state.postcode}  required={true}
                         onChange={(e:any) => this.setState({postcode: e.target.value})}
                          />
-                    </li>      
-                    <br/>
-                    <button className="btn btn-primary"placeholder="Registreer" type="submit" value="Registreer">    
+                        </div>
+                    </div>
+                    <div className="col-md-offset-4">
+                    <h6>velden met * zijn verplicht!</h6>
+                    </div>
+                    <button className="btn btn-primary col-md-offset-4" placeholder="Registreer" type="submit" value="Registreer">    
                         Registreer  
                     </button>
-                </form></ul>
+                </form>
 
 
             {this.state.isNoEmptyInputFields ?
