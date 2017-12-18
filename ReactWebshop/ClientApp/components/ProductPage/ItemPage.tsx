@@ -4,10 +4,12 @@ import {User} from "../User/User";
 import { ItemsContainer } from "../Items/ItemsContainer";
 import { NavLink } from 'react-router-dom';
 import { Product, Wenslijst } from 'ClientApp/components/Items/ItemsInterfaces';
+import {ReactInterval} from 'react-interval';
 
 interface ItemPageState{
     product: Product | null;
     loaded : boolean;
+    loggedIn : boolean;
 }
 
 export class ItemPage extends React.Component<RouteComponentProps<{}>, ItemPageState> {
@@ -20,6 +22,7 @@ export class ItemPage extends React.Component<RouteComponentProps<{}>, ItemPageS
         this.state = {
             product : null,
             loaded : false,
+            loggedIn : false,
         }
 
     }
@@ -65,32 +68,19 @@ export class ItemPage extends React.Component<RouteComponentProps<{}>, ItemPageS
     //The objects have to be parsed to json because this.state doesn't allow an single object in the state
     render() {
         return <div  className={"ItemPageComponent"}>
+                <ReactInterval timeout={100} enabled={true}
+                    callback={ () => { User.IsUserLoggedIn()? this.setState({ loggedIn : true}) : this.setState({ loggedIn : false}) } } />
+
                 { this.state.loaded ?
                     <div className="container">
                         <h1> { this.state.product.productNaam } </h1>
                         <div className='col-md-3'>      
                             <img className="img-responsive" src={ this.state.product.productImg }/> 
                             <h2>
-                                    {User.IsUserLoggedIn() ?
+                                {this.state.loggedIn ?
                                 <button className="btn btn-primary" onClick={this.AddProductToWishList}> Toevoegen aan wenslijst</button>
                                     :
-                                <div>
-                                <button className="btn btn-danger"  data-toggle="modal" data-target="#myModalW"> Toevoegen aan wenslijst </button>
-                                <div className="modal fade" id="myModalW" role="dialog">
-                                <div className="modal-dialog modal-sm">
-                                <div className="modal-content">
-                                    <div className="modal-header">
-                                    <button type="button" className="close" data-dismiss="modal">&times;</button>
-                                    <h4 className="modal-title">Error</h4>
-                                    </div>
-                                    <div className="modal-body">
-                                    <h4>Je moet ingelogd zijn om de wenslijst te kunnen gebruiken!</h4>
-                                    <button type="button" className="btn btn-default" data-dismiss="modal" data-backdrop="false">Terug</button>
-                                    </div>
-                                </div>
-                                </div>
-                                </div>
-                                </div>  
+                                    <NavLink to={"/Registratie"}> <button className="btn btn-primary">Registreer om gebruik te maken van de wenslijst </button> </NavLink>
                                          }
                             </h2>                          
                             <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#myModalM" onClick={this.AddProductToShoppingCartLocalStorage}>Toevoegen aan winkelmand</button>
