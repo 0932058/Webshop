@@ -75,7 +75,7 @@ export class WenslijstContainer extends AbstractStorage {
     async DeleteItem(item){
         let apiUrl = 'api/Wenslijsten/Delete';
         let apiResponse = await fetch(apiUrl, {method: 'Delete',body: JSON.stringify(item) , headers: new Headers({'content-type' : 'application/json'})});
-        console.log("WenslijstItem met id " + item.wenslijstId + " zou verwijderd moeten zijn")
+        console.log("WenslijstItem met id " + item.productNmr + " zou verwijderd moeten zijn")
         this.GetWishlist();
         this.FetchProductData();
     }
@@ -115,8 +115,7 @@ export class WenslijstContainer extends AbstractStorage {
                                                     <button className={"btn btn-primary"} > naar product </button>
                                                 </NavLink>
                                                 <p></p>
-
-                                                <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#myModalM" onClick={() => this.DeleteItem(listitem.wenslijstId)}>Verwijderen</button>
+                                                <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#myModalM" onClick={() => this.DeleteItem(listitem)}>Verwijderen</button>
                                             </div>
                                         </div>
                                     </div>
