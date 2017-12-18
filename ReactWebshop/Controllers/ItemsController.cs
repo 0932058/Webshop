@@ -128,25 +128,25 @@ namespace reactTwo.Controllers
             return SingleProductList.ToArray();
         }
 
-        //Shopping cart testing
-        [HttpPost("Post")]
-        public void Post()
-        {
-            MailMessage mail = new MailMessage();
-            SmtpClient client = new SmtpClient();  
+        // //Shopping cart testing
+        // [HttpPost("Post")]
+        // public void Post()
+        // {
+        //     MailMessage mail = new MailMessage();
+        //     SmtpClient client = new SmtpClient();  
 
-            client.Port = 587;
-            client.EnableSsl = true;
-            client.Credentials = new System.Net.NetworkCredential("Dymos078", "superguy1");
-            client.Host = "smtp.gmail.com";
+        //     client.Port = 587;
+        //     client.EnableSsl = true;
+        //     client.Credentials = new System.Net.NetworkCredential("Dymos078", "superguy1");
+        //     client.Host = "smtp.gmail.com";
 
-            mail.To.Add("blablablie5@live.com");
-            mail.From = new MailAddress("normiesproject@gmail.com");
-            mail.Subject = "this is a test email.";
-            mail.Body = "this is my test email body";
+        //     mail.To.Add("blablablie5@live.com");
+        //     mail.From = new MailAddress("normiesproject@gmail.com");
+        //     mail.Subject = "this is a test email.";
+        //     mail.Body = "this is my test email body";
 
-            client.Send(mail);
-        }
+        //     client.Send(mail);
+        // }
 
 
         [HttpPost("Change")]
@@ -161,5 +161,32 @@ namespace reactTwo.Controllers
             
             _context.SaveChanges();
         }
+        [HttpPost("Post")]
+        public IActionResult PostProduct([FromBody]Product product ){
+            var foundProduct = this._context.Producten.Find(product.ProductId);
+            foundProduct.productNaam = product.productNaam;
+            foundProduct.productUitgever = product.productUitgever;
+            foundProduct.productOmschr = product.productOmschr;
+            foundProduct.aantalInVooraad = product.aantalInVooraad;
+            foundProduct.productPrijs = product.productPrijs;
+            foundProduct.productType = product.productType;
+            foundProduct.productOntwikkelaar = product.productOntwikkelaar;
+            foundProduct.productImg = product.productImg;
+            foundProduct.productGenre = product.productGenre;
+            foundProduct.consoleType = product.consoleType;
+            this._context.SaveChanges();
+            return Ok(product);
+        }
     }
 }
+        // public int ProductId { get; set; }
+        // public string productNaam { get; set; }
+        // public string productUitgever { get; set; }
+        // public string productOmschr { get; set; }
+        // public int aantalInVooraad { get; set; }
+        // public decimal productPrijs { get; set; }
+        // public string  productType { get; set; }
+        // public string productOntwikkelaar { get; set; }
+        // public string productImg { get; set; }
+        // public string productGenre { get; set; }
+        // public string consoleType { get; set; }

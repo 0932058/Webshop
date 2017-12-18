@@ -11,6 +11,7 @@ export class ProfileSideMenuLinks extends React.Component<{}, {}> {
                     <div className="list-group">
                         <NavLink to={"/Profile/Gegevens"} className="list-group-item"><span className="glyphicon glyphicon-user">  Gegevens</span></NavLink>
                         <NavLink to={"/Winkelmand"} className="list-group-item"><span className="glyphicon glyphicon-shopping-cart">  Winkelmand</span></NavLink>
+                        <NavLink to={"/Bestellingen"} className="list-group-item"><span className="glyphicon glyphicon-list-alt"> Bestellingen</span></NavLink>
                         <NavLink to={"/Wenslijst"} className="list-group-item"><span className='glyphicon glyphicon-heart'>   Wenslijst</span></NavLink>
                     </div>
         </nav>;

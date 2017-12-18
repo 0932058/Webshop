@@ -37,7 +37,7 @@ export class AdminContainer extends React.Component<RouteComponentProps<{}>, Adm
                         
                         <button className={"list-group-item btn "} onClick={() => this.switchTo(<StatisticsPage/>)} >Statistics</button>
 
-                        { /*<button className={"list-group-item btn "} onClick={() => this.switchTo(<ProductsPage/>)} >Products</button> */ }
+                        <button className={"list-group-item btn "} onClick={() => this.switchTo(<ProductsPage/>)} >Products</button> 
 
                         <button className={"list-group-item btn "} onClick={() => this.switchTo(<UsersPage/>)} >Users</button>
 

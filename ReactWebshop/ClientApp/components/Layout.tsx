@@ -78,6 +78,7 @@ export class Layout extends React.Component<LayoutProps, LayoutState> {
     }
     handleChange(event : any){
         var search = event.target.value
+        console.log(search)
 
         this.setState({
             search,
@@ -278,7 +279,7 @@ const topBarLoggedIn = (
             </li>
 
 
-            <form className="navbar-form navbar-left" onSubmit={ this.handleSubmit }>
+            <form className="navbar-form navbar-left" action={"/Search/" + this.state.search}  onSubmit={ this.handleSubmit }>
                 <div className="input-group">
                   <input type="text" className="form-control" placeholder="Zoek naar product" value={this.state.search} onChange={this.handleChange}/>
                   <div className="input-group-btn">
