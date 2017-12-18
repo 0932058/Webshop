@@ -9,7 +9,7 @@ using Models;
 
 namespace reactTwo.Controllers
 {
-    [Route("api/Items")]
+    [Route("api/Items/")]
     public class ItemsController : Controller
     {
         private readonly normieContext _context;
@@ -41,19 +41,28 @@ namespace reactTwo.Controllers
         [HttpGet("[action]/{cat}")]
         public Product[] Games(string cat)
         {
-            return this.rightItems( Product => Product.productGenre == cat && Product.productType == "Game");
+            if(cat == "All"){
+                return this.rightItems( Product => Product.productType == "Game");
+            }
+            return this.rightItems( Product => Product.productGenre.Contains(cat) && Product.productType == "Game");
         }
 
         [HttpGet("[action]/{cat}")]
         public Product[] Accessoires(string cat)
         {
-            return this.rightItems( Product => Product.productGenre == cat && Product.productType == "Accessoire");
+            if(cat == "All"){
+                return this.rightItems( Product => Product.productType == "Accessoire");
+            }
+            return this.rightItems( Product => Product.productGenre.Contains(cat) && Product.productType == "Accessoire");
         }
 
         [HttpGet("[action]/{cat}")]
         public Product[] Consoles(string cat)
         {
-            return this.rightItems( Product => Product.productGenre == cat && Product.productType == "Console");
+            if(cat == "All"){
+                return this.rightItems( Product => Product.productType == "Console");
+            }
+            return this.rightItems( Product => Product.consoleType.Contains(cat) && Product.productType == "Console");
         }
 
         //Shopping cart testing
@@ -69,6 +78,26 @@ namespace reactTwo.Controllers
             }
 
             return idList.ToArray();
+        }
+
+        [HttpGet("[action]/{searchTerm}")]
+        public Product[] Search(string searchTerm)
+        {
+            return this.rightItems( p => 
+                p.productNaam.ToLower().Contains(searchTerm.ToLower())          || 
+
+                p.productType.ToLower().Contains(searchTerm.ToLower())          ||
+
+                p.productGenre.ToLower().Contains(searchTerm.ToLower())         ||
+
+                p.productOntwikkelaar.ToLower().Contains(searchTerm.ToLower())  ||
+
+                p.productUitgever.ToLower().Contains(searchTerm.ToLower())      ||
+
+                p.consoleType.ToLower().Contains(searchTerm.ToLower())          ||
+
+                p.consoleType.ToLower().Contains(searchTerm.Trim().ToLower())
+            );
         }
 
         //Shopping cart testing
@@ -99,43 +128,65 @@ namespace reactTwo.Controllers
             return SingleProductList.ToArray();
         }
 
-        //Shopping cart testing
-        [HttpPost("Post")]
-        public void Post()
+        // //Shopping cart testing
+        // [HttpPost("Post")]
+        // public void Post()
+        // {
+        //     MailMessage mail = new MailMessage();
+        //     SmtpClient client = new SmtpClient();  
+
+        //     client.Port = 587;
+        //     client.EnableSsl = true;
+        //     client.Credentials = new System.Net.NetworkCredential("Dymos078", "superguy1");
+        //     client.Host = "smtp.gmail.com";
+
+        //     mail.To.Add("blablablie5@live.com");
+        //     mail.From = new MailAddress("normiesproject@gmail.com");
+        //     mail.Subject = "this is a test email.";
+        //     mail.Body = "this is my test email body";
+
+        //     client.Send(mail);
+        // }
+
+
+        [HttpPost("Change")]
+        public void Change()
         {
-            MailMessage mail = new MailMessage();
-            SmtpClient client = new SmtpClient();  
-
-            client.Port = 587;
-            client.EnableSsl = true;
-            client.Credentials = new System.Net.NetworkCredential("Dymos078", "superguy1");
-            client.Host = "smtp.gmail.com";
-
-            mail.To.Add("blablablie5@live.com");
-            mail.From = new MailAddress("normiesproject@gmail.com");
-            mail.Subject = "this is a test email.";
-            mail.Body = "this is my test email body";
-
-            client.Send(mail);
-
-            /*
-            Product p = new Product{
-                    ProductId = 504,
-                    productNaam = "Fifa 18",
-                    productUitgever = "EA_sports",
-                    productOmschr = "Scoor je weg naar de top en wordt het beste team in de wereld met Fifa 18!",
-                    aantalInVooraad = 25,
-                    productPrijs = 60.00m,
-                    productType = "Game",
-                    productOntwikkelaar = "EA_sports",
-                    productImg = "https://s.s-bol.com/imgbase0/imagebase3/large/FC/9/3/8/9/9200000031209839.jpg",
-                    productGenre = "Sport",
-                    consoleType = "PS4",
-            };
-
-            _context.Producten.Add(p);
+            foreach(Product p in _context.Producten){
+                if(p.productType == "Accessoire"       &&
+                p.productGenre == "Koptelefoon"){
+                    p.productGenre = "Headset";
+                }
+            }
+            
             _context.SaveChanges();
-            */
+        }
+        [HttpPost("Post")]
+        public IActionResult PostProduct([FromBody]Product product ){
+            var foundProduct = this._context.Producten.Find(product.ProductId);
+            foundProduct.productNaam = product.productNaam;
+            foundProduct.productUitgever = product.productUitgever;
+            foundProduct.productOmschr = product.productOmschr;
+            foundProduct.aantalInVooraad = product.aantalInVooraad;
+            foundProduct.productPrijs = product.productPrijs;
+            foundProduct.productType = product.productType;
+            foundProduct.productOntwikkelaar = product.productOntwikkelaar;
+            foundProduct.productImg = product.productImg;
+            foundProduct.productGenre = product.productGenre;
+            foundProduct.consoleType = product.consoleType;
+            this._context.SaveChanges();
+            return Ok(product);
         }
     }
 }
+        // public int ProductId { get; set; }
+        // public string productNaam { get; set; }
+        // public string productUitgever { get; set; }
+        // public string productOmschr { get; set; }
+        // public int aantalInVooraad { get; set; }
+        // public decimal productPrijs { get; set; }
+        // public string  productType { get; set; }
+        // public string productOntwikkelaar { get; set; }
+        // public string productImg { get; set; }
+        // public string productGenre { get; set; }
+        // public string consoleType { get; set; }

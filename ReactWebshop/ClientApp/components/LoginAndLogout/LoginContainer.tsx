@@ -22,7 +22,8 @@ export class LoginContainer extends React.Component<RouteComponentProps<{}>, Log
         this.CheckIfLoginIsCorrect = this.CheckIfLoginIsCorrect.bind(this);
         this.RegisterTheAccount = this.RegisterTheAccount.bind(this);
         this.state = {typedInUsername:"", typedInPassword:"", isRegisterButtonClick: false, userLoggedIn: false, loggedInUser: null}   
-        this.CreateLoggedInUser = this.CreateLoggedInUser.bind(this);    
+        this.CreateLoggedInUser = this.CreateLoggedInUser.bind(this);   
+        this.getDotAmount = this.getDotAmount.bind(this); 
     }
     //When the user types into one of the fields, the result is saved to the state
     HandleChangeToInputFields(event: any){         
@@ -56,35 +57,56 @@ export class LoginContainer extends React.Component<RouteComponentProps<{}>, Log
     CreateLoggedInUser(userAccount: Klant){
         var loggedInUser = User.CreateUser();
         loggedInUser.SetAccount(userAccount);
+        localStorage.setItem("currentklant", ( ( userAccount.klantId + 547 ) ).toString() )
         this.setState({userLoggedIn: true})
     }
     //When the user clicks the register button
     RegisterTheAccount(){
         this.setState({isRegisterButtonClick: true})
     }
+
+    getDotAmount(){
+        let retStr = "";
+        for(var x; x < this.RegisterTheAccount.length; x++){
+            retStr += "*"
+        }
+    }
+
     render(){
-        console.log("LOL")
         return(
             <div className={"Container"}>
-            
+
+            {User.IsUserLoggedIn()? <Redirect to="/"/> : null}
+
             <div> <h1> Log in </h1> </div>
+
             <form  onSubmit={this.CheckIfLoginIsCorrect} onChange={this.HandleChangeToInputFields}>
-            <div>
-                <label>
-                    <span>Gebruikersnaam:  </span>
-                      
-                <input type="text" name="username" value={this.state.typedInUsername} />               
-            </label>
+            <div className="container">
+            <div className="col-md-4">
+                <div className="input-group">
+                    <span className="input-group-addon"> <i className="glyphicon glyphicon-user"> </i> </span> 
+                    <input type="text" name="username" className="form-control" id="usr" value={this.state.typedInUsername}/>
+                </div>
+
+                <div className="input-group"> 
+                    <span className="input-group-addon"><i className="glyphicon glyphicon-lock"></i></span>
+                    <input type="password" name="password" className="form-control" id="pwd" value={this.state.typedInPassword}/>    
+                </div>
             </div>
-            <div>
-            <label>
-                <span> Wachtwoord:   </span>    
-                <input type="text" name="password"  value={this.state.typedInPassword} />             
-            </label>
             </div>
-            <input type="submit" value="Inloggen"  />
-            <button onClick={this.RegisterTheAccount}> Registeer </button>   
-            </form>       
+
+                <div className="input-group">
+                    <input className="btn" type="submit" value="Inloggen"  />
+                </div>
+
+                <div>
+                    Nog geen account? Registreer nu! 
+                <div>
+                <button className="btn btn-primary"><a className="ahref"href="/Registratie"> Registeer</a></button>
+                </div>
+                </div>
+            </form>
+
             <div>            
             </div>    
             {this.state.userLoggedIn ?

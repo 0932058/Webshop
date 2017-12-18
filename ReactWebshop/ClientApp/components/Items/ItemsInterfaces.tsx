@@ -1,10 +1,9 @@
-interface Wenslijst {
-    WenslijstId : number 
+export interface Wenslijst {
+    wenslijstId : number 
     productNmr : number 
-    toevoegDatum : Date 
-    KlantId : number 
+    klantId : number 
 }    
-interface Product {
+export interface Product {
     productId : number 
     productNaam : string
     productUitgever : string
@@ -18,7 +17,7 @@ interface Product {
     consoleType : string
 }
 
-interface Admin {
+export interface Admin {
     AdminId : number
     voorNaam : string
     achterNaam : string
@@ -27,7 +26,7 @@ interface Admin {
     functie : string
 }
 
-interface Bestelling {
+export interface Bestelling {
     BestellingId : number
     productId : number
     bestellingDatum : Date 
@@ -36,8 +35,20 @@ interface Bestelling {
     klantId : number
 }
 
-interface Betaling {
+export interface Betaling {
     BetalingId : number
     betalingsDatum : Date 
     bedrag : number
+}
+export interface Klant{
+    voornaam: string,
+    achternaam: string,
+    straatnaam: string,
+    straatnummer: string,
+    postcode: string,
+    email: string   
+}
+export interface KlantEnBestelling{
+    klant: Klant,
+    bestellingen: any[] //bestelling
 }

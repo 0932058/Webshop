@@ -3,7 +3,6 @@ import { Link, NavLink } from 'react-router-dom';
 import { RouteComponentProps } from 'react-router';
 import {List} from "linqts";
 import {AbstractStorage,StorageState} from "../ReusableComponents/Storage";
-import {WinkelMandComponent} from "./WinkelmandComponent";
 import {User} from "../../User/User";
 
 //Container for the winkelmand
@@ -11,47 +10,82 @@ import {User} from "../../User/User";
 export class Winkelmand extends AbstractStorage {
     constructor(){
         super();
-        this.state = {customerID: null, isShoppingCart:true, loaded:false, totalPrice: this.GetTotalPrice(), products: this.GetCartContent()}
-    }
-    /*
-    BuildComponents(){
-        var cart = this.GetCartContent()
-        if (cart == []){
-            return <div>
-                <h2>Uw winkelmand is leeg.</h2>
-            </div>
-        }
-        else{
-            var res;
-            cart.forEach(product =>{
-                res += 
-                <div className={"Component"}>
-                    <h1>{product.name}</h1>
-                    <img src={product.image}/>
-                    <div> 
-                        <h2> Naam: {product.name} </h2>
-                        <h2> Prijs: {"€" + product.price.toFixed(2)} </h2>
-                        <h2> <button onClick={() => this.RemoveItemFromStorage(product.index)}> Verwijderen </button> </h2>        
-                    </div>
-                </div>
-
-            });
-            return res
+        this.state = {
+            customerID: null, 
+            isShoppingCart:true, 
+            loaded:false, 
+            totalPrice: this.GetTotalPrice(), 
+            products: this.BuildItemStack(), 
+            ordered: false, 
+            formVoornaam: "",
+            formAchternaam: "",
+            formStraatnaam: "",
+            formStraatnummer: "",
+            formPostcode: "",
+            formEmail: "",
+            productdata: []
         }
     }
-    */    
+    BuildItemStack(){
+        var cart = this.GetCartContent();
+        var stacklist = [];
+        cart.forEach(cartproduct => {
+            var checkproduct = stacklist.find(stack => stack.product.id == cartproduct.id);
+            if (checkproduct == null){
+                var stack = {"product" : cartproduct, "amount" : 1};
+                stacklist.push(stack);
+            }
+            else{
+                stacklist.map(stack =>{
+                    if (stack.product.id == cartproduct.id){
+                        stack.amount += 1;
+                    }
+                });
+            }
+        })
+        return stacklist;
+    }
+    AddItemToStorage(product){
+        var itemlist = this.GetCartContent();
+        var newproduct = product;
+        newproduct.index = itemlist.length;
+        itemlist.push(newproduct);
+        localStorage.setItem("Winkelmand", JSON.stringify(itemlist));
+        this.setState({totalPrice: this.GetTotalPrice(), products: this.BuildItemStack()});
+    }
     RemoveItemFromStorage(id){
         var oldlist = [];
         var newlist = [];
-        oldlist = JSON.parse(localStorage.getItem("Winkelmand"));
-        oldlist.forEach(item =>{
-            if (item.index != id){
-                newlist.push(item);
+        oldlist = this.state.products;
+        oldlist.forEach(stack =>{
+            if (stack.product.id == id){
+                if (stack.amount > 1){
+                    stack.amount -= 1;
+                    newlist.push(stack);
+                }
             }
-        });
-        localStorage.setItem("Winkelmand" , JSON.stringify(newlist));
-        this.setState({totalPrice: this.GetTotalPrice(), products: this.GetCartContent()});
-
+            else{
+                newlist.push(stack);
+            }
+        })
+        var oldcart = [];
+        var newcart = [];
+        oldcart = this.GetCartContent();
+        var producttoremove = oldcart.find(product => product.id == id);
+        oldcart.forEach(product => {
+            if (product.index != producttoremove.index){
+                newcart.push(product);
+            }
+        })
+        var counter = 0
+        newcart.map(
+            product =>{
+                product.index = counter;
+                counter += 1;
+            }
+        )
+        localStorage.setItem("Winkelmand", JSON.stringify(newcart));
+        this.setState({totalPrice: this.GetTotalPrice(), products: newlist});
     }
     GetCartContent(){
         var cart = [];
@@ -77,58 +111,70 @@ export class Winkelmand extends AbstractStorage {
         }
     }
 
-    AddTestItemToStorage(){
-        var itemlist = this.state.products;
-        if (itemlist != null){
-            var item = {"name" : "Vidja", "id" : 1, "price": 60, "index" : itemlist.length, "console": "PoTatOS"};
-            itemlist.push(item)
-            localStorage.setItem("Winkelmand", JSON.stringify(itemlist));
-            this.setState({totalPrice: this.GetTotalPrice(), products: this.GetCartContent()});
-        }
-        else{
-            var item = {"name" : "Vidja", "id" : 1, "price": 60, "index" : 0, "console": "PoTatOS"};
-            itemlist = [item]
-            localStorage.setItem("Winkelmand", JSON.stringify(itemlist));
-            this.setState({totalPrice: this.GetTotalPrice(), products: this.GetCartContent()});
-        }
-        
-    }
-
     render() {
         return (
             
         <div className={"Container"}>
+            <div className='container'>
+                <div className='col-md-9'>
                 <h1>Winkelmand</h1>
+                </div>
+                <div className='col-md-3'>
+                <h4> Aantal producten: {this.GetCartContent().length}</h4>
+                <h4> Totaal prijs: €{this.state.totalPrice.toFixed(2)}</h4>
+                <NavLink  to={ '/afrekenen' } className="btn btn-primary">
+                   Afrekenen
+                </NavLink>
+                </div>
+            </div>
+
+                <div className="panel-heading"><h2>Producten</h2></div>
                 <div>
-                {
-                    this.state.products != []?
-                        this.state.products.map(
-                            product =>{
-                                return(
-                                    <div className={"Component"}>
-                                        <h1>{product.name}</h1>
-                                        <img src={product.image}/>
-                                        <div> 
-                                            <h2> Naam: {product.name} </h2>
-                                            <h2> Console: {product.console}</h2>
-                                            <h2> Prijs: {"€" + product.price.toFixed(2)} </h2>
-                                            <h2> <button onClick={() => this.RemoveItemFromStorage(product.index)}> Verwijderen </button> </h2>        
+                    { this.GetCartContent().length == 0?
+                    <div>
+                        <h4>Er staan geen artikelen in de winkelmand</h4>
+                        <NavLink to={"/"}>
+                            <button className="btn btn-primary">Verder winkelen</button>
+                        </NavLink>
+                    </div>
+                    :
+                    null}
+                {this.state.products.map(
+                    stack =>{
+                        return(
+                            <div className={"Component"}>
+                            <div className='container'>
+                                <div className="panel panel-default">    
+                                    <div className='col-md-2'>
+                                        <div className="panel-body"><img className="img-responsive" src={stack.product.image}/></div>
+                                    </div>
+                                    <div className='col-md-4'>
+                                        <p>{stack.product.name}</p>
+                                        <p>Naam: {stack.product.name}</p>
+                                        <p>Console: {stack.product.console}</p>
+                                        <p>Prijs: {"€" + (stack.product.price*stack.amount).toFixed(2)}</p>
+                                        </div>
+                                        <div className='col-md-4'>
+                                        <p>Aantal: 
+                                        <button className="btn btn-danger" onClick={() => this.RemoveItemFromStorage(stack.product.id)}> - </button>
+                                        {stack.amount}
+                                        <button className="btn btn-success" onClick={() => this.AddItemToStorage(stack.product)}> + </button>
+                                        </p>
                                         </div>
                                     </div>
-                                )
-                            }
+                                </div>
 
+                            </div>
                         )
-                        :
-                        <h2>Uw winkelmand is leeg</h2>
+                    }
+
+                )
                 }
+
+
                 </div>
-                <h2> Aantal producten: {this.state.products.length}</h2>
-                <h2> Totaal prijs: €{this.state.totalPrice.toFixed(2)}</h2>
-                <h2> <NavLink to={ '/afrekenen' }>
-                   Afrekenen
-                </NavLink> </h2>
-                <h2><button onClick={() => this.AddTestItemToStorage()}>Testitem toevoegen</button></h2>
+
+
         </div>
         )}
 }

@@ -13,39 +13,31 @@ namespace Controllers
 {
     //This is the default route of the API. 
     [Route("api/[controller]")]
-    public class UserController : Controller{
+    public class AdminController : Controller{
         private readonly normieContext _context;
-        public UserController(normieContext context){
+
+        public AdminController(normieContext context){
             this._context = context;
         }
-        //public static List<user> users = new List<user>();  
-        
-        // GET api/values
-        [HttpGet("Get")]
-        public IActionResult Get(){
-            return Ok(this._context.Klanten.ToArray());   
+
+        // Get all the products
+        [HttpGet("GetAllProducts")]
+        public Product[] GetAllProducts(){
+            return _context.Producten.ToArray();
         }
-        // GET api/values/5
-        [HttpGet("Get/{id}")]
-        public IActionResult Get(int id){
-            var foundUser = this._context.Klanten.Where(user => user.KlantId  == id).FirstOrDefault();
-            if(foundUser != null){
-                return Ok(foundUser);
-            }
-            else{
-                return NotFound(foundUser);
-            }
+
+        // Get all the users
+        [HttpGet("GetAllUsers")]
+        public Klant[] GetAllUsers(){
+            return _context.Klanten.ToArray();
         }
-        [HttpGet("Get/Username/{username}")]
-        public IActionResult Get(string username){
-            var foundUser = this._context.Klanten.Where(user => user.username == username).FirstOrDefault();
-            if(foundUser != null){
-                return Ok(foundUser);
-            }
-            else{
-                return NotFound(foundUser);
-            }
+
+        // Get all the order
+        [HttpGet("GetAllOrders")]
+        public Bestelling[] GetAllOrderrs(){
+            return _context.Bestellingen.ToArray();
         }
+
         // POST api/values
         [HttpPost("Post")]
         public void Post([FromBody]Klant user){
@@ -53,8 +45,9 @@ namespace Controllers
             this._context.Klanten.Add(user);
             this._context.SaveChanges();
             this.SendEmail(user);
-           
         }
+
+
         public void SendEmail(Klant user){
             var message = new MimeMessage();
             message.From.Add(new MailboxAddress("normiewebshop@stefanpesic.nl"));
@@ -83,12 +76,6 @@ namespace Controllers
         // PUT api/values/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] Klant user){
-        }
-
-        // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
         }
     }
 }

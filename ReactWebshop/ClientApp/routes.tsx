@@ -4,7 +4,7 @@ import * as React from 'react';
 import { Route } from 'react-router-dom';
 import { Layout } from './components/Layout';
 import {BestellingenContainer} from './components/Bestellingen/BestellingenContainer';
-import { WensLijstContainer } from './components/Storage/Wenslijst/WensLijstContainer';
+import { WenslijstContainer } from './components/Storage/Wenslijst/WensLijstContainer';
 import { Winkelmand } from './components/Storage/ShoppingCart/WinkelmandContainer';
 import { ProductPage } from './components/ProductPage/ProductPageContainer';
 import { ItemsContainer } from "./components/Items/ItemsContainer";
@@ -18,6 +18,7 @@ import {ProfileContainer} from "./components/Profile/ProfileContainer";
 import {LogoutContainer} from "./components/LoginAndLogout/LogoutContainer";
 import {RegistratieSuccesfullContainer} from "./components/Registratie/RegistratieSuccesfullContainer";
 import {Afrekenen} from "./components/Afrekenen/AfrekenContainer";
+import {AdminContainer} from "./components/AdminProfile/AdminContainer";
 
 export var routes = <Layout>
     <Route exact path={"/"} component={ItemsContainer} />
@@ -25,19 +26,21 @@ export var routes = <Layout>
     <Route path ={"/Profile"} component={ProfileContainer}/>
     <Route path={"/Profile/Gegevens"} component={GegevensContainer} />
 
+    <Route path ={"/Admin"} component={AdminContainer}/>
+
     <Route path={"/Registratie"} component={RegistratieContainer} />
     <Route path={"/Registratiesuccessfull"} component={RegistratieSuccesfullContainer} />
 
     <Route path={"/Login"} component={LoginContainer} />
     <Route path ={"/Logout"} component={LogoutContainer}/>
     
-    <Route path='/Wenslijst' component={ WensLijstContainer } />
+    <Route path='/Wenslijst' component={ WenslijstContainer } />
     <Route path='/Winkelmand' component={ Winkelmand } />
     <Route path='/Afrekenen' component={Afrekenen} />
 
     <Route path='/Bestellingen' component={ BestellingenContainer } />
 
-    <Route path="/Search" component={ ItemsContainer }/>
+    <Route path="/Search/:searchQuery" component={ ItemsContainer }/>
 
     <Route path="/Games/All"  component={ItemsContainer}/>
     <Route path="/Games/Action"  component={ItemsContainer}/>
@@ -53,8 +56,8 @@ export var routes = <Layout>
     <Route path="/Consoles/Playstation3"  component={ItemsContainer}/>
     <Route path="/Consoles/Playstation4"  component={ItemsContainer}/>
 
-    <Route path="/Accessoires/All"  component={ItemsContainer}/>
-    <Route path="/Accessoires/Headsets"  component={ItemsContainer}/>
-    <Route path="/Accessoires/Racewheels"  component={ItemsContainer}/>
+    <Route path="/Accessoires/All" component={ItemsContainer}/>
+    <Route path="/Accessoires/Headset" component={ItemsContainer}/>
+    <Route path="/Accessoires/Racewheel" component={ItemsContainer}/>
     
 </Layout>;

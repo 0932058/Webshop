@@ -3,24 +3,52 @@ import { RouteComponentProps } from 'react-router';
 import {List} from "linqts";
 import {AbstractStorage,StorageState} from "../Storage/ReusableComponents/Storage";
 import {User} from "../User/User";
+import { Redirect } from 'react-router';
+import { Link, NavLink } from 'react-router-dom';
+import 'bootstrap';
+import {Bestelling, Klant, KlantEnBestelling} from "../Items/ItemsInterfaces";
+import { Product } from 'ClientApp/components/Items/ItemsInterfaces';
 
 //Container voor afrekenmenu
-
 export class Afrekenen extends AbstractStorage {
     constructor(){
         super();    
         //Gets the pk of the logged in user
         var loggedInUserPK = User.IsUserLoggedIn? User.GetPK() : 0;
-        this.state = {products: this.GetCartData(),customerID: loggedInUserPK, isShoppingCart:true, loaded:false, totalPrice: this.CalcPrice()};
+        this.state = { 
+            products: this.GetCartData(), 
+            customerID: loggedInUserPK, 
+            isShoppingCart:true, 
+            loaded:false, 
+            totalPrice: this.CalcPrice(),
+            ordered: false,
+            formVoornaam: "",
+            formAchternaam: "",
+            formStraatnaam: "",
+            formStraatnummer: "",
+            formPostcode: "",
+            formEmail: "",
+            productdata: []
+        };
+
         this.EmptyShoppingCart = this.EmptyShoppingCart.bind(this);
         this.GetCartData = this.GetCartData.bind(this);
         this.PostOrderToDatabase = this.PostOrderToDatabase.bind(this);
         this.FinalizeOrder = this.FinalizeOrder.bind(this);
+        this.SendBestellingenEmail = this.SendBestellingenEmail.bind(this);
     }
-    async PostOrderToDatabase(klantId, productId){
-        let apiUrl = 'api/Bestelling/Post'
-        let apiResponse = await fetch(apiUrl, {method: 'POST', body: JSON.stringify({klant: klantId,product: productId}) , headers: new Headers({'content-type' : 'application/json'})});
-    }
+    async PostOrderToDatabase(klantId, id){
+        let apiUrl = 'api/Bestellingen/Post'
+        let orderToPost: Bestelling = {
+            BestellingId: 0, 
+            klantId: klantId,
+            productId: id,
+            bestellingDatum: new Date(),
+            verstuurDatum: new Date(),
+            status: 'In behandeling'
+        }
+        let apiResponse = await fetch(apiUrl, {method: 'POST', body:JSON.stringify(orderToPost), headers: new Headers({'content-type' : 'application/json'})});
+        }
     GetCartData(){
         var shoppingCartData = [];
         shoppingCartData = JSON.parse(localStorage.getItem("Winkelmand"));
@@ -34,9 +62,7 @@ export class Afrekenen extends AbstractStorage {
     }
     EmptyShoppingCart(){
         localStorage.removeItem("Winkelmand");
-        this.setState({products: this.GetCartData(), totalPrice: this.CalcPrice()});
-        alert("Uw bestelling is geplaatst.")
-   
+        this.setState({products: this.GetCartData(), totalPrice: this.CalcPrice(), ordered: true});
     }
     CalcPrice(){
         var totalPrice = 0;
@@ -50,17 +76,43 @@ export class Afrekenen extends AbstractStorage {
     }
     FinalizeOrder(){
         var CartItems = this.GetCartData();
+        this.SendBestellingenEmail(CartItems);
         CartItems.forEach(item => {
             if (User.IsUserLoggedIn()){
-                this.PostOrderToDatabase(User.GetPK,item.productId)
+                this.PostOrderToDatabase(User.GetPK(),item.id)
             }
         });
         this.EmptyShoppingCart();
-        alert("Bestelling geplaatst");
+    }
+    async SendBestellingenEmail(bestellingen){
+        if(User.IsUserLoggedIn()){
+            var klant: Klant = {
+                voornaam: User.GetFirstname(),
+                achternaam: User.GetLastname(),
+                straatnaam: User.GetStreetname(),
+                straatnummer: User.GetStreetnumber(),
+                postcode: User.getPostcode(),
+                email: User.GetEmail()}        
+        }
+        else{
+            var klant: Klant = {
+                voornaam: this.state.formVoornaam,
+                achternaam: this.state.formAchternaam,
+                straatnaam: this.state.formStraatnaam,
+                straatnummer: this.state.formStraatnummer,
+                postcode: this.state.formPostcode,
+                email: this.state.formEmail}
+        }
+        var klantEnBestelling: KlantEnBestelling = {
+            klant: klant,
+            bestellingen: bestellingen}
+        var apiUrl = "api/Bestellingen/Post/Mail/"
+        let apiResponse = await fetch(apiUrl, {method: 'POST', body: JSON.stringify(klantEnBestelling), headers: new Headers({'content-type' : 'application/json'})});
+
     }
 
     render() {
-        if (User.IsUserLoggedIn() == true) {
+        if (User.IsUserLoggedIn() == true && this.state.ordered == false) {
             return (
                 <div className={"Container"}>
                 <h1>Afrekenen</h1>
@@ -79,23 +131,86 @@ export class Afrekenen extends AbstractStorage {
                     </li>
                 </ul>
                 <p> Total Price: €{this.state.totalPrice}</p>
-                <p> <button onClick={this.EmptyShoppingCart}> Bestellen </button> </p>
+                
+                <p> <button onClick={this.FinalizeOrder} > Bestellen </button> </p>
+
+                </div>
+            )
+        }
+        else if (this.state.ordered == true){
+            return (
+                <div className={"Container"}>
+                    <div className="alert alert-success">
+                        <strong>Bestelling successvol afgerond!</strong> De bestelling wordt verwerkt
+                    </div>
+                    <h3>U ontvangt een email ter bevestiging</h3>
+                    <NavLink to={ '/' } exact activeClassName='active' className='LinksNav'>
+                        <button className="btn btn-primary">Home</button>
+                    </NavLink>
                 </div>
             )
         }
         else
             {return (
-                <div className={"Container"}>
-                <h1>Afrekenen</h1>\
+                <div className="Container col-md-6">
+                <h1>Afrekenen</h1>
                 <p>Adres voor bezorging en incasso.</p>
-                <form>
-                    <li><input placeholder="voornaam" type="text" name="firstname" /> </li>
-                    <li><input placeholder="achternaam" type="text" name="lastname" /> </li>
-                    <li><input placeholder='straatnaam' type="text" name="streetname" /> </li>
-                    <li><input placeholder="postcode" type="text" name="postcode" /> </li> 
-                </form>
+                <ul>
+                <form action="/action_page.php" onSubmit={this.FinalizeOrder} >
+                    <div className="row">
+                        <div className="col-md-6">
+                            <p>Voornaam*</p>
+                            <input required placeholder="voornaam"  pattern="[a-z]{1,15}" title="voornaam moet bestaan uit 1 tot en met 15 letters"
+                            type="text" name="firstname" className="form-control"  onChange={(event: any) => {this.setState({formVoornaam: event.target.value})}} />
+                        </div>
+                        <div className="col-md-6">
+                            <p>Achternaam*</p>
+                            <input required placeholder="achternaam" pattern="[a-z]{1,30}" title="achternaam moet bestaan uit 1 tot 30 letters" 
+                            type="text" name="lastname" className="form-control"  onChange={(event: any) => {this.setState({formAchternaam: event.target.value})}} />
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col-md-6">
+                            <p>Straatnaam*</p>
+                            <input required placeholder='straatnaam' pattern="([a-zA-Z]).{2,30}([0-9]).{0,3}" title="vul een juist adres in"
+                            type="text" name="streetname"className="form-control" onChange={(event: any) => {this.setState({formStraatnaam: event.target.value})}}  />
+                        </div>
+                        <div className="col-md-3">
+                            <p>Straatnummer*</p>
+                                <input placeholder='bijv. 66' pattern="[0-9]{0,3}" 
+                                type="number" name="streetnumber" className="form-control" onChange={(event: any) => {this.setState({formStraatnummer: event.target.value})}} />
+                            </div>
+                        <div className="col-md-3">
+                            <p>Toevoeging</p>
+                                <input placeholder="bijv. 'b'" pattern="[a-z]{1}"
+                                type="text" name="numberaddition" className="form-control"/>
+                            </div>
+                        </div>
+                    <div className="row">
+                        <div className="col-md-6">
+                            <p>Postcode*</p>
+                            <input required placeholder="postcode" pattern="([0-9]){4}([A-Z]){2}" title="postcode moet uit 4 cijfers en 2 letters bestaan" 
+                            type="text" name="postcode"className="form-control"  onChange={(event: any) => {this.setState({formPostcode: event.target.value})}} />
+                        </div>
+                        <div className="col-md-6">
+                            <p>Telefoonnummer*</p>
+                            <input placeholder="telefoonnummer" pattern="[0-9]{1,30}" title="Telefoonnummer moet alleen uit cijfers bestaan"
+                            type="tel" name="phonenumber" className="form-control" required={true} />
+                        </div>
+                    </div>
+                    <div>
+                        <p>Email*</p>
+                        <input required placeholder="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+[.]+[a-z]{2,3}$" 
+                        title='zorg dat het een juist email is vb. characters@characters.domain'
+                        type="text" name="email"className="form-control" onChange={(event: any) => {this.setState({formEmail: event.target.value})}}/>
+                    </div>
+                    <h6>
+                        <strong>Velden met * zijn verplicht!</strong>
+                    </h6>
+                    <input className="btn btn-success"placeholder="Afrekenen" type="submit" value="Bestellen"/>
+                    </form>
+                    </ul>            
                 <p> Total Price: €{this.state.totalPrice}</p>
-                <p> <button onClick={this.EmptyShoppingCart}> Bestellen </button> </p>
                 </div>
             )
         }

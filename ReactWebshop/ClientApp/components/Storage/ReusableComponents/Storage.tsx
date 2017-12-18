@@ -11,6 +11,15 @@ export interface StorageState{
     loaded: boolean
     totalPrice: number;
     products: any[];
+    ordered: boolean;
+    formVoornaam:string;
+    formAchternaam:string;
+    formStraatnaam:string;
+    formStraatnummer:string;
+    formPostcode: string;
+    formEmail: string;
+    productdata: any[];
+
 }
  export abstract class AbstractStorage  extends React.Component<RouteComponentProps<{}>, StorageState> {
     constructor(){

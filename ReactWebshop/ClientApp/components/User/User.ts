@@ -13,6 +13,7 @@ export class User{
     private static username:string;
     private static password: string;
     private static streetname: string;
+    private static streetnumber: string;
     private static postcode: string;
     private static wishListFK: number;
     private static shoppingCartFK: number;
@@ -33,17 +34,39 @@ export class User{
     public static IsUserLoggedIn() : boolean{
         return User.isLoggedIn;
     }
+    public static getStorageId() : number{
+        let locId = Number(localStorage.getItem("currentklant"))
+        if(locId === 0){
+            return locId
+        }
+
+        locId = locId - 547
+
+        return  locId
+    }
+
+    public static putStorageId(id : number) : void {
+        let locId = Number(localStorage.getItem("currentklant"))
+        
+        locId = locId - 547
+        
+        locId = locId * 0.0001 
+        
+        localStorage.setItem("currentklant", locId.toString())
+    }
+
     //When the user logs the data
     //Come into this method and then the user gets created
     public SetAccount(account: Klant){
         User.isLoggedIn = true;
-        User.pk = account.KlantId;
+        User.pk = account.klantId;
         User.firstName = account.klantNaam;
         User.lastName = account.klantAchternaam;
         User.email = account.klantMail;
-        User.username = account.username
+        User.username = account.username;
         User.password = account.password;
         User.streetname = account.klantStraat;
+        User.streetnumber = account.klantStraatnmr;
         User.postcode = account.klantPostcode;
 
     }
@@ -71,6 +94,9 @@ export class User{
     }
     public static GetStreetname(){
         return User.streetname;
+    }
+    public static GetStreetnumber(){
+        return User.streetnumber;
     }
     public static getPostcode(){
         return User.postcode;

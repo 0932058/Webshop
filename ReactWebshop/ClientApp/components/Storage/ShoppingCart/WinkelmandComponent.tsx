@@ -1,4 +1,4 @@
-import * as React from 'react';
+/*import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
 
 
@@ -38,4 +38,4 @@ export class WinkelMandComponent extends React.Component<WinkelmandProps, {}> {
                     </div>                
     }
 }
-export default WinkelMandComponent;
+export default WinkelMandComponent;*/

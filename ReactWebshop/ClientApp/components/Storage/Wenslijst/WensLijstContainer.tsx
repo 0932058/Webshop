@@ -1,27 +1,139 @@
 import * as React from 'react';
-import { RouteComponentProps } from 'react-router';
+import { RouteComponentProps } from "react-router";
+import Img from "react-image";
 import {List} from "linqts";
-import {AbstractStorage,StorageState} from "../ReusableComponents/Storage";
-import {WensLijstComponent} from "./WensLijstComponent";
 import {User} from "../../User/User";
+import { Link, NavLink } from 'react-router-dom';
+import {AbstractStorage,StorageState} from "../ReusableComponents/Storage";
+import { Product, Wenslijst } from "ClientApp/components/Items/ItemsInterfaces";
 
-export class WensLijstContainer extends AbstractStorage {
+export class WenslijstContainer extends AbstractStorage {
     constructor(){
-        super();    
-        var loggedInUserPK = User.IsUserLoggedIn? User.GetPK() : 0
-        this.state = {products: null,customerID: loggedInUserPK, isShoppingCart:true, loaded:false, totalPrice: 0}
+        super();
+        //If the user is logged in, it gets the PK of the logged in user and adds it to the state;
+        this.state = {
+            customerID: User.getStorageId(), 
+            isShoppingCart:false, 
+            loaded:false, 
+            products: [], 
+            totalPrice: 0, 
+            ordered: true,
+            formVoornaam: "",
+            formAchternaam: "",
+            formStraatnaam: "",
+            formStraatnummer:"",
+            formPostcode: "",
+            formEmail: "",
+            productdata: []}
+
+    }
+    GetWishlist(){
+        console.log(this.state.customerID)
+        fetch('api/Wenslijsten/Get/' + this.state.customerID)
+        .then(response => response.json() as Promise<Wenslijst[]>)
+        .then(data =>{
+           console.log("GetWishlist geeft " + data[0]);
+           this.setState({products: data})
+        });
+        
+    }
+    FetchProductData(){
+        this.state.products.forEach(order => {
+            fetch('api/Items/Item/' + order.productNmr)
+            .then(response => response.json() as Promise<Product[]>)
+            .then(data => {
+                var datastorage = [];
+                datastorage = this.state.productdata;
+                var dataset = { "Naam" : data[0].productNaam, "Prijs":data[0].productPrijs, "Console" :data[0].consoleType, "Genre" :data[0].productGenre, "Image" : data[0].productImg, "Id" : order.productNmr};
+                datastorage.push(dataset);
+                this.setState({productdata: datastorage, loaded: true});
+            });
+        })
+        
+    }
+    GetProductDataFromState(id){
+        if (this.state.loaded != true){
+        this.FetchProductData();
+        }
+        var datastorage = [];
+        function idmatch(item){
+            return item.Id == id;
+        }
+        datastorage = this.state.productdata;
+        var res = datastorage.find(idmatch);
+        return res;
+    }
+    CheckLogin(){
+        if (this.state.customerID == 0)
+        {
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
+    async DeleteItem(item){
+        let apiUrl = 'api/Wenslijsten/Delete';
+        let apiResponse = await fetch(apiUrl, {method: 'Delete',body: JSON.stringify(item) , headers: new Headers({'content-type' : 'application/json'})});
+        console.log("WenslijstItem met id " + item.productNmr + " zou verwijderd moeten zijn")
+        this.GetWishlist();
+        this.FetchProductData();
+    }
+    componentDidMount(){
+        this.GetWishlist();
     }
     render() {
         return (
+            
         <div className={"Container"}>
-            <h1>Wenslijst</h1>
-            {this.state.products.map((storageProduct,index) =>
-            <WensLijstComponent key={index} WenslijstProduct={storageProduct} RemoveItemFromStorage={null}/>)  
-            }
-            <h1> Total items: {this.state.products.length}</h1>
-            <h1> Total Price: €{this.state.totalPrice.toFixed(2)}</h1>
-            <h1> <button> Finalize order </button> </h1>
-            </div>          
-        )}
-}
-export default WensLijstContainer;
+            <div className='container'>
+                <div className='col-md-9'>
+                <h1>Uw wenslijst</h1>
+            </div>
+            </div>
+                <div>
+                {this.state.products.map(
+                    listitem =>{
+                        var data = this.GetProductDataFromState(listitem.productNmr);
+                        return(
+                            <div className={"Component"}>
+                                <div className='container'>
+                                    <div className="panel panel-default">
+                                        <div className="panel-body">
+                                                <div className='col-md-2'>
+                                                    <img className="img-responsive" src={data.Image}/>
+                                            </div>
+                                            <div className='col-md-2'>
+                                                <p><b>{data.Naam}</b></p>
+                                                <p>Naam: {data.Naam}</p>
+                                                <p>Genre: {data.Genre}</p>
+                                                <p>Console: {data.Console}</p>
+                                                <p>Prijs: €{data.Prijs}</p>
+                                            </div>
+                                            <div className="col-md-4">
+                                                <NavLink to={ '/Item/' + listitem.productNmr } exact activeClassName='Active'className='button_to_product'>
+                                                    <button className={"btn btn-primary"} > naar product </button>
+                                                </NavLink>
+                                                <p></p>
+                                                <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#myModalM" onClick={() => this.DeleteItem(listitem)}>Verwijderen</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        )
+                    }
+
+                )
+                
+                }
+
+
+                </div>
+
+
+        </div>
+        );
+    }
+}           
+export default WenslijstContainer;

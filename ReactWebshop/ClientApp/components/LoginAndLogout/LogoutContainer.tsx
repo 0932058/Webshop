@@ -25,6 +25,8 @@ export class LogoutContainer extends React.Component<RouteComponentProps<{}>, Lo
         if(User.IsUserLoggedIn()){
             return Promise.reject("Something went wrong with logging out")      
         }
+        localStorage.setItem("currentklant", "0")
+        console.log(localStorage.getItem("currentklant"))
         return Promise.resolve();    
     }  
     render(){  
