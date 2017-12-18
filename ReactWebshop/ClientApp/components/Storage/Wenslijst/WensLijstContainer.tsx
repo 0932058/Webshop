@@ -117,20 +117,6 @@ export class WenslijstContainer extends AbstractStorage {
                                                 <p></p>
 
                                                 <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#myModalM" onClick={() => this.DeleteItem(listitem.wenslijstId)}>Verwijderen</button>
-                                                <div className="modal fade" id="myModalM" role="dialog">
-                                                    <div className="modal-dialog modal-sm">
-                                                        <div className="modal-content">
-                                                            <div className="modal-header">
-                                                                <button type="button" className="close" data-dismiss="modal">&times;</button>
-                                                                <h4 className="modal-title">Product is verwijderd!</h4>
-                                                            </div>
-                                                            <div className="modal-body">
-                                                                <p>het door u gekozen item is succesvol van de wenslijst verwijderd</p>
-                                                                <button type="button" className="btn btn-default" data-dismiss="modal" data-backdrop="false">Ok</button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
                                             </div>
                                         </div>
                                     </div>
