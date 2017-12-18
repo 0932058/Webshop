@@ -15,6 +15,7 @@ export interface StorageState{
     formVoornaam:string;
     formAchternaam:string;
     formStraatnaam:string;
+    formStraatnummer:string;
     formPostcode: string;
     formEmail: string;
     productdata: any[];

@@ -94,7 +94,7 @@ export class RegistratieContainer extends React.Component<RouteComponentProps<{}
                         <p>Telefoonnummer*</p>
                         <input placeholder="telefoonnummer" pattern="[0-9]{1,30}"
                         title="Telefoonnummer moet alleen uit cijfers bestaan"
-                        type="tel" name="phonenumber" className="form-control"  value={this.state.phonenumber} required={true}
+                        type="tel" name="phonenumber" className="form-control" required={true}
                         onChange={(e:any) => this.setState({phonenumber: e.target.value})}
                          />
                         </div>
@@ -152,7 +152,9 @@ export class RegistratieContainer extends React.Component<RouteComponentProps<{}
                         </div>
                     </div>
                     <div className="col-md-offset-4">
-                    <h6>velden met * zijn verplicht!</h6>
+                    <h6>
+                        <strong>Velden met * zijn verplicht!</strong>
+                    </h6>
                     </div>
                     <button className="btn btn-primary col-md-offset-4" placeholder="Registreer" type="submit" value="Registreer">    
                         Registreer  

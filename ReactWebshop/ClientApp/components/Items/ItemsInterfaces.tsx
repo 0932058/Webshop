@@ -44,6 +44,7 @@ export interface Klant{
     voornaam: string,
     achternaam: string,
     straatnaam: string,
+    straatnummer: string,
     postcode: string,
     email: string   
 }

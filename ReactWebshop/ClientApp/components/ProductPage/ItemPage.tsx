@@ -72,11 +72,30 @@ export class ItemPage extends React.Component<RouteComponentProps<{}>, ItemPageS
                             <img className="img-responsive" src={ this.state.product.productImg }/> 
                             <h2>
                                     {User.IsUserLoggedIn() ?
-                                <button className="btn btn-primary" onClick={this.AddProductToWishList}> Toevoegen aan wenslijst</button>
+                                <div>
+                                    <button className="btn btn-primary" onClick={this.AddProductToWishList} data-toggle="modal" data-target="#myModalWIngelogd">
+                                    Toevoegen aan wenslijst
+                                    </button>
+                                    <div className="modal fade" id="myModalWIngelogd" role="dialog">
+                                    <div className="modal-dialog modal-sm">
+                                    <div className="modal-content">
+                                    <div className="modal-header">
+                                    <button type="button" className="close" data-dismiss="modal">&times;</button>
+                                    <h4 className="modal-title">Product is toevoegd!</h4>
+                                    </div>
+                                    <div className="modal-body">
+                                    <h5>het door u gekozen item is succesvol toegevoegd aan de wenslijst</h5>
+                                    <button type="button" className="btn btn-default" data-dismiss="modal" data-backdrop="false">Terug</button>
+                                    <a href='/Wenslijst'><button type="button" className="btn btn-default" data-backdrop="false" >Naar wenslijst</button></a>
+                                    </div>
+                                </div>
+                                </div>
+                                </div>
+                                </div>
                                     :
                                 <div>
-                                <button className="btn btn-danger"  data-toggle="modal" data-target="#myModalW"> Toevoegen aan wenslijst </button>
-                                <div className="modal fade" id="myModalW" role="dialog">
+                                <button className="btn btn-danger"  data-toggle="modal" data-target="#myModalWUitgelogd"> Toevoegen aan wenslijst </button>
+                                <div className="modal fade" id="myModalWUitgelogd" role="dialog">
                                 <div className="modal-dialog modal-sm">
                                 <div className="modal-content">
                                     <div className="modal-header">
@@ -86,6 +105,7 @@ export class ItemPage extends React.Component<RouteComponentProps<{}>, ItemPageS
                                     <div className="modal-body">
                                     <h4>Je moet ingelogd zijn om de wenslijst te kunnen gebruiken!</h4>
                                     <button type="button" className="btn btn-default" data-dismiss="modal" data-backdrop="false">Terug</button>
+                                    <a href='/Winkelmand'><button type="button" className="btn btn-default" data-backdrop="false" >naar winkelmand</button></a>
                                     </div>
                                 </div>
                                 </div>

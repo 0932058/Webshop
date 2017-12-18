@@ -213,6 +213,7 @@ const topBar = (
                     <li><NavLink to={"/Accessoires/Racewheel"}>Race-Wheels</NavLink></li>
                     </ul>
                 </li>
+                
                 <form className="navbar-form navbar-right" action={"/Search/" + this.state.search} onSubmit={ this.handleSubmit }>
                 <div className="input-group">
                   <input type="text" className="form-control" placeholder="Zoek naar product" value={this.state.search} onChange={this.handleChange}/>
