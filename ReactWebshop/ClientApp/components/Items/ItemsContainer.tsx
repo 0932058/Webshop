@@ -69,14 +69,15 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
 
     filterItems(){
         //we copy the items list
-        let splicedList = this.state.filteredItems
         let newFilteredList : Product[] = [];
+        let correctFilter = 0;
 
-        for(let product of splicedList){
+        for(let product of this.state.items){
+            correctFilter = 0;
+            console.log(this.state.filters.length + " aantal filters")
 
             for(let filter of this.state.filters){
                 
-
                 let popProduct : boolean = false
 
                 if(product.consoleType.includes(filter)){
@@ -90,13 +91,21 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
                 if(product.productOntwikkelaar.includes(filter)){
                     popProduct = true
                 }
-                    
+
                 if(popProduct){
-                    console.log(product.productNaam + " zit in lijst" )
+                    correctFilter++
+                }  
+
+                console.log(correctFilter + " " + this.state.filters.length)
+                    
+                if(correctFilter === this.state.filters.length){
+                    console.log(product.productNaam + " in de nieuwe lijst")
                     newFilteredList.push(product);
                 }   
             }
         }
+
+        console.log("____")
 
         this.setState({
             filteredItems : newFilteredList
@@ -106,30 +115,42 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
 
     selectFilter(event){
         //if the filter is already in the filter list, pop it out, if the filter list is empty, make the filtered items equal to items, we never change this.state.items
-        let filters = this.state.filters
+        let filters : string[] = this.state.filters
+        let newfilters = [];
+        let popOut = false;
+        let popOutFilter = "";
+
         for(let filter of this.state.filters){
             if(filter === event.target.value){
 
-                console.log(filter + " " + "eruit gegooid")
-
-                filters.splice(filters.indexOf(filter), 1)
-                this.setState({
-                    filters
-                })
-
-                this.filterItems()
-
-                if(this.state.filters.length === 0){
-                    console.log("items zijn nu heel")
-                    let allItems : Product[] = this.state.items
-                    this.setState({
-                        filteredItems : allItems
-                    })
-                }
-                return;
+                popOut = true;
+                popOutFilter = filter;
             }
         }
 
+        if(popOut){
+
+            console.log(popOutFilter + " " + "eruit gegooid")
+            
+            filters.splice(filters.indexOf(popOutFilter), 1)
+
+            this.setState({
+                filters
+            })
+
+            this.filterItems()
+
+            if(this.state.filters.length === 0){
+                console.log("items zijn nu heel")
+                this.setState({
+                    filteredItems : this.state.items
+                })
+            }
+            return;
+        }
+        
+
+        console.log(event.target.value + " in de filter list")
         filters.push(event.target.value)
 
         this.setState({
@@ -205,6 +226,7 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
                         </div>
                     </div>
         
+                    {this.props.location.pathname.toString().includes("Games")?
                     <div className="panel panel-default">
                         <div data-toggle="collapse" href="#collapse1" className="panel-heading">
                             <h4  className="panel-title">
@@ -319,6 +341,9 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
                 </div>
             </div>
         </div>
+        :
+        null}
+                    {this.props.location.pathname.toString().includes("Games")?
                     <div className="panel panel-default">
                         <div data-toggle="collapse" href="#collapse3" className="panel-heading">
                             <h4 className="panel-title">
@@ -493,6 +518,9 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
                             </div>
                         </div>
                     </div>
+                    :
+                    null
+                    }
                 </div>
             </div>
         )
