@@ -160,19 +160,19 @@ export class Afrekenen extends AbstractStorage {
                     <div className="row">
                         <div className="col-md-6">
                             <p>Voornaam*</p>
-                            <input required placeholder="voornaam"  pattern="[a-z]{1,15}" title="voornaam moet bestaan uit 1 tot en met 15 letters"
+                            <input required placeholder="voornaam"  pattern="[a-zA-Z]{1,15}" title="voornaam moet bestaan uit 1 tot en met 15 letters"
                             type="text" name="firstname" className="form-control"  onChange={(event: any) => {this.setState({formVoornaam: event.target.value})}} />
                         </div>
                         <div className="col-md-6">
                             <p>Achternaam*</p>
-                            <input required placeholder="achternaam" pattern="[a-z]{1,30}" title="achternaam moet bestaan uit 1 tot 30 letters" 
+                            <input required placeholder="achternaam" pattern="[a-z A-Z /s]{1,30}" title="achternaam moet bestaan uit 1 tot 30 letters" 
                             type="text" name="lastname" className="form-control"  onChange={(event: any) => {this.setState({formAchternaam: event.target.value})}} />
                         </div>
                     </div>
                     <div className="row">
                         <div className="col-md-6">
                             <p>Straatnaam*</p>
-                            <input required placeholder='straatnaam' pattern="([a-zA-Z]).{2,30}([0-9]).{0,3}" title="vul een juist adres in"
+                            <input required placeholder='straatnaam' pattern="([a-zA-Z]).{2,30}" title="vul een juist adres in"
                             type="text" name="streetname"className="form-control" onChange={(event: any) => {this.setState({formStraatnaam: event.target.value})}}  />
                         </div>
                         <div className="col-md-3">
@@ -189,7 +189,7 @@ export class Afrekenen extends AbstractStorage {
                     <div className="row">
                         <div className="col-md-6">
                             <p>Postcode*</p>
-                            <input required placeholder="postcode" pattern="([0-9]){4}([A-Z]){2}" title="postcode moet uit 4 cijfers en 2 letters bestaan" 
+                            <input required placeholder="postcode" pattern="([0-9]){4}+/s([A-Z]){2}" title="postcode moet uit 4 cijfers en 2 letters bestaan" 
                             type="text" name="postcode"className="form-control"  onChange={(event: any) => {this.setState({formPostcode: event.target.value})}} />
                         </div>
                         <div className="col-md-6">
