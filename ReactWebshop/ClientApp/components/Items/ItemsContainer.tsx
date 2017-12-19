@@ -535,24 +535,25 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
             
             <div/>
             }
-            <div className='container'>
+            <div className='container border border-dark'>
                 <div className='col-md-2'>
                     {ZijFilter}
                 </div>
                 <div className='col-md-1'>
 
             
-            <div  className={"ItemsContainerScroll"}>
+            <div  className={"ItemsContainerScroll "}>
                 {this.state.loaded? 
 
-                    this.state.filteredItems.map(
+                    <div className='container ' id='maingame'>                
+
+                    {this.state.filteredItems.map(
                         
                         item => {
 
                             return (
-                                <div className={"Component"}>
-                                    <div className='container' id='maingame'>
-                                        <div className='col-md-2'>
+                                <div className='col-md-5'>
+                                        <div className='col-md-6'>
                                             <NavLink to={'/Item/'+ item.productId}><img className="img-responsive" src={ item.productImg }/></NavLink>
                                         </div>
                                         <div className='col-md-2'>
@@ -565,11 +566,14 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
                                             </NavLink>
 
                                         </div>
-                                    </div>
-                                </div> 
+                                </div>
+                                    
                             )
                         }
-                    )
+                    )}
+
+                    </div>
+                    
                     :
                     <div className="sk-fading-circle">
                         <div className="sk-circle1 sk-circle"></div>
