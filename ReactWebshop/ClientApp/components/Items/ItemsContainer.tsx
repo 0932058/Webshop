@@ -545,7 +545,7 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
             <div  className={"ItemsContainerScroll "}>
                 {this.state.loaded? 
 
-                    <div className='container-fluid' id='maingame'>                
+                    <div className='container' id='maingame'>                
 
                     {this.state.filteredItems.map(
                         
