@@ -49,11 +49,26 @@ namespace Controllers
         // POST api/values
         [HttpPost("Post")]
         public void Post([FromBody]Klant user){
-            user.KlantId = this._context.Klanten.Count() + 1;
+            int possiblePK = 1;
+            while(this._context.Klanten.Find(possiblePK) != null){
+                possiblePK += 1;
+            }
+            user.KlantId = possiblePK;
             this._context.Klanten.Add(user);
             this._context.SaveChanges();
             this.SendEmail(user);
            
+        }
+        [HttpPut]
+        public void Put([FromBody] Klant user){
+            int possiblePK = 1;
+            while(this._context.Klanten.Find(possiblePK) != null){
+                possiblePK += 1;
+            }
+            user.KlantId = possiblePK;
+            this._context.Klanten.Add(user);
+            this._context.SaveChanges();
+
         }
         public void SendEmail(Klant user){
             var message = new MimeMessage();
@@ -87,8 +102,11 @@ namespace Controllers
 
         // DELETE api/values/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+        public void Delete(int id){
+            var klantRemove = this._context.Klanten.Find(id);
+            this._context.Klanten.Remove(klantRemove);
+            this._context.SaveChanges();
+    
         }
     }
 }
