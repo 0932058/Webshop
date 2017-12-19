@@ -527,7 +527,7 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
    
         return(
 
-            <div  className="container">
+            <div  className="container-fluid">
             {this.props.location.pathname.toString() === "/"?
             <div className='co-md-12'> <h1>Nieuwste producten van maand { this.months[new Date().getMonth()]}! </h1> </div> 
 
@@ -545,7 +545,7 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
             <div  className={"ItemsContainerScroll "}>
                 {this.state.loaded? 
 
-                    <div className='container ' id='maingame'>                
+                    <div className='container-fluid' id='maingame'>                
 
                     {this.state.filteredItems.map(
                         

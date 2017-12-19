@@ -227,10 +227,26 @@ form{
     vertical-align: middle;
 }
 */
+
+
+
+
+
+
+
+/*
+#maingame{
+    background-color: pink;
+}
+div[class^="col-"] {
+    background-color: rgba(255, 0, 0, 0.2);
+    border: 3px solid rgba(0, 0, 0, 0.5);
+}
 .ahref, .ahref:hover{
     text-decoration: none;
     color: white;
 }
+*/
 .container #maingame .col-md-2{
     margin-bottom:2%;
 
