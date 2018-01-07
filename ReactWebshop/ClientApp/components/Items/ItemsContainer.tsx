@@ -67,6 +67,22 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
         this.getItems();
     }
 
+    AddProductToShoppingCartLocalStorage(product : Product){
+        var itemlist = [];
+        itemlist = JSON.parse(localStorage.getItem("Winkelmand"));
+        if (itemlist != null){
+            var item = {"name" : product.productNaam, "id" : product.productId, "price": product.productPrijs, "index" : itemlist.length, "console": product.consoleType, "image": product.productImg};
+            itemlist.push(item)
+            localStorage.setItem("Winkelmand", JSON.stringify(itemlist));
+            
+        }
+        else{
+            var item = {"name" : product.productNaam, "id" : product.productId, "price": product.productPrijs, "index" : 0, "console": product.consoleType, "image": product.productImg};
+            itemlist = [item]
+            localStorage.setItem("Winkelmand", JSON.stringify(itemlist));
+        }
+    }
+
     filterItems(){
         //we copy the items list
         let newFilteredList : Product[] = [];
@@ -564,7 +580,22 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
                                             <NavLink to={ '/Item/' + item.productId } exact activeClassName='Active'className='button_to_product'>
                                                 <button className={"btn btn-primary"} > naar product </button>
                                             </NavLink>
-
+                                            <button type="button" className="btn btn-success" data-toggle="modal" data-target="#myModalM" onClick={ () => this.AddProductToShoppingCartLocalStorage(item) }>+ Toevoegen aan winkelmand</button>
+                                            <div className="modal fade" id="myModalM" role="dialog">
+                                                <div className="modal-dialog modal-sm">
+                                                <div className="modal-content">
+                                                    <div className="modal-header">
+                                                    <button type="button" className="close" data-dismiss="modal">&times;</button>
+                                                    <h4 className="modal-title">Product is toegevoegd!</h4>
+                                                    </div>
+                                                    <div className="modal-body">
+                                                    <p>{ item.productNaam + " (" + item.consoleType + ") " }is succesvol toegevoegd aan de winkelmand</p>
+                                                    <button type="button" className="btn btn-default" data-dismiss="modal" data-backdrop="false">verder winkelen</button>
+                                                    <a href='/Winkelmand'><button type="button" className="btn btn-default" data-backdrop="false" >naar winkelmand</button></a>
+                                                    </div>
+                                                </div>
+                                                </div>
+                                            </div>
                                         </div>
                                 </div>
                                     
