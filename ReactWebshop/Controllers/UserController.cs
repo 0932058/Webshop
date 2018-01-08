@@ -61,11 +61,13 @@ namespace Controllers
         }
         [HttpPut]
         public void Put([FromBody] Klant user){
-            int possiblePK = 1;
-            while(this._context.Klanten.Find(possiblePK) != null){
-                possiblePK += 1;
-            }
-            user.KlantId = possiblePK;
+            // int possiblePK = 1;
+            // while(this._context.Klanten.Find(possiblePK) != null){
+            //     possiblePK += 1;
+            // }
+            var res = this._context.Klanten.Where((x) => x.KlantId ==  user.KlantId).FirstOrDefault();
+            this._context.Klanten.Remove(res);
+            this._context.SaveChanges();
             this._context.Klanten.Add(user);
             this._context.SaveChanges();
 
