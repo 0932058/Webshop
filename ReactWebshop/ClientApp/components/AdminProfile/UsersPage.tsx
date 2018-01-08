@@ -21,7 +21,8 @@ interface UsersState{
     klantPostcode: string,
     klantStraatnmr: string,
     username: string,
-    password: string
+    password: string,
+    editUserClicked: boolean;
 }
 
 export class UsersPage extends React.Component<{}, UsersState> implements IAdmin{
@@ -37,6 +38,8 @@ export class UsersPage extends React.Component<{}, UsersState> implements IAdmin
             loaded : false,
             change : 0,
             createUserClicked: false,
+            editUserClicked: false,
+
     
             klantNaam : "",
             klantAchternaam : "",
