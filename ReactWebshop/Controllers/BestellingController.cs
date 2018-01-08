@@ -23,9 +23,24 @@ namespace reactTwo.Controllers
 
         [HttpGet("Get/{KlantId}")]
         public IActionResult Get(int KlantId){
+            List<JoinedBestelling> bestToRet = new List<JoinedBestelling>();
+
             var foundOrder = this._context.Bestellingen.Where(order => order.klantId  == KlantId).ToArray();
+
+            foreach(Bestelling bestelling in foundOrder){
+                JoinedBestelling newBest = new JoinedBestelling{
+                    BestellingId = bestelling.BestellingId,
+                    productId = _context.Producten.Find(bestelling.productId),
+                    bestellingDatum = bestelling.bestellingDatum,
+                    verstuurDatum = bestelling.verstuurDatum,
+                    status = bestelling.status,
+                    klantId = bestelling.klantId
+                };
+                bestToRet.Add(newBest);
+            }
+
             if(foundOrder != null){
-                return Ok(foundOrder);
+                return Ok( bestToRet.ToArray());
 
             }
             else{
