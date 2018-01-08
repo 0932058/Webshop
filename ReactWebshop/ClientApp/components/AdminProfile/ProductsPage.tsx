@@ -117,11 +117,10 @@ export class ProductsPage extends React.Component<{}, ProductsState> implements 
 
     render(){  
         return(         
-            <div className={"ProductsComponent col-sm-5s"} > 
-                <h2> Products </h2>
+            <div className={"ProductsComponent col-md-10"} > 
+                {/* <h2> Products </h2>
 
-                <input type="text" name="zoek" value={this.state.search} onChange={(e) => {this.handleChange(e); console.log(this.state.search)}} />
-
+                <input type="text" name="zoek" value={this.state.search} onChange={(e) => {this.handleChange(e); console.log(this.state.search)}} /> */}
                 <h1> Products </h1>
 
                 {this.state.loaded? 
@@ -132,90 +131,69 @@ export class ProductsPage extends React.Component<{}, ProductsState> implements 
 
                             return (
                                 <div className={"Component"}>
-                                    <div className='container' id='maingame'>
-                                        <div className='col-md-2'>
-                                            <img className="img-responsive" src={ item.productImg }/>
-                                        </div>
-                                        <div className='col-md-2'>
-                                            
-                                            <h2>{ item.productNaam } </h2>
+                                    <div className='col-md-6'>
+                                        <img className="img-responsive" src={ item.productImg }/>
 
-                                            <p> Console: {item.consoleType} </p>
+                                        <h2>{ item.productNaam } </h2>
 
-                                            <p> Prijs: {"€" + item.productPrijs } </p>
+                                        <p> Console: {item.consoleType} </p>
 
-                                            <p> { item.aantalInVooraad + " " } in voorraad </p>
+                                        <p> Prijs: {"€" + item.productPrijs } </p>
 
-                                            <button className={"btn btn-primary"} onClick={() => this.setChange(item)} > pas aan </button>
-                                        </div>
+                                        <p> { item.aantalInVooraad + " " } in voorraad </p>
 
-                                        {
+                                        <button className={"btn btn-primary"} onClick={() => this.setChange(item)} data-toggle='collapse' data-target='#AdminForm'> pas aan </button>
+                                    {
                                             item.productId === this.state.change?
-                                                <div>
-                                                    <ul className='reg_ul'><form action="/action_page.php"  onSubmit={ this.handleChangeSubmit } >
-                                                    
-                                                        <li className='reg_li'>
-                                                            <p></p>
-                                                            <p>productNaam</p>
+                                                <div className="collapse" id='AdminForm'>
+                                                    <form action="/action_page.php" onSubmit={ this.handleChangeSubmit } >
+
+                                                        <p>productNaam</p>
                                                             <input placeholder="productNaam" title="productNaam moet bestaan uit 1 tot en met 15 letters"
                                                             type="text" name="productNaam" className="form-control" value={this.state.productNaam} required={true}
                                                             onChange={(event:any) => this.setState({productNaam: event.target.value})}
                                                              />
-                                                        </li>              
-                                                        <li className='reg_li'>
-                                                            <p>productUitgever</p>
+
+                                                        <p>productUitgever</p>
                                                             <input placeholder="productUitgever" title="productUitgever moet bestaan uit 1 tot 30 letters" 
                                                             type="text" name="productUitgever" className="form-control"  value={this.state.productUitgever} required={true} 
                                                             onChange={(event:any) => this.setState({productUitgever: event.target.value})}
                                                             
                                                             />
-                                                        </li>            
-                                                        <li className='reg_li'>
-                                                            <p>productOmschr</p>
+                                                        <p>productOmschr</p>
                                                             <input placeholder="productOmschr"
                                                             title='Omschrijving moet alleen uit letters bestaan'
                                                             type="text" name="productOmschr"className="form-control"  value={this.state.productOmschr} required={true} 
                                                             onChange={(event:any) => this.setState({productOmschr: event.target.value})}
                                                             />
-                                                        </li>            
-                                                        <li className='reg_li'>
-                                                            <p>aantalInVoorraad</p>
+                                                        <p>aantalInVoorraad</p>
                                                             <input placeholder="aantalInVoorraad" title="gebruikers naam mag maximaal uit 8 tekens bestaan"
                                                             type="text" name="aantalInVooraad"className="form-control"  value={this.state.aantalInVooraad} required={true}
                                                             onChange={(event:any) => this.setState({aantalInVooraad: event.target.value})}
                                                             />
-                                                        </li>            
-                                                        <li className='reg_li'>
-                                                            <p>productPrijs</p>
+                                                        <p>productPrijs</p>
                                                             <input placeholder="productPrijs" title="productPrijs moet minstens 6 waardes bevatten"
                                                             type="productPrijs" name="productPrijs"className="form-control"  value={this.state.productPrijs} required={true} 
                                                             onChange={(event:any) => this.setState({productPrijs: event.target.value})}
                                                             /> 
-                                                        </li>            
-                                                        <li className='reg_li'>
-                                                            <p>productType</p>
+                                                        <p>productType</p>
                                                             <input placeholder='productType' title="vul een juist adres in"
                                                             type="text" name="productType"className="form-control"  value={this.state.productType} required={true} 
                                                             onChange={(event:any) => this.setState({productType: event.target.value})}
                                                             
                                                             />
-                                                        </li>            
-                                                        <li className='reg_li'>
-                                                            <p>ProductImage</p>
+                                                        <p>ProductImage</p>
                                                             <input placeholder='productImage' title="vul een juist image in"
                                                             type="text" name="productImage"className="form-control"  value={this.state.productImage} required={true} 
                                                             onChange={(event:any) => this.setState({productImage: event.target.value})}
                                                             
                                                             />
-                                                        </li>            
-                                                        <li className='reg_li'>
-                                                            <p>productOntwikkelaar</p>
+                                                        <p>productOntwikkelaar</p>
                                                             <input placeholder="productOntwikkelaar"  title="productOntwikkelaar moet uit 4 cijfers en 2 letters bestaan" 
                                                             type="text" name="productOntwikkelaar"className="form-control"  value={this.state.productOntwikkelaar} required={true} 
-                                                            onChange={(event:any) => this.setState({productOntwikkelaar: event.target.value})} />
-                                                        </li>            
-                                                        <li><input className="btn-primary" placeholder="pas het product aan" type="submit" value="pas het product aan"/> </li>
-                                                    </form></ul>
+                                                            onChange={(event:any) => this.setState({productOntwikkelaar: event.target.value})} />          
+                                                        <input className="btn-primary" placeholder="pas het product aan" type="submit" value="pas het product aan"/>
+                                                    </form>
                                                 </div>
                                             :
                                             null

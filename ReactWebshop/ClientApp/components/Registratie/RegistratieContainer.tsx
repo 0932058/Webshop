@@ -145,7 +145,7 @@ export class RegistratieContainer extends React.Component<RouteComponentProps<{}
                     <div className="row">
                         <div className="col-md-4 col-md-offset-4">
                         <p>Postcode*</p>
-                        <input placeholder="postcode" pattern="([0-9]){4}+/s([A-Z]){2}" title="postcode moet uit 4 cijfers en 2 letters bestaan" 
+                        <input placeholder="postcode" pattern="[1-9][0-9]{3}\s?[a-zA-Z]{2}" title="postcode moet uit 4 cijfers en 2 letters bestaan" 
                         type="text" name="postcode"className="form-control"  value={this.state.postcode}  required={true}
                         onChange={(e:any) => this.setState({postcode: e.target.value})}
                          />
