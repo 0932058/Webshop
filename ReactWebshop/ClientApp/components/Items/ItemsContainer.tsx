@@ -12,6 +12,8 @@ interface ItemsContainerState{
     currentSearch : string;
     filteredItems : Product[] | null,
     filters : string[],
+    min : number,
+    max : number,
 }
 export class ItemsContainer extends React.Component<RouteComponentProps<{}>, ItemsContainerState> {
     months : string[];
@@ -23,6 +25,8 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
         this.putNewItem = this.putNewItem.bind(this);
         this.selectFilter = this.selectFilter.bind(this);
         this.filterItems = this.filterItems.bind(this);
+        this.onMinChange = this.onMinChange.bind(this);
+        this.onMaxChange = this.onMaxChange.bind(this);
 
         this.months = ["Januari", "Februari", "Maart", "April", "May", "June",
         "July", "August", "September", "October", "November", "December"
@@ -34,6 +38,8 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
             currentSearch : "",
             filteredItems : null,
             filters : [],
+            min : 1,
+            max : 999,
         };
     }
 
@@ -86,10 +92,8 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
     filterItems(){
         //we copy the items list
         let newFilteredList : Product[] = [];
-        let correctFilter = 0;
 
         for(let product of this.state.items){
-            correctFilter = 0;
             console.log(this.state.filters.length + " aantal filters")
 
             for(let filter of this.state.filters){
@@ -108,16 +112,15 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
                     popProduct = true
                 }
 
-                if(popProduct){
-                    correctFilter++
-                }  
+                for(let checkProduct of newFilteredList){
+                    if(product.productId === checkProduct.productId){
+                        popProduct = false
+                    }
+                }
 
-                console.log(correctFilter + " " + this.state.filters.length)
-                    
-                if(correctFilter === this.state.filters.length){
-                    console.log(product.productNaam + " in de nieuwe lijst")
+                if(popProduct){
                     newFilteredList.push(product);
-                }   
+                }  
             }
         }
 
@@ -175,6 +178,26 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
         this.filterItems()
     }
 
+    onMinChange(e){
+
+        if(e.target.value < this.state.max && e.target.value >= 1 && e.target.value <= 9999){
+            this.setState({
+                min : e.target.value
+            })
+        }
+
+    }
+
+    onMaxChange(e){
+        console.log(e.target.value)
+        if( e.target.value > this.state.min && e.target.value >= 1 && e.target.value <= 9999){
+            this.setState({
+                max : e.target.value
+            })
+        }
+
+    }
+
     render(){
 
         const ZijFilter =(
@@ -195,21 +218,16 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
                         <div id="collapsePrijs" className="panel-collapse collapse">
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value=""/>0-20
+                                    <input type="number" min="1" max="999" value={ this.state.min } placeholder="min 1"onChange={this.onMinChange} />
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value=""/>20-40
+                                    <input type="number" min="1" max="999" value={ this.state.max } placeholder="max 999" onChange={this.onMaxChange} />
                                 </label>
                             </div>
-                            <div className="checkbox">
-                                <label>
-                                    <input type="checkbox" value=""/>40-60
-                                </label>
-                            </div>
-                            </div>
-                            </div>
+                        </div>
+                </div>
 
 
                     <div className="panel panel-default">
