@@ -49,10 +49,12 @@ namespace reactTwo.Controllers
         }
         [HttpPost("Post")]
         public void Post([FromBody]Bestelling[] orders){
+            int counter = 1;
             foreach (Bestelling order in orders)
             {
-                order.BestellingId = this._context.Bestellingen.Count() + 1;
+                order.BestellingId = this._context.Bestellingen.Count() + counter;
                 this._context.Bestellingen.Add(order);
+                counter += 1;
             }
             this._context.SaveChanges();
         

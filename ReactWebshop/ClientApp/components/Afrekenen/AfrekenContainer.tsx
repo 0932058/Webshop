@@ -37,13 +37,13 @@ export class Afrekenen extends AbstractStorage {
         this.FinalizeOrder = this.FinalizeOrder.bind(this);
         this.SendBestellingenEmail = this.SendBestellingenEmail.bind(this);
     }
-    BuildOrders(klantId, id){
+    BuildOrders(klantId){
         let res = [];
         this.state.products.forEach(product =>{
             let order: Bestelling = {
                 BestellingId: 0, 
                 klantId: klantId,
-                productId: id,
+                productId: product.id,
                 bestellingDatum: new Date(),
                 verstuurDatum: new Date(),
                 status: 'In behandeling'
@@ -52,9 +52,9 @@ export class Afrekenen extends AbstractStorage {
         })
         return res;
     }
-    async PostOrderToDatabase(klantId, id){
+    async PostOrderToDatabase(klantId){
         let apiUrl = 'api/Bestellingen/Post'
-        let ordersToPost = this.BuildOrders(klantId, id)
+        let ordersToPost = this.BuildOrders(klantId)
         let apiResponse = await fetch(apiUrl, {method: 'POST', body:JSON.stringify(ordersToPost), headers: new Headers({'content-type' : 'application/json'})});
         }
     GetCartData(){
@@ -85,11 +85,7 @@ export class Afrekenen extends AbstractStorage {
     FinalizeOrder(){
         var CartItems = this.GetCartData();
         this.SendBestellingenEmail(CartItems);
-        CartItems.forEach(item => {
-            if (User.IsUserLoggedIn()){
-                this.PostOrderToDatabase(User.GetPK(),item.id)
-            }
-        });
+        this.PostOrderToDatabase(this.state.customerID);
         this.EmptyShoppingCart();
     }
     async SendBestellingenEmail(bestellingen){
