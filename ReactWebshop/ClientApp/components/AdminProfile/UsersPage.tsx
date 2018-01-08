@@ -137,7 +137,7 @@ export class UsersPage extends React.Component<{}, UsersState> implements IAdmin
     render(){  
         return(         
             <div className={"UsersComponent"} > 
-
+            <div className='col-md-10'>
                 <h1> Users </h1>
                 
                 <button className={"btn btn-primary"} onClick={() => this.CreateEntity()} > Maak een nieuwe gebruiker aan </button>
@@ -149,14 +149,14 @@ export class UsersPage extends React.Component<{}, UsersState> implements IAdmin
 
                             return (
                                 <div className={"Component"}>
-                                    <div className='container' id='maingame'>
+                                    
+                                    
+                                        <div className='col-md-5'>   
+                                            <h3>Username: { user.username }  </h3>
+                                            <h3>klant id:{" " + user.klantId } </h3>
                                         
-                                        <div className='col-md-2'>
-                                            
-                                            <h1> Username: { user.username } </h1>
-                                            <p>  klant id: {" " + user.klantId } </p>
                                           
-                                            <button className={"btn btn-primary"} onClick={() => this.EditEntity(user)} > Bekijk / Pas Aan </button>
+                                            <button type="button" className={"btn btn-primary"} data-toggle="collapse" data-target="#demo"  onClick={() => this.EditEntity(user)} > Bekijk / Pas Aan </button>
                                             <button className={"btn btn-primary"} onClick={() => this.DeleteEntity(user)} > Verwijder </button>
                                             </div>
                                             {
@@ -167,7 +167,8 @@ export class UsersPage extends React.Component<{}, UsersState> implements IAdmin
                                                             :
                                                         (event: any) => this.handleChangeSubmit(event, false))}>
 
-                                                     
+                                                     <div id="demo">
+                                                        <div className='col-md-6'>
                                                         
                                                             <li className='reg_li'>
                                                                 <p></p>
@@ -242,13 +243,16 @@ export class UsersPage extends React.Component<{}, UsersState> implements IAdmin
                                                                 onChange={(event:any) => this.setState({password: event.target.value})} />
                                                             </li>                
                                                             <li><input className="btn-primary" placeholder="Wijzigen" type="submit" value="Wijzigen"/> </li>
+                                                            </div>
+                                                            </div>
                                                             </form></ul>
                                                             </div>
                                                         :
                                                         null
                                                     }
                                                 </div>
-                                            </div> 
+                                           
+                                            
                                         )
                                     }
                                 )
@@ -273,6 +277,7 @@ export class UsersPage extends React.Component<{}, UsersState> implements IAdmin
                                 
                             </div>
             
+                        </div>
                         </div>
                     );
                 }     

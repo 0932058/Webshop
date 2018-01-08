@@ -128,6 +128,39 @@ namespace reactTwo.Controllers
             return SingleProductList.ToArray();
         }
 
+        [HttpGet("[action]/{id}")]
+        public Bestelling[] Bestellingen(int custId){
+
+            Product foundProduct = _context.Producten.Find(custId);
+
+            if(false){
+                foundProduct = new Product{
+                    productNaam = "product does not exist",
+                    productUitgever = "product does not exist",
+                    productOmschr = "product does not exist",
+                    aantalInVooraad = 25,
+                    productPrijs = 60.00m,
+                    productType = "product does not exist",
+                    productOntwikkelaar = "product does not exist",
+                    productImg = "product does not exist",
+                    productGenre = "product does not exist",
+                    consoleType = "product does not exist",
+                };
+            }
+
+            List<Bestelling> BestellingenToRet = new List<Bestelling>();
+
+            IEnumerable<Bestelling> bestellingList = _context.Bestellingen.AsEnumerable();
+
+            foreach(Bestelling bestelling in bestellingList){
+                if ( bestelling.klantId == custId ) {
+                    BestellingenToRet.Add(bestelling);
+                }
+            };
+
+            return BestellingenToRet.ToArray();
+        }
+
         // //Shopping cart testing
         // [HttpPost("Post")]
         // public void Post()

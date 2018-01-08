@@ -4,7 +4,7 @@ import Img from 'react-image';
 import {List} from "linqts";
 import {User} from "../User/User";
 import {AbstractStorage,StorageState} from "../Storage/ReusableComponents/Storage";
-import { Product, Bestelling } from 'ClientApp/components/Items/ItemsInterfaces';
+import { Product, Bestelling, JoinedBestelling } from 'ClientApp/components/Items/ItemsInterfaces';
 
 export class BestellingenContainer extends AbstractStorage {
     constructor(){
@@ -25,52 +25,28 @@ export class BestellingenContainer extends AbstractStorage {
             formEmail: "",
             productdata: []}
     }
-    GetOrders(){
-        console.log(this.state.customerID)
-        fetch('api/Bestellingen/Get/' + this.state.customerID)
-        .then(response => response.json() as Promise<Bestelling[]>)
-        .then(data =>{
-           console.log("GetOrders geeft " + data[0]);
-           this.setState({products: data})
-        });
-        
+
+    componentDidMount(){
+        this.GetOrders();
     }
-    FetchProductData(){
-        this.state.products.forEach(order => {
-            fetch('api/Items/Item/' + order.productId)
-            .then(response => response.json() as Promise<Product[]>)
-            .then(data => {
-                var datastorage = [];
-                datastorage = this.state.productdata;
-                var dataset = { "Naam" : data[0].productNaam, "Image" : data[0].productImg, "Id" : order.productId};
-                datastorage.push(dataset);
-                this.setState({productdata: datastorage, loaded: true});
-            });
-        })
-        
-    }
-    GetProductDataFromState(id){
-        this.FetchProductData();
-        var datastorage = [];
-        function idmatch(item){
-            return item.Id == id;
-        }
-        datastorage = this.state.productdata;
-        var res = datastorage.find(idmatch);
-        return res;
-    }
-    CheckLogin(){
+
+    async GetOrders(){
         if (this.state.customerID == 0)
         {
             return false;
         }
         else{
-            return true;
+            console.log(this.state.customerID)
+            await fetch('api/Bestellingen/Get/' + this.state.customerID)
+            .then(response => response.json() as Promise<JoinedBestelling[]>)
+            .then(data =>{
+               console.log("GetOrders geeft " + data[0]);
+               this.setState({products: data})
+            });
+
         }
     }
-    componentDidMount(){
-        this.GetOrders();
-    }
+
     render() {
         return (
             
@@ -83,16 +59,14 @@ export class BestellingenContainer extends AbstractStorage {
                 <div>
                 {this.state.products.map(
                     order =>{
-                        var data = this.GetProductDataFromState(order.productId);
                         return(
                             <div className={"Component"}>
                             <div className='container'>
                                 <div className="panel panel-default">    
                                 <div className='col-md-2'>
-                                        <div className="panel-body"><img className="img-responsive" src={data.Image}/></div>
+                                        <div className="panel-body"><img className="img-responsive" src={order.productId.productImg}/></div>
                                     </div>
                                     <div className='col-md-4'>
-                                        <p>{data.Naam}</p>
                                         <p>Status: {order.status}</p>
                                         <p>Besteldatum: {order.bestellingDatum}</p>
                                         <p>Verstuurdatum: {order.verstuurDatum}</p>

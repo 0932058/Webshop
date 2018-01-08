@@ -35,6 +35,15 @@ export interface Bestelling {
     klantId : number
 }
 
+export interface JoinedBestelling {
+    BestellingId : number
+    productId : Product
+    bestellingDatum : Date 
+    verstuurDatum : Date 
+    status : string
+    klantId : number
+}
+
 export interface Betaling {
     BetalingId : number
     betalingsDatum : Date 

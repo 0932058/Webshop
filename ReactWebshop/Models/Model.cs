@@ -73,6 +73,15 @@ namespace Models
         public int klantId { get; set; }
     }
 
+    public class JoinedBestelling {
+        public int BestellingId { get; set; }
+        public Product productId { get; set; }
+        public DateTime bestellingDatum { get; set; }
+        public DateTime verstuurDatum { get; set; }
+        public string status { get; set; }
+        public int klantId { get; set; }
+    }
+
     public class Betaling {
        
         public int BetalingId { get; set; }

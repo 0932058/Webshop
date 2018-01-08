@@ -589,7 +589,7 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
                                                     <h4 className="modal-title">Product is toegevoegd!</h4>
                                                     </div>
                                                     <div className="modal-body">
-                                                    <p>{ item.productNaam + " (" + item.consoleType + ") " }is succesvol toegevoegd aan de winkelmand</p>
+                                                    <p> Het item is succesvol toegevoegd aan de winkelmand</p>
                                                     <button type="button" className="btn btn-default" data-dismiss="modal" data-backdrop="false">verder winkelen</button>
                                                     <a href='/Winkelmand'><button type="button" className="btn btn-default" data-backdrop="false" >naar winkelmand</button></a>
                                                     </div>
