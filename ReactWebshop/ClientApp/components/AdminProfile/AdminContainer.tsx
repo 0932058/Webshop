@@ -32,7 +32,7 @@ export class AdminContainer extends React.Component<RouteComponentProps<{}>, Adm
         return(         
             <div>
 
-                <div className='col-sm-5'>
+                <div className='col-sm-2'>
                     <div className="list-group">
                         
                         <button className={"list-group-item btn "} onClick={() => this.switchTo(<StatisticsPage/>)} >Statistics</button>
