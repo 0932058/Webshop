@@ -37,17 +37,25 @@ export class Afrekenen extends AbstractStorage {
         this.FinalizeOrder = this.FinalizeOrder.bind(this);
         this.SendBestellingenEmail = this.SendBestellingenEmail.bind(this);
     }
+    BuildOrders(klantId, id){
+        let res = [];
+        this.state.products.forEach(product =>{
+            let order: Bestelling = {
+                BestellingId: 0, 
+                klantId: klantId,
+                productId: id,
+                bestellingDatum: new Date(),
+                verstuurDatum: new Date(),
+                status: 'In behandeling'
+            }
+            res.push(order);
+        })
+        return res;
+    }
     async PostOrderToDatabase(klantId, id){
         let apiUrl = 'api/Bestellingen/Post'
-        let orderToPost: Bestelling = {
-            BestellingId: 0, 
-            klantId: klantId,
-            productId: id,
-            bestellingDatum: new Date(),
-            verstuurDatum: new Date(),
-            status: 'In behandeling'
-        }
-        let apiResponse = await fetch(apiUrl, {method: 'POST', body:JSON.stringify(orderToPost), headers: new Headers({'content-type' : 'application/json'})});
+        let ordersToPost = this.BuildOrders(klantId, id)
+        let apiResponse = await fetch(apiUrl, {method: 'POST', body:JSON.stringify(ordersToPost), headers: new Headers({'content-type' : 'application/json'})});
         }
     GetCartData(){
         var shoppingCartData = [];
