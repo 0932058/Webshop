@@ -68,7 +68,7 @@ export class UsersPage extends React.Component<{}, UsersState> implements IAdmin
         }
         if(IsEntityOfUserType(entity)){
             this.setState({
-                change: entity.KlantId,
+                change: entity.klantId,
                 klantNaam: entity.klantNaam,
                 klantAchternaam: entity.klantAchternaam,
                 klantTussenvoegsel: entity.klantTussenvoegsel,
@@ -159,8 +159,10 @@ export class UsersPage extends React.Component<{}, UsersState> implements IAdmin
                                             <button type="button" className={"btn btn-primary"} data-toggle="collapse" data-target="#demo"  onClick={() => this.EditEntity(user)} > Bekijk / Pas Aan </button>
                                             <button className={"btn btn-primary"} onClick={() => this.DeleteEntity(user)} > Verwijder </button>
                                             </div>
+                                            { console.log(this.state.change) }
                                             {
-                                                user.KlantId === this.state.change || this.state.createUserClicked?
+                                                user.klantId === this.state.change || this.state.createUserClicked?
+                                                
                                                     <div>
                                                         <ul className='reg_ul'><form action="/action_page.php"
                                                           onSubmit={(this.state.createUserClicked? (event:any) => this.handleChangeSubmit(event, true) 
