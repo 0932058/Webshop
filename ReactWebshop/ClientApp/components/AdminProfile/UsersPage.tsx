@@ -154,7 +154,7 @@ export class UsersPage extends React.Component<{}, UsersState> implements IAdmin
                                 <div className={"Component"}>
                                     
                                     
-                                        <div className='col-md-5'>   
+                                        <div className='col-md-10'>   
                                             <h3>Username: { user.username }  </h3>
                                             <h3>klant id:{" " + user.klantId } </h3>
                                         
@@ -178,14 +178,14 @@ export class UsersPage extends React.Component<{}, UsersState> implements IAdmin
                                                             <li className='reg_li'>
                                                                 <p></p>
                                                                 <p>klantNaam</p>
-                                                                <input placeholder="klantNaam" title="klantNaam moet bestaan uit 1 tot en met 15 letters"
+                                                                <input placeholder="klantNaam" pattern="[a-zA-Z /s]{1,15}" title="klantNaam moet bestaan uit 1 tot en met 15 letters"
                                                                 type="text" name="klantNaam" className="form-control" value={this.state.klantNaam} required={true}
                                                                 onChange={(event:any) => this.setState({klantNaam: event.target.value})}
                                                                  />
                                                             </li>              
                                                             <li className='reg_li'>
                                                                 <p>klantAchternaam</p>
-                                                                <input placeholder="klantAchternaam" title="klantAchternaam moet bestaan uit 1 tot 30 letters" 
+                                                                <input placeholder="klantAchternaam" pattern="[a-zA-Z /s]{1,30}" title="klantAchternaam moet bestaan uit 1 tot 30 letters" 
                                                                 type="text" name="klantAchternaam" className="form-control"  value={this.state.klantAchternaam} required={true} 
                                                                 onChange={(event:any) => this.setState({klantAchternaam: event.target.value})}
                                                                 
@@ -201,21 +201,21 @@ export class UsersPage extends React.Component<{}, UsersState> implements IAdmin
                                                             </li>            
                                                             <li className='reg_li'>
                                                                 <p>klantTel</p>
-                                                                <input placeholder="klantTel" title="gebruikers naam mag maximaal uit 8 tekens bestaan"
+                                                                <input placeholder="klantTel" pattern="[0-9]{1,30}" title="gebruikers naam mag maximaal uit 8 tekens bestaan"
                                                                 type="text" name="klantTel"className="form-control"  value={this.state.klantTel} required={true}
                                                                 onChange={(event:any) => this.setState({klantTel: event.target.value})}
                                                                 />
                                                             </li>            
                                                             <li className='reg_li'>
                                                                 <p>klantMail</p>
-                                                                <input placeholder="klantMail" title="klantMail moet minstens 6 waardes bevatten"
+                                                                <input placeholder="klantMail" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+[.]+[a-z]{2,3}$" title="klantMail moet minstens 6 waardes bevatten"
                                                                 type="klantMail" name="klantMail"className="form-control"  value={this.state.klantMail} required={true} 
                                                                 onChange={(event:any) => this.setState({klantMail: event.target.value})}
                                                                 /> 
                                                             </li>            
                                                             <li className='reg_li'>
                                                                 <p>klantStraat</p>
-                                                                <input placeholder='klantStraat' title="vul een juist adres in"
+                                                                <input placeholder='klantStraat' pattern="[a-zA-Z /s]{2,30}" title="vul een juist adres in"
                                                                 type="text" name="klantStraat"className="form-control"  value={this.state.klantStraat} required={true} 
                                                                 onChange={(event:any) => this.setState({klantStraat: event.target.value})}
                                                                 
@@ -223,7 +223,7 @@ export class UsersPage extends React.Component<{}, UsersState> implements IAdmin
                                                             </li>            
                                                             <li className='reg_li'>
                                                                 <p>klantPostcode</p>
-                                                                <input placeholder='klantPostcode' title="vul een juist image in"
+                                                                <input placeholder='klantPostcode' pattern="[1-9][0-9]{3}\s?[a-zA-Z]{2}" title="vul een juist image in"
                                                                 type="text" name="klantPostcode"className="form-control"  value={this.state.klantPostcode} required={true} 
                                                                 onChange={(event:any) => this.setState({klantPostcode: event.target.value})}
                                                                 
@@ -231,19 +231,19 @@ export class UsersPage extends React.Component<{}, UsersState> implements IAdmin
                                                             </li>            
                                                             <li className='reg_li'>
                                                                 <p>klantStraatnmr</p>
-                                                                <input placeholder="klantStraatnmr"  title="klantStraatnmr moet uit 4 cijfers en 2 letters bestaan" 
+                                                                <input placeholder="klantStraatnmr" pattern="[0-9]{0,5}" title="klantStraatnmr moet uit 4 cijfers en 2 letters bestaan" 
                                                                 type="text" name="klantStraatnmr"className="form-control"  value={this.state.klantStraatnmr} required={true} 
                                                                 onChange={(event:any) => this.setState({klantStraatnmr: event.target.value})} />
                                                             </li>   
                                                             <li className='reg_li'>
                                                                 <p>username</p>
-                                                                <input placeholder="username"  title="username moet uit 4 cijfers en 2 letters bestaan" 
+                                                                <input placeholder="username" pattern="[a-zA-Z0-9]{3,15}"  title="username moet uit 4 cijfers en 2 letters bestaan" 
                                                                 type="text" name="username"className="form-control"  value={this.state.username} required={true} 
                                                                 onChange={(event:any) => this.setState({username: event.target.value})} />
                                                             </li>       
                                                             <li className='reg_li'>
                                                                 <p>password</p>
-                                                                <input placeholder="password"  title="klantStraatnmr moet uit 4 cijfers en 2 letters bestaan" 
+                                                                <input placeholder="password" pattern=".{6,}"  title="klantStraatnmr moet uit 4 cijfers en 2 letters bestaan" 
                                                                 type="text" name="password"className="form-control"  value={this.state.password} required={true} 
                                                                 onChange={(event:any) => this.setState({password: event.target.value})} />
                                                             </li>                
