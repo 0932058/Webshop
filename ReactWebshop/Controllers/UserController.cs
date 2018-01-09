@@ -65,6 +65,7 @@ namespace Controllers
             // while(this._context.Klanten.Find(possiblePK) != null){
             //     possiblePK += 1;
             // }
+            //TODO: Don't make new instance (klant) but edit attributes of the exisitng klant
             var res = this._context.Klanten.Where((x) => x.KlantId ==  user.KlantId).FirstOrDefault();
             this._context.Klanten.Remove(res);
             this._context.SaveChanges();

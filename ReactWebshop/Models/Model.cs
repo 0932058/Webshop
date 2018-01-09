@@ -16,6 +16,7 @@ namespace Models
         public DbSet<Bestelling> Bestellingen { get; set; }
         public DbSet<Betaling> Betalingen { get; set; }
         public DbSet<Product> Producten { get; set; }
+        public DbSet<ToBeAddedProducts> ToBeAddedProducts{get;set;} //Will be removed after the 1000 entiteis are added
 
         public normieContext(DbContextOptions<normieContext> options)
             : base(options)
@@ -87,5 +88,19 @@ namespace Models
         public int BetalingId { get; set; }
         public DateTime betalingsDatum { get; set; }
         public decimal bedrag { get; set; }
+    }
+    //Will be removed when the 1000 entities are added
+        public class ToBeAddedProducts {
+        public int ToBeAddedProductsId { get; set; }
+        public string productNaam { get; set; }
+        public string productUitgever { get; set; }
+        public string productOmschr { get; set; }
+        public int aantalInVooraad { get; set; }
+        public decimal productPrijs { get; set; }
+        public string  productType { get; set; }
+        public string productOntwikkelaar { get; set; }
+        public string productImg { get; set; }
+        public string productGenre { get; set; }
+        public string consoleType { get; set; }
     }
 }
