@@ -11,7 +11,6 @@ using MimeKit;
 
 namespace Controllers
 {
-    //This is the default route of the API. 
     [Route("api/[controller]")]
     public class AdminController : Controller{
         private readonly normieContext _context;
@@ -19,8 +18,13 @@ namespace Controllers
         public AdminController(normieContext context){
             this._context = context;
         }
-
-        // Get all the products
+        //For login
+        [HttpGet("{username}/{password}")]
+        public dynamic GetAdmin(string username, string password){
+            var possibleAdmin = this._context.Admins.Where((admin => admin.username == username)).Select((a) => new {a.username, a.password}).FirstOrDefault();
+            return possibleAdmin;
+        }
+                // Get all the products
         [HttpGet("GetAllProducts")]
         public Product[] GetAllProducts(){
             return _context.Producten.ToArray();
@@ -77,5 +81,6 @@ namespace Controllers
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] Klant user){
         }
+
     }
 }

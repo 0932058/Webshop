@@ -57,12 +57,14 @@ namespace Models
     }
 
     public class Admin {
-        public int AdminId { get; set; }
+        public int AdminId { get; set; }       
         public string voorNaam { get; set;}
         public string achterNaam { get; set; }
         public string tussenVoegsel { get; set; } 
         public string mail { get; set; }
         public string functie { get; set; }
+        public string username { get; set;}
+        public string password { get; set;}
     }
 
     public class Bestelling {
