@@ -2,7 +2,6 @@ import * as React from 'react';
 import 'bootstrap';
 import { Route } from 'react-router-dom';
 import { UserNotLoggedInMenu } from "./LoginAndLogout/UserNotLoggedInMenuLayout";
-import { SearchContainer } from "../components/Items/SearchContainer";
 import { UserLoggedInMenu } from "./LoginAndLogout/UserLoggedInMenuLayout";
 import { User } from "./User/User";
 import { ItemPage } from "../components/ProductPage/ItemPage";
@@ -65,7 +64,7 @@ export class Layout extends React.Component<LayoutProps, LayoutState> {
 
             data.map( 
                 id => {
-                    newList[id] = (<Route path={"/Item/" + id}  component={ItemPage}/>);
+                    newList[id + 35] = (<Route path={"/Item/" + id}  component={ItemPage}/>);
                 }
             );
 

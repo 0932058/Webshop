@@ -21,6 +21,31 @@ namespace reactTwo.Controllers
             _context = context;
         }
 
+        [HttpGet("GetAll")]
+        public IActionResult GetAll(){
+            List<JoinedBestelling> bestToRet = new List<JoinedBestelling>();
+
+            foreach(Bestelling bestelling in _context.Bestellingen.AsEnumerable()){
+                JoinedBestelling newBest = new JoinedBestelling{
+                    BestellingId = bestelling.BestellingId,
+                    productId = _context.Producten.Find(bestelling.productId),
+                    bestellingDatum = bestelling.bestellingDatum,
+                    verstuurDatum = bestelling.verstuurDatum,
+                    status = bestelling.status,
+                    klantId = bestelling.klantId
+                };
+                bestToRet.Add(newBest);
+            }
+
+            if(bestToRet != null){
+                return Ok( bestToRet);
+
+            }
+            else{
+                return NotFound(bestToRet);
+            }
+        }
+
         [HttpGet("Get/{KlantId}")]
         public IActionResult Get(int KlantId){
             List<JoinedBestelling> bestToRet = new List<JoinedBestelling>();
@@ -47,6 +72,7 @@ namespace reactTwo.Controllers
                 return NotFound(foundOrder);
             }
         }
+
         [HttpPost("Post")]
         public void Post([FromBody]Bestelling[] orders){
             int counter = 1;

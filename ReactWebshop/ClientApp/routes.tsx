@@ -8,7 +8,6 @@ import { WenslijstContainer } from './components/Storage/Wenslijst/WensLijstCont
 import { Winkelmand } from './components/Storage/ShoppingCart/WinkelmandContainer';
 import { ProductPage } from './components/ProductPage/ProductPageContainer';
 import { ItemsContainer } from "./components/Items/ItemsContainer";
-import { SearchContainer } from "./components/Items/SearchContainer";
 import { ItemPage } from "./components/ProductPage/ItemPage";
 import {LoginContainer} from "./components/LoginAndLogout/LoginContainer";
 import {RegistratieContainer} from "./components/Registratie/RegistratieContainer";
@@ -23,7 +22,7 @@ import {AdminContainer} from "./components/AdminProfile/AdminContainer";
 export var routes = <Layout>
     <Route exact path={"/"} component={ItemsContainer} />
     
-    <Route path ={"/Profile"} component={ProfileContainer}/>
+    <Route path={"/Profile"} component={ProfileContainer}/>
     <Route path={"/Profile/Gegevens"} component={GegevensContainer} />
 
     <Route path ={"/Admin"} component={AdminContainer}/>
