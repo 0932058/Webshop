@@ -54,7 +54,7 @@ export class ItemPage extends React.Component<RouteComponentProps<{}>, ItemPageS
         this.getItem();
         this.GetReviewRelatedInfo("")
         this.CheckIfUserHasAlreadyCommented()
-        .then(() => this.setState({userHasCommented:  true}))
+        .then(() => console.log("User has not commented yet"));
 
     }
     getItem(){
@@ -130,7 +130,7 @@ export class ItemPage extends React.Component<RouteComponentProps<{}>, ItemPageS
     }
     async GetAverageReviewRatingApiCall() : Promise<number>{
         var urlConverted = parseInt(this.props.location.pathname.replace("/Item/",""))
-        let apiUrl = 'api/Review/Get/ ' + urlConverted;
+        let apiUrl = 'api/Review/Get/' + urlConverted;
         let apiResponse = await fetch(apiUrl, {method: 'Get', headers: new Headers({'content-type' : 'application/json'})}); 
         let responseConverted = apiResponse.json();
         return responseConverted;
@@ -145,17 +145,20 @@ export class ItemPage extends React.Component<RouteComponentProps<{}>, ItemPageS
     }
     async GetCommentsFromApi() : Promise<Comment[]>{
         var urlConverted = parseInt(this.props.location.pathname.replace("/Item/",""))
-        let apiUrl = 'api/Review/Get/Comment/ ' + urlConverted;
+        let apiUrl = 'api/Review/Get/Comment/' + urlConverted;
         let apiResponse = await fetch(apiUrl, {method: 'Get', headers: new Headers({'content-type' : 'application/json'})}); 
         let responseConverted = apiResponse.json();
         return responseConverted;
     }
     async CheckIfUserHasAlreadyCommented(){
-        var urlConverted = parseInt(this.props.location.pathname.replace("/Item/",""))
-        let apiUrl = 'api/Review/Get/User/ ' + User.GetPK() + "/" + urlConverted;
-        let apiResponse = await fetch(apiUrl, {method: 'Get', headers: new Headers({'content-type' : 'application/json'})}); 
-        let responseConverted = apiResponse.json();
-        return responseConverted;
+        if(User.IsUserLoggedIn()){
+            var urlConverted = parseInt(this.props.location.pathname.replace("/Item/",""))
+            let apiUrl = 'api/Review/Get/User/' + User.GetPK() + "/" + urlConverted;
+            let apiResponse = await fetch(apiUrl, {method: 'Get', headers: new Headers({'content-type' : 'application/json'})}); 
+            let responseConverted = apiResponse.json();
+            return responseConverted;
+        }
+        return Promise.reject("User is not logged in");
     }
 
 

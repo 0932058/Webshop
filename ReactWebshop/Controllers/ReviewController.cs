@@ -52,8 +52,8 @@ namespace Controllers
         //Checks if user has already commented
         [HttpGet("Get/User/{userId}/{productId}")]
         public IActionResult GetUser(int userId, int productId){
-            var user = this._context.Review.Where((r) => r.KlantId == userId && r.ProductId == productId);
-            if(user.Count() <= 0){
+            var user = this._context.Review.Where((r) => r.KlantId == userId && r.ProductId == productId).FirstOrDefault();
+            if(user == null){
                 return Ok();
             }
             return NotFound();

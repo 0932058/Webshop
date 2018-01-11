@@ -14,6 +14,7 @@ interface ItemsContainerState{
     filters : string[],
     min : number,
     max : number,
+    averageReviewRating: number;
 }
 export class ItemsContainer extends React.Component<RouteComponentProps<{}>, ItemsContainerState> {
     months : string[];
@@ -27,6 +28,8 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
         this.filterItems = this.filterItems.bind(this);
         this.onMinChange = this.onMinChange.bind(this);
         this.onMaxChange = this.onMaxChange.bind(this);
+        this.GetAverageReviewRatingApiCall = this.GetAverageReviewRatingApiCall.bind(this);
+        this.CallForAverageReviewRating = this.CallForAverageReviewRating.bind(this);
 
         this.months = ["Januari", "Februari", "Maart", "April", "May", "June",
         "July", "August", "September", "October", "November", "December"
@@ -40,6 +43,7 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
             filters : [],
             min : 1,
             max : 999,
+            averageReviewRating: 0
         };
     }
 
@@ -195,7 +199,17 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
                 max : e.target.value
             })
         }
-
+    }
+    //Not called yet, but will be called when pagination is added
+    async CallForAverageReviewRating(productId: number){
+        this.GetAverageReviewRatingApiCall(productId)
+        .then(a => this.setState({averageReviewRating: a}))
+    }
+    async GetAverageReviewRatingApiCall(productId:number) : Promise<number>{
+        let apiUrl = 'api/Review/Get/ ' + productId;
+        let apiResponse = await fetch(apiUrl, {method: 'Get', headers: new Headers({'content-type' : 'application/json'})}); 
+        let responseConverted = apiResponse.json();
+        return responseConverted;
     }
 
     render(){
@@ -590,11 +604,13 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
                                         <div className='col-md-6'>
                                             <NavLink to={'/Item/'+ item.productId}><img className="img-responsive" src={ item.productImg }/></NavLink>
                                         </div>
-                                        <div className='col-md-2'>
+                                        <div className='col-md-2'> 
+                                            
                                             <h2>{ item.productNaam } </h2>
                                             <p> Console: {item.consoleType} </p>
-                                            <p> Prijs: {"€" + item.productPrijs } </p>
+                                            <p> Prijs: {"€" + item.productPrijs } </p>                                         
                                             <p> { item.aantalInVooraad + " " } in voorraad </p>
+
                                             <NavLink to={ '/Item/' + item.productId } exact activeClassName='Active'className='button_to_product'>
                                                 <button className={"btn btn-primary"} > naar product </button>
                                             </NavLink>
