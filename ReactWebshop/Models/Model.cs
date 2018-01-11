@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 
 
 
@@ -16,6 +17,7 @@ namespace Models
         public DbSet<Bestelling> Bestellingen { get; set; }
         public DbSet<Betaling> Betalingen { get; set; }
         public DbSet<Product> Producten { get; set; }
+        public DbSet<Review> Review{get;set;}
         public DbSet<ToBeAddedProducts> ToBeAddedProducts{get;set;} //Will be removed after the 1000 entiteis are added
 
         public normieContext(DbContextOptions<normieContext> options)
@@ -104,5 +106,12 @@ namespace Models
         public string productImg { get; set; }
         public string productGenre { get; set; }
         public string consoleType { get; set; }
+    }
+    public class Review{
+        public int ReviewId{get;set;}
+        public int ProductId{get;set;}
+        public int KlantId{get;set;}
+        public int Rating{get;set;}
+        public string Comment{get;set;}
     }
 }
