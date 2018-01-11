@@ -31,11 +31,15 @@ export class StatisticsPage extends React.Component<{}, StatisticsInterface> {
             })
         });
     }
+    DrawCharts(){
+    }
+
 
     render(){  
         return(         
             <div className={"StatisticsComponent"}> 
-                <h1> Statistics </h1>
+                
+                 
                 <ul>
                     {
                         this.state.orders.map(
@@ -43,6 +47,8 @@ export class StatisticsPage extends React.Component<{}, StatisticsInterface> {
                         )
                     }
                 </ul>
+                
+
                 </div>
         )
     }     

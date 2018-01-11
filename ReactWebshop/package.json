@@ -36,9 +36,11 @@
     "moment": "^2.19.1",
     "nw-react-slider": "^2.0.1",
     "office-ui-fabric-react": "^5.28.0",
+    "react-easy-chart": "^1.0.0",
     "react-image": "^1.0.1",
     "react-interval": "^2.0.2",
     "react-router": "^4.2.0",
-    "react-validation": "^3.0.7"
+    "react-validation": "^3.0.7",
+    "webpack-hot-middleware": "^2.21.0"
   }
 }

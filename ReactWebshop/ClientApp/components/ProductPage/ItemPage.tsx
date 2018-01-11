@@ -8,6 +8,7 @@ import {ReactInterval} from 'react-interval';
 import {Review} from "../../../TypescriptModels/Review";
 import {Comment} from "../../../TypescriptModels/Comment";
 
+
 interface ItemPageState{
     product: Product | null;
     loaded : boolean;
@@ -235,6 +236,7 @@ export class ItemPage extends React.Component<RouteComponentProps<{}>, ItemPageS
                             {User.IsUserLoggedIn() && this.state.userHasCommented == false ?
                             [
                             <h2> Geef een ster en review:</h2>,
+                         
                             <button onClick={() => this.setState({rating: 1})}> <img className="img-responsive" src={"https://i1.wp.com/audiobookreviewer.com/wp-content/uploads/sites/209/2015/07/star-rating-full.png?fit=24%2C24&ssl=1"}/>                
                             </button> ,
                             <button onClick={() => this.setState({rating: 2})}> <img className="img-responsive" src={"https://i1.wp.com/audiobookreviewer.com/wp-content/uploads/sites/209/2015/07/star-rating-full.png?fit=24%2C24&ssl=1"}/>                       
