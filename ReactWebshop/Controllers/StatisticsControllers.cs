@@ -37,25 +37,38 @@ namespace Controllers
             .GroupJoin(this._context.Bestellingen,(p) => p.ProductId, (b) => b.productId,(pResult, bResult) => new {pResult.productNaam,bResult});
           
             if(property.ascendOrDescend == 1){                 
-                    var ammountOfBuysOrdered = productenEnBestellingenJoined.OrderBy(a => a.bResult.Count()).Select((a) => new {x = a.productNaam, y = a.bResult.Count()}).Take(10);
+                    var ammountOfBuysOrdered = productenEnBestellingenJoined.OrderBy(a => a.bResult.Count()).Select((a) => new {x = a.productNaam, y= a.bResult.Count()}).Take(10);
                     return Ok(ammountOfBuysOrdered.ToArray());
             }
             var ammountOfBuysDescendedOrdered = productenEnBestellingenJoined.OrderByDescending(a => a.bResult.Count()).Select((a) => new {x = a.productNaam, y = a.bResult.Count()}).Take(10);
             return Ok(ammountOfBuysDescendedOrdered.ToArray());        
         }
          [HttpPost("Reviews")]
-         public IActionResult ReviewsStatistics([FromBody] OrderBy property){  
-            //  var productenEnReviewsJoined = this._context.Producten
-            // //  .GroupJoin(this._context.Review, (p) => p.ProductId, (r) => r.ProductId, (pResult,rResult) => new {x = pResult.productNaam,  y = rResult});
-             
-   
-            // //    if(property.ascendOrDescend == 1){
-            // //     productenEnReviewsJoined.OrderBy((a) => a.y).ToArray();
-            // }
-            //var ammountOfReviewsDescended = productenEnReviewsJoined.OrderByDescending(a => a).ToArray();
-            return NotFound();
+         public IActionResult ReviewsStatistics(OrderBy property){  
+           var averageRatingPerProduct = 
+           from a in this._context.Review         
+           group a by a.ProductId into Product       
+           select new {
+               ID = Product.Key,
+               AvG = Product.Average((a) => a.Rating)
+           };
+           var joined = averageRatingPerProduct.Join(this._context.Producten, (r) => r.ID, (p) => p.ProductId, (rResult,pResult) => new {x =  pResult.productNaam, y = rResult.AvG});    
+           if(property.ascendOrDescend == 0){
+               return Ok(joined.OrderBy((a) => a.y).Take(10).ToArray());
+           } 
+            return Ok(joined.OrderByDescending((a) => a.y).Take(10).ToArray());       
          }
-
+        [HttpPost("Reviews/Category")]
+         public IActionResult ReviewsStatisticsByCategory(OrderBy property){  
+             var AverageRatingPerCategory = this._context.Review.Join(this._context.Producten, (r) => r.ProductId, (p) => p.ProductId, (rResult,pResult) => 
+             new {rating = rResult.Rating, category = pResult.productType})
+             .GroupBy(a => new {category = a.category})
+             .Select(a => new {key = a.Key.category, value = Math.Round(a.Average((r => r.rating)))});  
+             if(property.ascendOrDescend == 0){
+                 return Ok(AverageRatingPerCategory.OrderBy((a) => a.value));
+             }
+             return Ok(AverageRatingPerCategory.OrderByDescending((a) => a.value));
+         }
         [HttpPost("location")]
         public dynamic PostCodeToLocation([FromBody] string postCode){
             var client = new HttpClient(){BaseAddress= new Uri("http://json.api-postcode.nl")};
