@@ -94,8 +94,17 @@ export class WenslijstContainer extends AbstractStorage {
             localStorage.setItem("Winkelmand", JSON.stringify(itemlist));
         }
     }
+    GetTotalPrice(){
+        var res = 0;
+        this.state.products.forEach(product =>{
+            var data = this.GetProductDataFromState(product.productNmr);
+            res += data.Prijs;
+        })
+        return res;
+    }
     componentDidMount(){
         this.GetWishlist();
+        this.GetTotalPrice();
     }
     render() {
         return (
@@ -104,8 +113,22 @@ export class WenslijstContainer extends AbstractStorage {
             <div className='container'>
                 <div className='col-md-9'>
                 <h1>Uw wenslijst</h1>
+                <div className='col-md-3'>
+                <h4> Aantal producten: {this.state.products.length}</h4>
+                <h4> Totaal prijs: €{this.GetTotalPrice().toFixed(2)}</h4>
+                </div>
             </div>
             </div>
+            <div>
+                    { this.state.products.length == 0?
+                    <div>
+                        <h4>Uw wenslijst is leeg.</h4>
+                        <NavLink to={"/"}>
+                            <button className="btn btn-primary">Verder winkelen</button>
+                        </NavLink>
+                    </div>
+                    :
+                    null}
                 <div>
                 {this.state.products.map(
                     listitem =>{
@@ -165,6 +188,7 @@ export class WenslijstContainer extends AbstractStorage {
                 </div>
 
 
+        </div>
         </div>
         );
     }
