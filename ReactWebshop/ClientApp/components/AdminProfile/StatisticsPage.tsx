@@ -170,39 +170,29 @@ export class StatisticsPage extends React.Component<{}, StatisticsInterface> {
     render(){  
         return(                  
             <div className={"Container"}> 
-                {this.state.chartReadyForLoading ?    
-                    this.state.choiceForChart == 1?
-                    this.loadPieChart()    
-                    :
-                    this.state.choiceForChart == 2?
-                    this.LoadBarChart()          
-                :
-                <div> </div>
-                :
-                <div> </div>
-
-                }
-                
-                <li> <h2> Users statistics </h2> </li>
-                <li> <button onClick={() => this.UserStaticsLocation("klantPostcode")}> Locatie van klanten  </button> </li>
+            <div className='col-md-10'>
+                 <h2> Users statistics </h2>
+                 {this.loadPieChart()} 
+                 <button onClick={() => this.UserStaticsLocation("klantPostcode")}> Locatie van klanten  </button>
               
-                <li> <h2> Bestellingen statistics</h2> </li>  
-                <li> <button onClick={() => this.BestellingStatistics("productId",0)}> Meeste bestelde producten uit de huidige voorraad </button> </li>
-                <li> <button onClick={() => this.BestellingStatistics("productId",1)}> Minste bestelde producten uit de huidige voorraad  </button> </li>
+                 <h2> Bestellingen statistics</h2> 
+                 {this.LoadBarChart()}   
+                 <button onClick={() => this.BestellingStatistics("productId",0)}> Meeste bestelde producten uit de huidige voorraad </button>
+                 <button onClick={() => this.BestellingStatistics("productId",1)}> Minste bestelde producten uit de huidige voorraad  </button>
            
-                <li> <h2> Review statistics</h2> </li>   
-                <li> <button onClick={() => this.ReviewStatistics(false,0)}> Highest rated products of all time </button>  </li> 
-                <li>  <button onClick={() => this.ReviewStatistics(false,1)}> Lowest rated products of all time </button></li>  
-                <li> <button onClick={() => this.ReviewStatistics(true,0)}> Highest rated products of category </button>  </li> 
-                <li> <button onClick={() => this.ReviewStatistics(true,1)}> Lowest rated products of category </button> </li>  
+                 <h2> Review statistics</h2>   
+                 <button onClick={() => this.ReviewStatistics(false,0)}> Highest rated products of all time </button> 
+                  <button onClick={() => this.ReviewStatistics(false,1)}> Lowest rated products of all time </button>  
+                 <button onClick={() => this.ReviewStatistics(true,0)}> Highest rated products of category </button> 
+                 <button onClick={() => this.ReviewStatistics(true,1)}> Lowest rated products of category </button>  
 
-                <ul>
+                
                     {
                         this.state.orders.map(
                             order => { console.log(order.productId); return (<li><h2> {order.bestellingDatum} </h2></li>)}
                         )
                     }
-                </ul>
+                </div>
                 </div>
                 
         )
