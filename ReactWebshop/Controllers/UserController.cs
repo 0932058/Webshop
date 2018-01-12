@@ -109,8 +109,13 @@ namespace Controllers
         public void Delete(int id){
             var klantRemove = this._context.Klanten.Find(id);
             this._context.Klanten.Remove(klantRemove);
+
+            var reviewsToRemove = this._context.Review.Where((r) => r.KlantId == id);
+            this._context.Review.RemoveRange(reviewsToRemove);
+            
             this._context.SaveChanges();
     
+        
         }
     }
 }

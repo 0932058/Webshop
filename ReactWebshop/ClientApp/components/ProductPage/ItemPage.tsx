@@ -211,22 +211,22 @@ export class ItemPage extends React.Component<RouteComponentProps<{}>, ItemPageS
                             <div> </div>
                             }
 
-                            <h1> Reviews: {this.state.comments.length} </h1>:
+                            <h1> Aantal Reviews: {this.state.comments.length} </h1>:
                             {this.state.comments.length <= 0? 
-                            <div> no comments available </div>
+                            <div> geen reviews beschikbaars </div>
                             :
                             this.state.comments.map(function(comment,key)  {
                                 return([
                                     <h1> Review {key + 1} </h1>,
-                                    <div> Naam: {comment.klantNaam} </div> ,
-                                    <div> Rating: {comment.rating} </div> ,
-                                    <div> comment {comment.comment} </div> ,                                        
+                                    <div> <strong> Naam: </strong> {comment.klantNaam} </div> ,
+                                    <div> <strong> Rating: </strong> {comment.rating} </div> ,
+                                    <div> <strong> Review: </strong> {comment.comment} </div> ,                                        
                                 ])})}              
 
                         </div>  
                             <div className='col-md-3'>
                                 <h3>Prijs: {this.state.product.productPrijs}</h3>
-                                <p>gemiddelde review</p>
+                                <p>gemiddelde rating</p>
                         <div classID='score'>
                         {this.state.averageReviewStars.length <= 0?
                             <div> no reviews available </div>                            
