@@ -14,6 +14,7 @@ interface ItemsContainerState{
     filters : string[],
     min : number,
     max : number,
+    page : number,
 }
 export class ItemsContainer extends React.Component<RouteComponentProps<{}>, ItemsContainerState> {
     months : string[];
@@ -40,6 +41,7 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
             filters : [],
             min : 1,
             max : 999,
+            page : 20,
         };
     }
 
@@ -583,9 +585,9 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
 
                     {this.state.filteredItems.map(
                         
-                        item => {
+                        (item, index) => {
 
-                            return (
+                            if( (this.state.page) >= index.valueOf() && ( (this.state.page) - 20) < index.valueOf() ) {return (
                                 <div className='col-md-5'>
                                         <div className='col-md-6'>
                                             <NavLink to={'/Item/'+ item.productId}><img className="img-responsive" src={ item.productImg }/></NavLink>
@@ -619,7 +621,29 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
                                     
                             )
                         }
+                        }
                     )}
+                    
+                    <div className='col-sm'> 
+                        <ul className="pagination">
+                            {
+                                this.state.filteredItems.map(
+                                    (item, index) => {
+                                        if( index % 20 == 0 && index < (this.state.page + 100) && index > (this.state.page - 100) && index != 0){
+                                            return (
+                                                <li ><a href="#" onClick={() => this.setState({ page : index})}> {index / 20} </a></li>
+                                        )
+                                        }else{
+                                            if(index === (this.state.page + 111) || index === (this.state.page - 111)){
+                                                return (<li > <span>...</span> </li>)
+                                            }
+                                        }
+                                    }
+                                )
+                            }
+                        </ul>
+                    </div>
+                    
 
                     </div>
                     
