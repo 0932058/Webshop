@@ -82,7 +82,7 @@ export class RegistratieContainer extends React.Component<RouteComponentProps<{}
                     <div className="row">
                         <div className="col-md-4 col-md-offset-4">
                         <p>Email*</p>
-                        <input placeholder="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+[.]+[a-z]{2,3}$" 
+                        <input placeholder="email" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+[.]+[a-zA-Z]{2,3}$" 
                         title='zorg dat het een juist email is vb. characters@characters.domain'
                         type="text" name="email"className="form-control"  value={this.state.email}  required={true}
                         onChange={(e:any) => this.setState({email: e.target.value})}
@@ -136,7 +136,7 @@ export class RegistratieContainer extends React.Component<RouteComponentProps<{}
                         </div>  
                         <div className="col-md-2">
                             <p>Toevoeging</p>
-                            <input placeholder='Toevoeging' pattern="[a-z]{1}"
+                            <input placeholder='Toevoeging' pattern="[a-zA-Z]{1}"
                             type="text" name="nummertoevoeging"className="form-control"  value={this.state.numberaddition}
                             onChange={(e:any) => this.setState({numberaddition: e.target.value})}
                             />

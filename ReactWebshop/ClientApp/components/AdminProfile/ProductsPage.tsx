@@ -117,11 +117,11 @@ export class ProductsPage extends React.Component<{}, ProductsState> implements 
 
     render(){  
         return(         
-            <div className={"ProductsComponent col-md-10"} > 
+            <div className={"ProductsComponent col-md-8"} > 
                 {/* <h2> Products </h2>
 
                 <input type="text" name="zoek" value={this.state.search} onChange={(e) => {this.handleChange(e); console.log(this.state.search)}} /> */}
-                <h1> Products </h1>
+                <h1> Producten </h1>
 
                 {this.state.loaded? 
 
@@ -130,10 +130,13 @@ export class ProductsPage extends React.Component<{}, ProductsState> implements 
                         item => {
 
                             return (
-                                <div className={"Component"}>
-                                    <div className='col-md-6'>
-                                        <img className="img-responsive" src={ item.productImg }/>
-
+                                <div> 
+                                
+                                    <div className='panel panel-default'>
+                                        <div className="col-md-2">
+                                            <img className="img-responsive" src={ item.productImg }/>
+                                        </div> 
+                                        <div className="col-md-4">                                       
                                         <h2>{ item.productNaam } </h2>
 
                                         <p> Console: {item.consoleType} </p>
@@ -192,12 +195,14 @@ export class ProductsPage extends React.Component<{}, ProductsState> implements 
                                                             <input placeholder="productOntwikkelaar"  title="productOntwikkelaar moet uit 4 cijfers en 2 letters bestaan" 
                                                             type="text" name="productOntwikkelaar"className="form-control"  value={this.state.productOntwikkelaar} required={true} 
                                                             onChange={(event:any) => this.setState({productOntwikkelaar: event.target.value})} />          
-                                                        <input className="btn-primary" placeholder="pas het product aan" type="submit" value="pas het product aan"/>
+                                                        <input className="btn btn-primary" placeholder="pas het product aan" type="submit" value="pas het product aan"/>
                                                     </form>
                                                 </div>
+                                                
                                             :
                                             null
                                         }
+                                    </div>
                                     </div>
                                 </div> 
                             )
