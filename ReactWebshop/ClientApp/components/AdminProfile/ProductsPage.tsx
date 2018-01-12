@@ -3,6 +3,7 @@ import { RouteComponentProps } from 'react-router';
 import { List } from "linqts";
 import { Product } from 'ClientApp/components/Items/ItemsInterfaces';
 import {IAdmin} from "./AdminInterface";
+import { Link, NavLink } from 'react-router-dom';
 
 //When the profile gets clicked it gets redirected to this empty profile page
 
@@ -117,7 +118,7 @@ export class ProductsPage extends React.Component<{}, ProductsState> implements 
 
     render(){  
         return(         
-            <div className={"ProductsComponent col-md-8"} > 
+            <div className={"ProductsComponent col-md-10"} > 
                 {/* <h2> Products </h2>
 
                 <input type="text" name="zoek" value={this.state.search} onChange={(e) => {this.handleChange(e); console.log(this.state.search)}} /> */}
@@ -130,23 +131,26 @@ export class ProductsPage extends React.Component<{}, ProductsState> implements 
                         item => {
 
                             return (
-                                <div> 
-                                
-                                    <div className='panel panel-default'>
+                                <div>
+                                    <p>______________________________________________________________________________________________________</p>
                                         <div className="col-md-2">
                                             <img className="img-responsive" src={ item.productImg }/>
                                         </div> 
-                                        <div className="col-md-4">                                       
-                                        <h2>{ item.productNaam } </h2>
+                                        <div className="col-md-5">                                       
+                                            <h4><b>{ item.productNaam } </b></h4>
 
-                                        <p> Console: {item.consoleType} </p>
+                                            <p> Console: {item.consoleType} </p>
 
-                                        <p> Prijs: {"€" + item.productPrijs } </p>
+                                            <p> Prijs: {"€" + item.productPrijs } </p>
 
-                                        <p> { item.aantalInVooraad + " " } in voorraad </p>
+                                            <p> { item.aantalInVooraad + " " } in voorraad </p>
 
-                                        <button className={"btn btn-primary"} onClick={() => this.setChange(item)} data-toggle='collapse' data-target='#AdminForm'> pas aan </button>
-                                    {
+                                            <NavLink to={ '/Item/' + item.productId } exact activeClassName='Active'className='button_to_product'>
+                                                <button className={"btn btn-primary"} > naar product </button>
+                                            </NavLink>
+                                        </div>
+                                            <div className="col-md-offset-7"><button className={"btn btn-primary"} onClick={() => this.setChange(item)} data-toggle='collapse' data-target='#AdminForm'> pas aan </button>
+                                        {
                                             item.productId === this.state.change?
                                                 <div className="collapse" id='AdminForm'>
                                                     <form action="/action_page.php" onSubmit={ this.handleChangeSubmit } >
@@ -195,16 +199,20 @@ export class ProductsPage extends React.Component<{}, ProductsState> implements 
                                                             <input placeholder="productOntwikkelaar"  title="productOntwikkelaar moet uit 4 cijfers en 2 letters bestaan" 
                                                             type="text" name="productOntwikkelaar"className="form-control"  value={this.state.productOntwikkelaar} required={true} 
                                                             onChange={(event:any) => this.setState({productOntwikkelaar: event.target.value})} />          
+                                                        <br/>
                                                         <input className="btn btn-primary" placeholder="pas het product aan" type="submit" value="pas het product aan"/>
                                                     </form>
-                                                </div>
+                                                    </div>
+                                                
+                                            
                                                 
                                             :
                                             null
                                         }
+                                        </div>
                                     </div>
-                                    </div>
-                                </div> 
+                                    
+                                
                             )
                         }
                     )
