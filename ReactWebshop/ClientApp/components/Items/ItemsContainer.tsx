@@ -587,7 +587,7 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
                 <div className='col-md-2'>
                     {ZijFilter}
                 </div>
-                <div className='col-md-1'>
+                <div className='col-md-10'>
 
             
             <div  className={"ItemsContainerScroll "}>
@@ -600,21 +600,27 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
                         item => {
 
                             return (
-                                <div className='col-md-5'>
-                                        <div className='col-md-6'>
+                                <div className='col-md-10'>
+                                <p>______________________________________________________________________________________________________</p>
+                                <p></p>
+                                        <div className='col-md-2'>
                                             <NavLink to={'/Item/'+ item.productId}><img className="img-responsive" src={ item.productImg }/></NavLink>
                                         </div>
-                                        <div className='col-md-2'> 
-                                            
-                                            <h2>{ item.productNaam } </h2>
-                                            <p> Console: {item.consoleType} </p>
-                                            <p> Prijs: {"€" + item.productPrijs } </p>                                         
-                                            <p> { item.aantalInVooraad + " " } in voorraad </p>
+                                        <div className='col-md-5'> 
+                                            <h4><b>{ item.productNaam }</b> </h4>
+                                            <p id='main_omschrijving'> {item.productOmschr} </p>
+                                            <NavLink to={'Item/'+ item.productId}>..meer weergeven</NavLink>
+                                            <p><b>Console:</b>{item.consoleType}</p>
+                                        </div>
+                                        <div className='col-md-3'>
+                                            <h3> Prijs: {"€" + item.productPrijs } </h3>                                         
+                                            <p> { item.aantalInVooraad + " " } op voorraad </p>
+
 
                                             <NavLink to={ '/Item/' + item.productId } exact activeClassName='Active'className='button_to_product'>
                                                 <button className={"btn btn-primary"} > naar product </button>
                                             </NavLink>
-                                            <button type="button" className="btn btn-success" data-toggle="modal" data-target="#myModalM" onClick={ () => this.AddProductToShoppingCartLocalStorage(item) }>+ Toevoegen aan winkelmand</button>
+                                            <button type="button" className="btn btn-success" data-toggle="modal" data-target="#myModalM" onClick={ () => this.AddProductToShoppingCartLocalStorage(item) }>+ in winkelmand</button>
                                             <div className="modal fade" id="myModalM" role="dialog">
                                                 <div className="modal-dialog modal-sm">
                                                 <div className="modal-content">
