@@ -49,7 +49,7 @@ export class UserNotLoggedInMenu extends React.Component<RouteComponentProps<{}>
                 }
 
                 {
-                    this.state.search === "deerk"? <img src="https://i.ytimg.com/vi/p65rX6k1TMU/maxresdefault.jpg" /> : null
+                    this.state.search === "deerk"? <img src="https://i.ytimg.com/vi/33LGmZ1mxkA/maxresdefault.jpg" /> : null
                 }
 
                 {
