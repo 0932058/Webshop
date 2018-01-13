@@ -1,67 +1,61 @@
 import * as React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { Redirect } from 'react-router'
+import { RouteComponentProps } from 'react-router';
 
 //The navigation menu of the top bar when the user is not logged in
 interface topBarState {
-    text : string;
-    redirect : boolean;
+    search : string
 }
 
-export class UserNotLoggedInMenu extends React.Component<{}, topBarState> {
+export class UserNotLoggedInMenu extends React.Component<RouteComponentProps<{}>, topBarState> {
     constructor(){
         super();
-
         this.handleChange = this.handleChange.bind(this);
 
         this.state = {
-            text : "",
-            redirect : false,
+            search : ""
         }
     }
 
-    handleChange(event : any) {
-        event.preventDefault()
+    handleChange(event){
         this.setState({
-            text : event.target.value,
-        }) 
-        sessionStorage
-    }
-
-    handleSubmit() {
-        sessionStorage.setItem("search", this.state.text)
-        this.setState({
-            redirect : true
+            search : event.target.value
         })
     }
 
     public render() {
-        return <nav className="UserNotLoggedInMenuLayout">
-                            <NavLink to={ '/' } exact activeClassName='active' className='LinksNav'>
-                                Home
-                            </NavLink>
+        return (
+            <div>
+                <input type="text" id="one" onKeyPress={this.handleChange} />
+                {
+                    this.state.search === "olaf"? <img src="https://i.ytimg.com/vi/V4MF2s6MLxY/maxresdefault.jpg" /> : null
+                }
 
-                            <NavLink to={ '/Login' } exact activeClassName='active'className='LinksNav'>
-                                Login
-                            </NavLink>
+                {
+                    this.state.search === "stefan"? <img src="https://memegenerator.net/img/instances/500x/58771697/database-guy.jpg" /> : null
+                }
 
-                            <NavLink to={ '/Registratie' } exact activeClassName='active'className='LinksNav'>
-                                Registreer
-                            </NavLink>
+                {
+                    this.state.search === "mika"? <img src="http://i.imgur.com/FGW3IC0.jpg" /> : null
+                }
 
-                            <NavLink to={ '/Winkelmand' } exact activeClassName='active'className='LinksNav'>
-                                Winkelmand
-                            </NavLink>
+                {
+                    this.state.search === "felix"? <img src="https://i.ytimg.com/vi/qafe_FqKb88/maxresdefault.jpg" /> : null
+                }
 
-                            <form onSubmit={ this.handleSubmit }>
-                                
-                                <input type="text" value={this.state.text} onChange={this.handleChange} />
-                                <input type="submit" value="Search it!" />
-                            </form>
+                {
+                    this.state.search === "lucas"? <img src="https://i.ytimg.com/vi/p65rX6k1TMU/maxresdefault.jpg" /> : null
+                }
 
-                            {
-                                this.state.redirect && <Redirect to="/Search" />
-                            }
-        </nav>;
+                {
+                    this.state.search === "deerk"? <img src="https://i.ytimg.com/vi/p65rX6k1TMU/maxresdefault.jpg" /> : null
+                }
+
+                {
+                    this.state.search === "da wea" || this.state.search === "da wea" ? <img src="https://i.ytimg.com/vi/eix7fLsS058/hqdefault.jpg?sqp=-oaymwEXCPYBEIoBSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLC2sRKpVY7qw232eLXutCSjxE-RJw" /> : null
+                }
+            </div>
+        )
     }
 }
