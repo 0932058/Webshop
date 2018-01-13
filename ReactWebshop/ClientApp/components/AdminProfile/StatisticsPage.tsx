@@ -18,6 +18,7 @@ export class StatisticsPage extends React.Component<{}, StatisticsInterface> {
     constructor(){
         super();
         this.UserStatisticsApiCall = this.UserStatisticsApiCall.bind(this);
+        this.loadPieChart = this.loadPieChart.bind(this);
 
         
         this.state ={
@@ -87,25 +88,23 @@ export class StatisticsPage extends React.Component<{}, StatisticsInterface> {
 
     }
     loadPieChart() : JSX.Element{
+        this.state.DataForGraph.forEach((a) => console.log(a));
         return(
-        <PieChart
-        labels
-        data={this.state.DataForGraph}
-        styles={{
-            '.chart_text': {
-              fontSize: '2em',
-              fill: '#fff'
-            }
-          }}
-        />
+            <PieChart
+            labels
+            height={250}
+            width={900}
+            data={this.state.DataForGraph}
+            />
         )
     }
     LoadBarChart() : JSX.Element{
+        this.state.DataForGraph.forEach((a) => console.log(a));
         return(
             <BarChart
             axes
-            height={250}
-            width={900}
+            height={300}
+            width={1000}
             data={this.state.DataForGraph}         
           />
         )
@@ -131,14 +130,13 @@ export class StatisticsPage extends React.Component<{}, StatisticsInterface> {
         return responseConverted;
     }
     ReviewStatistics(byCategory: boolean, ascendOrDescend: number){
-        alert("Button is not working yet");
         this.ReviewStatisticsApiCall(byCategory, ascendOrDescend)
         .then(result => {
             if(byCategory){
                 this.setState({
                     choiceForChart: 1,
                     chartReadyForLoading: true, 
-                    DataForGraph: result})
+                    DataForGraph: result});
             }
             else{
                 this.setState({
@@ -155,7 +153,6 @@ export class StatisticsPage extends React.Component<{}, StatisticsInterface> {
             ascendOrDescend: ascendOrDescend,
             attribute:null
         };
-
         if(byCategory){
             var apiUrl = 'api/Statistics/Reviews/Category';         
         }
@@ -170,39 +167,36 @@ export class StatisticsPage extends React.Component<{}, StatisticsInterface> {
     render(){  
         return(                  
             <div className={"Container"}> 
-                {this.state.chartReadyForLoading ?    
-                    this.state.choiceForChart == 1?
-                    this.loadPieChart()    
-                    :
-                    this.state.choiceForChart == 2?
-                    this.LoadBarChart()          
-                :
-                <div> </div>
-                :
-                <div> </div>
+            <div className='col-md-10'>
+                 <h2> Users statistics </h2>
+                 {this.state.chartReadyForLoading ? 
+                    this.state.choiceForChart == 1 ?
+                    this.loadPieChart()
+                    :            
+                    this.LoadBarChart()
+                  :
+                  <div> No graph selected </div>
+                 };
 
-                }
-                
-                <li> <h2> Users statistics </h2> </li>
-                <li> <button onClick={() => this.UserStaticsLocation("klantPostcode")}> Locatie van klanten  </button> </li>
+                 <button onClick={() => this.UserStaticsLocation("klantPostcode")}> Locatie van klanten  </button>
               
-                <li> <h2> Bestellingen statistics</h2> </li>  
-                <li> <button onClick={() => this.BestellingStatistics("productId",0)}> Meeste bestelde producten uit de huidige voorraad </button> </li>
-                <li> <button onClick={() => this.BestellingStatistics("productId",1)}> Minste bestelde producten uit de huidige voorraad  </button> </li>
+                 <h2> Bestellingen statistics</h2> 
+     
+                 <button onClick={() => this.BestellingStatistics("productId",0)}> Meeste bestelde producten uit de huidige voorraad </button>
+                 <button onClick={() => this.BestellingStatistics("productId",1)}> Minst bestelde producten uit de huidige voorraad  </button>
            
-                <li> <h2> Review statistics</h2> </li>   
-                <li> <button onClick={() => this.ReviewStatistics(false,0)}> Highest rated products of all time </button>  </li> 
-                <li>  <button onClick={() => this.ReviewStatistics(false,1)}> Lowest rated products of all time </button></li>  
-                <li> <button onClick={() => this.ReviewStatistics(true,0)}> Highest rated products of category </button>  </li> 
-                <li> <button onClick={() => this.ReviewStatistics(true,1)}> Lowest rated products of category </button> </li>  
+                 <h2> Review statistics</h2>   
+                 <button onClick={() => this.ReviewStatistics(false,0)}> Hoogst gewaardeerde producten uit de huidige voorraad </button> 
+                  <button onClick={() => this.ReviewStatistics(false,1)}>  Minst gewaardeerde producten uit de huidige voorraad </button>  
+                 <button onClick={() => this.ReviewStatistics(true,0)}>  Overall Reviews van producten per category</button> 
 
-                <ul>
+                
                     {
                         this.state.orders.map(
                             order => { console.log(order.productId); return (<li><h2> {order.bestellingDatum} </h2></li>)}
                         )
                     }
-                </ul>
+                </div>
                 </div>
                 
         )

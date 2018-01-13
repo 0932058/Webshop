@@ -8,6 +8,10 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Diagnostics;
 using Newtonsoft.Json;
+using Microsoft.EntityFrameworkCore;
+
+
+
 
 //This controller was used to implement new database entities via an api
 
@@ -20,6 +24,7 @@ namespace Controllers
         public ApiCallController(normieContext context){
             this._context = context;
         }
+
         public int GivePK(){
             int possiblePK = 1;
             while(this._context.ToBeAddedProducts.Where((a) => a.ToBeAddedProductsId == possiblePK).FirstOrDefault() != null)
@@ -27,17 +32,6 @@ namespace Controllers
                 possiblePK++;
             }
             return possiblePK;
-        }
-        [HttpGet("yo")]
-        public void Update(){
-            var review = new Review(){
-                ProductId=1,
-                KlantId=2,
-                Rating=3,
-                Comment="Good"
-            };
-            this._context.Review.Add(review);
-            this._context.SaveChanges();
         }
 
         [HttpGet]

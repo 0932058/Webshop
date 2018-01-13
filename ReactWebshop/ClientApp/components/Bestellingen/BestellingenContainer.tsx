@@ -41,6 +41,7 @@ export class BestellingenContainer extends AbstractStorage {
             .then(response => response.json() as Promise<JoinedBestelling[]>)
             .then(data =>{
                console.log("GetOrders geeft " + data[0]);
+               data = data.reverse();
                this.setState({products: data})
             });
 
@@ -68,6 +69,7 @@ export class BestellingenContainer extends AbstractStorage {
                                     </div>
                                     <div className='col-md-4'>
                                         <p>Status: {order.status}</p>
+                                        <p>Prijs: €{order.productId.productPrijs}</p>
                                         <p>Besteldatum: {order.bestellingDatum}</p>
                                         <p>Verstuurdatum: {order.verstuurDatum}</p>
                                         </div>

@@ -171,10 +171,71 @@ export class ItemPage extends React.Component<RouteComponentProps<{}>, ItemPageS
 
                 { this.state.loaded ?
                     <div className="container">
+                    <div className='row'>
+                        <div className='col-md-12'>
                         <h1> { this.state.product.productNaam } </h1>
+                        </div>
+                    </div>
                         <div className='col-md-3'>      
                             <img className="img-responsive" src={ this.state.product.productImg }/> 
-                            <h2>
+                        </div>
+                        <div className='col-md-5'>  
+                         
+                        <h2> Beschrijving:</h2>
+                             <p> { this.state.product.productOmschr } </p>
+                            <h3> Genre:</h3><p> { this.state.product.productGenre } </p>
+                            <h3> Console:</h3><p> { this.state.product.consoleType } </p>
+                                
+                              
+                            <h2> Gemiddelde Review: </h2>
+     
+           
+                            {User.IsUserLoggedIn() && this.state.userHasCommented == false ?
+                            [
+                            <h2> Geef een ster en review:</h2>,
+                         
+                            <button onClick={() => this.setState({rating: 1})}> <img className="img-responsive" src={"https://i1.wp.com/audiobookreviewer.com/wp-content/uploads/sites/209/2015/07/star-rating-full.png?fit=24%2C24&ssl=1"}/>                
+                            </button> ,
+                            <button onClick={() => this.setState({rating: 2})}> <img className="img-responsive" src={"https://i1.wp.com/audiobookreviewer.com/wp-content/uploads/sites/209/2015/07/star-rating-full.png?fit=24%2C24&ssl=1"}/>                       
+                            </button> ,
+                            <button onClick={() => this.setState({rating: 3})}> <img className="img-responsive" src={"https://i1.wp.com/audiobookreviewer.com/wp-content/uploads/sites/209/2015/07/star-rating-full.png?fit=24%2C24&ssl=1"}/>                          
+                            </button> ,
+                            <button onClick={() => this.setState({rating: 4})}> <img className="img-responsive" src={"https://i1.wp.com/audiobookreviewer.com/wp-content/uploads/sites/209/2015/07/star-rating-full.png?fit=24%2C24&ssl=1"}/>                          
+                            </button> ,
+                            <button onClick={() => this.setState({rating: 5})}> <img className="img-responsive" src={"https://i1.wp.com/audiobookreviewer.com/wp-content/uploads/sites/209/2015/07/star-rating-full.png?fit=24%2C24&ssl=1"}/>                          
+                            </button> ,
+                            <input type="review" name="review" className="form-control" id="review" onChange={(e:any) => this.setState({comment: e.target.value})} />,
+                            <button onClick={(e:any) => this.ProcessReview(e)}> Send Review </button>
+                            ]
+                            :
+                            <div> </div>
+                            }
+
+                            <h1> Aantal Reviews: {this.state.comments.length} </h1>:
+                            {this.state.comments.length <= 0? 
+                            <div> geen reviews beschikbaars </div>
+                            :
+                            this.state.comments.map(function(comment,key)  {
+                                return([
+                                    <h1> Review {key + 1} </h1>,
+                                    <div> <strong> Naam: </strong> {comment.klantNaam} </div> ,
+                                    <div> <strong> Rating: </strong> {comment.rating} </div> ,
+                                    <div> <strong> Review: </strong> {comment.comment} </div> ,                                        
+                                ])})}              
+
+                        </div>  
+                            <div className='col-md-3'>
+                                <h3>Prijs: {this.state.product.productPrijs}</h3>
+                                <p>gemiddelde rating</p>
+                        <div classID='score'>
+                        {this.state.averageReviewStars.length <= 0?
+                            <div> no reviews available </div>                            
+                            :        
+                            this.state.averageReviewStars.map(element => {
+                                return element;
+                                
+                            })}
+                        </div> 
                                 {this.state.loggedIn ?
                                 <div>
                                     <button className="btn btn-primary" onClick={this.AddProductToWishList} data-toggle="modal" data-target="#myModalWIngelogd">
@@ -199,74 +260,26 @@ export class ItemPage extends React.Component<RouteComponentProps<{}>, ItemPageS
                                     :
                                     <NavLink to={"/Registratie"}> <button className="btn btn-danger">Registreer om gebruik te maken van de wenslijst </button> </NavLink>
                                          }
-                            </h2>                          
-                            <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#myModalM" onClick={this.AddProductToShoppingCartLocalStorage}>Toevoegen aan winkelmand</button>
-                            <div className="modal fade" id="myModalM" role="dialog">
-                                <div className="modal-dialog modal-sm">
-                                <div className="modal-content">
-                                    <div className="modal-header">
-                                    <button type="button" className="close" data-dismiss="modal">&times;</button>
-                                    <h4 className="modal-title">Product is toegevoegd!</h4>
-                                    </div>
-                                    <div className="modal-body">
-                                    <p>het door u gekozen item is succesvol toegevoegd aan de winkelmand</p>
-                                    <button type="button" className="btn btn-default" data-dismiss="modal" data-backdrop="false">verder winkelen</button>
-                                    <a href='/Winkelmand'><button type="button" className="btn btn-default" data-backdrop="false" >naar winkelmand</button></a>
+                                                      
+                                <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#myModalM" onClick={this.AddProductToShoppingCartLocalStorage}>Toevoegen aan winkelmand</button>
+                                <div className="modal fade" id="myModalM" role="dialog">
+                                    <div className="modal-dialog modal-sm">
+                                    <div className="modal-content">
+                                        <div className="modal-header">
+                                        <button type="button" className="close" data-dismiss="modal">&times;</button>
+                                        <h4 className="modal-title">Product is toegevoegd!</h4>
+                                        </div>
+                                        <div className="modal-body">
+                                        <p>het door u gekozen item is succesvol toegevoegd aan de winkelmand</p>
+                                        <button type="button" className="btn btn-default" data-dismiss="modal" data-backdrop="false">verder winkelen</button>
+                                        <a href='/Winkelmand'><button type="button" className="btn btn-default" data-backdrop="false" >naar winkelmand</button></a>
+                                        </div>
                                     </div>
                                 </div>
-                                </div>
-                            </div>  
-                        </div>
-                        <div className='col-md-4'>    
-                            <h2> Prijs: €{ this.state.product.productPrijs }</h2>
-                            { /* <h2> Leeftijd: { "dit moet nog ff toegevoegd worden" } </h2>  */}
-                            <h2> Genre: { this.state.product.productGenre } </h2>
-                            <h2> Console: { this.state.product.consoleType } </h2>
-                            <h2> Beschrijving:</h2><p> { this.state.product.productOmschr } </p>    
-                              
-                            <h2> Gemiddelde Review: </h2>
-                            {this.state.averageReviewStars.length <= 0?
-                            <div> no reviews available </div>                            
-                            :        
-                            this.state.averageReviewStars.map(element => {
-                                return element;
-                                
-                            })}     
-           
-                            {User.IsUserLoggedIn() && this.state.userHasCommented == false ?
-                            [
-                            <h2> Geef een ster en review:</h2>,
-                         
-                            <button onClick={() => this.setState({rating: 1})}> <img className="img-responsive" src={"https://i1.wp.com/audiobookreviewer.com/wp-content/uploads/sites/209/2015/07/star-rating-full.png?fit=24%2C24&ssl=1"}/>                
-                            </button> ,
-                            <button onClick={() => this.setState({rating: 2})}> <img className="img-responsive" src={"https://i1.wp.com/audiobookreviewer.com/wp-content/uploads/sites/209/2015/07/star-rating-full.png?fit=24%2C24&ssl=1"}/>                       
-                            </button> ,
-                            <button onClick={() => this.setState({rating: 3})}> <img className="img-responsive" src={"https://i1.wp.com/audiobookreviewer.com/wp-content/uploads/sites/209/2015/07/star-rating-full.png?fit=24%2C24&ssl=1"}/>                          
-                            </button> ,
-                            <button onClick={() => this.setState({rating: 4})}> <img className="img-responsive" src={"https://i1.wp.com/audiobookreviewer.com/wp-content/uploads/sites/209/2015/07/star-rating-full.png?fit=24%2C24&ssl=1"}/>                          
-                            </button> ,
-                            <button onClick={() => this.setState({rating: 5})}> <img className="img-responsive" src={"https://i1.wp.com/audiobookreviewer.com/wp-content/uploads/sites/209/2015/07/star-rating-full.png?fit=24%2C24&ssl=1"}/>                          
-                            </button> ,
-                            <input type="review" name="review" className="form-control" id="review" onChange={(e:any) => this.setState({comment: e.target.value})} />,
-                            <button onClick={(e:any) => this.ProcessReview(e)}> Send Review </button>
-                            ]
-                            :
-                            <div> </div>
-                            }
+                            </div> 
+                        </div> 
+                        
 
-                            <h1> Reviews: {this.state.comments.length} </h1>:
-                            {this.state.comments.length <= 0? 
-                            <div> no comments available </div>
-                            :
-                            this.state.comments.map(function(comment,key)  {
-                                return([
-                                    <h1> Review {key + 1} </h1>,
-                                    <div> Naam: {comment.klantNaam} </div> ,
-                                    <div> Rating: {comment.rating} </div> ,
-                                    <div> comment {comment.comment} </div> ,                                        
-                                ])})}              
-
-                        </div>
                         <div className='col-md-3'>
 
                         </div>                
