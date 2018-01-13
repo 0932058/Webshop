@@ -13,6 +13,7 @@ interface ProductsState{
     loaded : boolean
     search : string
     change : number
+    page : number
 
     productNaam: string;
     productUitgever: string;
@@ -42,6 +43,7 @@ export class ProductsPage extends React.Component<{}, ProductsState> implements 
             loaded : false,
             search : "",
             change : 0,
+            page : 20,
 
             productNaam : "",
             productUitgever : "",
@@ -70,9 +72,30 @@ export class ProductsPage extends React.Component<{}, ProductsState> implements 
     }
 
     handleChange(event : any){
+        console.log(event.target.value)
+        this.setState({
+            search : event.target.value
+        })
+
+        this.updateSearch(event)
     }
 
-    updateSearch(){
+    updateSearch(event : any){
+        event.preventDefault()
+        let newItemList = [];
+        console.log(this.state.search)
+        for(let p of this.state.allItems){
+            if(
+                p.productNaam.toLowerCase().includes(this.state.search.toLowerCase())   ||
+                p.productImg.toLowerCase().includes(this.state.search.toLowerCase())    ||
+                p.productOmschr.toLowerCase().includes(this.state.search.toLowerCase())
+            ){
+                newItemList.push(p)
+            }
+        }
+        this.setState({
+            items : newItemList
+        })
     }
 
     setChange(item : Product){
@@ -87,7 +110,7 @@ export class ProductsPage extends React.Component<{}, ProductsState> implements 
             productOntwikkelaar : item.productOntwikkelaar,
             productGenre : item.productGenre,
             consoleType : item.consoleType,
-            productImage: item.productImg
+            productImage: item.productImg,
         })
     }
 
@@ -124,13 +147,26 @@ export class ProductsPage extends React.Component<{}, ProductsState> implements 
                 <input type="text" name="zoek" value={this.state.search} onChange={(e) => {this.handleChange(e); console.log(this.state.search)}} /> */}
                 <h1> Producten </h1>
 
+                <form className="navbar-form navbar-left" onSubmit={ this.updateSearch }>
+                    <div className="input-group">
+                    <input type="text" className="form-control" placeholder="Zoek naar product" value={this.state.search} onChange={this.handleChange}/>
+                        <div className="input-group-btn">
+                            <button className={"btn btn-default"} type={"submit"}> 
+                                <i className="glyphicon glyphicon-search"/> 
+                            </button>
+                        </div>
+                    </div>
+                </form>
+
+                <button className={"btn btn-danger-lg"} onClick={()=> this.setState({ search : "", items : this.state.allItems})}> - verwijder zoekterm</button>
+
                 {this.state.loaded? 
 
                     this.state.items.map(
                         
-                        item => {
+                        (item, index) => {
 
-                            return (
+                            if( (this.state.page) >= index.valueOf() && ( (this.state.page) - 20) <= index.valueOf() ) {return (
                                 <div>
                                     <p>______________________________________________________________________________________________________</p>
                                         <div className="col-md-2">
@@ -215,6 +251,7 @@ export class ProductsPage extends React.Component<{}, ProductsState> implements 
                                 
                             )
                         }
+                        }
                     )
                     :
                     <div className="sk-fading-circle">
@@ -232,6 +269,30 @@ export class ProductsPage extends React.Component<{}, ProductsState> implements 
                         <div className="sk-circle12 sk-circle"></div>
                     </div>
                 }
+
+                <div className='col-md-10'> 
+                        <ul className="pagination">
+                            {
+                                this.state.items.map(
+                                    (item, index) => {
+                                        if( index % 20 == 0 && index < (this.state.page + 100) && index > (this.state.page - 100) && index != 0){
+                                            return (
+                                                <li ><button className={"btn btn-primary"} onClick={() => this.setState({ page : index})}> {index / 20} </button></li>
+                                        )
+                                        }else{
+                                            if(index === (this.state.page + 101)){
+                                                return (<li > <button className={"btn btn-default"} onClick={()=> this.setState({ page : this.state.page + 20 })} >volgende -></button> </li>)
+                                            }else{
+                                                if(index === (this.state.page - 101)){
+                                                    return (<li > <button className={"btn btn-default"} onClick={()=> this.setState({ page : this.state.page - 20 })} >{"<-"} vorige</button> </li>)
+                                                }
+                                            }
+                                        }
+                                    }
+                                )
+                            }
+                        </ul>
+                    </div>
 
                 <div>
                     

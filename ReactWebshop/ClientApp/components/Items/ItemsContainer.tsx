@@ -633,7 +633,6 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
                                         <div className='col-md-5'> 
                                             <h4><b>{ item.productNaam }</b> </h4>
                                             <p id='main_omschrijving'> {item.productOmschr} </p>
-                                            <NavLink to={'Item/'+ item.productId}>..meer weergeven</NavLink>
                                             <p><b>Console:</b>{item.consoleType}</p>
                                         </div>
                                         <div className='col-md-3'>
