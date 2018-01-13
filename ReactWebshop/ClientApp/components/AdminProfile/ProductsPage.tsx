@@ -159,6 +159,7 @@ export class ProductsPage extends React.Component<{}, ProductsState> implements 
                 </form>
 
                 <button className={"btn btn-danger-lg"} onClick={()=> this.setState({ search : "", items : this.state.allItems})}> - verwijder zoekterm</button>
+                <h3> { "Aantal producten gevonden: " + this.state.items.length } </h3>  
 
                 {this.state.loaded? 
 

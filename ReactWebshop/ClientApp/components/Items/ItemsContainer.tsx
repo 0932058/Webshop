@@ -623,7 +623,7 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
                         
                         (item, index) => {
 
-                            if( (this.state.page) >= index.valueOf() && ( (this.state.page) - 20) < index.valueOf() ) {return (
+                            if( (this.state.page) >= index.valueOf() && ( (this.state.page) - 20) <= index.valueOf() ) {return (
                                 <div className='col-md-10'>
                                 <p>______________________________________________________________________________________________________</p>
                                 <p></p>
