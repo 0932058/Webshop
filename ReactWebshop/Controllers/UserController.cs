@@ -61,17 +61,18 @@ namespace Controllers
         }
         [HttpPut]
         public void Put([FromBody] Klant user){
-            // int possiblePK = 1;
-            // while(this._context.Klanten.Find(possiblePK) != null){
-            //     possiblePK += 1;
-            // }
-            //TODO: Don't make new instance (klant) but edit attributes of the exisitng klant
-            var res = this._context.Klanten.Where((x) => x.KlantId ==  user.KlantId).FirstOrDefault();
-            this._context.Klanten.Remove(res);
+            var existingKlant = this._context.Klanten.Where((x) => x.KlantId ==  user.KlantId).FirstOrDefault();
+            existingKlant.username = user.username;
+            existingKlant.klantAchternaam = user.klantAchternaam;
+            existingKlant.klantMail = user.klantMail;
+            existingKlant.klantNaam = user.klantNaam;
+            existingKlant.klantPostcode = user.klantPostcode;
+            existingKlant.klantStraat = user.klantStraat;
+            existingKlant.klantStraatnmr = user.klantStraatnmr;
+            existingKlant.klantTel = user.klantTel;
+            existingKlant.klantTussenvoegsel = user.klantTussenvoegsel;
+            existingKlant.password = user.password;
             this._context.SaveChanges();
-            this._context.Klanten.Add(user);
-            this._context.SaveChanges();
-
         }
         public void SendEmail(Klant user){
             var message = new MimeMessage();

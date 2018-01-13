@@ -28,6 +28,18 @@ namespace Controllers
             }
             return possiblePK;
         }
+        [HttpGet("yo")]
+        public void Update(){
+            var review = new Review(){
+                ProductId=1,
+                KlantId=2,
+                Rating=3,
+                Comment="Good"
+            };
+            this._context.Review.Add(review);
+            this._context.SaveChanges();
+        }
+
         [HttpGet]
         public void UpdatePK(){
             var table = this._context.ToBeAddedProducts.ToList();

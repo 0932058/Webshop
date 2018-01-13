@@ -5,6 +5,7 @@ import {RegistratieContainer} from "../Registratie/RegistratieContainer";
 import { Redirect } from 'react-router';
 import {User} from "../User/User";
 import {Klant} from "../../../TypescriptModels/Klant";
+import {Admin} from "../AdminProfile/Admin";
 
 interface LoginContainerState{
     //to check if it needs to redirect to Home, there is a method in User class to check the login status
@@ -13,6 +14,7 @@ interface LoginContainerState{
     typedInPassword: string;
     isRegisterButtonClick: boolean;
     loggedInUser: null;
+    isAdminLoggedIn: boolean
 }
 export class LoginContainer extends React.Component<RouteComponentProps<{}>, LoginContainerState> {
     constructor(){
@@ -21,9 +23,11 @@ export class LoginContainer extends React.Component<RouteComponentProps<{}>, Log
         this.GetUserFromApi = this.GetUserFromApi.bind(this);
         this.CheckIfLoginIsCorrect = this.CheckIfLoginIsCorrect.bind(this);
         this.RegisterTheAccount = this.RegisterTheAccount.bind(this);
-        this.state = {typedInUsername:"", typedInPassword:"", isRegisterButtonClick: false, userLoggedIn: false, loggedInUser: null}   
+        this.state = {typedInUsername:"", typedInPassword:"", isRegisterButtonClick: false, userLoggedIn: false, loggedInUser: null, isAdminLoggedIn:false}   
         this.CreateLoggedInUser = this.CreateLoggedInUser.bind(this);   
         this.getDotAmount = this.getDotAmount.bind(this); 
+        this.GetAdminFromApi = this.GetAdminFromApi.bind(this);
+        this.CheckIfAdminLoginIsCorrect = this.CheckIfAdminLoginIsCorrect.bind(this);
     }
     //When the user types into one of the fields, the result is saved to the state
     HandleChangeToInputFields(event: any){         
@@ -71,6 +75,27 @@ export class LoginContainer extends React.Component<RouteComponentProps<{}>, Log
             retStr += "*"
         }
     }
+    async GetAdminFromApi(){
+        let apiLink = 'api/Admin/' + this.state.typedInUsername + "/" + this.state.typedInPassword;
+        let apiResponse = await fetch(apiLink, {method: 'get', credentials: 'include', headers: new Headers({'content-type' : 'application/json'})});
+        let apiResponseJson = await apiResponse.json();
+        return apiResponseJson;
+
+    }
+    CheckIfAdminLoginIsCorrect(event:any){
+        event.preventDefault();
+        this.GetAdminFromApi()
+        .then(foundAdmin => {
+            if(foundAdmin.password == this.state.typedInPassword){
+                Admin.AdminIsLoggedIn();
+                this.setState({isAdminLoggedIn: true});
+            }
+            else{
+                alert("Wrong password!")
+            }
+        })
+        .catch(_ => alert("Admin username does not exist!"))
+    }
 
     render(){
         return(
@@ -98,22 +123,29 @@ export class LoginContainer extends React.Component<RouteComponentProps<{}>, Log
                 <div className="input-group">
                     <input className="btn" type="submit" value="Inloggen"  />
                 </div>
-
-               
+              
             </form>
+            <button onClick={this.CheckIfAdminLoginIsCorrect} className="btn btn-primary">Admin login</ button>
             <div>
                     Nog geen account? Registreer nu! 
                 <div>
                 <a href="/Registratie"> <button className="btn btn-primary">Registeer</button></a>
                 </div>
                 </div>
+
             <div>            
+
             </div>    
+            
+
             {this.state.userLoggedIn ?
             <Redirect to={"/"} push={true}/>
             :
             this.state.isRegisterButtonClick?
              <Redirect to={"/Registratie"} push={true}/>
+            :
+            this.state.isAdminLoggedIn?
+            <Redirect to={"/admin"} push={true}/>
             :
             <div> </div>
             }

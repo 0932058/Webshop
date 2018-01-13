@@ -4,6 +4,7 @@ import { Klant } from '../../../TypescriptModels/Klant';
 import { Product } from 'ClientApp/components/Items/ItemsInterfaces';
 import {IAdmin} from "./AdminInterface";
 import { ProductPage } from 'ClientApp/components/ProductPage/ProductPageContainer';
+import { User } from 'ClientApp/components/User/User';
 
 //When the profile gets clicked it gets redirected to this empty profile page
 
@@ -23,6 +24,7 @@ interface UsersState{
     username: string,
     password: string,
     editUserClicked: boolean;
+    search:string
 }
 
 export class UsersPage extends React.Component<{}, UsersState> implements IAdmin{
@@ -32,6 +34,8 @@ export class UsersPage extends React.Component<{}, UsersState> implements IAdmin
         this.DeleteEntity = this.DeleteEntity.bind(this);
         this.CreateEntity = this.CreateEntity.bind(this);
         this.handleChangeSubmit = this.handleChangeSubmit.bind(this);
+        this.GetAllUsers = this.GetAllUsers.bind(this);
+        this.SearchForUser = this.SearchForUser.bind(this);
 
         this.state = {
             users : [],
@@ -40,7 +44,6 @@ export class UsersPage extends React.Component<{}, UsersState> implements IAdmin
             createUserClicked: false,
             editUserClicked: false,
 
-    
             klantNaam : "",
             klantAchternaam : "",
             klantTussenvoegsel : "",
@@ -51,18 +54,24 @@ export class UsersPage extends React.Component<{}, UsersState> implements IAdmin
             klantStraatnmr : "",
             username : "",
             password : "",
-        }
 
+            search: "",
+        }
+        this.GetAllUsers();
+
+    }
+    GetAllUsers() {      
+        let  res;
         fetch("api/Admin/GetAllUsers")
         .then(response => response.json() as Promise<Klant[]>)
         .then(data => {
-            this.setState({users : data, loaded : true});
-            console.log(data[0])
+            this.setState({users: data, loaded: true})
         }).catch(
             error => {
-                this.setState({ loaded : false })
+                this.setState({loaded: false});
             }
         )
+
     }
 
     EditEntity(entity: Product | Klant){
@@ -98,12 +107,13 @@ export class UsersPage extends React.Component<{}, UsersState> implements IAdmin
             let apiResponse = await fetch(apiUrl, {method: 'DELETE', headers: new Headers({'content-type' : 'application/json'})});
             alert("Klant verwijderd");
         }
-        this.setState({});
+        this.GetAllUsers();
     }
 
     CreateEntity() {
         this.setState({createUserClicked: true})
     }
+
     async handleChangeSubmit(event: any, createdUserClick: boolean) {
         event.preventDefault();
         let apiUrl: string;
@@ -136,14 +146,31 @@ export class UsersPage extends React.Component<{}, UsersState> implements IAdmin
         alert("Voltooid");
         
     }
+    SearchForUser(search: string) : void{
+        var searchedUsers: Klant[] = [];
+        this.state.users.forEach(user => {
+            if(user.username == search){
+                searchedUsers.push(user);
+            }
+        });
+        this.setState({users: searchedUsers})
+        
+    }
+
     //TODO: Maak een nieuwe gebruiker aan
     render(){  
         return(         
             <div className={"UsersComponent"} > 
             <div className='col-md-10'>
                 <h1> Users </h1>
+
+                <input type="search" name="search" className="form-control" id="search" onChange={(e: any) => this.setState({search: e.target.value})} />  
+                <button className={"btn btn-primary"} onClick={() => this.SearchForUser(this.state.search)} > Zoek een specifieke user </button>
+                <button className={"btn btn-primary"} onClick={() => this.GetAllUsers()} > Alle users </button>
                 
+                <h2> Nieuwe gebruiker </h2> 
                 <button className={"btn btn-primary"} onClick={() => this.CreateEntity()} > Maak een nieuwe gebruiker aan </button>
+                <h2> Gevonden gebruikers: {this.state.users.length} </h2> 
                 {this.state.loaded? 
 
                     this.state.users.map(
@@ -152,7 +179,7 @@ export class UsersPage extends React.Component<{}, UsersState> implements IAdmin
 
                             return (
                                 <div className={"Component"}>
-                                    
+                                        
                                     
                                         <div className='col-md-10'>   
                                             <h3>Username: { user.username }  </h3>

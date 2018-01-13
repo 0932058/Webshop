@@ -11,10 +11,13 @@ interface ItemsContainerState{
     items : Product[] | null; //The products get put in the list by date
     currentSearch : string;
     filteredItems : Product[] | null,
-    filters : string[],
+    consoleFilter : string[],
+    uitgeverFilter : string[],
+    ontwikkelaarFilter : string[],
     min : number,
     max : number,
     page : number,
+    averageReviewRating: number;
 }
 export class ItemsContainer extends React.Component<RouteComponentProps<{}>, ItemsContainerState> {
     months : string[];
@@ -24,10 +27,14 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
 
         this.getItems = this.getItems.bind(this);
         this.putNewItem = this.putNewItem.bind(this);
-        this.selectFilter = this.selectFilter.bind(this);
+        this.setConsoleFilter = this.setConsoleFilter.bind(this);
+        this.setOntwikkelaarFilter = this.setOntwikkelaarFilter.bind(this);
+        this.setUitgeverFilter = this.setUitgeverFilter.bind(this);
         this.filterItems = this.filterItems.bind(this);
         this.onMinChange = this.onMinChange.bind(this);
         this.onMaxChange = this.onMaxChange.bind(this);
+        this.GetAverageReviewRatingApiCall = this.GetAverageReviewRatingApiCall.bind(this);
+        this.CallForAverageReviewRating = this.CallForAverageReviewRating.bind(this);
 
         this.months = ["Januari", "Februari", "Maart", "April", "May", "June",
         "July", "August", "September", "October", "November", "December"
@@ -38,10 +45,14 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
             items : null,
             currentSearch : "",
             filteredItems : null,
-            filters : [],
+            consoleFilter : [],
+            uitgeverFilter : [],
+            ontwikkelaarFilter : [],
+
             min : 1,
             max : 999,
             page : 20,
+            averageReviewRating: 0
         };
     }
 
@@ -91,91 +102,105 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
         }
     }
 
+    filterIsInFilterList(filterList, filter){
+        for(let f of filterList){
+            if(f === filter){
+                return true
+            }
+        }
+        return false
+    }
+
+    itemPassesFilterList(filterList : string[], pCheckValue : string){
+        //this loops through the given filter list to check the product check value (which is a filter category)
+        for(let filter of filterList){
+            if( pCheckValue.includes(filter) ){
+                //if the product is already in the list
+                return true
+            }
+        }
+        return false
+    }
+
     filterItems(){
         //we copy the items list
         let newFilteredList : Product[] = [];
 
-        for(let product of this.state.items){
-            console.log(this.state.filters.length + " aantal filters")
+        if(
+            this.state.consoleFilter.length === 0 &&
+            this.state.uitgeverFilter.length === 0 && 
+            this.state.ontwikkelaarFilter.length === 0
+        ){
+            this.setState({
+                filteredItems : this.state.items
+            })
 
-            for(let filter of this.state.filters){
-                
-                let popProduct : boolean = false
-
-                if(product.consoleType.includes(filter)){
-                    popProduct = true
-                }
-
-                if(product.productUitgever.includes(filter)){
-                    popProduct = true
-                }
-
-                if(product.productOntwikkelaar.includes(filter)){
-                    popProduct = true
-                }
-
-                for(let checkProduct of newFilteredList){
-                    if(product.productId === checkProduct.productId){
-                        popProduct = false
-                    }
-                }
-
-                if(popProduct){
-                    newFilteredList.push(product);
-                }  
-            }
+            return;
         }
 
-        console.log("____")
+        for(let product of this.state.items){
+            let correct = [false, false, false, false];
+            
+            //for console filter
+            if(this.itemPassesFilterList(this.state.consoleFilter, product.consoleType) || this.state.consoleFilter.length === 0){
+                correct[0] = true;
+            }
 
+            //for uitgever filter
+            if(this.itemPassesFilterList(this.state.uitgeverFilter, product.productUitgever) || this.state.uitgeverFilter.length === 0){
+                correct[1] = true;
+            }
+
+            //for ontwikkelaar filter
+            if(this.itemPassesFilterList(this.state.ontwikkelaarFilter, product.productOntwikkelaar)  || this.state.ontwikkelaarFilter.length === 0){
+                correct[2] = true;
+            }
+
+            if( 
+                correct[0] === true && 
+                correct[1] === true &&
+                correct[2] === true
+            ){
+                newFilteredList.push(product)
+            }
+        }
         this.setState({
             filteredItems : newFilteredList
         })
 
     }
 
-    selectFilter(event){
-        //if the filter is already in the filter list, pop it out, if the filter list is empty, make the filtered items equal to items, we never change this.state.items
-        let filters : string[] = this.state.filters
-        let newfilters = [];
-        let popOut = false;
-        let popOutFilter = "";
-
-        for(let filter of this.state.filters){
-            if(filter === event.target.value){
-
-                popOut = true;
-                popOutFilter = filter;
-            }
+    adaptfilter(filter, filterList){
+        //check if filter is already in it, if so, pop it out
+        if( this.filterIsInFilterList(filterList, filter) ){
+            console.log(filter + " verwijderd")
+            filterList.splice(filterList.indexOf(filter), 1)
+        }else{
+            //not in it? add it to the array
+            console.log(filter + " in de filter list")
+            filterList.push(filter)
         }
 
-        if(popOut){
+        return filterList
+    }
 
-            console.log(popOutFilter + " " + "eruit gegooid")
-            
-            filters.splice(filters.indexOf(popOutFilter), 1)
-
-            this.setState({
-                filters
-            })
-
-            this.filterItems()
-
-            if(this.state.filters.length === 0){
-                console.log("items zijn nu heel")
-                this.setState({
-                    filteredItems : this.state.items
-                })
-            }
-            return;
-        }
-        
-
-        console.log(event.target.value + " in de filter list")
-        filters.push(event.target.value)
-
+    setConsoleFilter(event){
         this.setState({
-            filters
+            consoleFilter : this.adaptfilter(event.target.value, this.state.consoleFilter)
+        })
+        this.filterItems()
+    }
+
+    setUitgeverFilter(event){
+        this.setState({
+            uitgeverFilter : this.adaptfilter(event.target.value, this.state.uitgeverFilter)
+        })
+        this.filterItems()
+    }
+
+    setOntwikkelaarFilter(event){
+        this.setState({
+            ontwikkelaarFilter : this.adaptfilter(event.target.value, this.state.ontwikkelaarFilter)
         })
         this.filterItems()
     }
@@ -197,7 +222,17 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
                 max : e.target.value
             })
         }
-
+    }
+    //Not called yet, but will be called when pagination is added
+    async CallForAverageReviewRating(productId: number){
+        this.GetAverageReviewRatingApiCall(productId)
+        .then(a => this.setState({averageReviewRating: a}))
+    }
+    async GetAverageReviewRatingApiCall(productId:number) : Promise<number>{
+        let apiUrl = 'api/Review/Get/ ' + productId;
+        let apiResponse = await fetch(apiUrl, {method: 'Get', headers: new Headers({'content-type' : 'application/json'})}); 
+        let responseConverted = apiResponse.json();
+        return responseConverted;
     }
 
     render(){
@@ -241,22 +276,22 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
                         <div id="collapse2" className="panel-collapse collapse">
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Playstation3" onClick={this.selectFilter}/>Playstation 3
+                                    <input type="checkbox" value="Playstation3" onClick={this.setConsoleFilter}/>Playstation 3
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Playstation4" onClick={this.selectFilter}/>Playstation 4
+                                    <input type="checkbox" value="Playstation4" onClick={this.setConsoleFilter}/>Playstation 4
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Xbox360" onClick={this.selectFilter}/>Xbox 360
+                                    <input type="checkbox" value="Xbox360" onClick={this.setConsoleFilter}/>Xbox 360
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="XboxOne" onClick={this.selectFilter}/>Xbox One
+                                    <input type="checkbox" value="XboxOne" onClick={this.setConsoleFilter}/>Xbox One
                                 </label>
                             </div>
                         </div>
@@ -272,104 +307,104 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
                         <div id="collapse1" className="panel-collapse collapse">
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Bethesda" onClick={this.selectFilter}/>Bethesda
+                                    <input type="checkbox" value="Bethesda" onClick={this.setUitgeverFilter}/>Bethesda
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Activision" onClick={this.selectFilter}/>Activision
+                                    <input type="checkbox" value="Activision" onClick={this.setUitgeverFilter}/>Activision
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="EA_sports" onClick={this.selectFilter}/>EA Sports
+                                    <input type="checkbox" value="EA_sports" onClick={this.setUitgeverFilter}/>EA Sports
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Microsoft" onClick={this.selectFilter}/>Microsoft
+                                    <input type="checkbox" value="Microsoft" onClick={this.setUitgeverFilter}/>Microsoft
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Sony" onClick={this.selectFilter}/>Sony
+                                    <input type="checkbox" value="Sony" onClick={this.setUitgeverFilter}/>Sony
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Realtime Worlds" onClick={this.selectFilter}/>Realtime Worlds
+                                    <input type="checkbox" value="Realtime Worlds" onClick={this.setUitgeverFilter}/>Realtime Worlds
                                 </label>
                                 <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Electronic Arts" onClick={this.selectFilter}/>Electronic Arts
+                                    <input type="checkbox" value="Electronic Arts" onClick={this.setUitgeverFilter}/>Electronic Arts
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Trion Worlds" onClick={this.selectFilter}/>Trion Worlds
+                                    <input type="checkbox" value="Trion Worlds" onClick={this.setUitgeverFilter}/>Trion Worlds
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Disney Interactive Studios" onClick={this.selectFilter}/>Disney Interactive Entertainment
+                                    <input type="checkbox" value="Disney Interactive Studios" onClick={this.setUitgeverFilter}/>Disney Interactive Entertainment
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Square" onClick={this.selectFilter}/>Square
+                                    <input type="checkbox" value="Square" onClick={this.setUitgeverFilter}/>Square
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Sony Computer Entertainment" onClick={this.selectFilter}/>Sony Computer Entertainment
+                                    <input type="checkbox" value="Sony Computer Entertainment" onClick={this.setUitgeverFilter}/>Sony Computer Entertainment
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Rockstar Games" onClick={this.selectFilter}/>Rockstar Games
+                                    <input type="checkbox" value="Rockstar Games" onClick={this.setUitgeverFilter}/>Rockstar Games
                                 </label>
                                 <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Microsoft Game Studios" onClick={this.selectFilter}/>Microsoft Game Studios
+                                    <input type="checkbox" value="Microsoft Game Studios" onClick={this.setUitgeverFilter}/>Microsoft Game Studios
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="THQ" onClick={this.selectFilter}/>THQ
+                                    <input type="checkbox" value="THQ" onClick={this.setUitgeverFilter}/>THQ
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Konami" onClick={this.selectFilter}/>Konami
+                                    <input type="checkbox" value="Konami" onClick={this.setUitgeverFilter}/>Konami
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Sega" onClick={this.selectFilter}/>Sega
+                                    <input type="checkbox" value="Sega" onClick={this.setUitgeverFilter}/>Sega
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Cloud Imperium Games" onClick={this.selectFilter}/>Cloud Imperium Games
+                                    <input type="checkbox" value="Cloud Imperium Games" onClick={this.setUitgeverFilter}/>Cloud Imperium Games
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Warner Bros. Interactive Entertainment" onClick={this.selectFilter}/>Warner Bros
+                                    <input type="checkbox" value="Warner Bros. Interactive Entertainment" onClick={this.setUitgeverFilter}/>Warner Bros
                                 </label>
                                 <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Ubisoft" onClick={this.selectFilter}/>Ubisoft
+                                    <input type="checkbox" value="Ubisoft" onClick={this.setUitgeverFilter}/>Ubisoft
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Square Enix" onClick={this.selectFilter}/>Square Enix
+                                    <input type="checkbox" value="Square Enix" onClick={this.setUitgeverFilter}/>Square Enix
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Blizzard Entertainment" onClick={this.selectFilter}/>Blizzard Entertainment
+                                    <input type="checkbox" value="Blizzard Entertainment" onClick={this.setUitgeverFilter}/>Blizzard Entertainment
                                 </label>
                             </div>
                         </div>
@@ -389,167 +424,167 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
                         <div id="collapse3" className="panel-collapse collapse">
                         <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Bethesda" onClick={this.selectFilter}/>Bethesda
+                                    <input type="checkbox" value="Bethesda" onClick={this.setOntwikkelaarFilter}/>Bethesda
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Activision" onClick={this.selectFilter}/>Activision
+                                    <input type="checkbox" value="Activision" onClick={this.setOntwikkelaarFilter}/>Activision
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="EA_sports" onClick={this.selectFilter}/>EA Sports
+                                    <input type="checkbox" value="EA_sports" onClick={this.setOntwikkelaarFilter}/>EA Sports
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Microsoft" onClick={this.selectFilter}/>Microsoft
+                                    <input type="checkbox" value="Microsoft" onClick={this.setOntwikkelaarFilter}/>Microsoft
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Sony" onClick={this.selectFilter}/>Sony
+                                    <input type="checkbox" value="Sony" onClick={this.setOntwikkelaarFilter}/>Sony
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Realtime Worlds" onClick={this.selectFilter}/>Realtime Worlds
+                                    <input type="checkbox" value="Realtime Worlds" onClick={this.setOntwikkelaarFilter}/>Realtime Worlds
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Beachhead Studios" onClick={this.selectFilter}/>Beachhead Studios
+                                    <input type="checkbox" value="Beachhead Studios" onClick={this.setOntwikkelaarFilter}/>Beachhead Studios
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Crytek Frankfurt" onClick={this.selectFilter}/>Crytek Frankfurt
+                                    <input type="checkbox" value="Crytek Frankfurt" onClick={this.setOntwikkelaarFilter}/>Crytek Frankfurt
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Sony Online Entertainment" onClick={this.selectFilter}/>Sony Online Entertainment
+                                    <input type="checkbox" value="Sony Online Entertainment" onClick={this.setOntwikkelaarFilter}/>Sony Online Entertainment
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="High Moon Studios" onClick={this.selectFilter}/>High Moon Studios
+                                    <input type="checkbox" value="High Moon Studios" onClick={this.setOntwikkelaarFilter}/>High Moon Studios
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Trion Worlds" onClick={this.selectFilter}/>Trion Worlds
+                                    <input type="checkbox" value="Trion Worlds" onClick={this.setOntwikkelaarFilter}/>Trion Worlds
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Bungie" onClick={this.selectFilter}/>Bungie
+                                    <input type="checkbox" value="Bungie" onClick={this.setOntwikkelaarFilter}/>Bungie
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Avalanche Software" onClick={this.selectFilter}/>Avalanche Software
+                                    <input type="checkbox" value="Avalanche Software" onClick={this.setOntwikkelaarFilter}/>Avalanche Software
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Square" onClick={this.selectFilter}/>Square
+                                    <input type="checkbox" value="Square" onClick={this.setOntwikkelaarFilter}/>Square
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Polyphony Digital" onClick={this.selectFilter}/>Polyphony Digital
+                                    <input type="checkbox" value="Polyphony Digital" onClick={this.setOntwikkelaarFilter}/>Polyphony Digital
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Rockstar North" onClick={this.selectFilter}/>Rockstar North
+                                    <input type="checkbox" value="Rockstar North" onClick={this.setOntwikkelaarFilter}/>Rockstar North
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Ensemble Studios" onClick={this.selectFilter}/>Ensemble Studios
+                                    <input type="checkbox" value="Ensemble Studios" onClick={this.setOntwikkelaarFilter}/>Ensemble Studios
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Quantic Dream" onClick={this.selectFilter}/>Quantic Dream
+                                    <input type="checkbox" value="Quantic Dream" onClick={this.setOntwikkelaarFilter}/>Quantic Dream
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Kaos Studios" onClick={this.selectFilter}/>Koas Studios
+                                    <input type="checkbox" value="Kaos Studios" onClick={this.setOntwikkelaarFilter}/>Koas Studios
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Team Bondi" onClick={this.selectFilter}/>Team Bondi
+                                    <input type="checkbox" value="Team Bondi" onClick={this.setOntwikkelaarFilter}/>Team Bondi
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Rockstar Studios" onClick={this.selectFilter}/>Rockstar Studios
+                                    <input type="checkbox" value="Rockstar Studios" onClick={this.setOntwikkelaarFilter}/>Rockstar Studios
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Kojima Productions" onClick={this.selectFilter}/>Kojima Productions
+                                    <input type="checkbox" value="Kojima Productions" onClick={this.setOntwikkelaarFilter}/>Kojima Productions
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Rockstar San Diego" onClick={this.selectFilter}/>Rockstar San Diego
+                                    <input type="checkbox" value="Rockstar San Diego" onClick={this.setOntwikkelaarFilter}/>Rockstar San Diego
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Sega AM2" onClick={this.selectFilter}/>Sega AM2
+                                    <input type="checkbox" value="Sega AM2" onClick={this.setOntwikkelaarFilter}/>Sega AM2
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Cloud Imperium Games" onClick={this.selectFilter}/>Cloud Imperium Games
+                                    <input type="checkbox" value="Cloud Imperium Games" onClick={this.setOntwikkelaarFilter}/>Cloud Imperium Games
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="BioWare" onClick={this.selectFilter}/>BioWare
+                                    <input type="checkbox" value="BioWare" onClick={this.setOntwikkelaarFilter}/>BioWare
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Funcom" onClick={this.selectFilter}/>Funcom
+                                    <input type="checkbox" value="Funcom" onClick={this.setOntwikkelaarFilter}/>Funcom
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Surreal Software" onClick={this.selectFilter}/>Surreal Sotfware
+                                    <input type="checkbox" value="Surreal Software" onClick={this.setOntwikkelaarFilter}/>Surreal Sotfware
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Ubisoft Paris" onClick={this.selectFilter}/>Ubisoft Paris
+                                    <input type="checkbox" value="Ubisoft Paris" onClick={this.setOntwikkelaarFilter}/>Ubisoft Paris
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Crystal Dynamics" onClick={this.selectFilter}/>Crystal Dynamics
+                                    <input type="checkbox" value="Crystal Dynamics" onClick={this.setOntwikkelaarFilter}/>Crystal Dynamics
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Silicon Knights" onClick={this.selectFilter}/>Silicon Knights
+                                    <input type="checkbox" value="Silicon Knights" onClick={this.setOntwikkelaarFilter}/>Silicon Knights
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Ubisoft Montreal" onClick={this.selectFilter}/>Ubisoft Montreal
+                                    <input type="checkbox" value="Ubisoft Montreal" onClick={this.setOntwikkelaarFilter}/>Ubisoft Montreal
                                 </label>
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Blizzard Entertainment" onClick={this.selectFilter}/>Blizzard Entertainment
+                                    <input type="checkbox" value="Blizzard Entertainment" onClick={this.setOntwikkelaarFilter}/>Blizzard Entertainment
                                 </label>
                             </div>
                         </div>
@@ -575,32 +610,41 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
                 <div className='col-md-2'>
                     {ZijFilter}
                 </div>
-                <div className='col-md-1'>
+                <div className='col-md-10'>
 
             
             <div  className={"ItemsContainerScroll "}>
                 {this.state.loaded? 
 
-                    <div className='container' id='maingame'>                
+                    <div className='container' id='maingame'>      
+                    <h3> { "Aantal producten gevonden: " + this.state.filteredItems.length } </h3>          
 
                     {this.state.filteredItems.map(
                         
                         (item, index) => {
 
                             if( (this.state.page) >= index.valueOf() && ( (this.state.page) - 20) < index.valueOf() ) {return (
-                                <div className='col-md-5'>
-                                        <div className='col-md-6'>
+                                <div className='col-md-10'>
+                                <p>______________________________________________________________________________________________________</p>
+                                <p></p>
+                                        <div className='col-md-2'>
                                             <NavLink to={'/Item/'+ item.productId}><img className="img-responsive" src={ item.productImg }/></NavLink>
                                         </div>
-                                        <div className='col-md-2'>
-                                            <h2>{ item.productNaam } </h2>
-                                            <p> Console: {item.consoleType} </p>
-                                            <p> Prijs: {"€" + item.productPrijs } </p>
-                                            <p> { item.aantalInVooraad + " " } in voorraad </p>
+                                        <div className='col-md-5'> 
+                                            <h4><b>{ item.productNaam }</b> </h4>
+                                            <p id='main_omschrijving'> {item.productOmschr} </p>
+                                            <NavLink to={'Item/'+ item.productId}>..meer weergeven</NavLink>
+                                            <p><b>Console:</b>{item.consoleType}</p>
+                                        </div>
+                                        <div className='col-md-3'>
+                                            <h3> Prijs: {"€" + item.productPrijs } </h3>                                         
+                                            <p> { item.aantalInVooraad + " " } op voorraad </p>
+
+
                                             <NavLink to={ '/Item/' + item.productId } exact activeClassName='Active'className='button_to_product'>
                                                 <button className={"btn btn-primary"} > naar product </button>
                                             </NavLink>
-                                            <button type="button" className="btn btn-success" data-toggle="modal" data-target="#myModalM" onClick={ () => this.AddProductToShoppingCartLocalStorage(item) }>+ Toevoegen aan winkelmand</button>
+                                            <button type="button" className="btn btn-success" data-toggle="modal" data-target="#myModalM" onClick={ () => this.AddProductToShoppingCartLocalStorage(item) }>+ in winkelmand</button>
                                             <div className="modal fade" id="myModalM" role="dialog">
                                                 <div className="modal-dialog modal-sm">
                                                 <div className="modal-content">
@@ -624,18 +668,22 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
                         }
                     )}
                     
-                    <div className='col-sm'> 
+                    <div className='col-md-10'> 
                         <ul className="pagination">
                             {
                                 this.state.filteredItems.map(
                                     (item, index) => {
                                         if( index % 20 == 0 && index < (this.state.page + 100) && index > (this.state.page - 100) && index != 0){
                                             return (
-                                                <li ><a href="#" onClick={() => this.setState({ page : index})}> {index / 20} </a></li>
+                                                <li ><button className={"btn btn-primary"} onClick={() => this.setState({ page : index})}> {index / 20} </button></li>
                                         )
                                         }else{
-                                            if(index === (this.state.page + 111) || index === (this.state.page - 111)){
-                                                return (<li > <span>...</span> </li>)
+                                            if(index === (this.state.page + 101)){
+                                                return (<li > <button className={"btn btn-default"} onClick={()=> this.setState({ page : this.state.page + 20 })} >volgende -></button> </li>)
+                                            }else{
+                                                if(index === (this.state.page - 101)){
+                                                    return (<li > <button className={"btn btn-default"} onClick={()=> this.setState({ page : this.state.page - 20 })} >{"<-"} vorige</button> </li>)
+                                                }
                                             }
                                         }
                                     }

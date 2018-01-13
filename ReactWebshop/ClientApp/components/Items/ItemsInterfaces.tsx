@@ -61,3 +61,12 @@ export interface KlantEnBestelling{
     klant: Klant,
     bestellingen: any[] //bestelling
 }
+
+// export interface DataForPieChart{
+//     key: string,
+//     value: number
+// }
+export interface DataForGraph{
+    key: string,
+    value: number
+}

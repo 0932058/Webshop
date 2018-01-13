@@ -5,11 +5,20 @@ import { ItemsContainer } from "../Items/ItemsContainer";
 import { NavLink } from 'react-router-dom';
 import { Product, Wenslijst } from 'ClientApp/components/Items/ItemsInterfaces';
 import {ReactInterval} from 'react-interval';
+import {Review} from "../../../TypescriptModels/Review";
+import {Comment} from "../../../TypescriptModels/Comment";
+
 
 interface ItemPageState{
     product: Product | null;
     loaded : boolean;
     loggedIn : boolean;
+    rating: number,
+    comment: string
+    averageReviewRating: number
+    averageReviewStars: JSX.Element[];
+    comments: Comment[],
+    userHasCommented: boolean
 }
 
 export class ItemPage extends React.Component<RouteComponentProps<{}>, ItemPageState> {
@@ -18,19 +27,37 @@ export class ItemPage extends React.Component<RouteComponentProps<{}>, ItemPageS
         this.AddProductToShoppingCartLocalStorage = this.AddProductToShoppingCartLocalStorage.bind(this)
         this.AddProductToWishList = this.AddProductToWishList.bind(this)
         this.getItem = this.getItem.bind(this)
+        this.ProcessReview = this.ProcessReview.bind(this);
+        this.AddReviewToDatabase = this.AddReviewToDatabase.bind(this);
+        this.GetReviewRelatedInfo = this.GetReviewRelatedInfo.bind(this);
+        this.GetAverageReviewRatingApiCall = this.GetAverageReviewRatingApiCall.bind(this);
+        this.DrawAverageReviewStars = this.DrawAverageReviewStars.bind(this);
+        this.GetCommentsFromApi = this.GetCommentsFromApi.bind(this);
+        this.CheckIfUserHasAlreadyCommented = this.CheckIfUserHasAlreadyCommented.bind(this);
+
 
         this.state = {
             product : null,
             loaded : false,
             loggedIn : false,
+            rating: 0,
+            comment: "",
+            averageReviewRating: 0,
+            averageReviewStars: [],
+            comments: [],
+            userHasCommented: false
         }
+       
 
     }
 
     componentDidMount(){
         this.getItem();
-    }
+        this.GetReviewRelatedInfo("")
+        this.CheckIfUserHasAlreadyCommented()
+        .then(() => console.log("User has not commented yet"));
 
+    }
     getItem(){
         fetch('api/Items' + this.props.location.pathname)
         .then(response => response.json() as Promise<Product[]>)
@@ -38,7 +65,11 @@ export class ItemPage extends React.Component<RouteComponentProps<{}>, ItemPageS
             console.log(data[0].productId)
             this.setState({ product : data[0], loaded : true});
         });
+
+     
+
     }
+    
 
     AddProductToShoppingCartLocalStorage(){
         var itemlist = [];
@@ -65,6 +96,73 @@ export class ItemPage extends React.Component<RouteComponentProps<{}>, ItemPageS
         let apiResponse = await fetch(apiUrl, {method: 'POST', body:JSON.stringify(productToPost), headers: new Headers({'content-type' : 'application/json'})});
         
     }
+    ProcessReview(event:any){
+        event.preventDefault();
+        if(this.state.comment == "" || this.state.rating == 0){
+            alert("Fill both the star and review in!")
+            return;
+        }
+        else{
+
+            var newReview: Review = {
+                ReviewId:0, 
+                ProductId: parseInt(this.props.location.pathname.replace("/Item/","")),
+                KlantId: User.GetPK(),
+                Rating: this.state.rating,
+                Comment: this.state.comment
+            }     
+            this.AddReviewToDatabase(newReview);
+        }
+    }
+    async AddReviewToDatabase(reviewToAdd: Review){
+        let apiUrl = 'api/Review/Post'
+        let apiResponse = await fetch(apiUrl, {method: 'POST', body:JSON.stringify(reviewToAdd), headers: new Headers({'content-type' : 'application/json'})}); 
+        alert("Review has been added!") 
+        this. GetCommentsFromApi()
+        .then((comments) => this.setState({comments: comments}))    
+    }
+    async GetReviewRelatedInfo(event:any){
+        //event.preventDefault();
+        this.GetAverageReviewRatingApiCall()
+        .then(average => this.setState({averageReviewRating: average}))
+        .then(() => this.DrawAverageReviewStars())
+        .then(() => this.GetCommentsFromApi())
+        .then((comments => this.setState({comments :comments})))
+    }
+    async GetAverageReviewRatingApiCall() : Promise<number>{
+        var urlConverted = parseInt(this.props.location.pathname.replace("/Item/",""))
+        let apiUrl = 'api/Review/Get/' + urlConverted;
+        let apiResponse = await fetch(apiUrl, {method: 'Get', headers: new Headers({'content-type' : 'application/json'})}); 
+        let responseConverted = apiResponse.json();
+        return responseConverted;
+    }
+    DrawAverageReviewStars(){  
+        var star = <img className="img-responsive" src={"https://i1.wp.com/audiobookreviewer.com/wp-content/uploads/sites/209/2015/07/star-rating-full.png?fit=24%2C24&ssl=1"}/>  
+        var stars: JSX.Element[] = [];
+        for (let index = 0; index <= this.state.averageReviewRating; index++) {
+            stars[index] = star;         
+        }
+       this.setState({averageReviewStars: stars});
+    }
+    async GetCommentsFromApi() : Promise<Comment[]>{
+        var urlConverted = parseInt(this.props.location.pathname.replace("/Item/",""))
+        let apiUrl = 'api/Review/Get/Comment/' + urlConverted;
+        let apiResponse = await fetch(apiUrl, {method: 'Get', headers: new Headers({'content-type' : 'application/json'})}); 
+        let responseConverted = apiResponse.json();
+        return responseConverted;
+    }
+    async CheckIfUserHasAlreadyCommented(){
+        if(User.IsUserLoggedIn()){
+            var urlConverted = parseInt(this.props.location.pathname.replace("/Item/",""))
+            let apiUrl = 'api/Review/Get/User/' + User.GetPK() + "/" + urlConverted;
+            let apiResponse = await fetch(apiUrl, {method: 'Get', headers: new Headers({'content-type' : 'application/json'})}); 
+            let responseConverted = apiResponse.json();
+            return responseConverted;
+        }
+        return Promise.reject("User is not logged in");
+    }
+
+
     //The objects have to be parsed to json because this.state doesn't allow an single object in the state
     render() {
         return <div  className={"ItemPageComponent"}>
@@ -124,7 +222,50 @@ export class ItemPage extends React.Component<RouteComponentProps<{}>, ItemPageS
                             { /* <h2> Leeftijd: { "dit moet nog ff toegevoegd worden" } </h2>  */}
                             <h2> Genre: { this.state.product.productGenre } </h2>
                             <h2> Console: { this.state.product.consoleType } </h2>
-                            <h2> Beschrijving:</h2><p> { this.state.product.productOmschr } </p>      
+                            <h2> Beschrijving:</h2><p> { this.state.product.productOmschr } </p>    
+                              
+                            <h2> Gemiddelde Review: </h2>
+                            {this.state.averageReviewStars.length <= 0?
+                            <div> no reviews available </div>                            
+                            :        
+                            this.state.averageReviewStars.map(element => {
+                                return element;
+                                
+                            })}     
+           
+                            {User.IsUserLoggedIn() && this.state.userHasCommented == false ?
+                            [
+                            <h2> Geef een ster en review:</h2>,
+                         
+                            <button onClick={() => this.setState({rating: 1})}> <img className="img-responsive" src={"https://i1.wp.com/audiobookreviewer.com/wp-content/uploads/sites/209/2015/07/star-rating-full.png?fit=24%2C24&ssl=1"}/>                
+                            </button> ,
+                            <button onClick={() => this.setState({rating: 2})}> <img className="img-responsive" src={"https://i1.wp.com/audiobookreviewer.com/wp-content/uploads/sites/209/2015/07/star-rating-full.png?fit=24%2C24&ssl=1"}/>                       
+                            </button> ,
+                            <button onClick={() => this.setState({rating: 3})}> <img className="img-responsive" src={"https://i1.wp.com/audiobookreviewer.com/wp-content/uploads/sites/209/2015/07/star-rating-full.png?fit=24%2C24&ssl=1"}/>                          
+                            </button> ,
+                            <button onClick={() => this.setState({rating: 4})}> <img className="img-responsive" src={"https://i1.wp.com/audiobookreviewer.com/wp-content/uploads/sites/209/2015/07/star-rating-full.png?fit=24%2C24&ssl=1"}/>                          
+                            </button> ,
+                            <button onClick={() => this.setState({rating: 5})}> <img className="img-responsive" src={"https://i1.wp.com/audiobookreviewer.com/wp-content/uploads/sites/209/2015/07/star-rating-full.png?fit=24%2C24&ssl=1"}/>                          
+                            </button> ,
+                            <input type="review" name="review" className="form-control" id="review" onChange={(e:any) => this.setState({comment: e.target.value})} />,
+                            <button onClick={(e:any) => this.ProcessReview(e)}> Send Review </button>
+                            ]
+                            :
+                            <div> </div>
+                            }
+
+                            <h1> Reviews: {this.state.comments.length} </h1>:
+                            {this.state.comments.length <= 0? 
+                            <div> no comments available </div>
+                            :
+                            this.state.comments.map(function(comment,key)  {
+                                return([
+                                    <h1> Review {key + 1} </h1>,
+                                    <div> Naam: {comment.klantNaam} </div> ,
+                                    <div> Rating: {comment.rating} </div> ,
+                                    <div> comment {comment.comment} </div> ,                                        
+                                ])})}              
+
                         </div>
                         <div className='col-md-3'>
 
