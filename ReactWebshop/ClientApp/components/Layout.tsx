@@ -367,7 +367,7 @@ const Footer = (
     <div className="col-lg-12">
         <ul className="nav nav-pills nav-justified">
           <li><a href="#">About us</a></li>
-          <li><a href="#">​Policy</a></li>
+          <li><a href="/Policy">​Policy</a></li>
           <li><a href="#">Terms of Service</a></li>
         </ul>
     </div>
@@ -375,7 +375,7 @@ const Footer = (
     <div className="row">
         <div className="col-lg-12">
             <ul className="nav nav-pills nav-justified">
-                <li><a href="/">© 2017 Normies.</a></li>
+                <li><a href="/Normies">© 2017 Normies.</a></li>
             </ul>
         </div>
     </div>

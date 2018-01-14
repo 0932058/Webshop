@@ -18,6 +18,7 @@ import {LogoutContainer} from "./components/LoginAndLogout/LogoutContainer";
 import {RegistratieSuccesfullContainer} from "./components/Registratie/RegistratieSuccesfullContainer";
 import {Afrekenen} from "./components/Afrekenen/AfrekenContainer";
 import {AdminContainer} from "./components/AdminProfile/AdminContainer";
+import {UserNotLoggedInMenu} from "./components/LoginAndLogout/UserNotLoggedInMenuLayout";
 
 export var routes = <Layout>
     <Route exact path={"/"} component={ItemsContainer} />
@@ -58,5 +59,7 @@ export var routes = <Layout>
     <Route path="/Accessoires/All" component={ItemsContainer}/>
     <Route path="/Accessoires/Headset" component={ItemsContainer}/>
     <Route path="/Accessoires/Racewheel" component={ItemsContainer}/>
+
+    <Route path="/Normies" component={UserNotLoggedInMenu}/>
     
 </Layout>;

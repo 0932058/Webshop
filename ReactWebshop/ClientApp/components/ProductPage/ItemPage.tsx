@@ -187,7 +187,7 @@ export class ItemPage extends React.Component<RouteComponentProps<{}>, ItemPageS
                             <h3> Console:</h3><p> { this.state.product.consoleType } </p>
                                 
                               
-                            <h2> Gemiddelde Review: </h2>
+                            
      
            
                             {User.IsUserLoggedIn() && this.state.userHasCommented == false ?
@@ -224,18 +224,21 @@ export class ItemPage extends React.Component<RouteComponentProps<{}>, ItemPageS
                                 ])})}              
 
                         </div>  
-                            <div className='col-md-3'>
+                            <div className='col-md-4'>
                                 <h3>Prijs: {this.state.product.productPrijs}</h3>
                                 <p>gemiddelde rating</p>
-                        <div classID='score'>
+                        
                         {this.state.averageReviewStars.length <= 0?
-                            <div> no reviews available </div>                            
-                            :        
+                            <div> no reviews available </div>                    
+                            :     
                             this.state.averageReviewStars.map(element => {
-                                return element;
+                                return <div className='col-md-2'>{element}</div>;
                                 
-                            })}
-                        </div> 
+                            }
+                            )}
+                           
+                            
+                        <div className='col-md-3'>
                                 {this.state.loggedIn ?
                                 <div>
                                     <button className="btn btn-primary" onClick={this.AddProductToWishList} data-toggle="modal" data-target="#myModalWIngelogd">
@@ -278,6 +281,7 @@ export class ItemPage extends React.Component<RouteComponentProps<{}>, ItemPageS
                                 </div>
                             </div> 
                         </div> 
+                        </div>
                         
 
                         <div className='col-md-3'>
