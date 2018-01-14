@@ -12,6 +12,7 @@ using System.Net.Http.Headers;
 using System.Diagnostics;
 using Newtonsoft.Json;
 using Microsoft.EntityFrameworkCore;
+using StatisticsClasses;
 
 
 namespace Controllers
@@ -69,21 +70,31 @@ namespace Controllers
              }
              return Ok(AverageRatingPerCategory.OrderByDescending((a) => a.value));
          }
-        [HttpPost("location")]
-        public dynamic PostCodeToLocation([FromBody] string postCode){
-            var client = new HttpClient(){BaseAddress= new Uri("http://json.api-postcode.nl")};
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("token", "cf25a726-d802-473c-881e-f8c761ff8ee1");
-            client.DefaultRequestHeaders.TryAddWithoutValidation("token", "cf25a726-d802-473c-881e-f8c761ff8ee1");
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            var response =   client.GetAsync("?postcode=" + postCode).Result;           
-            var content =  response.Content.ReadAsStringAsync().Result;
-            dynamic convertedJson = JsonConvert.DeserializeObject(content);
-            if(convertedJson != null){
-                return convertedJson.city;
-            }
-            else{
-                return null;
-            }
+        //.............................................................
+        //New api methods
+        [HttpGet("Klant/Location")]
+        public IActionResult KlantLocation(){
+            var lolz = this._context.Klanten;
+            var query = this._context.Klanten
+            .Where((a) => a.klantPlaats != null)
+            .GroupBy((a) => new {Plaats = a.klantPlaats})
+            .Select((a) => new {key = a.Key.Plaats, value = a.Count()});
+            return Ok(query.ToArray());
+        }    
+        [HttpPost("Klant/Registratie")]
+        public IActionResult KlantRegistratie([FromBody] DatumFilter filter){
+            var res = KlantRegistratieLogic.CreateQuery(filter,this._context.Klanten);
+            return Ok(res);         
+        }      
+        [HttpPost("Omzet")]
+        public IActionResult Omzet([FromBody] DatumFilter filter){
+            var res = OmzetLogic.CreateQuery(filter,this._context.Bestellingen, this._context.Producten);
+            return Ok(res);         
+        }      
+        [HttpPost("Bestellingen")]
+        public IActionResult Bestellingen([FromBody] DatumFilter filter){
+            var res = BestellingenLogic.CreateQuery(filter,this._context.Bestellingen);
+            return Ok(res);         
         }     
     }
 }

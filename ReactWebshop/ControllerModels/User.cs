@@ -17,8 +17,9 @@ namespace Controllers{
         public int orderFK;
         public string streetname;
         public string postcode;
+        public string klantPlaats;
         public user(int pk, string firstName, string lastName, string email, string username, string password, 
-        int wishListFK, int shoppingCartFK, int orderFK, string streetname, string postcode){
+        int wishListFK, int shoppingCartFK, int orderFK, string streetname, string postcode, string klantPlaats){
             this.pk = pk;
             this.firstName = firstName;
             this.lastName = lastName;
@@ -30,6 +31,7 @@ namespace Controllers{
             this.orderFK = orderFK;
             this.streetname = streetname;
             this.postcode = postcode;
+            this.klantPlaats = klantPlaats;
         }
     }
 }

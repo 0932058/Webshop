@@ -36,6 +36,7 @@
     "moment": "^2.19.1",
     "nw-react-slider": "^2.0.1",
     "office-ui-fabric-react": "^5.28.0",
+    "react-calendar": "^2.11.0",
     "react-easy-chart": "^1.0.0",
     "react-image": "^1.0.1",
     "react-interval": "^2.0.2",

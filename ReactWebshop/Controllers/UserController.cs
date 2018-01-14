@@ -54,6 +54,8 @@ namespace Controllers
                 possiblePK += 1;
             }
             user.KlantId = possiblePK;
+            user.klantRegistratieDatum = DateTime.Now;
+            //"2012-04-23T18:25:43.511Z" = JSON Format
             this._context.Klanten.Add(user);
             this._context.SaveChanges();
             this.SendEmail(user);
@@ -72,6 +74,7 @@ namespace Controllers
             existingKlant.klantTel = user.klantTel;
             existingKlant.klantTussenvoegsel = user.klantTussenvoegsel;
             existingKlant.password = user.password;
+            existingKlant.klantPlaats = user.klantPlaats;            
             this._context.SaveChanges();
         }
         public void SendEmail(Klant user){

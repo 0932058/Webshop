@@ -43,6 +43,8 @@ namespace Models
         public string klantStraatnmr { get; set; }
         public string username { get; set; }
         public string password { get; set; }
+        public string klantPlaats {get;set;}
+        public DateTime klantRegistratieDatum{get;set;}
 }
     public class Product {
         public int ProductId { get; set; }

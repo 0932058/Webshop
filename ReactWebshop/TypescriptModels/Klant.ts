@@ -9,7 +9,9 @@ export type Klant = {
     klantPostcode: string,
     klantStraatnmr: string,
     username: string,
-    password: string
+    password: string,
+    klantPlaats: string,
+    klantRegistratieDatum: Date
     
 }
 export default Klant;

@@ -21,6 +21,7 @@ interface UsersState{
     klantStraat: string,
     klantPostcode: string,
     klantStraatnmr: string,
+    klantPlaats: string,
     username: string,
     password: string,
     editUserClicked: boolean;
@@ -54,6 +55,7 @@ export class UsersPage extends React.Component<{}, UsersState> implements IAdmin
             klantStraatnmr : "",
             username : "",
             password : "",
+            klantPlaats: "",
 
             search: "",
         }
@@ -90,7 +92,8 @@ export class UsersPage extends React.Component<{}, UsersState> implements IAdmin
                 klantPostcode: entity.klantPostcode,
                 klantStraatnmr: entity.klantStraatnmr,
                 username: entity.username,
-                password: entity.password
+                password: entity.password,
+                klantPlaats: entity.klantPlaats
             })
         }
     }
@@ -131,6 +134,7 @@ export class UsersPage extends React.Component<{}, UsersState> implements IAdmin
             klantStraatnmr : this.state.klantStraatnmr,
             username : this.state.username,
             password: this.state.password,
+            klantPlaats: this.state.klantPlaats
         }
         if(createdUserClick == true){
             apiUrl = 'api/User/Post/'

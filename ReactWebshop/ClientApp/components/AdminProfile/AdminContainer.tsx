@@ -2,6 +2,7 @@ import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
 import { ProductsPage } from "./ProductsPage" ;
 import { UsersPage } from "./UsersPage" ;
+import {BestellingenPage} from "./BestellingenPage";
 import { StatisticsPage } from "./StatisticsPage" ;
 import {User} from "../User/User";
 import {Admin} from "../AdminProfile/Admin";
@@ -45,11 +46,15 @@ export class AdminContainer extends React.Component<RouteComponentProps<{}>, Adm
                 <div className='col-sm-2'>
                     <div className="list-group">
                         
-                        <button className={"list-group-item btn "} onClick={() => this.switchTo(<StatisticsPage/>)} >Statistics</button>
 
                         <button className={"list-group-item btn "} onClick={() => this.switchTo(<ProductsPage/>)} >Products</button> 
 
+                        <button className={"list-group-item btn "} onClick={() => this.switchTo(<BestellingenPage/>)} >Orders</button> 
+
                         <button className={"list-group-item btn "} onClick={() => this.switchTo(<UsersPage/>)} >Users</button>
+
+                        <button className={"list-group-item btn "} onClick={() => this.switchTo(<StatisticsPage/>)} >Statistics</button>
+
 
                     </div>                                                                  
                 </div>

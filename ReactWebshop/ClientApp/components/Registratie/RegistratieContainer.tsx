@@ -1,5 +1,4 @@
 import * as React from 'react';
-import {List} from "linqts";
 import {Klant} from "../../../TypescriptModels/Klant"
 import { RouteComponentProps } from 'react-router';
 import { Redirect } from 'react-router';
@@ -13,6 +12,8 @@ interface RegistratieContainerState{
     password: string;
     streetname: string;
     streetnumber: string,
+    klantPlaats: string,
+
     numberaddition: string,
     postcode: string;
     isNoEmptyInputFields: boolean;
@@ -23,7 +24,7 @@ export class RegistratieContainer extends React.Component<RouteComponentProps<{}
         this.CheckIfAccountExists = this.CheckIfAccountExists.bind(this);
         this.ConnectWithApiToCheckIfUserExist = this.ConnectWithApiToCheckIfUserExist.bind(this);
         this.PostUserToDatabase = this.PostUserToDatabase.bind(this);
-        this.state = {firstname: "", lastname: "", email: "", phonenumber: "", username:"", password:"", streetname: "", postcode:"", streetnumber: "", numberaddition: "", isNoEmptyInputFields:false}       
+        this.state = {firstname: "", lastname: "", email: "", phonenumber: "", username:"", password:"", streetname: "", postcode:"", streetnumber: "", numberaddition: "", klantPlaats: "", isNoEmptyInputFields:false}       
     }
     async ConnectWithApiToCheckIfUserExist() : Promise<Klant>{
         let apiUrl = 'api/User/Get/Username/' + this.state.username
@@ -53,7 +54,9 @@ export class RegistratieContainer extends React.Component<RouteComponentProps<{}
             klantPostcode: this.state.postcode, 
             klantStraatnmr: this.state.streetnumber,
             username: this.state.username,
-            password: this.state.password}
+            password: this.state.password,
+            klantPlaats: this.state.klantPlaats
+        }
         let apiResponse = await fetch(apiUrl, {method: 'POST', body:JSON.stringify(userToPost), headers: new Headers({'content-type' : 'application/json'})});
         this.setState({isNoEmptyInputFields: true})
     }
@@ -150,6 +153,16 @@ export class RegistratieContainer extends React.Component<RouteComponentProps<{}
                         onChange={(e:any) => this.setState({postcode: e.target.value})}
                          />
                         </div>
+                    <div className="row">
+                        <div className="col-md-4 col-md-offset-4">
+                        <p>Plaats</p>
+                        <input placeholder="plaats" title="plaatsnaam" 
+                        type="text" name="postcode"className="form-control"  value={this.state.klantPlaats}  required={true}
+                        onChange={(e:any) => this.setState({klantPlaats: e.target.value})}
+                         />
+                        </div>
+                    </div>
+                    
                     </div>
                     <div className="col-md-offset-4">
                     <h6>

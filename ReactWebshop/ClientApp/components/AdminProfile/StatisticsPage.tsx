@@ -2,93 +2,54 @@ import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
 import 'bootstrap';
 import { Product, Bestelling, JoinedBestelling, DataForGraph} from 'ClientApp/components/Items/ItemsInterfaces';
-import {PieChart,BarChart} from 'react-easy-chart';
-import {GroupBy, OrderBy} from "../../../TypescriptModels/StatisticsClasses";
+import {PieChart,BarChart, LineChart} from 'react-easy-chart';
+import {GroupBy, OrderBy, DatumFilter} from "../../../TypescriptModels/StatisticsClasses";
 import { Klant } from 'TypescriptModels/Klant';
+import Calendar from 'react-calendar'
+
 
 //When the profile gets clicked it gets redirected to this empty profile page
 interface StatisticsInterface{
     orders : JoinedBestelling[]
     chartReadyForLoading: boolean,
     DataForGraph: DataForGraph[],
-    choiceForChart: number
+    choiceForChart: number,
+
+    calendarOptionClick: boolean,
+    calendarDayClickedvalue: Date,
+    calendarMonthClickedvalue: Date,
+    calendarYearClickedvalue: Date,
+    currentApiUrl: string,
+
+   
 }
 
 export class StatisticsPage extends React.Component<{}, StatisticsInterface> {
     constructor(){
         super();
-        this.UserStatisticsApiCall = this.UserStatisticsApiCall.bind(this);
         this.loadPieChart = this.loadPieChart.bind(this);
-
-        
+        this.KlantLocationStatistics = this.KlantLocationStatistics.bind(this);
+        this.KlantLocationApiCall = this.KlantLocationApiCall.bind(this);
+        this.LineGraphStatistics = this.LineGraphStatistics.bind(this);
+        this.LineGraphStatisticsApiCall = this.LineGraphStatisticsApiCall.bind(this);
+    
         this.state ={
             orders : [],
             chartReadyForLoading: false,
             DataForGraph: [],
             choiceForChart: 0,
+            calendarOptionClick: false,
+            calendarMonthClickedvalue: new Date(),
+            calendarYearClickedvalue: new Date(),
+            calendarDayClickedvalue: new Date(),
+            currentApiUrl: "",
 
-
+           
         }
         
     }
 
-    componentDidMount(){
-        //this.GetOrders();
-        
-    }
-
-    // async GetOrders(){
-    //     await fetch('api/Bestellingen/GetAll')
-    //     .then(response => response.json() as Promise<JoinedBestelling[]>)
-    //     .then(data =>{
-    //         this.setState({
-    //             orders : data
-    //         })
-    //     });
-    // }
-
-    //This method is only used for the place statistics because postcode needs to be converted to an place name
-
-    async UserStaticsLocation(attributeForGraph: string){ 
-      var finalResultLocationAndAmmount = [];
-      async function loopThroughLocation(klanten: any[]) {
-            var apiResponses: any[] = [];
-           for(var i = 0; i < klanten.length;i++){
-                for(var z = 0; z < 1;z++){          
-                let apiUrl = 'api/Statistics/location';
-                let apiResponse = await fetch(apiUrl, {body: JSON.stringify(klanten[i][z].klantPostcode), method: 'Post', headers: new Headers({'content-type' : 'application/json'})}); 
-                let responseConverted = apiResponse.json();
-                apiResponses[i] = {place: responseConverted, klantenAmmount: klanten[i].length }                    
-           }}
-           return apiResponses;  
-        }
-
-        this.UserStatisticsApiCall(attributeForGraph)
-        .then(klanten => loopThroughLocation(klanten)
-        .then(locationNames => {
-            for(var i = 0; i < locationNames.length; i++){
-                let klantenAmmount = locationNames[i].klantenAmmount;
-                locationNames[i].place.then((place) => {
-                this.setState({
-                    choiceForChart: 1,
-                    chartReadyForLoading: true, 
-                    DataForGraph: [...this.state.DataForGraph, {key: place, value: klantenAmmount}]})})                             
-            }
-        }
-        ))
-    }
-    async UserStatisticsApiCall(attributeForGraph: string) : Promise<Klant[][]>{
-        var groupBy: GroupBy = {
-            attribute:attributeForGraph
-        };
-        let apiUrl = 'api/Statistics/Users/GroupBy';
-        let apiResponse = await fetch(apiUrl, {body: JSON.stringify(groupBy), method: 'Post', headers: new Headers({'content-type' : 'application/json'})}); 
-        let responseConverted = apiResponse.json();
-        return responseConverted;
-
-    }
     loadPieChart() : JSX.Element{
-        this.state.DataForGraph.forEach((a) => console.log(a));
         return(
             <PieChart
             labels
@@ -98,8 +59,7 @@ export class StatisticsPage extends React.Component<{}, StatisticsInterface> {
             />
         )
     }
-    LoadBarChart() : JSX.Element{
-        this.state.DataForGraph.forEach((a) => console.log(a));
+    LoadBarChart() : JSX.Element{      
         return(
             <BarChart
             axes
@@ -109,6 +69,22 @@ export class StatisticsPage extends React.Component<{}, StatisticsInterface> {
           />
         )
     }
+    LoadLineChart() : JSX.Element{
+       return(
+        <LineChart
+        axes
+        margin={{top: 10, right: 10, bottom: 50, left: 50}}
+        axisLabels={{x: 'My x Axis', y: 'My y Axis'}}
+        width={900}
+        interpolate={'cardinal'}
+        height={300}
+        data={[this.state.DataForGraph]}
+        />
+        
+       )
+
+    }
+
     BestellingStatistics(attributeForGraph: string, ascendOrDescend: number){
         this.BestellingStatisticsApiCall(attributeForGraph,ascendOrDescend)
         .then(result => 
@@ -164,41 +140,126 @@ export class StatisticsPage extends React.Component<{}, StatisticsInterface> {
         let responseConverted = apiResponse.json();   
         return responseConverted;
     }
+    //////////////////////////////
+    ///New refined methods below
+    KlantLocationStatistics(){
+        this.KlantLocationApiCall()
+        .then((result) => this.setState({
+            choiceForChart: 1,
+            chartReadyForLoading: true, 
+            DataForGraph: result}));
+    }
+    async KlantLocationApiCall() : Promise<any[]>{
+        let apiUrl = 'api/Statistics/Klant/Location';
+        let apiResponse = await fetch(apiUrl,{ method: 'Get', headers: new Headers({'content-type' : 'application/json'})});
+        let responseConverted = apiResponse.json();
+        return responseConverted;
+    }
+    LineGraphStatistics(apiUrl: string){
+        this.setState({calendarOptionClick: false})
+        this.LineGraphStatisticsApiCall(apiUrl)
+        .then((result) => {
+            this.setState({
+                choiceForChart: 3,
+                chartReadyForLoading: true, 
+                DataForGraph: result})
+        });
+
+    }
+    async LineGraphStatisticsApiCall(apiUrl: string){
+        var filter: DatumFilter = {
+            day: this.state.calendarDayClickedvalue,
+            month: this.state.calendarMonthClickedvalue,
+            year: this.state.calendarYearClickedvalue,
+        }
+        let fullApiUrl = 'api/Statistics/' + apiUrl;
+        let apiResponse = await fetch(fullApiUrl,{body: JSON.stringify(filter), method: 'Post', headers: new Headers({'content-type' : 'application/json'})});
+        let responseConverted = apiResponse.json();
+        return responseConverted;
+    }
+
+
     render(){  
-        return(                  
+      
+        return(                       
             <div className={"Container"}> 
             <div className='col-md-10'>
-                 <h2> Users statistics </h2>
-                 {this.state.chartReadyForLoading ? 
+            <div className="btn-group" role="group">
+                <button type="button" className="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Klanten
+                </button>
+                <div className="dropdown-menu dropdown-menu-klanten">
+                    <li> <button onClick={this.KlantLocationStatistics} className="dropdown-item" type="button">Klanten locatie </button> </li>            
+                    <li> <button onClick={() =>{ this.setState({calendarOptionClick: true}), this.setState({currentApiUrl: "Klant/Registratie"})}} 
+                    className="dropdown-item" type="button"> Nieuwe gebruikers overzicht </button> </li>  
+                </div>
+            </div>
+            <div className="btn-group" role="group">
+                <button type="button" className="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Bestellingen 
+                </button>
+                <div className="dropdown-menu dropdown-menu-bestellingen">
+                    <li> <button onClick={() => {this.setState({calendarOptionClick: true}), this.setState({currentApiUrl: "Bestellingen"})}} className="dropdown-item" type="button">Bestellingen overzicht </button> </li>    
+                    <button onClick={() => this.BestellingStatistics("productId",0)}> Meeste bestelde producten uit de huidige voorraad </button>
+                    <button onClick={() => this.BestellingStatistics("productId",1)}> Minst bestelde producten uit de huidige voorraad  </button>                          
+                </div>
+            </div>
+            <div className="btn-group" role="group">
+                <button type="button" className="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Omzet 
+                </button>
+                <div className="dropdown-menu dropdown-menu-bestellingen">
+                <button onClick={() =>{ this.setState({calendarOptionClick: true}), this.setState({currentApiUrl: "Omzet"})}}> Omzet overzicht </button>                
+                </div>
+            </div>
+            <div className="btn-group" role="group">
+                <button type="button" className="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Reviews
+                </button>
+                <div className="dropdown-menu dropdown-menu-bestellingen">
+                <button onClick={() => this.ReviewStatistics(false,0)}> Hoogst gewaardeerde producten uit de huidige voorraad </button> 
+                <button onClick={() => this.ReviewStatistics(false,1)}>  Minst gewaardeerde producten uit de huidige voorraad </button>  
+               <button onClick={() => this.ReviewStatistics(true,0)}>  Overall Reviews van producten per category</button>                        
+                </div>
+            </div>
+
+            {this.state.calendarOptionClick?      
+            [   
+                //TODO Find out why it starts at a wrong date
+            <Calendar 
+            showWeekNumbers={true} 
+            locale={"nl-nl"}
+            showNeighboringMonth={true}
+            showNavigation={true}
+
+            onClickDay={(e:any) => this.setState({calendarDayClickedvalue: e, calendarMonthClickedvalue:null, calendarYearClickedvalue:null})}
+            onClickMonth={(e:any) => this.setState({calendarMonthClickedvalue: e, calendarDayClickedvalue:null, calendarYearClickedvalue: null })}
+            onClickYear={(e: any) => this.setState({calendarYearClickedvalue: e, calendarDayClickedvalue: null, calendarMonthClickedvalue:null})}
+            />,
+            <button onClick={() => this.LineGraphStatistics(this.state.currentApiUrl)}> Load the data </button>,          
+            ]          
+            :
+            <div> </div>
+
+            }           
+            {this.state.chartReadyForLoading ? 
                     this.state.choiceForChart == 1 ?
                     this.loadPieChart()
                     :            
+                    this.state.choiceForChart == 2 ?
                     this.LoadBarChart()
+                    :
+                    this.state.choiceForChart == 3 ?
+                    this.LoadLineChart()
+                    :
+                    <div> </div>
                   :
-                  <div> No graph selected </div>
-                 };
-
-                 <button onClick={() => this.UserStaticsLocation("klantPostcode")}> Locatie van klanten  </button>
-              
-                 <h2> Bestellingen statistics</h2> 
-     
-                 <button onClick={() => this.BestellingStatistics("productId",0)}> Meeste bestelde producten uit de huidige voorraad </button>
-                 <button onClick={() => this.BestellingStatistics("productId",1)}> Minst bestelde producten uit de huidige voorraad  </button>
-           
-                 <h2> Review statistics</h2>   
-                 <button onClick={() => this.ReviewStatistics(false,0)}> Hoogst gewaardeerde producten uit de huidige voorraad </button> 
-                  <button onClick={() => this.ReviewStatistics(false,1)}>  Minst gewaardeerde producten uit de huidige voorraad </button>  
-                 <button onClick={() => this.ReviewStatistics(true,0)}>  Overall Reviews van producten per category</button> 
-
-                
-                    {
-                        this.state.orders.map(
-                            order => { console.log(order.productId); return (<li><h2> {order.bestellingDatum} </h2></li>)}
-                        )
-                    }
+                  <div>  </div>
+                 }  
+                                           
                 </div>
                 </div>
-                
+               
         )
     }     
 }
