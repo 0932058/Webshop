@@ -34,7 +34,8 @@ export class ItemPage extends React.Component<RouteComponentProps<{}>, ItemPageS
         this.DrawAverageReviewStars = this.DrawAverageReviewStars.bind(this);
         this.GetCommentsFromApi = this.GetCommentsFromApi.bind(this);
         this.CheckIfUserHasAlreadyCommented = this.CheckIfUserHasAlreadyCommented.bind(this);
-
+        this.getReviewButtons = this.getReviewButtons.bind(this);
+        this.setRating = this.setRating.bind(this);
 
         this.state = {
             product : null,
@@ -162,7 +163,26 @@ export class ItemPage extends React.Component<RouteComponentProps<{}>, ItemPageS
         return Promise.reject("User is not logged in");
     }
 
+    setRating(event){
+        console.log(event.target.value)
+        this.setState({
+            rating : event.target.value
+        })
+    }
 
+    getReviewButtons(){
+        var index = 1;
+        var btnList = [];
+        while(index < 6){
+            if(index <= this.state.rating){
+                btnList[index] = (<button className={"btn btn btn-success glyphicon glyphicon-star"} value={index} onClick={this.setRating} ></button>)
+            }else{
+                btnList[index] = (<button className={"btn glyphicon glyphicon-star-empty"} value={index} onClick={this.setRating} ></button>)
+            }
+            index += 1;
+        }
+        return btnList;
+    }
     //The objects have to be parsed to json because this.state doesn't allow an single object in the state
     render() {
         return <div  className={"ItemPageComponent"}>
@@ -194,43 +214,9 @@ export class ItemPage extends React.Component<RouteComponentProps<{}>, ItemPageS
                             <div>
                             <h2> Geef een ster en review:</h2>
                             
-                            
+                            {this.getReviewButtons()}
 
-                            {this.state.rating < 1?
-                            <button className='glyphicon glyphicon-star-empty btn' onClick={() => this.setState({rating: 1}) }>             
-                            </button>
-                            :
-                            <button className="glyphicon glyphicon-star btn btn-success" onClick={() => this.setState({rating: 1}) }>
-                            </button>
-                            }
-                            { this.state.rating <2?
-                            <button className='glyphicon glyphicon-star-empty btn' onClick={() => this.setState({rating: 2})}>                     
-                            </button> 
-                            :
-                            <button className="glyphicon glyphicon-star btn btn-success" onClick={() => this.setState({rating: 2}) }>
-                            </button>
-                            }
-                            {this.state.rating<3?
-                            <button className='glyphicon glyphicon-star-empty btn' onClick={() => this.setState({rating: 3})}>                        
-                            </button> 
-                            :
-                            <button className="glyphicon glyphicon-star btn btn-success" onClick={() => this.setState({rating: 3}) }>
-                            </button>
-                            }
-                            {this.state.rating <4?
-                            <button className='glyphicon glyphicon-star-empty btn' onClick={() => this.setState({rating: 4})}>                        
-                            </button> 
-                            :
-                            <button className="glyphicon glyphicon-star btn btn-success" onClick={() => this.setState({rating: 4}) }>
-                            </button>
-                            }
-                            {this.state.rating<5?
-                            <button className='glyphicon glyphicon-star-empty btn' onClick={() => this.setState({rating: 5})}>                        
-                            </button> 
-                            :
-                            <button className="glyphicon glyphicon-star btn btn-success" onClick={() => this.setState({rating: 4}) }>
-                            </button>
-                            }
+
                             <input type="review" name="review" className="form-control" id="review" onChange={(e:any) => this.setState({comment: e.target.value})} />
                             <button onClick={(e:any) => this.ProcessReview(e)}> Send Review </button>
                             </div>
