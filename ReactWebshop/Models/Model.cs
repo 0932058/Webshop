@@ -86,7 +86,7 @@ namespace Models
         public DateTime bestellingDatum { get; set; }
         public DateTime verstuurDatum { get; set; }
         public string status { get; set; }
-        public int klantId { get; set; }
+        public Klant klantId { get; set; }
     }
 
     public class Betaling {
