@@ -169,8 +169,8 @@ export class UsersPage extends React.Component<{}, UsersState> implements IAdmin
                 <h1> Users </h1>
 
                 <input type="search" name="search" className="form-control" id="search" onChange={(e: any) => this.setState({search: e.target.value})} />  
-                <button className={"btn btn-primary"} onClick={() => this.SearchForUser(this.state.search)} > Zoek een specifieke user </button>
-                <button className={"btn btn-primary"} onClick={() => this.GetAllUsers()} > Alle users </button>
+                <button className={"btn btn-primary"} onClick={() => this.SearchForUser(this.state.search)} > Zoek een specifieke gebruiker </button>
+                <button className={"btn btn-primary"} onClick={() => this.GetAllUsers()} > Alle gebruikers </button>
                 
                 <h2> Nieuwe gebruiker </h2> 
                 <button className={"btn btn-primary"} onClick={() => this.CreateEntity()} > Maak een nieuwe gebruiker aan </button>

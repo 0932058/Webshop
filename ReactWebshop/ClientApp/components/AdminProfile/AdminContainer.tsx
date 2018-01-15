@@ -47,13 +47,13 @@ export class AdminContainer extends React.Component<RouteComponentProps<{}>, Adm
                     <div className="list-group">
                         
 
-                        <button className={"list-group-item btn "} onClick={() => this.switchTo(<ProductsPage/>)} >Products</button> 
+                        <button className={"list-group-item btn "} onClick={() => this.switchTo(<ProductsPage/>)} >Producten</button> 
 
-                        <button className={"list-group-item btn "} onClick={() => this.switchTo(<BestellingenPage/>)} >Orders</button> 
+                        <button className={"list-group-item btn "} onClick={() => this.switchTo(<BestellingenPage/>)} >Bestellingen</button> 
 
-                        <button className={"list-group-item btn "} onClick={() => this.switchTo(<UsersPage/>)} >Users</button>
+                        <button className={"list-group-item btn "} onClick={() => this.switchTo(<UsersPage/>)} >Gebruikers</button>
 
-                        <button className={"list-group-item btn "} onClick={() => this.switchTo(<StatisticsPage/>)} >Statistics</button>
+                        <button className={"list-group-item btn "} onClick={() => this.switchTo(<StatisticsPage/>)} >Statistieken</button>
 
 
                     </div>                                                                  
