@@ -55,7 +55,6 @@ namespace Controllers
             }
             user.KlantId = possiblePK;
             user.klantRegistratieDatum = DateTime.Now;
-            //"2012-04-23T18:25:43.511Z" = JSON Format
             this._context.Klanten.Add(user);
             this._context.SaveChanges();
             this.SendEmail(user);

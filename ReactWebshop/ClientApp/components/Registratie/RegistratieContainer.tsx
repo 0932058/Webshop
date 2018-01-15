@@ -55,7 +55,8 @@ export class RegistratieContainer extends React.Component<RouteComponentProps<{}
             klantStraatnmr: this.state.streetnumber,
             username: this.state.username,
             password: this.state.password,
-            klantPlaats: this.state.klantPlaats
+            klantPlaats: this.state.klantPlaats,
+            klantRegistratieDatum: new Date()
         }
         let apiResponse = await fetch(apiUrl, {method: 'POST', body:JSON.stringify(userToPost), headers: new Headers({'content-type' : 'application/json'})});
         this.setState({isNoEmptyInputFields: true})

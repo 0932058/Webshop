@@ -5,6 +5,9 @@ import { Product } from 'ClientApp/components/Items/ItemsInterfaces';
 import {IAdmin} from "./AdminInterface";
 import { ProductPage } from 'ClientApp/components/ProductPage/ProductPageContainer';
 import { User } from 'ClientApp/components/User/User';
+import 'bootstrap';
+import { Redirect } from 'react-router';
+
 
 //When the profile gets clicked it gets redirected to this empty profile page
 
@@ -22,13 +25,14 @@ interface UsersState{
     klantPostcode: string,
     klantStraatnmr: string,
     klantPlaats: string,
+    klantDatumRegistratie: string,
     username: string,
     password: string,
     editUserClicked: boolean;
     search:string
 }
 
-export class UsersPage extends React.Component<{}, UsersState> implements IAdmin{
+export class UsersPage extends React.Component<RouteComponentProps<{}>, UsersState>{
     constructor(){
         super();
         this.EditEntity = this.EditEntity.bind(this);
@@ -37,6 +41,7 @@ export class UsersPage extends React.Component<{}, UsersState> implements IAdmin
         this.handleChangeSubmit = this.handleChangeSubmit.bind(this);
         this.GetAllUsers = this.GetAllUsers.bind(this);
         this.SearchForUser = this.SearchForUser.bind(this);
+        this.GetSpecificUserApicall = this.GetSpecificUserApicall.bind(this);
 
         this.state = {
             users : [],
@@ -56,6 +61,7 @@ export class UsersPage extends React.Component<{}, UsersState> implements IAdmin
             username : "",
             password : "",
             klantPlaats: "",
+            klantDatumRegistratie: "",
 
             search: "",
         }
@@ -73,6 +79,23 @@ export class UsersPage extends React.Component<{}, UsersState> implements IAdmin
                 this.setState({loaded: false});
             }
         )
+    }
+    GetSpecificUser(username: string){
+        console.log(username + " USERNAME!")
+        this.GetSpecificUserApicall(username)
+        .then(res => this.setState({users: res}))
+        .catch(_ => this.setState({users: []}))
+
+        if(username == ""){
+            this.GetAllUsers();
+        }
+        
+
+    }
+    async GetSpecificUserApicall(username: string){
+        let apiresponse = await fetch("api/Admin/GetUser/" + username,{ method: 'Get', headers: new Headers({'content-type' : 'application/json'})});
+        let responseCoverted = apiresponse.json();
+        return responseCoverted;
 
     }
 
@@ -93,7 +116,8 @@ export class UsersPage extends React.Component<{}, UsersState> implements IAdmin
                 klantStraatnmr: entity.klantStraatnmr,
                 username: entity.username,
                 password: entity.password,
-                klantPlaats: entity.klantPlaats
+                klantPlaats: entity.klantPlaats,
+                klantDatumRegistratie: entity.klantRegistratieDatum.toString()
             })
         }
     }
@@ -119,11 +143,25 @@ export class UsersPage extends React.Component<{}, UsersState> implements IAdmin
 
     async handleChangeSubmit(event: any, createdUserClick: boolean) {
         event.preventDefault();
+        console.log(this.state.klantNaam)
+        console.log(this.state.klantAchternaam)
+        console.log(this.state.klantTussenvoegsel)
+        console.log(this.state.klantTel)
+        console.log(this.state.klantStraat)
+        console.log(this.state.klantPostcode)
+        console.log(this.state.klantStraatnmr)
+        console.log(this.state.username)
+        console.log(this.state.password)
+        console.log(this.state.klantPlaats)
+        console.log(new Date())
+        console.log(this.state.klantNaam)
+
+  
         let apiUrl: string;
         let apiMethod: string;
 
         let klantToPost: Klant = {
-            KlantId: 1,
+            KlantId: this.state.change,
             klantNaam : this.state.klantNaam,
             klantAchternaam: this.state.klantAchternaam,
             klantTussenvoegsel : this.state.klantTussenvoegsel,
@@ -134,7 +172,8 @@ export class UsersPage extends React.Component<{}, UsersState> implements IAdmin
             klantStraatnmr : this.state.klantStraatnmr,
             username : this.state.username,
             password: this.state.password,
-            klantPlaats: this.state.klantPlaats
+            klantPlaats: this.state.klantPlaats,
+            klantRegistratieDatum: new Date()
         }
         if(createdUserClick == true){
             apiUrl = 'api/User/Post/'
@@ -143,11 +182,17 @@ export class UsersPage extends React.Component<{}, UsersState> implements IAdmin
         else{
             apiUrl = "api/User/"
             apiMethod = "PUT"
-            this.setState({createUserClicked: false})
+            
 
         }
+        console.log(klantToPost + "KLANT TO POST")
+        console.log(apiMethod + "API METHOD")
         let apiResponse = await fetch(apiUrl, {method: apiMethod, body:JSON.stringify(klantToPost), headers: new Headers({'content-type' : 'application/json'})});
-        alert("Voltooid");
+        // this.GetAllUsers();
+        // alert("Gewijzigd");
+        return(
+        <Redirect to={"/"} push={true}/>
+        )
         
     }
     SearchForUser(search: string) : void{
@@ -164,14 +209,12 @@ export class UsersPage extends React.Component<{}, UsersState> implements IAdmin
     //TODO: Maak een nieuwe gebruiker aan
     render(){  
         return(         
+            
             <div className={"UsersComponent"} > 
             <div className='col-md-10'>
                 <h1> Users </h1>
 
-                <input type="search" name="search" placeholder="Zoek een specifieke user"className="form-control" id="search" onChange={(e: any) => this.setState({search: e.target.value})} />  
-                <button className={"btn btn-primary"} onClick={() => this.SearchForUser(this.state.search)} > Zoek een specifieke user </button>
-                <button className={"btn btn-primary"} onClick={() => this.GetAllUsers()} > Alle users </button>
-                
+                <input type="search" name="search" placeholder="Zoek een specifieke user"className="form-control" id="search" onChange={(e: any) => this.GetSpecificUser(e.target.value)} />  
                 <h2> Nieuwe gebruiker </h2> 
                 <button className={"btn btn-primary"} onClick={() => this.CreateEntity()} > Maak een nieuwe gebruiker aan </button>
                 <h2> Gevonden gebruikers: {this.state.users.length} </h2> 
@@ -182,12 +225,15 @@ export class UsersPage extends React.Component<{}, UsersState> implements IAdmin
                         user => {
 
                             return (
-                                <div className={"Component"}>
-                                        
-                                    
+                                <div>
+
+                                                                        
                                         <div className='col-md-10'>   
-                                            <h3>Username: { user.username }  </h3>
                                             <h3>klant id:{" " + user.klantId } </h3>
+                                            <h3>Username: { user.username }  </h3>
+                                            <h3>Achternaam: { user.klantNaam }  </h3>
+                                            <h3>E-Mail: { user.klantMail }  </h3>
+                                            
                                         
                                           
                                             <button type="button" className={"btn btn-primary"} data-toggle="collapse" data-target="#userForm"  onClick={() => this.EditEntity(user)} > Bekijk / Pas Aan </button>
@@ -245,6 +291,11 @@ export class UsersPage extends React.Component<{}, UsersState> implements IAdmin
                                                                 onChange={(event:any) => this.setState({klantStraat: event.target.value})}
                                                                 
                                                                 />
+                                                                    <p>KlantPlaats</p>
+                                                                <input placeholder="password" pattern=".{6,}"  title="klantStraatnmr moet uit 4 cijfers en 2 letters bestaan" 
+                                                                type="text" name="password"className="form-control"  value={this.state.klantPlaats} required={true} 
+                                                                onChange={(event:any) => this.setState({klantPlaats: event.target.value})} />
+
 
                                                                 <p>klantPostcode</p>
                                                                 <input placeholder='klantPostcode' pattern="[1-9][0-9]{3}\s?[a-zA-Z]{2}" title="vul een juist image in"
@@ -267,7 +318,11 @@ export class UsersPage extends React.Component<{}, UsersState> implements IAdmin
                                                                 <input placeholder="password" pattern=".{6,}"  title="klantStraatnmr moet uit 4 cijfers en 2 letters bestaan" 
                                                                 type="text" name="password"className="form-control"  value={this.state.password} required={true} 
                                                                 onChange={(event:any) => this.setState({password: event.target.value})} />
-             
+                                                                
+                                                                <p>Datum registratie: { this.state.klantDatumRegistratie} </p>
+                                                          
+
+                                                                
                                                             <li><input className="btn btn-primary" placeholder="Wijzigen" type="submit" value="Wijzigen"/> </li>
                                                             </div>
                                                             </div>

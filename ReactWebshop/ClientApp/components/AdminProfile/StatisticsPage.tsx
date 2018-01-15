@@ -2,7 +2,7 @@ import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
 import 'bootstrap';
 import { Product, Bestelling, JoinedBestelling, DataForGraph} from 'ClientApp/components/Items/ItemsInterfaces';
-import {PieChart,BarChart, LineChart} from 'react-easy-chart';
+import {PieChart,BarChart, LineChart, ToolTip} from 'react-easy-chart';
 import {GroupBy, OrderBy, DatumFilter} from "../../../TypescriptModels/StatisticsClasses";
 import { Klant } from 'TypescriptModels/Klant';
 import Calendar from 'react-calendar'
@@ -21,10 +21,15 @@ interface StatisticsInterface{
     calendarYearClickedvalue: Date,
     currentApiUrl: string,
 
+    pieChartTop: number,
+    pieChartLeft: number,
+    pieChartValue: number,
+    pieChartKey: number
+
    
 }
 
-export class StatisticsPage extends React.Component<{}, StatisticsInterface> {
+export class StatisticsPage extends React.Component<RouteComponentProps<{}>, StatisticsInterface> {
     constructor(){
         super();
         this.loadPieChart = this.loadPieChart.bind(this);
@@ -32,6 +37,7 @@ export class StatisticsPage extends React.Component<{}, StatisticsInterface> {
         this.KlantLocationApiCall = this.KlantLocationApiCall.bind(this);
         this.LineGraphStatistics = this.LineGraphStatistics.bind(this);
         this.LineGraphStatisticsApiCall = this.LineGraphStatisticsApiCall.bind(this);
+
     
         this.state ={
             orders : [],
@@ -43,8 +49,10 @@ export class StatisticsPage extends React.Component<{}, StatisticsInterface> {
             calendarYearClickedvalue: new Date(),
             calendarDayClickedvalue: new Date(),
             currentApiUrl: "",
-
-           
+            pieChartTop: 0,
+            pieChartLeft: 0,
+            pieChartValue: 0,
+            pieChartKey: 0      
         }
         
     }
@@ -53,7 +61,7 @@ export class StatisticsPage extends React.Component<{}, StatisticsInterface> {
         return(
             <PieChart
             labels
-            height={250}
+            height={750}
             width={900}
             data={this.state.DataForGraph}
             />
@@ -74,7 +82,7 @@ export class StatisticsPage extends React.Component<{}, StatisticsInterface> {
         <LineChart
         axes
         margin={{top: 10, right: 10, bottom: 50, left: 50}}
-        axisLabels={{x: 'My x Axis', y: 'My y Axis'}}
+        axisLabels={{x: 'X', y: 'Y'}}
         width={900}
         interpolate={'cardinal'}
         height={300}
@@ -82,8 +90,8 @@ export class StatisticsPage extends React.Component<{}, StatisticsInterface> {
         />
         
        )
-
     }
+
 
     BestellingStatistics(attributeForGraph: string, ascendOrDescend: number){
         this.BestellingStatisticsApiCall(attributeForGraph,ascendOrDescend)

@@ -28,7 +28,7 @@ interface ProductsState{
     productImage: string
 }
 
-export class ProductsPage extends React.Component<{}, ProductsState> implements IAdmin{
+export class ProductsPage extends React.Component<RouteComponentProps<{}>, ProductsState> implements IAdmin{
     constructor(){
         super();
 
