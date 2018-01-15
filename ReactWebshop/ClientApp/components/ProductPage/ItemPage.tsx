@@ -139,7 +139,7 @@ export class ItemPage extends React.Component<RouteComponentProps<{}>, ItemPageS
     DrawAverageReviewStars(){  
         var star = <img className="img-responsive" src={"https://i1.wp.com/audiobookreviewer.com/wp-content/uploads/sites/209/2015/07/star-rating-full.png?fit=24%2C24&ssl=1"}/>  
         var stars: JSX.Element[] = [];
-        for (let index = 0; index <= this.state.averageReviewRating; index++) {
+        for (let index = 0; index < this.state.averageReviewRating; index++) {
             stars[index] = star;         
         }
        this.setState({averageReviewStars: stars});
