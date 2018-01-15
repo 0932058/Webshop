@@ -32,7 +32,7 @@ namespace reactTwo.Controllers
                     bestellingDatum = bestelling.bestellingDatum,
                     verstuurDatum = bestelling.verstuurDatum,
                     status = bestelling.status,
-                    klantId = bestelling.klantId
+                    klantId = _context.Klanten.Find(bestelling.klantId)
                 };
                 bestToRet.Add(newBest);
             }
@@ -59,7 +59,7 @@ namespace reactTwo.Controllers
                     bestellingDatum = bestelling.bestellingDatum,
                     verstuurDatum = bestelling.verstuurDatum,
                     status = bestelling.status,
-                    klantId = bestelling.klantId
+                    klantId = _context.Klanten.Find(bestelling.klantId)
                 };
                 bestToRet.Add(newBest);
             }

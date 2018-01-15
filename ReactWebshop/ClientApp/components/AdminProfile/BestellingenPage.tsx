@@ -24,7 +24,7 @@ export class BestellingenPage extends React.Component<{}, BestellingenState> {
         this.state = {bestellingen: [], loaded: false}
 
     }
-    componentWillMount(){
+    componentDidMount(){
         this.BestellingenApiCall()
         .then(result => this.setState({bestellingen: result, loaded: true}))
     }
@@ -37,19 +37,35 @@ export class BestellingenPage extends React.Component<{}, BestellingenState> {
     render(){
         return(
             <div>
-                {this.state.loaded?               
-                this.state.bestellingen.map((bestelling => {
-                    return([
-                    <div key={1}> BestellingsId: {bestelling.BestellingId} </div>,
-                    <div> ProductId: {bestelling.productId} </div>,
-                    <div> bestellingDatum: {bestelling.bestellingDatum} </div>,
-                    <div> verstuurDatum: {bestelling.verstuurDatum} </div>,
-                    <div> status: {bestelling.status} </div>,
-                    <div> klantId: {bestelling.klantId} </div>
-                    ])}))
+                {this.state.loaded ?
+                this.state.bestellingen.map(
+                    order =>{
+                        return(
+                            <div className={"Component"}>
+                            <div className='container'>
+                                <div className="panel panel-default">    
+                                <div className='col-md-2'>
+                                        <div className="panel-body"><img className="img-responsive" src={order.productId.productImg}/></div>
+                                    </div>
+                                    <div className='col-md-4'>
+                                        <p>Status: {order.status}</p>
+                                        <p>Prijs: €{order.productId.productPrijs}</p>
+                                        <p>Besteldatum: {order.bestellingDatum}</p>
+                                        <p>Verstuurdatum: {order.verstuurDatum}</p>
+                                        <p>Klant: {order.klantId.username}</p>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        )
+                    }
+
+                )
                 :
-                <div> Loading orders...</div>
-        }
+                <p>Bestellingen worden geladen...</p>
+                }
          </div>
         )}
 

@@ -12,7 +12,8 @@ export class RegistratieSuccesfullContainer extends React.Component<RouteCompone
     render(){
         return(
             <div className={"RegistratieSuccesfullContainer"}>
-            <div> <h1> Registratie is gelukt! Login met de gekozen gebruikersnaam en wachtwoord! </h1> </div>          
+            <h1> Registratie is gelukt!</h1>
+            <h2>Login met de gekozen gebruikersnaam en wachtwoord!</h2>     
             </div>
         )}
 }
