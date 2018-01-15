@@ -89,9 +89,9 @@ namespace reactTwo.Controllers
             this._context.SaveChanges();
         
         }
-        [HttpPut]
+        [HttpPut("Update")]
         public void Put([FromBody] Bestelling order){
-            var existingOrder = this._context.Bestellingen.Where((x) => x.BestellingId ==  order.BestellingId).FirstOrDefault();
+            var existingOrder = this._context.Bestellingen.Where((x) => x.BestellingId == order.BestellingId).FirstOrDefault();
             existingOrder.productId = order.productId;
             existingOrder.bestellingDatum = order.bestellingDatum;
             existingOrder.verstuurDatum = order.verstuurDatum;
@@ -150,20 +150,21 @@ namespace reactTwo.Controllers
         [HttpPost("Post/DeliveryMail/")]
         public void SendDeliveryEmail([FromBody]Bestelling order){
             var message = new MimeMessage();
-            var klant = _context.Klanten.Where( (x) => x.klantId == order.klantId).FirstOrDefault();
+            var klant = _context.Klanten.Where( (x) => x.KlantId == order.klantId).FirstOrDefault();
             message.From.Add(new MailboxAddress("normiewebshop@stefanpesic.nl"));
             message.To.Add(new MailboxAddress(klant.klantMail));
-            message.Subject = "Bestelling Normiewebshop";
+            message.Subject = "Bestelling Normiewebshop Onderweg";
+            var adress = klant.klantStraat + " " + klant.klantStraatnmr + " in " + klant.klantPlaats;
 
             var product = _context.Producten.Where((x) => x.ProductId == order.productId).FirstOrDefault();
             message.Body = new TextPart("plain"){
                 Text = String.Format(
-                    "Uw bestelling van " +  product.productNaam + " is zojuist verzonden naar: {0}"
+                    "Uw bestelling van " +  product.productNaam + " is zojuist verzonden naar: {0}" +
                     "\r" +
                     "Met vriendelijke groet" + 
                     "\r" +
                     "De normie shop",
-                    klant.straatnaam
+                    adress
                     )                 
             };
                     
