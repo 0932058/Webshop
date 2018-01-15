@@ -194,21 +194,43 @@ export class ItemPage extends React.Component<RouteComponentProps<{}>, ItemPageS
                             <div>
                             <h2> Geef een ster en review:</h2>
                             
+                            
+
                             {this.state.rating < 1?
                             <button className='glyphicon glyphicon-star-empty btn' onClick={() => this.setState({rating: 1}) }>             
                             </button>
                             :
-                            <button className="glyphicon glyphicon-star btn btn-success" onClick={() => this.setState({rating: 0}) }>
+                            <button className="glyphicon glyphicon-star btn btn-success" onClick={() => this.setState({rating: 1}) }>
                             </button>
                             }
-                            <button className='glyphicon glyphicon-star-empty' onClick={() => this.setState({rating: 2})}>                     
+                            { this.state.rating <2?
+                            <button className='glyphicon glyphicon-star-empty btn' onClick={() => this.setState({rating: 2})}>                     
                             </button> 
-                            <button className='glyphicon glyphicon-star-empty' onClick={() => this.setState({rating: 3})}>                        
+                            :
+                            <button className="glyphicon glyphicon-star btn btn-success" onClick={() => this.setState({rating: 2}) }>
+                            </button>
+                            }
+                            {this.state.rating<3?
+                            <button className='glyphicon glyphicon-star-empty btn' onClick={() => this.setState({rating: 3})}>                        
                             </button> 
-                            <button className='glyphicon glyphicon-star-empty' onClick={() => this.setState({rating: 4})}>                        
+                            :
+                            <button className="glyphicon glyphicon-star btn btn-success" onClick={() => this.setState({rating: 3}) }>
+                            </button>
+                            }
+                            {this.state.rating <4?
+                            <button className='glyphicon glyphicon-star-empty btn' onClick={() => this.setState({rating: 4})}>                        
                             </button> 
-                            <button className='glyphicon glyphicon-star-empty' onClick={() => this.setState({rating: 5})}>                        
+                            :
+                            <button className="glyphicon glyphicon-star btn btn-success" onClick={() => this.setState({rating: 4}) }>
+                            </button>
+                            }
+                            {this.state.rating<5?
+                            <button className='glyphicon glyphicon-star-empty btn' onClick={() => this.setState({rating: 5})}>                        
                             </button> 
+                            :
+                            <button className="glyphicon glyphicon-star btn btn-success" onClick={() => this.setState({rating: 4}) }>
+                            </button>
+                            }
                             <input type="review" name="review" className="form-control" id="review" onChange={(e:any) => this.setState({comment: e.target.value})} />
                             <button onClick={(e:any) => this.ProcessReview(e)}> Send Review </button>
                             </div>
@@ -230,6 +252,8 @@ export class ItemPage extends React.Component<RouteComponentProps<{}>, ItemPageS
 
                         </div>  
                             <div className='col-md-4'>
+                            <div className='col-md-12'>
+                            <h4>gemiddelde review</h4>  
                             {this.state.averageReviewStars.length <= 0?
                             <div> no reviews available </div>                    
                             :     
@@ -238,7 +262,10 @@ export class ItemPage extends React.Component<RouteComponentProps<{}>, ItemPageS
                                 
                             }
                             )}
-                                <h3>Prijs: {this.state.product.productPrijs}</h3>
+                            </div>
+                            <div className='col-md-12'>
+                            <h3>Prijs: {this.state.product.productPrijs}</h3>
+                            </div>
                         
                         
                        
