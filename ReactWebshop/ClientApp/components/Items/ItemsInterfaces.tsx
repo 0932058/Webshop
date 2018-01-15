@@ -71,3 +71,11 @@ export interface DataForGraph{
     key: string,
     value: number
 }
+
+export interface Review{
+    reviewId: number,
+    productId: number,
+    klantId: number,
+    rating: number,
+    comment: string
+}

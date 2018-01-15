@@ -4,11 +4,13 @@ import { ProductPage } from "../ProductPage/ProductPageContainer";
 import { RouteComponentProps } from 'react-router';
 import { User } from "../User/User";
 import { Link, NavLink } from 'react-router-dom';
-import { Product } from 'ClientApp/components/Items/ItemsInterfaces';
+import { Product, Review } from 'ClientApp/components/Items/ItemsInterfaces';
 
 interface ItemsContainerState{
     loaded : boolean;
+    reviewsLoaded : boolean;
     items : Product[] | null; //The products get put in the list by date
+    reviews : Review[];
     currentSearch : string;
     filteredItems : Product[] | null,
     consoleFilter : string[],
@@ -35,6 +37,7 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
         this.onMaxChange = this.onMaxChange.bind(this);
         this.GetAverageReviewRatingApiCall = this.GetAverageReviewRatingApiCall.bind(this);
         this.CallForAverageReviewRating = this.CallForAverageReviewRating.bind(this);
+        this.getRating = this.getRating.bind(this);
 
         this.months = ["Januari", "Februari", "Maart", "April", "May", "June",
         "July", "August", "September", "October", "November", "December"
@@ -42,7 +45,9 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
 
         this.state = {
             loaded : false,
+            reviewsLoaded : false,
             items : null,
+            reviews : null,
             currentSearch : "",
             filteredItems : null,
             consoleFilter : [],
@@ -79,6 +84,13 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
                 this.setState({ loaded : false })
             }
         )
+
+        fetch('api/Review/GetAllReviews')
+        .then(response => response.json() as Promise<Review[]>)
+        .then(data => {
+            this.setState({ reviews : data, reviewsLoaded : true});
+        });
+        
     }
 
     putNewItem(){
@@ -233,6 +245,43 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
         let apiResponse = await fetch(apiUrl, {method: 'Get', headers: new Headers({'content-type' : 'application/json'})}); 
         let responseConverted = apiResponse.json();
         return responseConverted;
+    }
+
+    getRating(id){
+        let aantal = 0;
+        let totRat = 0;
+        this.state.reviews.map(
+            (review, index) => {
+                if(review.productId === id){
+                    totRat += review.rating
+                    aantal ++
+                }
+            }
+        )
+        if(aantal === 0){
+            return 0
+        }
+        return (totRat / aantal)
+    }
+
+    getReviewButtons(rating){
+        var index = 1;
+        var btnList = [];
+
+        if(rating === 0){
+            btnList[0] = (<p> nog geen reviews </p>)
+            return btnList
+        }
+
+        while(index < 6){
+            if(index <= rating){
+                btnList[index] = (<p className={"glyphicon glyphicon-star yellow"}></p>)
+            }else{
+                btnList[index] = (<p className={"glyphicon glyphicon-star-empty"}></p>)
+            }
+            index += 1;
+        }
+        return btnList;
     }
 
     render(){
@@ -614,11 +663,11 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
 
             
             <div  className={"ItemsContainerScroll "}>
-                {this.state.loaded? 
+                {this.state.loaded && this.state.reviewsLoaded? 
 
                     <div className='container' id='maingame'>      
                     <h3> { "Aantal producten gevonden: " + this.state.filteredItems.length } </h3>          
-
+                    
                     {this.state.filteredItems.map(
                         
                         (item, index) => {
@@ -638,6 +687,7 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
                                         <div className='col-md-3'>
                                             <h3> Prijs: {"€" + item.productPrijs } </h3>                                         
                                             <p> { item.aantalInVooraad + " " } op voorraad </p>
+                                            <p> Rating: { this.getReviewButtons(this.getRating(item.productId)) } </p>
 
 
                                             <NavLink to={ '/Item/' + item.productId } exact activeClassName='Active'className='button_to_product'>

@@ -8,7 +8,7 @@ using System.Linq.Expressions;
 //This is an predicate (lambda) builder
 namespace CustomPredicate{
     public class OrderBy {
-        public int ascendOrDescend { get; set; }
+        public int ascendOrDescend;
         public string attribute;
         public Func<T, T1> OrderByToPredicate<T, T1>(OrderBy f) {
             var parameter = Expression.Parameter(typeof(T), "paramater");

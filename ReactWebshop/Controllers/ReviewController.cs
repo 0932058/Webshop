@@ -31,14 +31,18 @@ namespace Controllers
         //Average review for an product
         [HttpGet("Get/{productId}")]
         public IActionResult Get(int productId){
-            var averageReview = this._context.Review.Where((product => product.ProductId == productId))
-            .Select((product => product.Rating));
+            var averageReview = this._context.Review
+            .Where((review => review.ProductId == productId));    
             if(averageReview.Count() <= 0){
-                return NotFound();
+                return NotFound(0);
             }
             else{
-                 var converted = averageReview.Sum() / averageReview.Count();
-                 return Ok(converted);
+                var averageReviewCalculated = this._context.Review
+                .Where((review => review.ProductId == productId))
+                .GroupBy((a) => new {Review = a.ProductId})
+                .Select((a) => a.Average((z) => z.Rating));
+            
+                 return Ok(averageReviewCalculated);
             }
         }
         //Get review comments
@@ -63,6 +67,12 @@ namespace Controllers
         // PUT api/values/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] Klant user){
+        }
+
+        [HttpGet("GetAllReviews")]
+        public Review[] GetAllReviews(){
+            
+            return _context.Review.ToArray();
         }
 
         // DELETE api/values/5

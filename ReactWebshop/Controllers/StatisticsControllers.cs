@@ -44,8 +44,8 @@ namespace Controllers
             var ammountOfBuysDescendedOrdered = productenEnBestellingenJoined.OrderByDescending(a => a.bResult.Count()).Select((a) => new {x = a.productNaam, y = a.bResult.Count()}).Take(10);
             return Ok(ammountOfBuysDescendedOrdered.ToArray());        
         }
-         [HttpPost("Reviews")]
-         public IActionResult ReviewsStatistics(OrderBy property){  
+         [HttpPost("Reviews/{orderOrNot}")]
+         public IActionResult ReviewsStatistics(int orderOrNot){  
            var averageRatingPerProduct = 
            from a in this._context.Review         
            group a by a.ProductId into Product       
@@ -54,10 +54,10 @@ namespace Controllers
                AvG = Product.Average((a) => a.Rating)
            };
            var joined = averageRatingPerProduct.Join(this._context.Producten, (r) => r.ID, (p) => p.ProductId, (rResult,pResult) => new {x =  pResult.productNaam, y = rResult.AvG});    
-           if(property.ascendOrDescend == 0){
-               return Ok(joined.OrderBy((a) => a.y).Take(10).ToArray());
+           if(orderOrNot == 0){
+               return Ok(joined.OrderByDescending((a) => a.y).Take(10).ToArray());
            } 
-            return Ok(joined.OrderByDescending((a) => a.y).Take(10).ToArray());       
+            return Ok(joined.OrderBy((a) => a.y).Take(10).ToArray());       
          }
         [HttpPost("Reviews/Category")]
          public IActionResult ReviewsStatisticsByCategory(OrderBy property){  
