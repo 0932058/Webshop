@@ -18,7 +18,7 @@ interface BestellingenState{
     loaded: boolean;
 }
 
-export class BestellingenPage extends React.Component<RouteComponentProps<{}>, BestellingenState> {
+export class BestellingenPage extends React.Component<{}, BestellingenState> {
     constructor(){
         super();
         this.state = {bestellingen: [], loaded: false}

@@ -32,7 +32,7 @@ interface UsersState{
     search:string
 }
 
-export class UsersPage extends React.Component<RouteComponentProps<{}>, UsersState>{
+export class UsersPage extends React.Component<{}, UsersState>{
     constructor(){
         super();
         this.EditEntity = this.EditEntity.bind(this);

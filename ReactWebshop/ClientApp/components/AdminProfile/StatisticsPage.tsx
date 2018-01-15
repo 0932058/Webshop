@@ -29,7 +29,7 @@ interface StatisticsInterface{
    
 }
 
-export class StatisticsPage extends React.Component<RouteComponentProps<{}>, StatisticsInterface> {
+export class StatisticsPage extends React.Component<{}, StatisticsInterface> {
     constructor(){
         super();
         this.loadPieChart = this.loadPieChart.bind(this);
