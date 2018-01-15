@@ -124,16 +124,16 @@ export class StatisticsPage extends React.Component<{}, StatisticsInterface> {
         );
 
     }
-    async ReviewStatisticsApiCall(byCategory: boolean, ascendOrDescend: number) : Promise<DataForGraph[]>{
+    async ReviewStatisticsApiCall(byCategory: boolean, ascendOrDescend1: number) : Promise<DataForGraph[]>{
         var groupBy: OrderBy = {
-            ascendOrDescend: ascendOrDescend,
+            ascendOrDescend: ascendOrDescend1,
             attribute:null
         };
         if(byCategory){
             var apiUrl = 'api/Statistics/Reviews/Category';         
         }
         else{
-            var apiUrl = 'api/Statistics/Reviews'; 
+            var apiUrl = 'api/Statistics/Reviews/' + ascendOrDescend1; 
             
         }
         let apiResponse = await fetch(apiUrl, {body: JSON.stringify(groupBy), method: 'Post', headers: new Headers({'content-type' : 'application/json'})}); 
