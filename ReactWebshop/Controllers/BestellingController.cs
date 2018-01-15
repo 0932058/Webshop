@@ -32,13 +32,13 @@ namespace reactTwo.Controllers
                     bestellingDatum = bestelling.bestellingDatum,
                     verstuurDatum = bestelling.verstuurDatum,
                     status = bestelling.status,
-                    klantId = bestelling.klantId
+                    klantId = _context.Klanten.Find(bestelling.klantId)
                 };
                 bestToRet.Add(newBest);
             }
 
             if(bestToRet != null){
-                return Ok( bestToRet);
+                return Ok( bestToRet.ToArray());
 
             }
             else{
@@ -59,7 +59,7 @@ namespace reactTwo.Controllers
                     bestellingDatum = bestelling.bestellingDatum,
                     verstuurDatum = bestelling.verstuurDatum,
                     status = bestelling.status,
-                    klantId = bestelling.klantId
+                    klantId = _context.Klanten.Find(bestelling.klantId)
                 };
                 bestToRet.Add(newBest);
             }
@@ -84,6 +84,16 @@ namespace reactTwo.Controllers
             }
             this._context.SaveChanges();
         
+        }
+        [HttpPut]
+        public void Put([FromBody] Bestelling order){
+            var existingOrder = this._context.Bestellingen.Where((x) => x.BestellingId ==  order.BestellingId).FirstOrDefault();
+            existingOrder.productId = order.productId;
+            existingOrder.bestellingDatum = order.bestellingDatum;
+            existingOrder.verstuurDatum = order.verstuurDatum;
+            existingOrder.status = order.status;
+            existingOrder.klantId = order.klantId;
+            this._context.SaveChanges();
         }
         [HttpPost("Post/Mail/")]
          public void SendEmail([FromBody] KlantEnBestelling klantEnBestelling){

@@ -47,6 +47,20 @@ export class BestellingenContainer extends AbstractStorage {
 
         }
     }
+    async UpdateBestelling(order, statusstring){
+        let apiUrl = 'api/Bestellingen';
+        let OrderToPost: Bestelling = {
+            BestellingId: order.BestellingId,
+            productId: order.productId,
+            bestellingDatum: order.bestellingDatum,
+            verstuurDatum: new Date(),
+            status: statusstring,
+            klantId: order.klantId.klantId
+        }
+        let apiResponse = await fetch(apiUrl, {method: "PUT", body:JSON.stringify(OrderToPost), headers: new Headers({'content-type' : 'application/json'})});
+        alert("Voltooid");
+        
+    }
 
     render() {
         return (
@@ -72,8 +86,13 @@ export class BestellingenContainer extends AbstractStorage {
                                         <p>Prijs: €{order.productId.productPrijs}</p>
                                         <p>Besteldatum: {order.bestellingDatum}</p>
                                         <p>Verstuurdatum: {order.verstuurDatum}</p>
-                                        </div>
+                                        {order.status == 'Verzonden'?
+                                        <p><button onClick={() => this.UpdateBestelling(order, 'Ontvangen')}>Product is ontvangen</button></p>
+                                        : 
+                                        <p></p>
+                                        }
                                     </div>
+                                </div>
                                 </div>
 
                             </div>

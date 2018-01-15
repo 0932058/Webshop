@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
 import { List } from "linqts";
-import { Product, JoinedBestelling} from 'ClientApp/components/Items/ItemsInterfaces';
+import { Product, Bestelling, JoinedBestelling} from 'ClientApp/components/Items/ItemsInterfaces';
 import {IAdmin} from "./AdminInterface";
 import { Link, NavLink } from 'react-router-dom';
 
@@ -24,32 +24,68 @@ export class BestellingenPage extends React.Component<{}, BestellingenState> {
         this.state = {bestellingen: [], loaded: false}
 
     }
-    componentWillMount(){
-        this.BestellingenApiCall()
-        .then(result => this.setState({bestellingen: result, loaded: true}))
+    componentDidMount(){
+        this.GetOrders()
     }
-    async BestellingenApiCall(){    
-        let apiUrl = 'api/Bestellingen/GetAll';
-        let apiResponse = await fetch(apiUrl, {method: 'Get', headers: new Headers({'content-type' : 'application/json'})}); 
-        let responseConverted = apiResponse.json();
-        return responseConverted;
+    async GetOrders(){
+        await fetch('api/Bestellingen/GetAll')
+        .then(response => response.json() as Promise<JoinedBestelling[]>)
+        .then(data =>{
+           console.log("GetOrders geeft " + data[0]);
+           data = data.reverse();
+           this.setState({bestellingen: data, loaded: true})
+        });
+    }
+    async UpdateBestelling(order, statusstring){
+        let apiUrl = 'api/Bestellingen';
+        let OrderToPost: Bestelling = {
+            BestellingId: order.BestellingId,
+            productId: order.productId,
+            bestellingDatum: order.bestellingDatum,
+            verstuurDatum: new Date(),
+            status: statusstring,
+            klantId: order.klantId.klantId
+        }
+        let apiResponse = await fetch(apiUrl, {method: "PUT", body:JSON.stringify(OrderToPost), headers: new Headers({'content-type' : 'application/json'})});
+        alert("Voltooid");
+        
     }
     render(){
         return(
             <div>
-                {this.state.loaded?               
-                this.state.bestellingen.map((bestelling => {
-                    return([
-                    <div key={1}> BestellingsId: {bestelling.BestellingId} </div>,
-                    <div> ProductId: {bestelling.productId} </div>,
-                    <div> bestellingDatum: {bestelling.bestellingDatum} </div>,
-                    <div> verstuurDatum: {bestelling.verstuurDatum} </div>,
-                    <div> status: {bestelling.status} </div>,
-                    <div> klantId: {bestelling.klantId} </div>
-                    ])}))
+                {this.state.loaded ?
+                this.state.bestellingen.map(
+                    order =>{
+                        return(
+                            <div className={"Component"}>
+                            <div className='container'>
+                                <div className="panel panel-default">    
+                                <div className='col-md-2'>
+                                        <div className="panel-body"><img className="img-responsive" src={order.productId.productImg}/></div>
+                                    </div>
+                                    <div className='col-md-4'>
+                                        <p>Status: {order.status}</p>
+                                        <p>Prijs: €{order.productId.productPrijs}</p>
+                                        <p>Besteldatum: {order.bestellingDatum}</p>
+                                        <p>Verstuurdatum: {order.verstuurDatum}</p>
+                                        <p>Klant: {order.klantId.username}</p>
+                                        {order.status == 'In behandeling'?
+                                        <p><button onClick={() => this.UpdateBestelling(order, 'Verzonden')}> Product Verzenden</button></p>
+                                        : 
+                                        <p></p>
+                                        }
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        )
+                    }
+
+                )
                 :
-                <div> Loading orders...</div>
-        }
+                <p>Bestellingen worden geladen...</p>
+                }
          </div>
         )}
 

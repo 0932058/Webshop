@@ -41,7 +41,7 @@ export interface JoinedBestelling {
     bestellingDatum : Date 
     verstuurDatum : Date 
     status : string
-    klantId : number
+    klantId : Klant
 }
 
 export interface Betaling {
@@ -55,7 +55,8 @@ export interface Klant{
     straatnaam: string,
     straatnummer: string,
     postcode: string,
-    email: string   
+    email: string,
+    username: string   
 }
 export interface KlantEnBestelling{
     klant: Klant,
@@ -69,4 +70,12 @@ export interface KlantEnBestelling{
 export interface DataForGraph{
     key: string,
     value: number
+}
+
+export interface Review{
+    reviewId: number,
+    productId: number,
+    klantId: number,
+    rating: number,
+    comment: string
 }

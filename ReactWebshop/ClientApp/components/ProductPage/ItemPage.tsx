@@ -34,7 +34,8 @@ export class ItemPage extends React.Component<RouteComponentProps<{}>, ItemPageS
         this.DrawAverageReviewStars = this.DrawAverageReviewStars.bind(this);
         this.GetCommentsFromApi = this.GetCommentsFromApi.bind(this);
         this.CheckIfUserHasAlreadyCommented = this.CheckIfUserHasAlreadyCommented.bind(this);
-
+        this.getReviewButtons = this.getReviewButtons.bind(this);
+        this.setRating = this.setRating.bind(this);
 
         this.state = {
             product : null,
@@ -157,7 +158,26 @@ export class ItemPage extends React.Component<RouteComponentProps<{}>, ItemPageS
         return Promise.reject("User is not logged in");
     }
 
+    setRating(event){
+        console.log(event.target.value)
+        this.setState({
+            rating : event.target.value
+        })
+    }
 
+    getReviewButtons(){
+        var index = 1;
+        var btnList = [];
+        while(index < 6){
+            if(index <= this.state.rating){
+                btnList[index] = (<button className={"btn btn btn-success glyphicon glyphicon-star"} value={index} onClick={this.setRating} ></button>)
+            }else{
+                btnList[index] = (<button className={"btn glyphicon glyphicon-star-empty"} value={index} onClick={this.setRating} ></button>)
+            }
+            index += 1;
+        }
+        return btnList;
+    }
     //The objects have to be parsed to json because this.state doesn't allow an single object in the state
     render() {
         return <div  className={"ItemPageComponent"}>
@@ -186,24 +206,17 @@ export class ItemPage extends React.Component<RouteComponentProps<{}>, ItemPageS
      
            
                             {User.IsUserLoggedIn() && this.state.userHasCommented == false ?
-                            [
-                            <h2> Geef een ster en review:</h2>,
-                         
-                            <button onClick={() => this.setState({rating: 1})}> <img className="img-responsive" src={"https://i1.wp.com/audiobookreviewer.com/wp-content/uploads/sites/209/2015/07/star-rating-full.png?fit=24%2C24&ssl=1"}/>                
-                            </button> ,
-                            <button onClick={() => this.setState({rating: 2})}> <img className="img-responsive" src={"https://i1.wp.com/audiobookreviewer.com/wp-content/uploads/sites/209/2015/07/star-rating-full.png?fit=24%2C24&ssl=1"}/>                       
-                            </button> ,
-                            <button onClick={() => this.setState({rating: 3})}> <img className="img-responsive" src={"https://i1.wp.com/audiobookreviewer.com/wp-content/uploads/sites/209/2015/07/star-rating-full.png?fit=24%2C24&ssl=1"}/>                          
-                            </button> ,
-                            <button onClick={() => this.setState({rating: 4})}> <img className="img-responsive" src={"https://i1.wp.com/audiobookreviewer.com/wp-content/uploads/sites/209/2015/07/star-rating-full.png?fit=24%2C24&ssl=1"}/>                          
-                            </button> ,
-                            <button onClick={() => this.setState({rating: 5})}> <img className="img-responsive" src={"https://i1.wp.com/audiobookreviewer.com/wp-content/uploads/sites/209/2015/07/star-rating-full.png?fit=24%2C24&ssl=1"}/>                          
-                            </button> ,
-                            <input type="review" name="review" className="form-control" id="review" onChange={(e:any) => this.setState({comment: e.target.value})} />,
+                            <div>
+                            <h2> Geef een ster en review:</h2>
+                            
+                            {this.getReviewButtons()}
+
+
+                            <input type="review" name="review" className="form-control" id="review" onChange={(e:any) => this.setState({comment: e.target.value})} />
                             <button onClick={(e:any) => this.ProcessReview(e)}> Send Review </button>
-                            ]
+                            </div>
                             :
-                            <div> </div>
+                            null
                             }
 
                             <h1> Aantal Reviews: {this.state.comments.length} </h1>:
@@ -220,17 +233,23 @@ export class ItemPage extends React.Component<RouteComponentProps<{}>, ItemPageS
 
                         </div>  
                             <div className='col-md-4'>
-                                <h3>Prijs: {this.state.product.productPrijs}</h3>
-                                <p>gemiddelde rating</p>
-                        
-                        {this.state.averageReviewStars.length <= 0?
+                            <div className='col-md-12'>
+                            <h4>gemiddelde review</h4>  
+                            {this.state.averageReviewStars.length <= 0?
                             <div> no reviews available </div>                    
                             :     
                             this.state.averageReviewStars.map(element => {
-                                return <div className='col-md-2'>{element}</div>;
+                                return <div className='glyphicon glyphicon-star col-sm-1'></div>;
                                 
                             }
                             )}
+                            </div>
+                            <div className='col-md-12'>
+                            <h3>Prijs: {this.state.product.productPrijs}</h3>
+                            </div>
+                        
+                        
+                       
                            
                             
                         <div className='col-md-3'>

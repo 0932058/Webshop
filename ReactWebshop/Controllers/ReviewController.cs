@@ -69,6 +69,12 @@ namespace Controllers
         public void Put(int id, [FromBody] Klant user){
         }
 
+        [HttpGet("GetAllReviews")]
+        public Review[] GetAllReviews(){
+            
+            return _context.Review.ToArray();
+        }
+
         // DELETE api/values/5
         [HttpDelete("{id}")]
         public void Delete(int id){

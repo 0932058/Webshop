@@ -168,7 +168,7 @@ export class UsersPage extends React.Component<{}, UsersState> implements IAdmin
             <div className='col-md-10'>
                 <h1> Users </h1>
 
-                <input type="search" name="search" className="form-control" id="search" onChange={(e: any) => this.setState({search: e.target.value})} />  
+                <input type="search" name="search" placeholder="Zoek een specifieke user"className="form-control" id="search" onChange={(e: any) => this.setState({search: e.target.value})} />  
                 <button className={"btn btn-primary"} onClick={() => this.SearchForUser(this.state.search)} > Zoek een specifieke user </button>
                 <button className={"btn btn-primary"} onClick={() => this.GetAllUsers()} > Alle users </button>
                 
@@ -190,7 +190,7 @@ export class UsersPage extends React.Component<{}, UsersState> implements IAdmin
                                             <h3>klant id:{" " + user.klantId } </h3>
                                         
                                           
-                                            <button type="button" className={"btn btn-primary"} data-toggle="collapse" data-target="#demo"  onClick={() => this.EditEntity(user)} > Bekijk / Pas Aan </button>
+                                            <button type="button" className={"btn btn-primary"} data-toggle="collapse" data-target="#userForm"  onClick={() => this.EditEntity(user)} > Bekijk / Pas Aan </button>
                                             <button className={"btn btn-primary"} onClick={() => this.DeleteEntity(user)} > Verwijder </button>
                                             </div>
                                             { console.log(this.state.change) }
@@ -198,90 +198,80 @@ export class UsersPage extends React.Component<{}, UsersState> implements IAdmin
                                                 user.klantId === this.state.change || this.state.createUserClicked?
                                                 
                                                     <div>
-                                                        <ul className='reg_ul'><form action="/action_page.php"
+                                                        <form action="/action_page.php"
                                                           onSubmit={(this.state.createUserClicked? (event:any) => this.handleChangeSubmit(event, true) 
                                                             :
                                                         (event: any) => this.handleChangeSubmit(event, false))}>
 
-                                                     <div id="demo">
+                                                     <div id="userForm">
                                                         <div className='col-md-6'>
                                                         
-                                                            <li className='reg_li'>
                                                                 <p></p>
                                                                 <p>klantNaam</p>
                                                                 <input placeholder="klantNaam" pattern="[a-zA-Z /s]{1,15}" title="klantNaam moet bestaan uit 1 tot en met 15 letters"
                                                                 type="text" name="klantNaam" className="form-control" value={this.state.klantNaam} required={true}
                                                                 onChange={(event:any) => this.setState({klantNaam: event.target.value})}
                                                                  />
-                                                            </li>              
-                                                            <li className='reg_li'>
+
                                                                 <p>klantAchternaam</p>
                                                                 <input placeholder="klantAchternaam" pattern="[a-zA-Z /s]{1,30}" title="klantAchternaam moet bestaan uit 1 tot 30 letters" 
                                                                 type="text" name="klantAchternaam" className="form-control"  value={this.state.klantAchternaam} required={true} 
                                                                 onChange={(event:any) => this.setState({klantAchternaam: event.target.value})}
                                                                 
                                                                 />
-                                                            </li>            
-                                                            <li className='reg_li'>
+
                                                                 <p>klantTussenvoegsel</p>
                                                                 <input placeholder="klantTussenvoegsel"
                                                                 title='klantTussenvoegsel moet alleen uit letters bestaan'
                                                                 type="text" name="klantTussenvoegsel"className="form-control"  value={this.state.klantTussenvoegsel} required={false} 
                                                                 onChange={(event:any) => this.setState({klantTussenvoegsel: event.target.value})}
                                                                 />
-                                                            </li>            
-                                                            <li className='reg_li'>
+
                                                                 <p>klantTel</p>
                                                                 <input placeholder="klantTel" pattern="[0-9]{1,30}" title="gebruikers naam mag maximaal uit 8 tekens bestaan"
                                                                 type="text" name="klantTel"className="form-control"  value={this.state.klantTel} required={true}
                                                                 onChange={(event:any) => this.setState({klantTel: event.target.value})}
                                                                 />
-                                                            </li>            
-                                                            <li className='reg_li'>
+
                                                                 <p>klantMail</p>
                                                                 <input placeholder="klantMail" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+[.]+[a-z]{2,3}$" title="klantMail moet minstens 6 waardes bevatten"
                                                                 type="klantMail" name="klantMail"className="form-control"  value={this.state.klantMail} required={true} 
                                                                 onChange={(event:any) => this.setState({klantMail: event.target.value})}
                                                                 /> 
-                                                            </li>            
-                                                            <li className='reg_li'>
+
                                                                 <p>klantStraat</p>
                                                                 <input placeholder='klantStraat' pattern="[a-zA-Z /s]{2,30}" title="vul een juist adres in"
                                                                 type="text" name="klantStraat"className="form-control"  value={this.state.klantStraat} required={true} 
                                                                 onChange={(event:any) => this.setState({klantStraat: event.target.value})}
                                                                 
                                                                 />
-                                                            </li>            
-                                                            <li className='reg_li'>
+
                                                                 <p>klantPostcode</p>
                                                                 <input placeholder='klantPostcode' pattern="[1-9][0-9]{3}\s?[a-zA-Z]{2}" title="vul een juist image in"
                                                                 type="text" name="klantPostcode"className="form-control"  value={this.state.klantPostcode} required={true} 
                                                                 onChange={(event:any) => this.setState({klantPostcode: event.target.value})}
                                                                 
                                                                 />
-                                                            </li>            
-                                                            <li className='reg_li'>
+
                                                                 <p>klantStraatnmr</p>
                                                                 <input placeholder="klantStraatnmr" pattern="[0-9]{0,5}" title="klantStraatnmr moet uit 4 cijfers en 2 letters bestaan" 
                                                                 type="text" name="klantStraatnmr"className="form-control"  value={this.state.klantStraatnmr} required={true} 
                                                                 onChange={(event:any) => this.setState({klantStraatnmr: event.target.value})} />
-                                                            </li>   
-                                                            <li className='reg_li'>
+
                                                                 <p>username</p>
                                                                 <input placeholder="username" pattern="[a-zA-Z0-9]{3,15}"  title="username moet uit 4 cijfers en 2 letters bestaan" 
                                                                 type="text" name="username"className="form-control"  value={this.state.username} required={true} 
                                                                 onChange={(event:any) => this.setState({username: event.target.value})} />
-                                                            </li>       
-                                                            <li className='reg_li'>
+
                                                                 <p>password</p>
                                                                 <input placeholder="password" pattern=".{6,}"  title="klantStraatnmr moet uit 4 cijfers en 2 letters bestaan" 
                                                                 type="text" name="password"className="form-control"  value={this.state.password} required={true} 
                                                                 onChange={(event:any) => this.setState({password: event.target.value})} />
-                                                            </li>                
-                                                            <li><input className="btn-primary" placeholder="Wijzigen" type="submit" value="Wijzigen"/> </li>
+             
+                                                            <li><input className="btn btn-primary" placeholder="Wijzigen" type="submit" value="Wijzigen"/> </li>
                                                             </div>
                                                             </div>
-                                                            </form></ul>
+                                                            </form>
                                                             </div>
                                                         :
                                                         null
