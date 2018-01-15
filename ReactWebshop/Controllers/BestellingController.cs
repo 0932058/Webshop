@@ -38,7 +38,7 @@ namespace reactTwo.Controllers
             }
 
             if(bestToRet != null){
-                return Ok( bestToRet);
+                return Ok( bestToRet.ToArray());
 
             }
             else{

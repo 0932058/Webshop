@@ -25,14 +25,16 @@ export class BestellingenPage extends React.Component<{}, BestellingenState> {
 
     }
     componentDidMount(){
-        this.BestellingenApiCall()
-        .then(result => this.setState({bestellingen: result, loaded: true}))
+        this.GetOrders()
     }
-    async BestellingenApiCall(){    
-        let apiUrl = 'api/Bestellingen/GetAll';
-        let apiResponse = await fetch(apiUrl, {method: 'Get', headers: new Headers({'content-type' : 'application/json'})}); 
-        let responseConverted = apiResponse.json();
-        return responseConverted;
+    async GetOrders(){
+        await fetch('api/Bestellingen/GetAll')
+        .then(response => response.json() as Promise<JoinedBestelling[]>)
+        .then(data =>{
+           console.log("GetOrders geeft " + data[0]);
+           data = data.reverse();
+           this.setState({bestellingen: data, loaded: true})
+        });
     }
     async UpdateBestelling(order, statusstring){
         let apiUrl = 'api/Bestellingen';
