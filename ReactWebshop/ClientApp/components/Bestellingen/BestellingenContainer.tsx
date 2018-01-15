@@ -87,7 +87,7 @@ export class BestellingenContainer extends AbstractStorage {
                                         <p>Besteldatum: {order.bestellingDatum}</p>
                                         <p>Verstuurdatum: {order.verstuurDatum}</p>
                                         {order.status == 'Verzonden'?
-                                        <p><button onClick={() => this.UpdateBestelling(order, 'Verzonden')}>Product is ontvangen</button></p>
+                                        <p><button onClick={() => this.UpdateBestelling(order, 'Ontvangen')}>Product is ontvangen</button></p>
                                         : 
                                         <p></p>
                                         }
