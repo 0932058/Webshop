@@ -85,6 +85,16 @@ namespace reactTwo.Controllers
             this._context.SaveChanges();
         
         }
+        [HttpPut]
+        public void Put([FromBody] Bestelling order){
+            var existingOrder = this._context.Bestellingen.Where((x) => x.BestellingId ==  order.BestellingId).FirstOrDefault();
+            existingOrder.productId = order.productId;
+            existingOrder.bestellingDatum = order.bestellingDatum;
+            existingOrder.verstuurDatum = order.verstuurDatum;
+            existingOrder.status = order.status;
+            existingOrder.klantId = order.klantId;
+            this._context.SaveChanges();
+        }
         [HttpPost("Post/Mail/")]
          public void SendEmail([FromBody] KlantEnBestelling klantEnBestelling){
             var message = new MimeMessage();

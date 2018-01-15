@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
 import { List } from "linqts";
-import { Product, JoinedBestelling} from 'ClientApp/components/Items/ItemsInterfaces';
+import { Product, Bestelling, JoinedBestelling} from 'ClientApp/components/Items/ItemsInterfaces';
 import {IAdmin} from "./AdminInterface";
 import { Link, NavLink } from 'react-router-dom';
 
@@ -34,6 +34,20 @@ export class BestellingenPage extends React.Component<{}, BestellingenState> {
         let responseConverted = apiResponse.json();
         return responseConverted;
     }
+    async UpdateBestelling(order, statusstring){
+        let apiUrl = 'api/Bestellingen';
+        let OrderToPost: Bestelling = {
+            BestellingId: order.BestellingId,
+            productId: order.productId,
+            bestellingDatum: order.bestellingDatum,
+            verstuurDatum: new Date(),
+            status: statusstring,
+            klantId: order.klantId.klantId
+        }
+        let apiResponse = await fetch(apiUrl, {method: "PUT", body:JSON.stringify(OrderToPost), headers: new Headers({'content-type' : 'application/json'})});
+        alert("Voltooid");
+        
+    }
     render(){
         return(
             <div>
@@ -53,7 +67,11 @@ export class BestellingenPage extends React.Component<{}, BestellingenState> {
                                         <p>Besteldatum: {order.bestellingDatum}</p>
                                         <p>Verstuurdatum: {order.verstuurDatum}</p>
                                         <p>Klant: {order.klantId.username}</p>
-
+                                        {order.status == 'In behandeling'?
+                                        <p><button onClick={() => this.UpdateBestelling(order, 'Verzonden')}> Product Verzenden</button></p>
+                                        : 
+                                        <p></p>
+                                        }
                                         </div>
                                     </div>
                                 </div>
