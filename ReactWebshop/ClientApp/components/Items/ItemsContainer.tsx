@@ -38,6 +38,8 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
         this.GetAverageReviewRatingApiCall = this.GetAverageReviewRatingApiCall.bind(this);
         this.CallForAverageReviewRating = this.CallForAverageReviewRating.bind(this);
         this.getRating = this.getRating.bind(this);
+        this.minAndMaxOkay = this.minAndMaxOkay.bind(this);
+        this.onPrijsSubmit = this.onPrijsSubmit.bind(this);
 
         this.months = ["Januari", "Februari", "Maart", "April", "May", "June",
         "July", "August", "September", "October", "November", "December"
@@ -218,23 +220,30 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
     }
 
     onMinChange(e){
-
-        if(e.target.value < this.state.max && e.target.value >= 1 && e.target.value <= 9999){
-            this.setState({
-                min : e.target.value
-            })
-        }
-
+        this.setState({
+            min : e.target.value
+        })
     }
 
     onMaxChange(e){
-        console.log(e.target.value)
-        if( e.target.value > this.state.min && e.target.value >= 1 && e.target.value <= 9999){
-            this.setState({
-                max : e.target.value
-            })
+        this.setState({
+            max : e.target.value
+        })
+    }
+
+    minAndMaxOkay(){
+        if(this.state.min > 1 && true){
+
         }
     }
+
+    onPrijsSubmit(event){
+        event.preventDefault();
+        if(this.minAndMaxOkay() || true){
+            this.filterItems()
+        }
+    }
+
     //Not called yet, but will be called when pagination is added
     async CallForAverageReviewRating(productId: number){
         this.GetAverageReviewRatingApiCall(productId)
@@ -248,20 +257,20 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
     }
 
     getRating(id){
-        let aantal = 0;
+        let amount = 0;
         let totRat = 0;
         this.state.reviews.map(
             (review, index) => {
                 if(review.productId === id){
                     totRat += review.rating
-                    aantal ++
+                    amount ++
                 }
             }
         )
-        if(aantal === 0){
+        if(amount === 0){
             return 0
         }
-        return (totRat / aantal)
+        return (totRat / amount)
     }
 
     getReviewButtons(rating){
@@ -302,15 +311,20 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
                             </h4>
                         </div>
                         <div id="collapsePrijs" className="panel-collapse collapse">
+                            
                             <div className="checkbox">
+                            <form onSubmit={this.onPrijsSubmit}>
                                 <label>
                                     <input type="number" min="1" max="999" value={ this.state.min } placeholder="min 1"onChange={this.onMinChange} />
                                 </label>
-                            </div>
-                            <div className="checkbox">
+                                <label>
+                                    <p>tot </p> 
+                                </label>
                                 <label>
                                     <input type="number" min="1" max="999" value={ this.state.max } placeholder="max 999" onChange={this.onMaxChange} />
                                 </label>
+                                <button type="submit" className="btn btn-primary mb-2">Confirm identity</button>
+                            </form>
                             </div>
                         </div>
                 </div>
@@ -719,25 +733,28 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
                     
                     <div className='col-md-10'> 
                         <ul className="pagination">
+                        <li > <button className={"btn btn-default"} onClick={()=> this.setState({ page : this.state.page - 20 })} >{"<-"} vorige</button> </li>
+                        
+
                             {
                                 this.state.filteredItems.map(
                                     (item, index) => {
                                         if( index % 20 == 0 && index < (this.state.page + 100) && index > (this.state.page - 100) && index != 0){
                                             return (
                                                 <li ><button className={"btn btn-primary"} onClick={() => this.setState({ page : index})}> {index / 20} </button></li>
-                                        )
+                                            )
                                         }else{
-                                            if(index === (this.state.page + 101)){
-                                                return (<li > <button className={"btn btn-default"} onClick={()=> this.setState({ page : this.state.page + 20 })} >volgende -></button> </li>)
-                                            }else{
-                                                if(index === (this.state.page - 101)){
-                                                    return (<li > <button className={"btn btn-default"} onClick={()=> this.setState({ page : this.state.page - 20 })} >{"<-"} vorige</button> </li>)
-                                                }
+                                            if((index + 1) === this.state.filteredItems.length){
+                                                
+                                                    <li ><button className={"btn btn-primary"} onClick={() => this.setState({ page : index})}> laatste pagina </button></li>
+                                                
                                             }
                                         }
                                     }
                                 )
                             }
+
+                            <li > <button className={"btn btn-default"} onClick={()=> this.setState({ page : this.state.page + 20 })} >volgende -></button> </li>   
                         </ul>
                     </div>
                     

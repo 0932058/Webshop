@@ -12,6 +12,7 @@ interface UsersState{
     users : Klant[];
     loaded : boolean;
     change: number,
+    page: number,
     createUserClicked: boolean;
     klantNaam:string,
     klantAchternaam: string,
@@ -42,6 +43,7 @@ export class UsersPage extends React.Component<{}, UsersState> implements IAdmin
             users : [],
             loaded : false,
             change : 0,
+            page: 20,
             createUserClicked: false,
             editUserClicked: false,
 
@@ -177,11 +179,13 @@ export class UsersPage extends React.Component<{}, UsersState> implements IAdmin
                 <h2> Gevonden gebruikers: {this.state.users.length} </h2> 
                 {this.state.loaded? 
 
-                    this.state.users.map(
+                    <div>
+                    
+                    {this.state.users.map(
                         
-                        user => {
+                        (user, index) => {
 
-                            return (
+                            if( (this.state.page) >= index.valueOf() && ( (this.state.page) - 20) <= index.valueOf() ) {return (
                                 <div className={"Component"}>
                                         
                                     
@@ -281,7 +285,31 @@ export class UsersPage extends React.Component<{}, UsersState> implements IAdmin
                                             
                                         )
                                     }
+                                    }
                                 )
+                            }
+
+
+                                <div className='col-md-10'> 
+                                    <ul className="pagination">
+                                    <li > <button className={"btn btn-default"} onClick={()=> this.setState({ page : this.state.page - 20 })} >{"<-"} vorige</button> </li>
+                                        {
+                                            this.state.users.map(
+                                                (item, index) => {
+                                                    if( index % 20 == 0 && index < (this.state.page + 100) && index > (this.state.page - 100) && index != 0 || (index + 1) === this.state.users.length){
+                                                        return (
+                                                            <li ><button className={"btn btn-primary"} onClick={() => this.setState({ page : index})}> {index / 20} </button></li>
+                                                        )
+                                                    }
+                                                }
+                                            )
+                                        }
+                                    <li > <button className={"btn btn-primary"} onClick={()=> this.setState({ page : this.state.page + 20 })} >volgende -></button> </li>
+                                    </ul>
+                                </div>
+
+                                </div>
+                                
                                 :
                                 <div className="sk-fading-circle">
                                     <div className="sk-circle1 sk-circle"></div>
