@@ -251,6 +251,7 @@ export class StatisticsPage extends React.Component<{}, StatisticsInterface> {
             locale={"nl-nl"}
             showNeighboringMonth={true}
             showNavigation={true}
+            view={"decade"}
 
             onClickDay={(e:any) => this.setState({calendarDayClickedvalue: e, calendarMonthClickedvalue:null, calendarYearClickedvalue:null})}
             onClickMonth={(e:any) => this.setState({calendarMonthClickedvalue: e, calendarDayClickedvalue:null, calendarYearClickedvalue: null })}
