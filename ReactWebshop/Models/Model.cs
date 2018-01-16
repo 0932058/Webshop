@@ -78,6 +78,7 @@ namespace Models
         public DateTime verstuurDatum { get; set; }
         public string status { get; set; }
         public int klantId { get; set; }
+        public int groupId {get;set;}
     }
 
     public class JoinedBestelling {
