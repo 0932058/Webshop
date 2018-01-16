@@ -17,6 +17,18 @@ namespace reactTwo.Controllers
             _context = context;
         }
 
+        private int getAverageReview (int id) {
+            var averageReview = _context.Review.Where((product => product.ProductId == id))
+            .Select((product => product.Rating));
+            if(averageReview.Count() <= 0){
+                return 0;
+            }
+            else{
+                 var converted = averageReview.Sum() / averageReview.Count();
+                 return converted;
+            }
+        }
+
         private Product[] rightItems ( Func<Product, bool> pred) {
             List<Product> rightProducts = new List<Product>();
 
