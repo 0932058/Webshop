@@ -145,18 +145,6 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
         //we copy the items list
         let newFilteredList : Product[] = [];
 
-        if(
-            this.state.consoleFilter.length === 0 &&
-            this.state.uitgeverFilter.length === 0 && 
-            this.state.ontwikkelaarFilter.length === 0
-        ){
-            this.setState({
-                filteredItems : this.state.items
-            })
-
-            return;
-        }
-
         for(let product of this.state.items){
             let correct = [false, false, false, false];
             
@@ -178,7 +166,9 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
             if( 
                 correct[0] === true && 
                 correct[1] === true &&
-                correct[2] === true
+                correct[2] === true &&
+                product.productPrijs >= this.state.min &&
+                product.productPrijs <= this.state.max
             ){
                 newFilteredList.push(product)
             }
@@ -237,28 +227,25 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
     }
 
     minAndMaxOkay(){
-        if( this.state.min > 1      &&
+        if( this.state.min >= 1      &&
             this.state.max < 1000    &&
             this.state.min < this.state.max
             ){
-            this.setState({
-                minSet : this.state.min,
-                maxSet : this.state.maxSet
-            })
+            return true
         }else{
             this.resetPriceFilter()
+            return false
         }
     }
 
-    onPrijsSubmit(event){
-        event.preventDefault();
-        if(this.minAndMaxOkay() || true){
+    onPrijsSubmit(){
+        if(this.minAndMaxOkay()){
             this.filterItems()
         }
     }
 
-    resetPriceFilter(){
-        this.setState({
+    async resetPriceFilter(){
+        await this.setState({
             min : 1,
             minSet : 1,
             max : 999,
@@ -335,22 +322,16 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
                         <div id="collapsePrijs" className="panel-collapse collapse">
                             
                             <div className="checkbox">
-                            <form onSubmit={this.onPrijsSubmit}>
-                                <label>
-                                    <p>minimaal 1</p> 
-                                    <input type="number" min="1" max="999" value={ this.state.min } placeholder="min 1"onChange={this.onMinChange} />
-                                </label>
-                                <label>
-                                    <p>tot </p> 
-                                </label>
-                                <label>
-                                    <input type="number" min="1" max="999" value={ this.state.max } placeholder="max 999" onChange={this.onMaxChange} />
-                                    <p>maximaal 999</p> 
-                                </label>
-                                <button type="submit" className="btn btn-primary mb-2">pas toe</button>
-                            </form>
+                                <input type="number" min="1" max="999" value={ this.state.min } placeholder="min 1"onChange={this.onMinChange} />
+                             
+                                <input type="number" min="1" max="999" value={ this.state.max } placeholder="max 999" onChange={this.onMaxChange} />
+
+                                <button className="btn btn-primary mb-2" onClick={this.onPrijsSubmit}>pas toe</button>
+
+                                <button className="btn btn-danger mb-2" onClick={this.resetPriceFilter}>reset</button>
                             </div>
                         </div>
+                        
                 </div>
 
 
