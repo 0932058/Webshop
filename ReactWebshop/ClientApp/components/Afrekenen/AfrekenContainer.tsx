@@ -16,7 +16,7 @@ export class Afrekenen extends AbstractStorage {
         //Gets the pk of the logged in user
         var loggedInUserPK = User.IsUserLoggedIn? User.GetPK() : 0;
         this.state = { 
-            products: this.GetCartData(), 
+            products: [], 
             customerID: loggedInUserPK, 
             isShoppingCart:true, 
             loaded:false, 
@@ -37,6 +37,15 @@ export class Afrekenen extends AbstractStorage {
         this.FinalizeOrder = this.FinalizeOrder.bind(this);
         this.SendBestellingenEmail = this.SendBestellingenEmail.bind(this);
     }
+
+    componentDidMount(){
+        this.setState({
+            products: this.GetCartData(),
+            loaded: true
+        })
+        console.log(this.GetCartData())
+    }
+
     BuildOrders(klantId){
         let res = [];
         this.state.products.forEach(product =>{
@@ -120,36 +129,67 @@ export class Afrekenen extends AbstractStorage {
             return (
                 <div className={"Container"}>
                 <h1>Afrekenen</h1>
-                <ul>
-                    <li>
-                        <h2>Naam</h2>
-                        <p>{User.GetFirstname() + ' ' + User.GetLastname()}</p>
-                    </li>
-                    <li>
-                        <h2>Straat</h2>
-                        <p>{User.GetStreetname()}</p>
-                    </li>
-                    <li>
-                        <h2>Postcode</h2>
-                        <p>{User.getPostcode()}</p>
-                    </li>
-                </ul>
-                <p> Total Price: €{this.state.totalPrice}</p>
                 
-                <p> <button onClick={this.FinalizeOrder} > Bestellen </button> </p>
+                
+                    <div className='Container'>
+                    <div className='row'>
+                    <div className='col-md-4'>
+                    <p><b>Adres voor bezorging en incasso</b></p>
+                        <p><b>Naam</b></p>
+                        <p>{User.GetFirstname() + ' ' + User.GetLastname()}</p>
 
+                    
+                        <p><b>Adres</b></p>
+                        <p>{User.GetStreetname() + ' ' + User.GetStreetnumber()}</p>
+                        <p>{User.getPostcode()}</p>
+                    
+                    
+                        <p><b>Email</b></p>
+                        <p>{User.GetEmail()}</p>
+                        <div className='col-md-4'>
+                        <p> <b>Total Price:</b> €{this.state.totalPrice}</p>
+                
+                <p> <button className='btn btn-success' onClick={this.FinalizeOrder} > Bestellen </button> </p>
+                </div>
+                        </div>
+                        <div className='col-md-6'>
+                        <p><b>Bestel overzicht</b></p>
+                        {this.state.loaded?this.state.products.map(
+                            item =>{
+                                return(
+                                    <div className={"Component"}>
+                                    <div className='col-md-12'>
+                                    <div className='col-md-3'><img className="img-responsive" src={item.image}/></div>
+                                    <p><b>Product Naam:</b>{item.name}</p>
+                                    <p><b>Console type:</b>{item.console}</p>
+                                    <p><b>Stuk prijs:</b>{"€"+item.price}</p>
+
+                                    </div>
+                                    </div>
+                                )
+                            }
+                        )
+                        :
+                        null    
+                    }
+                    </div>
+                        </div>
+                    </div>
                 </div>
             )
         }
         else if (this.state.ordered == true){
             return (
                 <div className={"Container"}>
+                    <h3>U ontvangt een email ter bevestiging</h3>
                     <div className="alert alert-success">
                         <strong>Bestelling successvol afgerond!</strong> De bestelling wordt verwerkt
                     </div>
-                    <h3>U ontvangt een email ter bevestiging</h3>
                     <NavLink to={ '/' } exact activeClassName='active' className='LinksNav'>
                         <button className="btn btn-primary">Home</button>
+                    </NavLink>
+                    <NavLink to={ '/Bestellingen' } className='LinksNav'>
+                        <button className="btn btn-primary">Naar bestellingen</button>
                     </NavLink>
                 </div>
             )
