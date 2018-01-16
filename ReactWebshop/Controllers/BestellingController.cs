@@ -79,15 +79,16 @@ namespace reactTwo.Controllers
 
         [HttpPost("Post")]
         public void Post([FromBody]Bestelling[] orders){
-            int counter = 1;
+            int possiblePK = 1;
             foreach (Bestelling order in orders)
             {
-                order.BestellingId = this._context.Bestellingen.Count() + counter;
-                this._context.Bestellingen.Add(order);
-                counter += 1;
-            }
-            this._context.SaveChanges();
-        
+                while(this._context.Bestellingen.Where((a) => a.BestellingId == possiblePK).FirstOrDefault() != null){
+                    possiblePK++;
+                }
+                order.BestellingId = possiblePK;
+                this._context.Bestellingen.Add(order);     
+                this._context.SaveChanges();          
+            }        
         }
         [HttpPut("Update")]
         public void Put([FromBody] Bestelling order){
