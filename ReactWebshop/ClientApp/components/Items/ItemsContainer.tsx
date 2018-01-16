@@ -17,7 +17,9 @@ interface ItemsContainerState{
     uitgeverFilter : string[],
     ontwikkelaarFilter : string[],
     min : number,
+    minSet : number,
     max : number,
+    maxSet : number,
     page : number,
     averageReviewRating: number;
 }
@@ -40,6 +42,7 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
         this.getRating = this.getRating.bind(this);
         this.minAndMaxOkay = this.minAndMaxOkay.bind(this);
         this.onPrijsSubmit = this.onPrijsSubmit.bind(this);
+        this.resetPriceFilter = this.resetPriceFilter.bind(this);
 
         this.months = ["Januari", "Februari", "Maart", "April", "May", "June",
         "July", "August", "September", "October", "November", "December"
@@ -57,7 +60,9 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
             ontwikkelaarFilter : [],
 
             min : 1,
+            minSet : 1,
             max : 999,
+            maxSet : 999,
             page : 20,
             averageReviewRating: 0
         };
@@ -232,8 +237,16 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
     }
 
     minAndMaxOkay(){
-        if(this.state.min > 1 && true){
-
+        if( this.state.min > 1      &&
+            this.state.max < 1000    &&
+            this.state.min < this.state.max
+            ){
+            this.setState({
+                minSet : this.state.min,
+                maxSet : this.state.maxSet
+            })
+        }else{
+            this.resetPriceFilter()
         }
     }
 
@@ -242,6 +255,15 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
         if(this.minAndMaxOkay() || true){
             this.filterItems()
         }
+    }
+
+    resetPriceFilter(){
+        this.setState({
+            min : 1,
+            minSet : 1,
+            max : 999,
+            maxSet : 999
+        })
     }
 
     //Not called yet, but will be called when pagination is added
@@ -315,6 +337,7 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
                             <div className="checkbox">
                             <form onSubmit={this.onPrijsSubmit}>
                                 <label>
+                                    <p>minimaal 1</p> 
                                     <input type="number" min="1" max="999" value={ this.state.min } placeholder="min 1"onChange={this.onMinChange} />
                                 </label>
                                 <label>
@@ -322,8 +345,9 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
                                 </label>
                                 <label>
                                     <input type="number" min="1" max="999" value={ this.state.max } placeholder="max 999" onChange={this.onMaxChange} />
+                                    <p>maximaal 999</p> 
                                 </label>
-                                <button type="submit" className="btn btn-primary mb-2">Confirm identity</button>
+                                <button type="submit" className="btn btn-primary mb-2">pas toe</button>
                             </form>
                             </div>
                         </div>
@@ -664,7 +688,6 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
             <div  className="container-fluid">
             {this.props.location.pathname.toString() === "/"?
             <div className='co-md-12'> <h1>Nieuwste producten van maand { this.months[new Date().getMonth()]}! </h1> </div> 
-
             :
             
             <div/>
@@ -680,7 +703,7 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
                 {this.state.loaded && this.state.reviewsLoaded? 
 
                     <div className='container' id='maingame'>      
-                    <h3> { "Aantal producten gevonden: " + this.state.filteredItems.length } </h3>          
+                    <h3> { "Aantal producten gevonden: " + this.state.filteredItems.length } </h3>  
                     
                     {this.state.filteredItems.map(
                         

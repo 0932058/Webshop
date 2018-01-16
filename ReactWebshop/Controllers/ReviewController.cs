@@ -58,9 +58,9 @@ namespace Controllers
         public IActionResult GetUser(int userId, int productId){
             var user = this._context.Review.Where((r) => r.KlantId == userId && r.ProductId == productId).FirstOrDefault();
             if(user == null){
-                return Ok();
+                return Ok(user);
             }
-            return NotFound();
+            return Ok(user);
         }
 
 
