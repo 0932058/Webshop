@@ -174,7 +174,19 @@ export class StatisticsPage extends React.Component<{}, StatisticsInterface> {
         });
 
     }
+    FixDateOffset(date: Date){
+        date.setDate(date.getDate() + 1);      
+    }
     async LineGraphStatisticsApiCall(apiUrl: string){
+        if(this.state.calendarDayClickedvalue != null){
+            this.FixDateOffset(this.state.calendarDayClickedvalue);
+        }
+        else if(this.state.calendarMonthClickedvalue != null){
+            this.FixDateOffset(this.state.calendarMonthClickedvalue);
+        }
+        else{
+            this.FixDateOffset(this.state.calendarYearClickedvalue);
+        }        
         var filter: DatumFilter = {
             day: this.state.calendarDayClickedvalue,
             month: this.state.calendarMonthClickedvalue,
