@@ -79,26 +79,31 @@ namespace reactTwo.Controllers
 
         [HttpPost("Post")]
         public void Post([FromBody]Bestelling[] orders){
-            int counter = 1;
+            int possiblePK = 1;
             foreach (Bestelling order in orders)
             {
-                order.BestellingId = this._context.Bestellingen.Count() + counter;
-                this._context.Bestellingen.Add(order);
-                counter += 1;
-            }
-            this._context.SaveChanges();
-        
+                while(this._context.Bestellingen.Where((a) => a.BestellingId == possiblePK).FirstOrDefault() != null){
+                    possiblePK++;
+                }
+                order.BestellingId = possiblePK;
+                this._context.Bestellingen.Add(order);     
+                this._context.SaveChanges();          
+            }        
         }
-        [HttpPut("Update")]
-        public void Put([FromBody] Bestelling order){
-            var existingOrder = this._context.Bestellingen.Where((x) => x.BestellingId == order.BestellingId).FirstOrDefault();
-            existingOrder.productId = order.productId;
-            existingOrder.bestellingDatum = order.bestellingDatum;
-            existingOrder.verstuurDatum = order.verstuurDatum;
-            existingOrder.status = order.status;
-            existingOrder.klantId = order.klantId;
+        [HttpPost("Update")]
+        public IActionResult UpdateOrder([FromBody] Bestelling order){
+            this.DeleteOrder(order);
+            this._context.Add(order);
+            this._context.SaveChanges();
+            return Ok(order);
+        }
+
+        private void DeleteOrder(Bestelling order){
+            var orderToRemove = this._context.Bestellingen.Where((b) => b.BestellingId == order.BestellingId).FirstOrDefault();
+            this._context.Bestellingen.Remove(orderToRemove);
             this._context.SaveChanges();
         }
+
         [HttpPost("Post/Mail/")]
         public void SendEmail([FromBody] KlantEnBestelling klantEnBestelling){
             var message = new MimeMessage();

@@ -216,7 +216,7 @@ export class Afrekenen extends AbstractStorage {
                     <div className="row">
                         <div className="col-md-6">
                             <p>Straatnaam*</p>
-                            <input required placeholder='straatnaam' pattern="([a-zA-Z]).{2,30}" title="vul een juist adres in"
+                            <input required placeholder='straatnaam' pattern="[a-zA-Z]{2,30}" title="vul een juist adres in"
                             type="text" name="streetname"className="form-control" onChange={(event: any) => {this.setState({formStraatnaam: event.target.value})}}  />
                         </div>
                         <div className="col-md-3">
@@ -226,14 +226,14 @@ export class Afrekenen extends AbstractStorage {
                             </div>
                         <div className="col-md-3">
                             <p>Toevoeging</p>
-                                <input placeholder="bijv. 'b'" pattern="[a-z]{1}"
+                                <input placeholder="bijv. 'b'" pattern="[a-zA-Z]{1}"
                                 type="text" name="numberaddition" className="form-control"/>
                             </div>
                         </div>
                     <div className="row">
                         <div className="col-md-6">
                             <p>Postcode*</p>
-                            <input required placeholder="postcode" pattern="([0-9]){4}+/s([A-Z]){2}" title="postcode moet uit 4 cijfers en 2 letters bestaan" 
+                            <input required placeholder="postcode" pattern="[1-9][0-9]{3}\s?[a-zA-Z]{2}" title="postcode moet uit 4 cijfers en 2 letters bestaan" 
                             type="text" name="postcode"className="form-control"  onChange={(event: any) => {this.setState({formPostcode: event.target.value})}} />
                         </div>
                         <div className="col-md-6">
@@ -244,7 +244,7 @@ export class Afrekenen extends AbstractStorage {
                     </div>
                     <div>
                         <p>Email*</p>
-                        <input required placeholder="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+[.]+[a-z]{2,3}$" 
+                        <input required placeholder="email" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+[.]+[a-z]{2,3}$" 
                         title='zorg dat het een juist email is vb. characters@characters.domain'
                         type="text" name="email"className="form-control" onChange={(event: any) => {this.setState({formEmail: event.target.value})}}/>
                     </div>
