@@ -36,20 +36,25 @@ export class BestellingenPage extends React.Component<{}, BestellingenState> {
            this.setState({bestellingen: data, loaded: true})
         });
     }
-    // async UpdateBestelling(order, statusstring){
-    //     let apiUrl = 'api/Bestellingen/Update';
-    //     let OrderToPost: Bestelling = {
-    //         BestellingId: order.BestellingId,
-    //         productId: order.productId.productId,
-    //         bestellingDatum: order.bestellingDatum,
-    //         verstuurDatum: new Date(),
-    //         status: statusstring,
-    //         klantId: order.klantId.klantId
-    //     }
-    //     let apiResponse = await fetch(apiUrl, {method: 'UPDATE', body:JSON.stringify(OrderToPost), headers: new Headers({'content-type' : 'application/json'})});
-    //     this.GetOrders();
-    //     alert("Voltooid"); 
-    // }
+    async UpdateBestelling(order, statusstring){
+        let apiUrl = 'api/Bestellingen/Update';
+        let OrderToPost: Bestelling = {
+            BestellingId: order.BestellingId,
+            productId: order.productId.productId,
+            bestellingDatum: order.bestellingDatum,
+            verstuurDatum: new Date(),
+            status: statusstring,
+            klantId: order.klantId.klantId
+        }
+        let apiResponse = await fetch(apiUrl, {method: 'UPDATE', body:JSON.stringify(OrderToPost), headers: new Headers({'content-type' : 'application/json'})});
+        this.GetOrders();
+        alert("Voltooid"); 
+    }
+    async UpdateBestelling2(orderPK: number){
+        let apiResponse = await fetch('api/Bestellingen/Update2/' + orderPK, {method: 'POST', headers: new Headers({'content-type' : 'application/json'})});
+        this.GetOrders(); 
+        alert("Voltooid")
+    }
     render(){
         return(
             <div>
@@ -68,12 +73,16 @@ export class BestellingenPage extends React.Component<{}, BestellingenState> {
                                         <p>Prijs: €{order.productId.productPrijs}</p>
                                         <p>Besteldatum: {order.bestellingDatum}</p>
                                         <p>Verstuurdatum: {order.verstuurDatum}</p>
+                                        <p>Bestelling Id: {order.bestellingId}</p> 
                                         {
                                         order.klantId != null?
                                         <p>Klant: {order.klantId.username}</p>
+                                        
                                         :
                                         <p></p>
+                                        
                                         }
+                                        <button onClick={() => this.UpdateBestelling2(order.bestellingId)}> Markeer als verzonden </button>
                                         </div>
                                     </div>
                                 </div>

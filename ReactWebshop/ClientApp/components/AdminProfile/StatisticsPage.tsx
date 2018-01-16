@@ -80,10 +80,10 @@ export class StatisticsPage extends React.Component<{}, StatisticsInterface> {
     LoadLineChart() : JSX.Element{
        return(
         <LineChart
-        axisLabels={{x: 'MY', y: 'LOL'}}
+
         axes     
         width={900}
-        interpolate={'cardinal'}
+
         height={300}
         data={[this.state.DataForGraph]}
         />      

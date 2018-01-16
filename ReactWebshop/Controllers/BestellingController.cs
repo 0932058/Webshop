@@ -97,6 +97,16 @@ namespace reactTwo.Controllers
             this._context.SaveChanges();
             return Ok(order);
         }
+         [HttpPost("Update2/{pkOrder}")]
+        public void UpdateOrder2(int pkOrder){
+            var order = this._context.Bestellingen.Where((a) => a.BestellingId == pkOrder).FirstOrDefault();
+            if(order != null){
+                if(order.status != "verzonden"){
+                    order.status = "Verzonden";
+                    this._context.SaveChanges();
+            }  
+            }       
+        }
 
         private void DeleteOrder(Bestelling order){
             var orderToRemove = this._context.Bestellingen.Where((b) => b.BestellingId == order.BestellingId).FirstOrDefault();
