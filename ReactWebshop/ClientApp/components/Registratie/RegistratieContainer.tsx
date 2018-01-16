@@ -156,7 +156,7 @@ export class RegistratieContainer extends React.Component<RouteComponentProps<{}
                         </div>
                     <div className="row">
                         <div className="col-md-4 col-md-offset-4">
-                        <p>Plaats</p>
+                        <p>Plaats*</p>
                         <input placeholder="plaats" title="plaatsnaam" 
                         type="text" name="postcode"className="form-control"  value={this.state.klantPlaats}  required={true}
                         onChange={(e:any) => this.setState({klantPlaats: e.target.value})}
