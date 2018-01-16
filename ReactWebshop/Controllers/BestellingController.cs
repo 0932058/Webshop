@@ -90,16 +90,20 @@ namespace reactTwo.Controllers
                 this._context.SaveChanges();          
             }        
         }
-        [HttpPut("Update")]
-        public void Put([FromBody] Bestelling order){
-            var existingOrder = this._context.Bestellingen.Where((x) => x.BestellingId == order.BestellingId).FirstOrDefault();
-            existingOrder.productId = order.productId;
-            existingOrder.bestellingDatum = order.bestellingDatum;
-            existingOrder.verstuurDatum = order.verstuurDatum;
-            existingOrder.status = order.status;
-            existingOrder.klantId = order.klantId;
+        [HttpPost("Update")]
+        public IActionResult UpdateOrder([FromBody] Bestelling order){
+            this.DeleteOrder(order);
+            this._context.Add(order);
+            this._context.SaveChanges();
+            return Ok(order);
+        }
+
+        private void DeleteOrder(Bestelling order){
+            var orderToRemove = this._context.Bestellingen.Where((b) => b.BestellingId == order.BestellingId).FirstOrDefault();
+            this._context.Bestellingen.Remove(orderToRemove);
             this._context.SaveChanges();
         }
+
         [HttpPost("Post/Mail/")]
         public void SendEmail([FromBody] KlantEnBestelling klantEnBestelling){
             var message = new MimeMessage();
