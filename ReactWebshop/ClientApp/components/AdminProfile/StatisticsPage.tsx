@@ -21,10 +21,10 @@ interface StatisticsInterface{
     calendarYearClickedvalue: Date,
     currentApiUrl: string,
 
-    pieChartTop: number,
-    pieChartLeft: number,
-    pieChartValue: number,
-    pieChartKey: number
+    pieChartClickedValue: number,
+    pieChartClickedKey: number
+
+    titleAboveStatistics: string
 
    
 }
@@ -49,10 +49,9 @@ export class StatisticsPage extends React.Component<{}, StatisticsInterface> {
             calendarYearClickedvalue: new Date(),
             calendarDayClickedvalue: new Date(),
             currentApiUrl: "",
-            pieChartTop: 0,
-            pieChartLeft: 0,
-            pieChartValue: 0,
-            pieChartKey: 0      
+            pieChartClickedValue: 0,
+            pieChartClickedKey: 0,
+            titleAboveStatistics: ""
         }
         
     }
@@ -64,6 +63,7 @@ export class StatisticsPage extends React.Component<{}, StatisticsInterface> {
             height={750}
             width={900}
             data={this.state.DataForGraph}
+            clickHandler={(d:any) => this.setState({pieChartClickedKey: d.data.key, pieChartClickedValue: d.value})}
             />
         )
     }
@@ -80,20 +80,20 @@ export class StatisticsPage extends React.Component<{}, StatisticsInterface> {
     LoadLineChart() : JSX.Element{
        return(
         <LineChart
-        axes
-        margin={{top: 10, right: 10, bottom: 50, left: 50}}
-        axisLabels={{x: 'X', y: 'Y'}}
+        axisLabels={{x: 'MY', y: 'LOL'}}
+        axes     
         width={900}
         interpolate={'cardinal'}
         height={300}
         data={[this.state.DataForGraph]}
-        />
-        
+        />      
        )
     }
 
 
-    BestellingStatistics(attributeForGraph: string, ascendOrDescend: number){
+
+    BestellingStatistics(attributeForGraph: string, ascendOrDescend: number, titleAbove: string){
+        this.setState({titleAboveStatistics: titleAbove})
         this.BestellingStatisticsApiCall(attributeForGraph,ascendOrDescend)
         .then(result => 
                 this.setState({
@@ -113,7 +113,8 @@ export class StatisticsPage extends React.Component<{}, StatisticsInterface> {
         let responseConverted = apiResponse.json();
         return responseConverted;
     }
-    ReviewStatistics(byCategory: boolean, ascendOrDescend: number){
+    ReviewStatistics(byCategory: boolean, ascendOrDescend: number, titleAbove: string){
+        this.setState({titleAboveStatistics: titleAbove})
         this.ReviewStatisticsApiCall(byCategory, ascendOrDescend)
         .then(result => {
             if(byCategory){
@@ -150,7 +151,8 @@ export class StatisticsPage extends React.Component<{}, StatisticsInterface> {
     }
     //////////////////////////////
     ///New refined methods below
-    KlantLocationStatistics(){
+    KlantLocationStatistics(titleAbove: string){
+        this.setState({titleAboveStatistics: titleAbove})
         this.KlantLocationApiCall()
         .then((result) => this.setState({
             choiceForChart: 1,
@@ -163,8 +165,8 @@ export class StatisticsPage extends React.Component<{}, StatisticsInterface> {
         let responseConverted = apiResponse.json();
         return responseConverted;
     }
-    LineGraphStatistics(apiUrl: string){
-        this.setState({calendarOptionClick: false})
+    LineGraphStatistics(apiUrl: string, titleAbove: string){
+        this.setState({calendarOptionClick: false, titleAboveStatistics: titleAbove})
         this.LineGraphStatisticsApiCall(apiUrl)
         .then((result) => {
             this.setState({
@@ -178,6 +180,7 @@ export class StatisticsPage extends React.Component<{}, StatisticsInterface> {
         date.setDate(date.getDate() + 1);      
     }
     async LineGraphStatisticsApiCall(apiUrl: string){
+ 
         if(this.state.calendarDayClickedvalue != null){
             this.FixDateOffset(this.state.calendarDayClickedvalue);
         }
@@ -209,7 +212,7 @@ export class StatisticsPage extends React.Component<{}, StatisticsInterface> {
                     Klanten
                 </button>
                 <div className="dropdown-menu dropdown-menu-klanten">
-                    <li> <button onClick={this.KlantLocationStatistics} className="dropdown-item" type="button">Klanten locatie </button> </li>            
+                    <li> <button onClick={() => this.KlantLocationStatistics("Klanten locatie")} className="dropdown-item" type="button">Klanten locatie </button> </li>            
                     <li> <button onClick={() =>{ this.setState({calendarOptionClick: true}), this.setState({currentApiUrl: "Klant/Registratie"})}} 
                     className="dropdown-item" type="button"> Nieuwe gebruikers overzicht </button> </li>  
                 </div>
@@ -220,8 +223,8 @@ export class StatisticsPage extends React.Component<{}, StatisticsInterface> {
                 </button>
                 <div className="dropdown-menu dropdown-menu-bestellingen">
                     <li> <button onClick={() => {this.setState({calendarOptionClick: true}), this.setState({currentApiUrl: "Bestellingen"})}} className="dropdown-item" type="button">Bestellingen overzicht </button> </li>    
-                    <button onClick={() => this.BestellingStatistics("productId",0)}> Meeste bestelde producten uit de huidige voorraad </button>
-                    <button onClick={() => this.BestellingStatistics("productId",1)}> Minst bestelde producten uit de huidige voorraad  </button>                          
+                    <button onClick={() => this.BestellingStatistics("productId",0," Meeste bestelde producten uit de huidige voorraad ")}> Meeste bestelde producten uit de huidige voorraad </button>
+                    <button onClick={() => this.BestellingStatistics("productId",1,"Minst bestelde producten uit de huidige voorraad")}> Minst bestelde producten uit de huidige voorraad  </button>                          
                 </div>
             </div>
             <div className="btn-group" role="group">
@@ -237,9 +240,9 @@ export class StatisticsPage extends React.Component<{}, StatisticsInterface> {
                     Reviews
                 </button>
                 <div className="dropdown-menu dropdown-menu-bestellingen">
-                <button onClick={() => this.ReviewStatistics(false,0)}> Hoogst gewaardeerde producten uit de huidige voorraad </button> 
-                <button onClick={() => this.ReviewStatistics(false,1)}>  Minst gewaardeerde producten uit de huidige voorraad </button>  
-               <button onClick={() => this.ReviewStatistics(true,0)}>  Overall Reviews van producten per category</button>                        
+                <button onClick={() => this.ReviewStatistics(false,0, "Hoogst gewaardeerde producten uit de huidige voorraad")}> Hoogst gewaardeerde producten uit de huidige voorraad </button> 
+                <button onClick={() => this.ReviewStatistics(false,1,"Minst gewaardeerde producten uit de huidige voorraad")}>  Minst gewaardeerde producten uit de huidige voorraad </button>  
+               <button onClick={() => this.ReviewStatistics(true,0,"Overall Reviews van producten per category")}>  Overall Reviews van producten per category</button>                        
                 </div>
             </div>
 
@@ -257,15 +260,19 @@ export class StatisticsPage extends React.Component<{}, StatisticsInterface> {
             onClickMonth={(e:any) => this.setState({calendarMonthClickedvalue: e, calendarDayClickedvalue:null, calendarYearClickedvalue: null })}
             onClickYear={(e: any) => this.setState({calendarYearClickedvalue: e, calendarDayClickedvalue: null, calendarMonthClickedvalue:null})}
             />,
-            <button onClick={() => this.LineGraphStatistics(this.state.currentApiUrl)}> Load the data </button>,          
+            <button onClick={() => this.LineGraphStatistics(this.state.currentApiUrl, this.state.currentApiUrl + " Overzicht")}> Load the data </button>,          
             ]          
             :
             <div> </div>
 
             }           
+            <h1> {this.state.titleAboveStatistics} </h1>
             {this.state.chartReadyForLoading ? 
+                    
                     this.state.choiceForChart == 1 ?
-                    this.loadPieChart()
+                    [this.loadPieChart(),
+                    <h1> {this.state.pieChartClickedKey}, Aantal:{this.state.pieChartClickedValue} </h1>
+                    ]
                     :            
                     this.state.choiceForChart == 2 ?
                     this.LoadBarChart()
