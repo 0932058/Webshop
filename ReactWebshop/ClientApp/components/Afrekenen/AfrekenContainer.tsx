@@ -16,7 +16,7 @@ export class Afrekenen extends AbstractStorage {
         //Gets the pk of the logged in user
         var loggedInUserPK = User.IsUserLoggedIn? User.GetPK() : 0;
         this.state = { 
-            products: this.GetCartData(), 
+            products: [], 
             customerID: loggedInUserPK, 
             isShoppingCart:true, 
             loaded:false, 
@@ -37,6 +37,15 @@ export class Afrekenen extends AbstractStorage {
         this.FinalizeOrder = this.FinalizeOrder.bind(this);
         this.SendBestellingenEmail = this.SendBestellingenEmail.bind(this);
     }
+
+    componentDidMount(){
+        this.setState({
+            products: this.GetCartData(),
+            loaded: true
+        })
+        console.log(this.GetCartData())
+    }
+
     BuildOrders(klantId){
         let res = [];
         this.state.products.forEach(product =>{
@@ -120,36 +129,67 @@ export class Afrekenen extends AbstractStorage {
             return (
                 <div className={"Container"}>
                 <h1>Afrekenen</h1>
-                <ul>
-                    <li>
-                        <h2>Naam</h2>
-                        <p>{User.GetFirstname() + ' ' + User.GetLastname()}</p>
-                    </li>
-                    <li>
-                        <h2>Straat</h2>
-                        <p>{User.GetStreetname()}</p>
-                    </li>
-                    <li>
-                        <h2>Postcode</h2>
-                        <p>{User.getPostcode()}</p>
-                    </li>
-                </ul>
-                <p> Total Price: €{this.state.totalPrice}</p>
                 
-                <p> <button onClick={this.FinalizeOrder} > Bestellen </button> </p>
+                
+                    <div className='Container'>
+                    <div className='row'>
+                    <div className='col-md-4'>
+                    <p><b>Adres voor bezorging en incasso</b></p>
+                        <p><b>Naam</b></p>
+                        <p>{User.GetFirstname() + ' ' + User.GetLastname()}</p>
 
+                    
+                        <p><b>Adres</b></p>
+                        <p>{User.GetStreetname() + ' ' + User.GetStreetnumber()}</p>
+                        <p>{User.getPostcode()}</p>
+                    
+                    
+                        <p><b>Email</b></p>
+                        <p>{User.GetEmail()}</p>
+                        <div className='col-md-4'>
+                        <p> <b>Total Price:</b> €{this.state.totalPrice}</p>
+                
+                <p> <button className='btn btn-success' onClick={this.FinalizeOrder} > Bestellen </button> </p>
+                </div>
+                        </div>
+                        <div className='col-md-6'>
+                        <p><b>Bestel overzicht</b></p>
+                        {this.state.loaded?this.state.products.map(
+                            item =>{
+                                return(
+                                    <div className={"Component"}>
+                                    <div className='col-md-12'>
+                                    <div className='col-md-3'><img className="img-responsive" src={item.image}/></div>
+                                    <p><b>Product Naam:</b>{item.name}</p>
+                                    <p><b>Console type:</b>{item.console}</p>
+                                    <p><b>Stuk prijs:</b>{"€"+item.price}</p>
+
+                                    </div>
+                                    </div>
+                                )
+                            }
+                        )
+                        :
+                        null    
+                    }
+                    </div>
+                        </div>
+                    </div>
                 </div>
             )
         }
         else if (this.state.ordered == true){
             return (
                 <div className={"Container"}>
+                    <h3>U ontvangt een email ter bevestiging</h3>
                     <div className="alert alert-success">
                         <strong>Bestelling successvol afgerond!</strong> De bestelling wordt verwerkt
                     </div>
-                    <h3>U ontvangt een email ter bevestiging</h3>
                     <NavLink to={ '/' } exact activeClassName='active' className='LinksNav'>
                         <button className="btn btn-primary">Home</button>
+                    </NavLink>
+                    <NavLink to={ '/Bestellingen' } className='LinksNav'>
+                        <button className="btn btn-primary">Naar bestellingen</button>
                     </NavLink>
                 </div>
             )
@@ -176,7 +216,7 @@ export class Afrekenen extends AbstractStorage {
                     <div className="row">
                         <div className="col-md-6">
                             <p>Straatnaam*</p>
-                            <input required placeholder='straatnaam' pattern="([a-zA-Z]).{2,30}" title="vul een juist adres in"
+                            <input required placeholder='straatnaam' pattern="[a-zA-Z]{2,30}" title="vul een juist adres in"
                             type="text" name="streetname"className="form-control" onChange={(event: any) => {this.setState({formStraatnaam: event.target.value})}}  />
                         </div>
                         <div className="col-md-3">
@@ -186,14 +226,14 @@ export class Afrekenen extends AbstractStorage {
                             </div>
                         <div className="col-md-3">
                             <p>Toevoeging</p>
-                                <input placeholder="bijv. 'b'" pattern="[a-z]{1}"
+                                <input placeholder="bijv. 'b'" pattern="[a-zA-Z]{1}"
                                 type="text" name="numberaddition" className="form-control"/>
                             </div>
                         </div>
                     <div className="row">
                         <div className="col-md-6">
                             <p>Postcode*</p>
-                            <input required placeholder="postcode" pattern="([0-9]){4}+/s([A-Z]){2}" title="postcode moet uit 4 cijfers en 2 letters bestaan" 
+                            <input required placeholder="postcode" pattern="[1-9][0-9]{3}\s?[a-zA-Z]{2}" title="postcode moet uit 4 cijfers en 2 letters bestaan" 
                             type="text" name="postcode"className="form-control"  onChange={(event: any) => {this.setState({formPostcode: event.target.value})}} />
                         </div>
                         <div className="col-md-6">
@@ -204,7 +244,7 @@ export class Afrekenen extends AbstractStorage {
                     </div>
                     <div>
                         <p>Email*</p>
-                        <input required placeholder="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+[.]+[a-z]{2,3}$" 
+                        <input required placeholder="email" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+[.]+[a-z]{2,3}$" 
                         title='zorg dat het een juist email is vb. characters@characters.domain'
                         type="text" name="email"className="form-control" onChange={(event: any) => {this.setState({formEmail: event.target.value})}}/>
                     </div>

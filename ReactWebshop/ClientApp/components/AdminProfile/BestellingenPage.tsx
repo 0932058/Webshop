@@ -36,20 +36,20 @@ export class BestellingenPage extends React.Component<{}, BestellingenState> {
            this.setState({bestellingen: data, loaded: true})
         });
     }
-    async UpdateBestelling(order, statusstring){
-        let apiUrl = 'api/Bestellingen';
-        let OrderToPost: Bestelling = {
-            BestellingId: order.BestellingId,
-            productId: order.productId,
-            bestellingDatum: order.bestellingDatum,
-            verstuurDatum: new Date(),
-            status: statusstring,
-            klantId: order.klantId.klantId
-        }
-        let apiResponse = await fetch(apiUrl, {method: "PUT", body:JSON.stringify(OrderToPost), headers: new Headers({'content-type' : 'application/json'})});
-        alert("Voltooid");
-        
-    }
+    // async UpdateBestelling(order, statusstring){
+    //     let apiUrl = 'api/Bestellingen/Update';
+    //     let OrderToPost: Bestelling = {
+    //         BestellingId: order.BestellingId,
+    //         productId: order.productId.productId,
+    //         bestellingDatum: order.bestellingDatum,
+    //         verstuurDatum: new Date(),
+    //         status: statusstring,
+    //         klantId: order.klantId.klantId
+    //     }
+    //     let apiResponse = await fetch(apiUrl, {method: 'UPDATE', body:JSON.stringify(OrderToPost), headers: new Headers({'content-type' : 'application/json'})});
+    //     this.GetOrders();
+    //     alert("Voltooid"); 
+    // }
     render(){
         return(
             <div>
@@ -68,10 +68,10 @@ export class BestellingenPage extends React.Component<{}, BestellingenState> {
                                         <p>Prijs: €{order.productId.productPrijs}</p>
                                         <p>Besteldatum: {order.bestellingDatum}</p>
                                         <p>Verstuurdatum: {order.verstuurDatum}</p>
+                                        {
+                                        order.klantId != null?
                                         <p>Klant: {order.klantId.username}</p>
-                                        {order.status == 'In behandeling'?
-                                        <p><button onClick={() => this.UpdateBestelling(order, 'Verzonden')}> Product Verzenden</button></p>
-                                        : 
+                                        :
                                         <p></p>
                                         }
                                         </div>

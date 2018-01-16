@@ -36,6 +36,7 @@ export class ProductsPage extends React.Component<{}, ProductsState> implements 
         this.updateSearch = this.updateSearch.bind(this)
         this.setChange = this.setChange.bind(this)
         this.handleChangeSubmit = this.handleChangeSubmit.bind(this);
+        this.getProducts = this.getProducts.bind(this);
 
         this.state = {
             allItems : [],
@@ -57,7 +58,18 @@ export class ProductsPage extends React.Component<{}, ProductsState> implements 
             consoleType : "",
             productImage: ""
         }
+    }
 
+    componentDidMount(){
+        this.getProducts()
+    }
+
+    getProducts(){
+        this.setState(
+            {
+                loaded: false
+            }
+        )
         fetch("api/Admin/GetAllProducts")
         .then(response => response.json() as Promise<Product[]>)
         .then(data => {
@@ -68,7 +80,6 @@ export class ProductsPage extends React.Component<{}, ProductsState> implements 
                 this.setState({ loaded : false })
             }
         )
-
     }
 
     handleChange(event : any){
@@ -134,7 +145,6 @@ export class ProductsPage extends React.Component<{}, ProductsState> implements 
         }
         let apiResponse = await fetch(apiUrl, {method: 'POST', body:JSON.stringify(productToPost), headers: new Headers({'content-type' : 'application/json'})});
         console.log(apiResponse + " Response")
-        alert("Product aangepast!");
         this.setState({isNoEmptyInputFields: true})
 
     }
@@ -237,19 +247,28 @@ export class ProductsPage extends React.Component<{}, ProductsState> implements 
                                                             type="text" name="productOntwikkelaar"className="form-control"  value={this.state.productOntwikkelaar} required={true} 
                                                             onChange={(event:any) => this.setState({productOntwikkelaar: event.target.value})} />          
                                                         <br/>
-                                                        <input className="btn btn-primary" placeholder="pas het product aan" type="submit" value="pas het product aan"/>
+                                                        <input className="btn btn-primary" placeholder="pas het product aan" type="submit" value="pas het product aan" data-toggle="modal" data-target="#productModal"/>
+                                                            <div className="modal fade" id="productModal" role="dialog">
+                                                                <div className="modal-dialog modal-sm">
+                                                                <div className="modal-content">
+                                                                <div className="modal-header">
+                                                                <button type="button" className="close" data-dismiss="modal">&times;</button>
+                                                                <h4 className="modal-title">Product is aangepast!</h4>
+                                                            </div>
+                                                            <div className="modal-body">
+                                                                <br />
+                                                                <button className="btn btn-default" data-backdrop="false" data-dismiss="modal" onClick={this.getProducts}>Terug</button>
+                                                            </div>
+                                                        </div>
+                                                        </div>
+                                                        </div>
                                                     </form>
-                                                    </div>
-                                                
-                                            
-                                                
+                                                    </div> 
                                             :
                                             null
                                         }
                                         </div>
                                     </div>
-                                    
-                                
                             )
                         }
                         }

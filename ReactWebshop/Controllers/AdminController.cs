@@ -29,11 +29,21 @@ namespace Controllers
         public Product[] GetAllProducts(){
             return _context.Producten.ToArray();
         }
+        // Get all the users
+        [HttpGet("GetUser/{searchQuery}")]
+        public IActionResult GetSpecificUser(string searchQuery){
+            
+            var users = this._context.Klanten.Where((a) => a.klantNaam.Contains(searchQuery) || a.username.Contains(searchQuery));
+            if(users.FirstOrDefault() == null){
+                return NotFound();
+            }
+            return Ok(users.ToArray());
+        }
 
         // Get all the users
         [HttpGet("GetAllUsers")]
         public Klant[] GetAllUsers(){
-            return _context.Klanten.ToArray();
+            return _context.Klanten.OrderBy((a) => a.KlantId).ToArray();
         }
 
         // Get all the order

@@ -54,21 +54,15 @@ export class ItemPage extends React.Component<RouteComponentProps<{}>, ItemPageS
 
     componentDidMount(){
         this.getItem();
-        this.GetReviewRelatedInfo("")
-        this.CheckIfUserHasAlreadyCommented()
-        .then(() => console.log("User has not commented yet"));
-
     }
     getItem(){
         fetch('api/Items' + this.props.location.pathname)
         .then(response => response.json() as Promise<Product[]>)
         .then(data => {
             console.log(data[0].productId)
-            this.setState({ product : data[0], loaded : true});
-        });
-
-     
-
+            this.setState({ product : data[0]})})
+        .then(_ => this.GetReviewRelatedInfo(""))
+        .then(_ => this.setState({loaded: true}))  
     }
     
 
@@ -107,7 +101,7 @@ export class ItemPage extends React.Component<RouteComponentProps<{}>, ItemPageS
 
             var newReview: Review = {
                 ReviewId:0, 
-                ProductId: parseInt(this.props.location.pathname.replace("/Item/","")),
+                ProductId: this.state.product.productId,
                 KlantId: User.GetPK(),
                 Rating: this.state.rating,
                 Comment: this.state.comment
@@ -127,12 +121,14 @@ export class ItemPage extends React.Component<RouteComponentProps<{}>, ItemPageS
         this.GetAverageReviewRatingApiCall()
         .then(average => this.setState({averageReviewRating: average}))
         .then(() => this.DrawAverageReviewStars())
+        .then((stars =>  this.setState({averageReviewStars: stars})))
+        .then(_ => this.CheckIfUserHasAlreadyCommented())
         .then(() => this.GetCommentsFromApi())
         .then((comments => this.setState({comments :comments})))
+        
     }
     async GetAverageReviewRatingApiCall() : Promise<number>{
-        var urlConverted = parseInt(this.props.location.pathname.replace("/Item/",""))
-        let apiUrl = 'api/Review/Get/' + urlConverted;
+        let apiUrl = 'api/Review/Get/' + this.state.product.productId;
         let apiResponse = await fetch(apiUrl, {method: 'Get', headers: new Headers({'content-type' : 'application/json'})}); 
         let responseConverted = apiResponse.json();
         return responseConverted;
@@ -143,19 +139,18 @@ export class ItemPage extends React.Component<RouteComponentProps<{}>, ItemPageS
         for (let index = 0; index < this.state.averageReviewRating; index++) {
             stars[index] = star;         
         }
-       this.setState({averageReviewStars: stars});
+        return Promise.resolve(stars);
+      
     }
     async GetCommentsFromApi() : Promise<Comment[]>{
-        var urlConverted = parseInt(this.props.location.pathname.replace("/Item/",""))
-        let apiUrl = 'api/Review/Get/Comment/' + urlConverted;
+        let apiUrl = 'api/Review/Get/Comment/' + this.state.product.productId;
         let apiResponse = await fetch(apiUrl, {method: 'Get', headers: new Headers({'content-type' : 'application/json'})}); 
         let responseConverted = apiResponse.json();
         return responseConverted;
     }
     async CheckIfUserHasAlreadyCommented(){
         if(User.IsUserLoggedIn()){
-            var urlConverted = parseInt(this.props.location.pathname.replace("/Item/",""))
-            let apiUrl = 'api/Review/Get/User/' + User.GetPK() + "/" + urlConverted;
+            let apiUrl = 'api/Review/Get/User/' + User.GetPK() + "/" + this.state.product.productId;
             let apiResponse = await fetch(apiUrl, {method: 'Get', headers: new Headers({'content-type' : 'application/json'})}); 
             let responseConverted = apiResponse.json();
             return responseConverted;

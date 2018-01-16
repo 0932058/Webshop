@@ -55,7 +55,8 @@ export class RegistratieContainer extends React.Component<RouteComponentProps<{}
             klantStraatnmr: this.state.streetnumber,
             username: this.state.username,
             password: this.state.password,
-            klantPlaats: this.state.klantPlaats
+            klantPlaats: this.state.klantPlaats,
+            klantRegistratieDatum: new Date()
         }
         let apiResponse = await fetch(apiUrl, {method: 'POST', body:JSON.stringify(userToPost), headers: new Headers({'content-type' : 'application/json'})});
         this.setState({isNoEmptyInputFields: true})
@@ -156,7 +157,7 @@ export class RegistratieContainer extends React.Component<RouteComponentProps<{}
                     <div className="row">
                         <div className="col-md-4 col-md-offset-4">
                         <p>Plaats</p>
-                        <input placeholder="plaats" title="plaatsnaam" 
+                        <input placeholder='plaatsNaam' pattern="[a-zA-Z /s]{2,30}" title="vul een juist plaats in"
                         type="text" name="postcode"className="form-control"  value={this.state.klantPlaats}  required={true}
                         onChange={(e:any) => this.setState({klantPlaats: e.target.value})}
                          />

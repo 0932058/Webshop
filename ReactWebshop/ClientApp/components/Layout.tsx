@@ -26,6 +26,7 @@ interface LayoutState {
     search : string;
     loggedIn : boolean;
     WMItems : number;
+
 }
 
 export class Layout extends React.Component<LayoutProps, LayoutState> {
@@ -235,6 +236,8 @@ const topBar = (
         </nav>
     </div>
 )
+
+
 const topBarLoggedIn = (
     <div className="Mainlink_Logged"> 
         <nav className="navbar navbar-inverse">
@@ -397,6 +400,7 @@ const Footer = (
                     :
                     topBar
                 }
+                
 
             </div>
         </div>
