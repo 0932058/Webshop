@@ -19,15 +19,15 @@ export class AdminContainer extends React.Component<RouteComponentProps<{}>, Adm
     constructor(){
         super();
         console.log(Admin.IsAdminLoggedIn());
-        //TODO: do not forget to change this to false for presentation
-        if(Admin.IsAdminLoggedIn() == true){
+ 
+        if(Admin.IsAdminLoggedIn() == false){
             alert("Area is only for the admin!")
         }
         else{
             this.switchTo = this.switchTo.bind(this);
 
             this.state = {
-                page : <StatisticsPage/>
+                page : null
 
         }
         }
