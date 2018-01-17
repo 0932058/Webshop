@@ -369,9 +369,9 @@ const Footer = (
   <div className="row">
     <div className="col-lg-12">
         <ul className="nav nav-pills nav-justified">
-          <li><a href="#">About us</a></li>
+          <li><a href="About">About us</a></li>
           <li><a href="/Policy">​Policy</a></li>
-          <li><a href="#">Terms of Service</a></li>
+          <li><a href="/ToS">Terms of Service</a></li>
         </ul>
     </div>
   </div>
@@ -404,7 +404,10 @@ const Footer = (
 
             </div>
         </div>
-        <div className='container'>
+        <div className='col-md-1'>
+        </div>
+        <div className='col-md-10 frontback'>
+        <div className='container '>
                 <div  className='col-md-12'>
                     { this.state.pages } 
                 </div>
@@ -414,6 +417,7 @@ const Footer = (
                 {Footer}
             </div>
         </div> 
+        </div>
             </div>;
     }
 }
