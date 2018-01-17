@@ -5,6 +5,7 @@ import {List} from "linqts";
 import {User} from "../User/User";
 import {AbstractStorage,StorageState} from "../Storage/ReusableComponents/Storage";
 import { Product, Bestelling, JoinedBestelling } from 'ClientApp/components/Items/ItemsInterfaces';
+import {ProfileSideMenuLinks} from "../Profile/Layout/ProfileSideMenuLinks";
 
 export class BestellingenContainer extends AbstractStorage {
     constructor(){
@@ -74,9 +75,15 @@ export class BestellingenContainer extends AbstractStorage {
             
         <div className={"Container"}>
             <div className='container'>
-                <div className='col-md-9'>
-                <h1>Bestellingen</h1>
+                <div className='col-md-2'>
+                <ProfileSideMenuLinks/>
+                </div>
             </div>
+            
+            <div className='container'>
+                <div className='col-md-2'>
+                <h1>Bestellingen</h1>
+                </div>
             </div>
                 <div>
                 {this.state.products.map(

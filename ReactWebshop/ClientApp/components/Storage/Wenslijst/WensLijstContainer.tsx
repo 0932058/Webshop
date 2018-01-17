@@ -6,6 +6,7 @@ import {User} from "../../User/User";
 import { Link, NavLink } from 'react-router-dom';
 import {AbstractStorage,StorageState} from "../ReusableComponents/Storage";
 import { Product, Wenslijst } from "ClientApp/components/Items/ItemsInterfaces";
+import {ProfileSideMenuLinks} from "../../Profile/Layout/ProfileSideMenuLinks";
 
 export class WenslijstContainer extends AbstractStorage {
     constructor(){
@@ -113,6 +114,9 @@ export class WenslijstContainer extends AbstractStorage {
             
         <div className={"Container"}>
             <div className='container'>
+                <div className='col-md-3'>
+                <ProfileSideMenuLinks/>
+                </div>
                 <div className='col-md-9'>
                 <h1>Uw wenslijst</h1>
                 <div className='col-md-3'>

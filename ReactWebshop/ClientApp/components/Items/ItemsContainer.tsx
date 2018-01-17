@@ -27,7 +27,6 @@ interface ItemsContainerState{
     averageReviewRating: number;
 }
 export class ItemsContainer extends React.Component<RouteComponentProps<{}>, ItemsContainerState> {
-    months : string[];
 
     constructor(props){
         super(props);
@@ -47,10 +46,6 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
         this.onPrijsSubmit = this.onPrijsSubmit.bind(this);
         this.resetPriceFilter = this.resetPriceFilter.bind(this);
         this.setSort = this.setSort.bind(this);
-
-        this.months = ["Januari", "Februari", "Maart", "April", "May", "June",
-        "July", "August", "September", "October", "November", "December"
-        ],
 
         this.state = {
             loaded : false,
@@ -694,7 +689,7 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
 
             <div  className="container-fluid">
             {this.props.location.pathname.toString() === "/"?
-            <div className='co-md-12'> <h1>Nieuwste producten van maand { this.months[new Date().getMonth()]}! </h1> </div> 
+            <div className='co-md-12'> <h1> {User.getStorageId() != 0? User.GetFirstname() + ", ": null} Welkom bij de Normies webshop!</h1> </div> 
             :
             
             <div/>
