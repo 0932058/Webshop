@@ -43,25 +43,30 @@ export class BestellingenContainer extends AbstractStorage {
             .then(response => response.json() as Promise<JoinedBestelling[]>)
             .then(data =>{
                console.log("GetOrders geeft " + data[0]);
-               data = data.reverse();
                this.setState({products: data})
             });
 
         }
-    }
-    async UpdateBestelling(order, statusstring){
-        let apiUrl = 'api/Bestellingen';
-        let OrderToPost: Bestelling = {
-            BestellingId: order.BestellingId,
-            productId: order.productId,
-            bestellingDatum: order.bestellingDatum,
-            verstuurDatum: new Date(),
-            status: statusstring,
-            klantId: order.klantId.klantId
         }
-        let apiResponse = await fetch(apiUrl, {method: "PUT", body:JSON.stringify(OrderToPost), headers: new Headers({'content-type' : 'application/json'})});
-        alert("Voltooid");
+    // async UpdateBestelling(order, statusstring){
+    //     let apiUrl = 'api/Bestellingen';
+    //     let OrderToPost: Bestelling = {
+    //         BestellingId: order.BestellingId,
+    //         productId: order.productId,
+    //         bestellingDatum: order.bestellingDatum,
+    //         verstuurDatum: new Date(),
+    //         status: statusstring,
+    //         klantId: order.klantId.klantId
+    //     }
+    //     let apiResponse = await fetch(apiUrl, {method: "PUT", body:JSON.stringify(OrderToPost), headers: new Headers({'content-type' : 'application/json'})});
+    //     alert("Voltooid");
         
+    // }
+    
+    async UpdateBestelling2(orderPK: number){
+        let apiResponse = await fetch('api/Bestellingen/Update2/' + orderPK, {method: 'POST', headers: new Headers({'content-type' : 'application/json'})});
+        this.GetOrders(); 
+        alert("Voltooid")
     }
 
     render() {
@@ -88,6 +93,7 @@ export class BestellingenContainer extends AbstractStorage {
                                         <p>Prijs: €{order.productId.productPrijs}</p>
                                         <p>Besteldatum: {order.bestellingDatum}</p>
                                         <p>Verstuurdatum: {order.verstuurDatum}</p>
+                                        <button onClick={() => this.UpdateBestelling2(order.bestellingId)}> Markeer als ontvangen </button>
                                     </div>
                                 </div>
                                 </div>

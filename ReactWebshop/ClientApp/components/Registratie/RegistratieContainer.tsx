@@ -13,6 +13,7 @@ interface RegistratieContainerState{
     streetname: string;
     streetnumber: string,
     klantPlaats: string,
+    tussenvoegsel: string
 
     numberaddition: string,
     postcode: string;
@@ -24,7 +25,7 @@ export class RegistratieContainer extends React.Component<RouteComponentProps<{}
         this.CheckIfAccountExists = this.CheckIfAccountExists.bind(this);
         this.ConnectWithApiToCheckIfUserExist = this.ConnectWithApiToCheckIfUserExist.bind(this);
         this.PostUserToDatabase = this.PostUserToDatabase.bind(this);
-        this.state = {firstname: "", lastname: "", email: "", phonenumber: "", username:"", password:"", streetname: "", postcode:"", streetnumber: "", numberaddition: "", klantPlaats: "", isNoEmptyInputFields:false}       
+        this.state = {firstname: "", lastname: "", email: "", phonenumber: "", username:"", password:"", streetname: "", postcode:"", streetnumber: "", numberaddition: "", klantPlaats: "", tussenvoegsel: "", isNoEmptyInputFields:false}       
     }
     async ConnectWithApiToCheckIfUserExist() : Promise<Klant>{
         let apiUrl = 'api/User/Get/Username/' + this.state.username
@@ -47,7 +48,7 @@ export class RegistratieContainer extends React.Component<RouteComponentProps<{}
             KlantId: 0, 
             klantNaam: this.state.firstname, 
             klantAchternaam: this.state.lastname,
-            klantTussenvoegsel: this.state.firstname, 
+            klantTussenvoegsel: this.state.tussenvoegsel, 
             klantTel: parseInt(this.state.phonenumber),
             klantMail: this.state.email,
             klantStraat: this.state.streetname, 
@@ -74,6 +75,7 @@ export class RegistratieContainer extends React.Component<RouteComponentProps<{}
                             onChange={(e:any) => this.setState({firstname: e.target.value})}/>
                         </div>
                     </div>
+                    
                     <div className="row">
                         <div className="col-md-4 col-md-offset-4">
                             <p>Achternaam*</p>
@@ -81,6 +83,14 @@ export class RegistratieContainer extends React.Component<RouteComponentProps<{}
                             type="text" name="lastname" className="form-control"  value={this.state.lastname} required={true}
                             onChange={(e:any) => this.setState({lastname: e.target.value})}
                             />
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col-md-4 col-md-offset-4">
+                            <p>Tussenvoegsel*</p>
+                            <input placeholder="voornaam" pattern="[a-zA-Z /s]{1,15}" title="tussenvoegsel moet bestaan uit 1 tot en met 15 letters"
+                            type="text" name="firstname" className="form-control" value={this.state.tussenvoegsel} required={true}
+                            onChange={(e:any) => this.setState({tussenvoegsel: e.target.value})}/>
                         </div>
                     </div>
                     <div className="row">
