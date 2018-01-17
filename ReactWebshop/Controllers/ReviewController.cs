@@ -74,6 +74,14 @@ namespace Controllers
             
             return _context.Review.ToArray();
         }
+        // DELETE api/values/5
+        [HttpDelete("Remove/{id}")]
+        public void DeleteReview(int id){
+            var reviewToRemove = this._context.Review.Find(id);
+            this._context.Review.Remove(reviewToRemove);
+            this._context.SaveChanges();
+            
+        }
 
         // DELETE api/values/5
         [HttpDelete("{id}")]
