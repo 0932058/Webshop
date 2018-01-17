@@ -200,7 +200,7 @@ export class ItemPage extends React.Component<RouteComponentProps<{}>, ItemPageS
                             
      
            
-                            {User.IsUserLoggedIn() && this.state.userHasCommented == false ?
+                            {User.IsUserLoggedIn() && this.state.userHasCommented === false ?
                             <div>
                             <h2> Geef een ster en review:</h2>
                             
@@ -208,20 +208,21 @@ export class ItemPage extends React.Component<RouteComponentProps<{}>, ItemPageS
 
 
                             <input type="review" name="review" className="form-control" id="review" onChange={(e:any) => this.setState({comment: e.target.value})} />
-                            <button onClick={(e:any) => this.ProcessReview(e)}> Send Review </button>
+                            <button className={"btn btn-success"} onClick={(e:any) => this.ProcessReview(e)}> Send Review </button>
                             </div>
                             :
-                            null
+                            <h3>Je hebt dit item al een review gegeven!</h3>
+                            
                             }
 
-                            <h1> Aantal Reviews: {this.state.comments.length} </h1>:
+
+                            <h3> Aantal Reviews: {this.state.comments.length} </h3>:
                             {this.state.comments.length <= 0? 
                             <div> geen reviews beschikbaars </div>
                             :
                             this.state.comments.map(function(comment,key)  {
                                 return([
-                                    <h1> Review {key + 1} </h1>,
-                                    <div> <strong> Naam: </strong> {comment.klantNaam} </div> ,
+                                    <h3> Review door: {comment.klantNaam} </h3>,
                                     <div> <strong> Rating: </strong> {comment.rating} </div> ,
                                     <div> <strong> Review: </strong> {comment.comment} </div> ,                                        
                                 ])})}              
@@ -234,8 +235,7 @@ export class ItemPage extends React.Component<RouteComponentProps<{}>, ItemPageS
                             <div> no reviews available </div>                    
                             :     
                             this.state.averageReviewStars.map(element => {
-                                return <div className='glyphicon glyphicon-star col-sm-1'></div>;
-                                
+                                return <div className='glyphicon glyphicon-star yellow col-sm-1'></div>;
                             }
                             )}
                             </div>

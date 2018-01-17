@@ -209,7 +209,7 @@ const topBar = (
                         <span className="caret"></span>
                     </a>
                     <ul className="dropdown-menu">
-                    <li><NavLink to={"/Accessoires/All"} >Alle Assecoires</NavLink></li>
+                    <li><NavLink to={"/Accessoires/All"} >Alle Accessoires</NavLink></li>
                     <li><NavLink to={"/Accessoires/Headset"} >Headsets</NavLink></li>
                     <li><NavLink to={"/Accessoires/Racewheel"}>Race-Wheels</NavLink></li>
                     </ul>
