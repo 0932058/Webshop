@@ -4,5 +4,7 @@
     "editor.quickSuggestions": true,
     "[markdown]":  {
         "editor.quickSuggestions": true
-    }
+    },
+    "editor.tabCompletion": true,
+      "emmet.showSuggestionsAsSnippets": true,
 }

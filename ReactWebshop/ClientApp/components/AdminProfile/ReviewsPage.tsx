@@ -6,7 +6,7 @@ import { Redirect } from 'react-router';
 import {Review} from "../Items/ItemsInterfaces";
 
 interface ReviewPageState{
-    reviews: Review[];
+    reviews: any[];
     loaded: boolean;
 }
 
@@ -19,18 +19,19 @@ export class ReviewsPage extends React.Component<{}, ReviewPageState>{
     }
     componentWillMount(){
         this.GetAllReviewsFromApi()
-        .then(reviewsResult => this.setState({reviews: reviewsResult, loaded: true}));
+        .then(reviewsResult => this.setState({reviews: reviewsResult, loaded: true}))
+        .catch(_ => alert("No reviews found!"))
+        
     }
     async GetAllReviewsFromApi(): Promise<Review[]>{
-        var result = await fetch("api/Review/GetAllReviews", {method: "GET"});
+        var result = await fetch("api/Admin/Reviews", {method: "GET"});
         var resultConverted = result.json();
         return resultConverted;
     }
     DeleteComment(reviewID: number){
         var result =  fetch("api/Review/Remove/" + reviewID, {method: "DELETE"});
         alert("Comment deleted");
-        this.setState({loaded: false})
-        this.GetAllReviewsFromApi();
+        this.GetAllReviewsFromApi().then(reviewsResult => this.setState({reviews: reviewsResult}))
 
     }
     render(){
@@ -38,20 +39,14 @@ export class ReviewsPage extends React.Component<{}, ReviewPageState>{
            <div>
                {this.state.loaded? 
                this.state.reviews.map((review, index) => {
-                   return(
-                       <div className='Container'>
-                            <div className='col-md-7'>
-                    <div> <h2> Review: {index + 1} </h2> </div>
-                    <div><strong> Product: </strong>  {review.productId}</div>
-                    <div><strong> Klant:  </strong>{review.klantId}</div>
-                    <div><strong> Rating:  </strong>{review.rating}</div>
-                    <div><strong> Comment:  </strong>{review.comment}</div>
-                    
-                    <button className='btn btn-danger' onClick={() => this.DeleteComment(review.reviewId)}> <strong> Delete comment </strong> </button> 
-                            </div>
-                        </div>
-
-                   )
+                   return([
+                    <div> <h2> Comment: {index + 1} </h2> </div>,
+                    <div><strong> Product: </strong>  {review.productNaam}</div>,
+                    <div><strong> Klant:  </strong>{review.klantNaam}</div>,
+                    <div><strong> Rating:  </strong>{review.rating}</div>,
+                    <div><strong> Comment:  </strong>{review.comment}</div>,
+                    <button onClick={() => this.DeleteComment(review.reviewId)}> <strong> Delete comment </strong> </button> 
+                   ])
                })
                :
                <div> Loading... </div>
