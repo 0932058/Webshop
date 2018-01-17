@@ -15,14 +15,12 @@ export class GegevensComponent extends React.Component<{}, {}> {
             <div className={"GegevensComponent"}>
             
             <h1> Gegevens </h1>
-            <h2> Username: {User.GetUsername()} </h2>
-            <h2> Voornaam: {User.GetFirstname()} </h2>
-            <h2> Achternaam: {User.GetLastname()} </h2>
-            <h2> Email: {User.GetEmail()} </h2>           
-            <h2> Straat: {User.GetStreetname()} </h2>
-            <h2> Straatnummer: {User.GetStreetnumber()} </h2>
-            
-            <h2> Postcode: {User.getPostcode()} </h2>
+            <p><b> Username: </b>{User.GetUsername()} </p>
+            <p><b> Voornaam: </b>{User.GetFirstname()} </p>
+            <p><b> Achternaam: </b>{User.GetLastname()} </p>
+            <p><b> Email: </b>{User.GetEmail()} </p>           
+            <p><b> Straat: </b>{User.GetStreetname()} {User.GetStreetnumber()} </p>
+            <p><b> Postcode: </b>{User.getPostcode()} </p>
                  
         </div>
         </div>
