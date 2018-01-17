@@ -190,11 +190,9 @@ export class UsersPage extends React.Component<{}, UsersState>{
         console.log(klantToPost + "KLANT TO POST")
         console.log(apiMethod + "API METHOD")
         let apiResponse = await fetch(apiUrl, {method: apiMethod, body:JSON.stringify(klantToPost), headers: new Headers({'content-type' : 'application/json'})});
-        // this.GetAllUsers();
-        // alert("Gewijzigd");
-        return(
-        <Redirect to={"/"} push={true}/>
-        )
+        this.GetAllUsers();
+        alert("Gewijzigd");
+
         
     }
     SearchForUser(search: string) : void{
