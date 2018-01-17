@@ -253,7 +253,7 @@ export class Afrekenen extends AbstractStorage {
                                     <strong>Bestel je voor het eerst?</strong>
                                 </h4>
                                 <div className="col-md-6">
-                                <form action="/action_page.php">
+                                <form action="/action_page.php"  onSubmit={() => {this.setState({nieuweKlant: true})}}>
                                     <label>Snel de bestelling afronden?</label>
                                     <div className="input-group">
                                         <span className="input-group-addon"> <i className="glyphicon glyphicon-envelope"> </i> </span>
@@ -261,9 +261,10 @@ export class Afrekenen extends AbstractStorage {
                                         title='zorg dat het een juist email is vb. characters@characters.domain'
                                         type="text" name="email"className="form-control" onChange={(event: any) => {this.setState({formEmail: event.target.value})}}/>
                                     </div>
+                                    <br/>
+                                    <input className="btn btn-primary" placeholder="Ga verder als nieuwe klant" type="submit" value="Ga verder als nieuwe klant"/> 
                                 </form>
                                 <br/>
-                                <button className="btn btn-primary" onClick={() => {this.setState({nieuweKlant: true})}}>Ga verder als nieuwe klant</button>
                                 </div>
                             </div>
                         </div>
