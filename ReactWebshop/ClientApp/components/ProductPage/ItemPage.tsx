@@ -211,12 +211,17 @@ export class ItemPage extends React.Component<RouteComponentProps<{}>, ItemPageS
                             <button className={"btn btn-success"} onClick={(e:any) => this.ProcessReview(e)}> Send Review </button>
                             </div>
                             :
+                            User.IsUserLoggedIn() && this.state.userHasCommented === true ?
                             <h3>Je hebt dit item al een review gegeven!</h3>
-                            
+                            :
+                            <div>
+                                <h3>Je moet ingelogd zijn om een review te geven</h3>
+                                <NavLink to="/Login"><button className="btn btn-primary">Login</button></NavLink>
+                            </div>
                             }
 
 
-                            <h3> Aantal Reviews: {this.state.comments.length} </h3>:
+                            <h3> Aantal Reviews: {this.state.comments.length} </h3>
                             {this.state.comments.length <= 0? 
                             <div> geen reviews beschikbaars </div>
                             :
