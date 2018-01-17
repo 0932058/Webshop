@@ -114,8 +114,8 @@ namespace Controllers
             this._context.SaveChanges();
       
         }
-        //Updates gegevens information
-        [HttpPut]
+        //Updates gegevens information from users profile
+        [HttpPut("profile")]
         public void PutGegevensUser([FromBody] dynamic user){
             int userPk = user.pk;
             var foundUser = this._context.Klanten.Where((a) => a.KlantId == userPk).FirstOrDefault();

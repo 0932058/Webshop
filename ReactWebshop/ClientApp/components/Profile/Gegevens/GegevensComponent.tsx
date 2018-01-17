@@ -31,8 +31,9 @@ export class GegevensComponent extends React.Component<{}, GegevensState> {
             postcode: this.state.postcode,
             plaats: this.state.plaats,
         }
-        let apiResponse = await fetch("api/User", {method: "PUT", body:JSON.stringify(klantToEdit), headers: new Headers({'content-type' : 'application/json'})});
-        this.setState({isGegevensWijzigenClicked: true})
+        let apiResponse = await fetch("api/User/profile", {method: "PUT", body:JSON.stringify(klantToEdit), headers: new Headers({'content-type' : 'application/json'})});
+        alert("Je gegevens zijn gewijzigd, dit kan wat tijd in beslag nemen")
+        this.setState({isGegevensWijzigenClicked: false})
         
     }
     render(){  
@@ -45,6 +46,7 @@ export class GegevensComponent extends React.Component<{}, GegevensState> {
             <p><b> Achternaam: </b>{User.GetLastname()} </p>
             <p><b> Email: </b>{User.GetEmail()} </p>           
             <p><b> Straat: </b>{User.GetStreetname()} {User.GetStreetnumber()} </p>
+            <p><b> Plaats: </b>{User.GetPlaats()}</p>
             <p><b> Postcode: </b>{User.getPostcode()} </p>
             <button onClick={() => this.setState({isGegevensWijzigenClicked: true})}> Gegevens Wijzigen </button>
             
