@@ -101,10 +101,6 @@ namespace Controllers
                 client.Disconnect(true);             
             }
         }
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] Klant user){
-        }
 
         // DELETE api/values/5
         [HttpDelete("{id}")]
@@ -116,8 +112,21 @@ namespace Controllers
             this._context.Review.RemoveRange(reviewsToRemove);
             
             this._context.SaveChanges();
-    
-        
+      
+        }
+        //Updates gegevens information
+        [HttpPut]
+        public void PutGegevensUser([FromBody] dynamic user){
+            int userPk = user.pk;
+            var foundUser = this._context.Klanten.Where((a) => a.KlantId == userPk).FirstOrDefault();
+            foundUser.klantMail = user.email;
+            foundUser.klantStraat = user.straatNaam;
+            foundUser.klantStraatnmr = user.straatNummer;
+            foundUser.klantPostcode = user.postcode;
+            foundUser.klantPlaats = user.plaats;
+            this._context.SaveChanges();
+
+
         }
     }
 }
