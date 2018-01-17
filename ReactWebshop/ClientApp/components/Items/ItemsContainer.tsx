@@ -774,7 +774,7 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
                     
                     <div className='col-md-10'> 
                         <ul className="pagination">
-                        <li > <button className={"btn btn-default"} onClick={()=> this.state.page > 20?this.setState({ page : this.state.page - 20 }): null } >{"<-"} vorige</button> </li>
+                        <li > <button className={"btn btn-default"} onClick={()=> this.state.page > 20?this.setState({ page : this.state.page - 20 }) && window.scrollTo(0,0): null } >{"<-"} vorige</button> </li>
                         
 
                             {

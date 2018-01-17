@@ -361,7 +361,7 @@ export class UsersPage extends React.Component<{}, UsersState>{
 
                                 <div className='col-md-10'> 
                                     <ul className="pagination">
-                                    <li > <button className={"btn btn-default"} onClick={()=> this.setState({ page : this.state.page - 20 })} >{"<-"} vorige</button> </li>
+                                    <li > <button className={"btn btn-default"} onClick={()=> this.state.page > 20?this.setState({ page : this.state.page - 20 }) && window.scrollTo(0,0): null }  >{"<-"} vorige</button> </li>
                                         {
                                             this.state.users.map(
                                                 (item, index) => {
@@ -373,7 +373,7 @@ export class UsersPage extends React.Component<{}, UsersState>{
                                                 }
                                             )
                                         }
-                                    <li > <button className={"btn btn-primary"} onClick={()=> this.setState({ page : this.state.page + 20 })} >volgende -></button> </li>
+                                    <li > <button className={"btn btn-primary"} onClick={()=> this.state.users.length - 20 > this.state.page? this.setState({ page : this.state.page + 20 }) && window.scrollTo(0, 0) : null }  >volgende -></button> </li>
                                     </ul>
                                 </div>
 

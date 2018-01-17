@@ -297,14 +297,16 @@ const topBarLoggedIn = (
                 </ul>
                 <ul className="nav navbar-nav navbar-right">
                     <li><NavLink to="/Winkelmand"><p className='glyphicon glyphicon-shopping-cart'> </p> Winkelmand <span className="badge">{this.state.WMItems}</span> </NavLink></li>
-                    <li className="dropdown">
-                    <a className="dropdown-toggle" data-toggle="dropdown" href="#">Profiel
-                        <span className="caret"></span>
-                    </a>
-                    <ul className="dropdown-menu">
-                    <li><NavLink to={"/Profile/Gegevens"} >Gegevens</NavLink></li>
-                    <li><NavLink to={"/Wenslijst"}>Wenslijst</NavLink></li>
-                    <li><NavLink to={"/Bestellingen"}>Bestellingen</NavLink></li>
+                        
+                        <li className="dropdown">
+                        <a className="dropdown-toggle" data-toggle="dropdown" href="#">Profiel
+                            <span className="caret"></span>
+                        </a>
+                        <ul className="dropdown-menu">
+                        <li><NavLink to={"/Profile/Gegevens"} >Gegevens</NavLink></li>
+                        <li><NavLink to={"/Wenslijst"}>Wenslijst</NavLink></li>
+                        <li><NavLink to={"/Bestellingen"}>Bestellingen</NavLink></li>
+                        
                     </ul>
                 </li>
                     <li><NavLink to="/Logout"><span className="glyphicon glyphicon-log-out"> </span>    Log uit</NavLink></li>    

@@ -1,4 +1,5 @@
 import Klant from "../../../TypescriptModels/Klant";
+import { Admin } from "../AdminProfile/Admin";
 
 //The class for the user that logs in
 //It stores the data of the user
@@ -28,6 +29,7 @@ export class User{
         if(User.user == null){
             User.user = new User();
             User.isLoggedIn = true;
+            Admin.LogoutAdmin();
             return User.user;
         }
         throw new Error("There is already a user logged in!")
@@ -75,6 +77,7 @@ export class User{
     public static LogUserOut(){
         User.isLoggedIn = false;
         User.user = null;
+        Admin.LogoutAdmin();
     }
     public static GetPK(){
         return User.pk;

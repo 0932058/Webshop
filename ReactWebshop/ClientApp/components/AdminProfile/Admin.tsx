@@ -8,4 +8,7 @@ export class Admin{
     public static IsAdminLoggedIn(){
         return Admin.isAdminLoggedIn;
     }
+    public static LogoutAdmin(){
+        Admin.isAdminLoggedIn = false;
+    }
 }
