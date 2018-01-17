@@ -41,18 +41,17 @@ export class BestellingenPage extends React.Component<{}, BestellingenState> {
         var orders = this.state.bestellingen;
         var tempset = [];
         var res = [];
-        var tempnumber = 1;
+        orders.forEach(order =>
+            {
+                if(tempset.find(value => value === order.groupId) !== order.groupId){
+                    res[order.groupId] = []
+                    tempset.push(order.groupId)
+                }
+            }
+        )
+
         orders.forEach(order => {
-            if (order.groupId == tempnumber){
-                tempset.push(order);
-            }
-            else{
-                res.push(tempset);
-                tempset = [];
-                tempset.push(order);
-                tempnumber = order.groupId;
-            }
-            
+            res[order.groupId].push(order)
         });
         console.log(res);
         this.setState({bestellingsets: res, loaded: true});

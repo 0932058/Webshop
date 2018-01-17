@@ -53,18 +53,17 @@ export class BestellingenContainer extends AbstractStorage {
             var orders = this.state.products;
             var tempset = [];
             var res = [];
-            var tempnumber = 1;
+            orders.forEach(order =>
+                {
+                    if(tempset.find(value => value === order.groupId) !== order.groupId){
+                        res[order.groupId] = []
+                        tempset.push(order.groupId)
+                    }
+                }
+            )
+
             orders.forEach(order => {
-                if (order.groupId == tempnumber){
-                    tempset.push(order);
-                }
-                else{
-                    res.push(tempset);
-                    tempset = [];
-                    tempset.push(order);
-                    tempnumber = order.groupId;
-                }
-                
+                res[order.groupId].push(order)
             });
             console.log(res);
             this.setState({productdata: res, loaded: true});
@@ -106,10 +105,12 @@ export class BestellingenContainer extends AbstractStorage {
                 </div>
             </div>
             <div>
-                {
+                {this.state.loaded ?
                 this.state.productdata.map(
                 set =>{
+                    console.log(set.length)
                     if (set.length != 0){
+
                     return(
                         <div>
                             <h1>Bestellingset: {set[0].groupId}</h1>
@@ -147,6 +148,8 @@ export class BestellingenContainer extends AbstractStorage {
                     }
                     }
         )
+        :
+        null
     }
     </div>
     </div>
