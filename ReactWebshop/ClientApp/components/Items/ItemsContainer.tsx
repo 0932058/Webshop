@@ -689,7 +689,7 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
 
             <div  className="container-fluid">
             {this.props.location.pathname.toString() === "/"?
-            <div className='co-md-12'> <h1> {User.getStorageId() != 0? User.GetFirstname() + ", ": null} Welkom bij de Normies webshop!</h1> </div> 
+            <div className='co-md-12'> <h1>Welkom bij de Normies webshop!</h1> </div> 
             :
             
             <div/>
