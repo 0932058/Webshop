@@ -131,7 +131,14 @@ export class RegistratieContainer extends React.Component<RouteComponentProps<{}
                          /> 
                         </div>
                     </div>
-                    <div className="row">     
+                    <div className="row">
+                        <div className="col-md-4 col-md-offset-4">
+                        <p>Herhaal Wachtwoord*</p>
+                        <input placeholder="herhaal wachtwoord" pattern={"(" + this.state.password + ")"}  title="moet hetzelfde zijn als wachtwoord"
+                        type="password" name="herhaal wachtwoord" className="form-control"  required={true}
+                         /> 
+                        </div>
+                    <div className="row">    
                         <div className="col-md-4 col-md-offset-4"> 
                             <p>Straatnaam*</p>
                             <input placeholder='straatnaam' pattern="[a-zA-Z /s]{2,30}" title="vul een juist adres in"
