@@ -229,7 +229,9 @@ form{
 */
 
 
-
+.sort{
+    list-style-type: none
+}
 
 .yellow{
     color : gold
