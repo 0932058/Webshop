@@ -53,6 +53,7 @@ namespace reactTwo.Controllers
             List<JoinedBestelling> bestToRet = new List<JoinedBestelling>();
 
             var foundOrder = this._context.Bestellingen.Where(order => order.klantId  == KlantId).ToArray();
+            JoinedBestelling[] res;
 
             foreach(Bestelling bestelling in foundOrder){
                 if ((bestelling.productId != 0) && (bestelling.klantId != 0)){
@@ -62,6 +63,7 @@ namespace reactTwo.Controllers
                         bestellingDatum = bestelling.bestellingDatum,
                         verstuurDatum = bestelling.verstuurDatum,
                         status = bestelling.status,
+                        groupId = bestelling.groupId,
                         klantId = _context.Klanten.Find(bestelling.klantId)
                     };
                     bestToRet.Add(newBest);
@@ -69,7 +71,8 @@ namespace reactTwo.Controllers
             }
 
             if(foundOrder != null){
-                return Ok( bestToRet.ToArray());
+                res = bestToRet.OrderByDescending((b) => b.groupId).ToArray();
+                return Ok(res);
 
             }
             else{
@@ -80,31 +83,34 @@ namespace reactTwo.Controllers
         [HttpPost("Post")]
         public void Post([FromBody]Bestelling[] orders){
             int possiblePK = 1;
+            int groupPK = 1;
+            while(this._context.Bestellingen.Where((a) => a.groupId == groupPK).FirstOrDefault() != null){
+                groupPK++;
+            }
             foreach (Bestelling order in orders)
             {
                 while(this._context.Bestellingen.Where((a) => a.BestellingId == possiblePK).FirstOrDefault() != null){
                     possiblePK++;
                 }
                 order.BestellingId = possiblePK;
+                order.groupId = groupPK;
                 this._context.Bestellingen.Add(order);     
                 this._context.SaveChanges();          
             }        
-        }
-        [HttpPost("Update")]
-        public IActionResult UpdateOrder([FromBody] Bestelling order){
-            this.DeleteOrder(order);
-            this._context.Add(order);
-            this._context.SaveChanges();
-            return Ok(order);
         }
          [HttpPost("Update2/{pkOrder}")]
         public void UpdateOrder2(int pkOrder){
             var order = this._context.Bestellingen.Where((a) => a.BestellingId == pkOrder).FirstOrDefault();
             if(order != null){
-                if(order.status != "verzonden"){
+                if(order.status == "In behandeling"){
                     order.status = "Verzonden";
+                    order.verstuurDatum = DateTime.Now;
                     this._context.SaveChanges();
-            }  
+            }
+                else if(order.status == "Verzonden"){
+                    order.status = "Ontvangen";
+                    this._context.SaveChanges();
+                }
             }       
         }
 

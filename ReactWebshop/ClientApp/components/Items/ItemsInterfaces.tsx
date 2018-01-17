@@ -33,6 +33,7 @@ export interface Bestelling {
     verstuurDatum : Date 
     status : string
     klantId : number
+    groupId : number
 }
 
 export interface JoinedBestelling {

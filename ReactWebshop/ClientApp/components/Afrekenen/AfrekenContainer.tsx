@@ -55,7 +55,8 @@ export class Afrekenen extends AbstractStorage {
                 productId: product.id,
                 bestellingDatum: new Date(),
                 verstuurDatum: new Date(),
-                status: 'In behandeling'
+                status: 'In behandeling',
+                groupId: 0
             }
             res.push(order);
         })
