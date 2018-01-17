@@ -360,7 +360,7 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
                     <div className="panel panel-default">
                         <div data-toggle="collapse" href="#collapse2" className="panel-heading">
                             <h4  className="panel-title">
-                                <a data-toggle="collapse" href="#collapse2" >Console</a>
+                                <a data-toggle="collapse" href="#collapse2" >Soort console</a>
                             </h4>
                         </div>
                         <div id="collapse2" className="panel-collapse collapse in">
