@@ -233,16 +233,20 @@ export class UsersPage extends React.Component<{}, UsersState>{
                                         
                                     
                                         <div className='col-md-10'>   
-                                            <h3>klant id:{" " + user.klantId } </h3>
-                                            <h3>Username: { user.username }  </h3>
-                                            <h3>Achternaam: { user.klantNaam }  </h3>
-                                            <h3>E-Mail: { user.klantMail }  </h3>
+                                            <p><b>klant id:</b>{" " + user.klantId } </p>
+                                            <p><b>Username:</b> { user.username }  </p>
+                                            <p><b>Voornaam: </b>{user.klantNaam}</p>
+                                            <p><b>Achternaam: </b>{ user.klantAchternaam }  </p>
+                                            <p><b>E-Mail:</b> { user.klantMail }  </p>
+                                            
                                             
                                         
                                           
                                             <button type="button" className={"btn btn-primary"} data-toggle="collapse" data-target="#userForm"  onClick={() => this.EditEntity(user)} > Bekijk / Pas Aan </button>
                                             <button className={"btn btn-primary"} onClick={() => this.DeleteEntity(user)} > Verwijder </button>
+                                            <p></p>
                                             </div>
+                                            
                                             { console.log(this.state.change) }
                                             {
                                                 user.klantId === this.state.change || this.state.createUserClicked?
@@ -327,7 +331,24 @@ export class UsersPage extends React.Component<{}, UsersState>{
                                                           
 
                                                                 
-                                                            <li><input className="btn btn-primary" placeholder="Wijzigen" type="submit" value="Wijzigen"/> </li>
+                                                        
+                                                            <div>
+                                                            <input className="btn btn-primary" placeholder="Wijzigen" type="submit" value="Wijzigen" data-toggle="modal" data-target="#UserW"/>
+                                                            <div className="modal fade" id="UserW" role="dialog">
+                                                            <div className="modal-dialog modal-sm">
+                                                            <div className="modal-content">
+                                                            <div className="modal-header">
+                                                                <button type="button" className="close" data-dismiss="modal" data-backdrop="false">&times;</button>
+                                                                <h4 className="modal-title">User is aangepast!</h4>
+                                                            </div>
+                                                            <div className="modal-body">
+                                                                <br />
+                                                                <button onClick={()=> this.setState({ change : 0})} className="btn btn-default" data-backdrop="false" data-dismiss="modal">Terug</button>
+                                                            </div>
+                                                        </div>
+                                                        </div>
+                                                        </div>
+                                                        </div>
                                                             </div>
                                                             </div>
                                                             </form>

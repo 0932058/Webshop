@@ -296,7 +296,7 @@ const topBarLoggedIn = (
               </form>
                 </ul>
                 <ul className="nav navbar-nav navbar-right">
-                    <li><NavLink to="/Winkelmand">Winkelmand <span className="badge">{this.state.WMItems}</span> </NavLink></li>
+                    <li><NavLink to="/Winkelmand"><p className='glyphicon glyphicon-shopping-cart'> </p> Winkelmand <span className="badge">{this.state.WMItems}</span> </NavLink></li>
                     <li className="dropdown">
                     <a className="dropdown-toggle" data-toggle="dropdown" href="#">Profiel
                         <span className="caret"></span>
