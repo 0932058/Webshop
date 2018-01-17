@@ -138,6 +138,7 @@ export class RegistratieContainer extends React.Component<RouteComponentProps<{}
                         type="password" name="herhaal wachtwoord" className="form-control"  required={true}
                          /> 
                         </div>
+                    </div>
                     <div className="row">    
                         <div className="col-md-4 col-md-offset-4"> 
                             <p>Straatnaam*</p>
