@@ -774,8 +774,12 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
                     
                     <div className='col-md-10'> 
                         <ul className="pagination">
-                        <li > <button className={"btn btn-default"} onClick={()=> this.state.page > 20?this.setState({ page : this.state.page - 20 }) && window.scrollTo(0,0): null } >{"<-"} vorige</button> </li>
-                        
+                        {this.state.page > 20? 
+                        <li > <button className={"btn btn-default"} onClick={()=> {this.setState({ page : this.state.page - 20 }); window.scrollTo(0,0)} } >{"<-"} vorige</button> </li>
+                        :
+                        null
+                        }
+                         
 
                             {
                                 this.state.filteredItems.map(
@@ -794,8 +798,12 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
                                     }
                                 )
                             }
-
-                            <li > <button className={"btn btn-default"} onClick={()=> this.state.filteredItems.length - 20 > this.state.page? this.setState({ page : this.state.page + 20 }) && window.scrollTo(0, 0) : null } >volgende -></button> </li>   
+                            {
+                                this.state.filteredItems.length - 20 > this.state.page?
+                                <li > <button className={"btn btn-default"} onClick={()=> {this.setState({ page : this.state.page + 20 }); window.scrollTo(0, 0)} }>volgende -></button> </li>
+                                :
+                                null
+                            }   
                         </ul>
                     </div>
                     
