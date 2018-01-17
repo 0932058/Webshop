@@ -20,7 +20,7 @@ export class Afrekenen extends AbstractStorage {
             customerID: loggedInUserPK, 
             isShoppingCart:true, 
             loaded:false, 
-            totalPrice: this.CalcPrice(),
+            totalPrice: this.CalcPrice().toFixed(2),
             ordered: false,
             formVoornaam: "",
             formAchternaam: "",
@@ -42,7 +42,8 @@ export class Afrekenen extends AbstractStorage {
     componentDidMount(){
         this.setState({
             products: this.GetCartData(),
-            loaded: true
+            loaded: true,
+            productdata: this.BuildItemStack()
         })
         console.log(this.GetCartData())
     }
@@ -62,6 +63,26 @@ export class Afrekenen extends AbstractStorage {
             res.push(order);
         })
         return res;
+    }
+
+    BuildItemStack(){
+        var cart = this.GetCartData();
+        var stacklist = [];
+        cart.forEach(cartproduct => {
+            var checkproduct = stacklist.find(stack => stack.product.id == cartproduct.id);
+            if (checkproduct == null){
+                var stack = {"product" : cartproduct, "amount" : 1};
+                stacklist.push(stack);
+            }
+            else{
+                stacklist.map(stack =>{
+                    if (stack.product.id == cartproduct.id){
+                        stack.amount += 1;
+                    }
+                });
+            }
+        })
+        return stacklist;
     }
     async PostOrderToDatabase(klantId){
         let apiUrl = 'api/Bestellingen/Post'
@@ -156,15 +177,17 @@ export class Afrekenen extends AbstractStorage {
                         </div>
                         <div className='col-md-6'>
                         <p><b>Bestel overzicht</b></p>
-                        {this.state.loaded?this.state.products.map(
+                        {this.state.loaded?this.state.productdata.map(
                             item =>{
                                 return(
                                     <div className={"Component"}>
                                     <div className='col-md-12'>
-                                    <div className='col-md-3'><img className="img-responsive" src={item.image}/></div>
-                                    <p><b>Product Naam:</b>{item.name}</p>
-                                    <p><b>Console type:</b>{item.console}</p>
-                                    <p><b>Stuk prijs:</b>{"€"+item.price}</p>
+                                    <div className='col-md-3'><img className="img-responsive" src={item.product.image}/></div>
+                                    <p><b>Product Naam:</b>{item.product.name}</p>
+                                    <p><b>Console type:</b>{item.product.console}</p>
+                                    <p><b>Aantal:</b>{item.amount}</p>
+                                    <p><b>Stuk prijs:</b>{"€"+item.product.price}</p>
+                                    <p><b>Prijs:</b>{"€"+(item.product.price*item.amount)}</p>
 
                                     </div>
                                     </div>
@@ -213,18 +236,9 @@ export class Afrekenen extends AbstractStorage {
                                     Bestaande klanten
                                 </h4>
                                 <div className="col-md-9">
-                                    <label>Gebruikersnaam </label>
-                                    <div className="input-group">
-                                        <span className="input-group-addon"> <i className="glyphicon glyphicon-user"> </i> </span> 
-                                        <input required placeholder="Gebruikersnaam" className="form-control glyphicon glyphicon-user" type="text"/>
-                                    </div>
-                                    <label>Wachtwoord </label>
-                                    <div className="input-group">
-                                        <span className="input-group-addon"> <i className="glyphicon glyphicon-lock"> </i> </span> 
-                                        <input required placeholder="Wachtwoord" className="form-control glyphicon glyphicon-lock" type="password"/>
-                                    </div>
+                                    <NavLink to="/Login"><button className="btn btn-primary">Login</button></NavLink>
                                     <h5>Nog geen account?</h5>
-                                    <NavLink to="/Registratie"><button className="btn btn-primary">Registreer nu!</button></NavLink>
+                                    <NavLink to="/Registratie"><button className="btn btn-primary">Registreer nu</button></NavLink>
                                 </div>
                             </div>
                         </div>
@@ -235,20 +249,21 @@ export class Afrekenen extends AbstractStorage {
                             <br/>
                             <br/>
                             <br/>
-                            <br/>
                                 <h4>
                                     <strong>Bestel je voor het eerst?</strong>
                                 </h4>
                                 <div className="col-md-6">
-                                    <label>Email</label>
+                                <form action="/action_page.php">
+                                    <label>Snel de bestelling afronden?</label>
                                     <div className="input-group">
                                         <span className="input-group-addon"> <i className="glyphicon glyphicon-envelope"> </i> </span>
                                         <input required placeholder="email" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+[.]+[a-z]{2,3}$" 
                                         title='zorg dat het een juist email is vb. characters@characters.domain'
                                         type="text" name="email"className="form-control" onChange={(event: any) => {this.setState({formEmail: event.target.value})}}/>
                                     </div>
-                                    <br/>
-                                    <button className="btn btn-primary" onClick={() => {this.setState({nieuweKlant: true})}}>Ga verder als nieuwe klant</button>
+                                </form>
+                                <br/>
+                                <button className="btn btn-primary" onClick={() => {this.setState({nieuweKlant: true})}}>Ga verder als nieuwe klant</button>
                                 </div>
                             </div>
                         </div>
