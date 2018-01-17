@@ -26,6 +26,7 @@ interface ProductsState{
     productGenre : string 
     consoleType : string 
     productImage: string
+    showModal: boolean
 }
 
 export class ProductsPage extends React.Component<{}, ProductsState> implements IAdmin{
@@ -56,7 +57,8 @@ export class ProductsPage extends React.Component<{}, ProductsState> implements 
             isNoEmptyInputFields : false,
             productGenre : "",
             consoleType : "",
-            productImage: ""
+            productImage: "",
+            showModal: false
         }
     }
 
@@ -67,7 +69,8 @@ export class ProductsPage extends React.Component<{}, ProductsState> implements 
     getProducts(){
         this.setState(
             {
-                loaded: false
+                loaded: false,
+                showModal: false,
             }
         )
         fetch("api/Admin/GetAllProducts")
@@ -141,9 +144,17 @@ export class ProductsPage extends React.Component<{}, ProductsState> implements 
             productUitgever : this.state.productUitgever,
             aantalInVooraad : this.state.aantalInVooraad,
             consoleType: this.state.consoleType,
-            productImg: this.state.productImage
+            productImg: this.state.productImage,
         }
-        let apiResponse = await fetch(apiUrl, {method: 'POST', body:JSON.stringify(productToPost), headers: new Headers({'content-type' : 'application/json'})});
+        let apiResponse = await fetch(apiUrl, {method: 'POST', body:JSON.stringify(productToPost), headers: new Headers({'content-type' : 'application/json'})})
+        .then(
+            resp =>
+            {
+                this.setState({
+                    showModal: true
+                })
+            }
+        );
         console.log(apiResponse + " Response")
         this.setState({isNoEmptyInputFields: true})
 
@@ -203,13 +214,13 @@ export class ProductsPage extends React.Component<{}, ProductsState> implements 
                                                     <form action="/action_page.php" onSubmit={ this.handleChangeSubmit } >
 
                                                         <p>productNaam</p>
-                                                            <input placeholder="productNaam" title="productNaam moet bestaan uit 1 tot en met 15 letters"
+                                                            <input placeholder="productNaam" pattern="[a-zA-Z0-9/s]{2,100}" title="Productnaam moet bestaan uit 1 tot en met 15 letters"
                                                             type="text" name="productNaam" className="form-control" value={this.state.productNaam} required={true}
                                                             onChange={(event:any) => this.setState({productNaam: event.target.value})}
                                                              />
 
                                                         <p>productUitgever</p>
-                                                            <input placeholder="productUitgever" title="productUitgever moet bestaan uit 1 tot 30 letters" 
+                                                            <input placeholder="productUitgever" pattern="[a-zA-Z /s]{2,30}" title="Geen geldige uitgeven" 
                                                             type="text" name="productUitgever" className="form-control"  value={this.state.productUitgever} required={true} 
                                                             onChange={(event:any) => this.setState({productUitgever: event.target.value})}
                                                             
@@ -217,21 +228,21 @@ export class ProductsPage extends React.Component<{}, ProductsState> implements 
                                                         <p>productOmschr</p>
                                                             <input placeholder="productOmschr"
                                                             title='Omschrijving moet alleen uit letters bestaan'
-                                                            type="text" name="productOmschr"className="form-control"  value={this.state.productOmschr} required={true} 
+                                                            type="text" name="productOmschr" pattern="{6, 750}" className="form-control"  value={this.state.productOmschr} required={true} 
                                                             onChange={(event:any) => this.setState({productOmschr: event.target.value})}
                                                             />
                                                         <p>aantalInVoorraad</p>
-                                                            <input placeholder="aantalInVoorraad" title="gebruikers naam mag maximaal uit 8 tekens bestaan"
+                                                            <input placeholder="aantalInVoorraad" pattern="[0-9]{.5}" title="gebruikers naam mag maximaal uit 8 tekens bestaan"
                                                             type="text" name="aantalInVooraad"className="form-control"  value={this.state.aantalInVooraad} required={true}
                                                             onChange={(event:any) => this.setState({aantalInVooraad: event.target.value})}
                                                             />
                                                         <p>productPrijs</p>
-                                                            <input placeholder="productPrijs" title="productPrijs moet minstens 6 waardes bevatten"
+                                                            <input placeholder="productPrijs" pattern="[0-9]{1,3}" title="productPrijs moet minstens 6 waardes bevatten"
                                                             type="productPrijs" name="productPrijs"className="form-control"  value={this.state.productPrijs} required={true} 
                                                             onChange={(event:any) => this.setState({productPrijs: event.target.value})}
                                                             /> 
                                                         <p>productType</p>
-                                                            <input placeholder='productType' title="vul een juist adres in"
+                                                            <input placeholder='productType' pattern="[a-zA-Z]{4,11}" title="vul een juiste type in"
                                                             type="text" name="productType"className="form-control"  value={this.state.productType} required={true} 
                                                             onChange={(event:any) => this.setState({productType: event.target.value})}
                                                             
@@ -243,16 +254,18 @@ export class ProductsPage extends React.Component<{}, ProductsState> implements 
                                                             
                                                             />
                                                         <p>productOntwikkelaar</p>
-                                                            <input placeholder="productOntwikkelaar"  title="productOntwikkelaar moet uit 4 cijfers en 2 letters bestaan" 
+                                                            <input placeholder="productOntwikkelaar"  pattern="[a-zA-Z0-9 /s]{4,25}" title="Geen geldige ontwikkelaar"
                                                             type="text" name="productOntwikkelaar"className="form-control"  value={this.state.productOntwikkelaar} required={true} 
                                                             onChange={(event:any) => this.setState({productOntwikkelaar: event.target.value})} />          
                                                         <br/>
-                                                        <input className="btn btn-primary" placeholder="pas het product aan" type="submit" value="pas het product aan" data-toggle="modal" data-target="#productModal"/>
+                                                        {this.state.showModal === true?
+                                                        <div>
+                                                            <input className="btn btn-primary" placeholder="pas het product aan" type="submit" value="pas het product aan" data-toggle="modal" data-target="#productModal"/>
                                                             <div className="modal fade" id="productModal" role="dialog">
-                                                                <div className="modal-dialog modal-sm">
-                                                                <div className="modal-content">
-                                                                <div className="modal-header">
-                                                                <button type="button" className="close" data-dismiss="modal">&times;</button>
+                                                            <div className="modal-dialog modal-sm">
+                                                            <div className="modal-content">
+                                                            <div className="modal-header">
+                                                                <button type="button" className="close" data-dismiss="modal" data-backdrop="false" onClick={this.getProducts}>&times;</button>
                                                                 <h4 className="modal-title">Product is aangepast!</h4>
                                                             </div>
                                                             <div className="modal-body">
@@ -262,11 +275,17 @@ export class ProductsPage extends React.Component<{}, ProductsState> implements 
                                                         </div>
                                                         </div>
                                                         </div>
+                                                        </div>
+                                                        :
+                                                        <input className="btn btn-primary" placeholder="pas het product aan" type="submit" value="pas het product aan"/>
+                                                        }
+                                                        
                                                     </form>
                                                     </div> 
                                             :
                                             null
-                                        }
+                                            }
+
                                         </div>
                                     </div>
                             )
