@@ -19,6 +19,9 @@ import {RegistratieSuccesfullContainer} from "./components/Registratie/Registrat
 import {Afrekenen} from "./components/Afrekenen/AfrekenContainer";
 import {AdminContainer} from "./components/AdminProfile/AdminContainer";
 import {UserNotLoggedInMenu} from "./components/LoginAndLogout/UserNotLoggedInMenuLayout";
+import {AboutPage} from "./components/Footer/AboutPage";
+import {ToSPage} from "./components/Footer/ToSPage";
+import {PolicyPage} from "./components/Footer/PolicyPage";
 
 export var routes = <Layout>
     <Route exact path={"/"} component={ItemsContainer} />
@@ -60,6 +63,9 @@ export var routes = <Layout>
     <Route path="/Accessoires/Headset" component={ItemsContainer}/>
     <Route path="/Accessoires/Racewheel" component={ItemsContainer}/>
 
+    <Route path="/Policy" component={PolicyPage}/>
+    <Route path="/ToS" component={ToSPage}/>
+    <Route path="/About" component={AboutPage}/>
     <Route path="/Normies" component={UserNotLoggedInMenu}/>
     
 </Layout>;

@@ -213,18 +213,9 @@ export class Afrekenen extends AbstractStorage {
                                     Bestaande klanten
                                 </h4>
                                 <div className="col-md-9">
-                                    <label>Gebruikersnaam </label>
-                                    <div className="input-group">
-                                        <span className="input-group-addon"> <i className="glyphicon glyphicon-user"> </i> </span> 
-                                        <input required placeholder="Gebruikersnaam" className="form-control glyphicon glyphicon-user" type="text"/>
-                                    </div>
-                                    <label>Wachtwoord </label>
-                                    <div className="input-group">
-                                        <span className="input-group-addon"> <i className="glyphicon glyphicon-lock"> </i> </span> 
-                                        <input required placeholder="Wachtwoord" className="form-control glyphicon glyphicon-lock" type="password"/>
-                                    </div>
+                                    <NavLink to="/Login"><button className="btn btn-primary">Login</button></NavLink>
                                     <h5>Nog geen account?</h5>
-                                    <NavLink to="/Registratie"><button className="btn btn-primary">Registreer nu!</button></NavLink>
+                                    <NavLink to="/Registratie"><button className="btn btn-primary">Registreer nu</button></NavLink>
                                 </div>
                             </div>
                         </div>
@@ -235,20 +226,21 @@ export class Afrekenen extends AbstractStorage {
                             <br/>
                             <br/>
                             <br/>
-                            <br/>
                                 <h4>
                                     <strong>Bestel je voor het eerst?</strong>
                                 </h4>
                                 <div className="col-md-6">
-                                    <label>Email</label>
+                                <form action="/action_page.php">
+                                    <label>Snel de bestelling afronden?</label>
                                     <div className="input-group">
                                         <span className="input-group-addon"> <i className="glyphicon glyphicon-envelope"> </i> </span>
                                         <input required placeholder="email" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+[.]+[a-z]{2,3}$" 
                                         title='zorg dat het een juist email is vb. characters@characters.domain'
                                         type="text" name="email"className="form-control" onChange={(event: any) => {this.setState({formEmail: event.target.value})}}/>
                                     </div>
-                                    <br/>
-                                    <button className="btn btn-primary" onClick={() => {this.setState({nieuweKlant: true})}}>Ga verder als nieuwe klant</button>
+                                </form>
+                                <br/>
+                                <button className="btn btn-primary" onClick={() => {this.setState({nieuweKlant: true})}}>Ga verder als nieuwe klant</button>
                                 </div>
                             </div>
                         </div>
