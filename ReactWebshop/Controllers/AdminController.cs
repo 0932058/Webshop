@@ -91,6 +91,28 @@ namespace Controllers
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] Klant user){
         }
+        [HttpGet("Reviews")]
+        public IActionResult GetAllReviews(){
+            if(this._context.Review.Count() <= 0){
+                return NotFound();
+            }
+            
+            var ReviewProductenJoined = this._context.Review.Join(this._context.Producten, (r) => r.ProductId, (p) => p.ProductId, (rRes, pRes) => new {
+                reviewId = rRes.ReviewId,
+                klantId = rRes.KlantId,
+                productNaam =  pRes.productNaam,
+                rating = rRes.Rating,
+                comment = rRes.Comment              
+            })
+            .Join(this._context.Klanten, (r) => r.klantId, (k) => k.KlantId, (rRes, kRes) => new {
+                reviewId = rRes.reviewId,
+                klantNaam = kRes.klantNaam,
+                productNaam =  rRes.productNaam,
+                rating = rRes.rating,
+                comment = rRes.comment   
 
+            });
+            return Ok(ReviewProductenJoined.ToArray());
+        }
     }
 }

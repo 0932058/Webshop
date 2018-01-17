@@ -4,6 +4,7 @@ import { ProductsPage } from "./ProductsPage" ;
 import { UsersPage } from "./UsersPage" ;
 import {BestellingenPage} from "./BestellingenPage";
 import { StatisticsPage } from "./StatisticsPage" ;
+import {ReviewsPage} from "./ReviewsPage";
 import {User} from "../User/User";
 import {Admin} from "../AdminProfile/Admin";
 import { Redirect } from 'react-router';
@@ -52,6 +53,8 @@ export class AdminContainer extends React.Component<RouteComponentProps<{}>, Adm
                         <button className={"list-group-item btn "} onClick={() => this.switchTo(<BestellingenPage/>)} >Bestellingen</button> 
 
                         <button className={"list-group-item btn "} onClick={() => this.switchTo(<UsersPage/>)} >Gebruikers</button>
+
+                        <button className={"list-group-item btn "} onClick={() => this.switchTo(<ReviewsPage/>)} >Reviews</button>
 
                         <button className={"list-group-item btn "} onClick={() => this.switchTo(<StatisticsPage/>)} >Statistieken</button>
 

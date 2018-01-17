@@ -23,7 +23,8 @@ export class Winkelmand extends AbstractStorage {
             formStraatnummer: "",
             formPostcode: "",
             formEmail: "",
-            productdata: []
+            productdata: [],
+            nieuweKlant: null,
         }
     }
     BuildItemStack(){
