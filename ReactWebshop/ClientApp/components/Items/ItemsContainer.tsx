@@ -709,7 +709,7 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
             <div  className={"ItemsContainerScroll "}>
                 {this.state.loaded && this.state.reviewsLoaded? 
 
-                    <div className='container' id='maingame'>      
+                    <div>      
                     <h3> { "Aantal producten: " + this.state.filteredItems.length } </h3>  
                     <h3> { "pagina: " + this.state.page / 20 } </h3>  
                     

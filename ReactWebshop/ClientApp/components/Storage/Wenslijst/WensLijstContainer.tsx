@@ -137,7 +137,7 @@ export class WenslijstContainer extends AbstractStorage {
                         var data = this.GetProductDataFromState(listitem.productNmr);
                         return(
                             <div className={"Component"}>
-                                <div className='container'>
+                                <div className='container-fluid'>
                                     <div className="panel panel-default">
                                         <div className="panel-body">
                                                 <div className='col-md-2'>
