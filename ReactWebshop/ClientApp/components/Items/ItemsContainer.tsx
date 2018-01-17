@@ -265,13 +265,14 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
         }
     }
 
-    async resetPriceFilter(){
-        await this.setState({
+    resetPriceFilter(){
+        this.setState({
             min : 1,
             minSet : 1,
             max : 999,
             maxSet : 999
         })
+        
     }
 
     //Not called yet, but will be called when pagination is added
@@ -347,7 +348,7 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
                              
                                 <input type="number" min="1" max="999" value={ this.state.max } placeholder="max 999" onChange={this.onMaxChange} />
 
-                                <button className="btn btn-primary mb-2" onClick={this.onPrijsSubmit}>pas toe</button>
+                                <button className="btn btn-success mb-2" onClick={this.onPrijsSubmit}>pas toe</button>
 
                                 <button className="btn btn-danger mb-2" onClick={this.resetPriceFilter}>reset</button>
                             </div>

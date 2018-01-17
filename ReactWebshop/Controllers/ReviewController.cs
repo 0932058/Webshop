@@ -20,13 +20,22 @@ namespace Controllers
         //Posts a review 
         [HttpPost("Post")]
         public void Post([FromBody]Review review){
-            int possiblePK = 1;
-            while(this._context.Review.Find(possiblePK) != null){
-                possiblePK += 1;
+            var oldReview = this._context.Review.Where((r) => review.ProductId == r.ProductId && review.KlantId == r.KlantId).FirstOrDefault();
+            if(oldReview == null){
+                int possiblePK = 1;
+                while(this._context.Review.Find(possiblePK) != null){
+                    possiblePK += 1;
+                }
+                review.ReviewId = possiblePK;
+                this._context.Review.Add(review);
+                this._context.SaveChanges();
+                }
+            else{
+                oldReview.Rating = review.Rating;
+                oldReview.Comment = review.Comment;
+                this._context.SaveChanges();
             }
-            review.ReviewId = possiblePK;
-            this._context.Review.Add(review);
-            this._context.SaveChanges();
+            
         }              
         //Average review for an product
         [HttpGet("Get/{productId}")]

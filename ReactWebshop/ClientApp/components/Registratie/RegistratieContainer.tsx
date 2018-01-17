@@ -87,9 +87,9 @@ export class RegistratieContainer extends React.Component<RouteComponentProps<{}
                     </div>
                     <div className="row">
                         <div className="col-md-4 col-md-offset-4">
-                            <p>Tussenvoegsel*</p>
-                            <input placeholder="voornaam" pattern="[a-zA-Z /s]{1,15}" title="tussenvoegsel moet bestaan uit 1 tot en met 15 letters"
-                            type="text" name="firstname" className="form-control" value={this.state.tussenvoegsel} required={true}
+                            <p>Tussenvoegsel</p>
+                            <input placeholder="tussenvoegsel" pattern="[a-zA-Z /s]{1,15}" title="tussenvoegsel moet bestaan uit 1 tot en met 15 letters"
+                            type="text" name="tussenvoegsel" className="form-control" value={this.state.tussenvoegsel} 
                             onChange={(e:any) => this.setState({tussenvoegsel: e.target.value})}/>
                         </div>
                     </div>
@@ -166,7 +166,7 @@ export class RegistratieContainer extends React.Component<RouteComponentProps<{}
                         </div>
                     <div className="row">
                         <div className="col-md-4 col-md-offset-4">
-                        <p>Plaats</p>
+                        <p>Plaats*</p>
                         <input placeholder='plaatsnaam' pattern="[a-zA-Z /s]{2,30}" title="vul een juist plaats in"
                         type="text" name="postcode"className="form-control"  value={this.state.klantPlaats}  required={true}
                         onChange={(e:any) => this.setState({klantPlaats: e.target.value})}

@@ -192,11 +192,9 @@ export class UsersPage extends React.Component<{}, UsersState>{
         console.log(klantToPost + "KLANT TO POST")
         console.log(apiMethod + "API METHOD")
         let apiResponse = await fetch(apiUrl, {method: apiMethod, body:JSON.stringify(klantToPost), headers: new Headers({'content-type' : 'application/json'})});
-        // this.GetAllUsers();
-        // alert("Gewijzigd");
-        return(
-        <Redirect to={"/"} push={true}/>
-        )
+        this.GetAllUsers();
+        alert("Gewijzigd");
+
         
     }
     SearchForUser(search: string) : void{
@@ -237,7 +235,8 @@ export class UsersPage extends React.Component<{}, UsersState>{
                                         <div className='col-md-7'>   
                                             <h4>klant id:{" " + user.klantId } </h4>
                                             <h4>Username: { user.username }  </h4>
-                                            <h4>Achternaam: { user.klantNaam }  </h4>
+                                            <h4><b>Voornaam: </b>{user.klantNaam}</h4>
+                                            <h4><b>Achternaam: </b>{ user.klantAchternaam }  </h4>
                                             <h4>E-Mail: { user.klantMail }  </h4>
                                             
 
@@ -246,6 +245,7 @@ export class UsersPage extends React.Component<{}, UsersState>{
                                             <br/>
                                             <br/>
                                             </div>
+                                            
                                             { console.log(this.state.change) }
                                             {
                                                 user.klantId === this.state.change || this.state.createUserClicked?
@@ -324,7 +324,24 @@ export class UsersPage extends React.Component<{}, UsersState>{
                                                                 
                                                                 <p>Datum registratie: { this.state.klantDatumRegistratie} </p>
                                                                 
-                                                            <input className="btn btn-primary" placeholder="Wijzigen" type="submit" value="Wijzigen"/>
+                                                        
+                                                            <div>
+                                                            <input className="btn btn-primary" placeholder="Wijzigen" type="submit" value="Wijzigen" data-toggle="modal" data-target="#UserW"/>
+                                                            <div className="modal fade" id="UserW" role="dialog">
+                                                            <div className="modal-dialog modal-sm">
+                                                            <div className="modal-content">
+                                                            <div className="modal-header">
+                                                                <button type="button" className="close" data-dismiss="modal" data-backdrop="false">&times;</button>
+                                                                <h4 className="modal-title">User is aangepast!</h4>
+                                                            </div>
+                                                            <div className="modal-body">
+                                                                <br />
+                                                                <button onClick={()=> this.setState({ change : 0})} className="btn btn-default" data-backdrop="false" data-dismiss="modal">Terug</button>
+                                                            </div>
+                                                        </div>
+                                                        </div>
+                                                        </div>
+                                                        </div>
                                                             </div>
                                                             </div>
                                                             </form>
