@@ -38,14 +38,20 @@ export class ReviewsPage extends React.Component<{}, ReviewPageState>{
            <div>
                {this.state.loaded? 
                this.state.reviews.map((review, index) => {
-                   return([
-                    <div> <h2> Comment: {index + 1} </h2> </div>,
-                    <div><strong> Product: </strong>  {review.productId}</div>,
-                    <div><strong> Klant:  </strong>{review.klantId}</div>,
-                    <div><strong> Rating:  </strong>{review.rating}</div>,
-                    <div><strong> Comment:  </strong>{review.comment}</div>,
-                    <button onClick={() => this.DeleteComment(review.reviewId)}> <strong> Delete comment </strong> </button> 
-                   ])
+                   return(
+                       <div className='Container'>
+                            <div className='col-md-7'>
+                    <div> <h2> Review: {index + 1} </h2> </div>
+                    <div><strong> Product: </strong>  {review.productId}</div>
+                    <div><strong> Klant:  </strong>{review.klantId}</div>
+                    <div><strong> Rating:  </strong>{review.rating}</div>
+                    <div><strong> Comment:  </strong>{review.comment}</div>
+                    
+                    <button className='btn btn-danger' onClick={() => this.DeleteComment(review.reviewId)}> <strong> Delete comment </strong> </button> 
+                            </div>
+                        </div>
+
+                   )
                })
                :
                <div> Loading... </div>
