@@ -190,9 +190,13 @@ export class Afrekenen extends AbstractStorage {
                     <NavLink to={ '/' } exact activeClassName='active' className='LinksNav'>
                         <button className="btn btn-primary">Home</button>
                     </NavLink>
+                    {User.IsUserLoggedIn() == true?
                     <NavLink to={ '/Bestellingen' } className='LinksNav'>
                         <button className="btn btn-primary">Naar bestellingen</button>
                     </NavLink>
+                    :
+                    <button className="btn btn-danger">Naar bestellingen</button>
+                    }
                 </div>
             )
         }
