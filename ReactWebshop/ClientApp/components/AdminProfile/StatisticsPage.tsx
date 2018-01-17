@@ -25,6 +25,7 @@ interface StatisticsInterface{
     pieChartClickedKey: number
 
     titleAboveStatistics: string
+    currentSelectedDate: Date
 
    
 }
@@ -37,6 +38,7 @@ export class StatisticsPage extends React.Component<{}, StatisticsInterface> {
         this.KlantLocationApiCall = this.KlantLocationApiCall.bind(this);
         this.LineGraphStatistics = this.LineGraphStatistics.bind(this);
         this.LineGraphStatisticsApiCall = this.LineGraphStatisticsApiCall.bind(this);
+        this.SelectDateToShow = this.SelectDateToShow.bind(this);
 
     
         this.state ={
@@ -51,7 +53,8 @@ export class StatisticsPage extends React.Component<{}, StatisticsInterface> {
             currentApiUrl: "",
             pieChartClickedValue: 0,
             pieChartClickedKey: 0,
-            titleAboveStatistics: ""
+            titleAboveStatistics: "",
+            currentSelectedDate: new Date()
         }
         
     }
@@ -176,6 +179,22 @@ export class StatisticsPage extends React.Component<{}, StatisticsInterface> {
         });
 
     }
+    SelectDateToShow() : string{
+        if(this.state.calendarDayClickedvalue != null){
+            var dayCopy = this.state.calendarDayClickedvalue;
+            return (dayCopy.toDateString());
+        }
+        else if(this.state.calendarMonthClickedvalue != null){
+            var monthCopy = this.state.calendarMonthClickedvalue;
+            this.FixDateOffset(monthCopy);
+            return (this.state.calendarMonthClickedvalue.getMonth() + 1).toString() + " " + this.state.calendarMonthClickedvalue.getUTCFullYear().toString();        
+        }
+        else{
+            var yearCopy = this.state.calendarYearClickedvalue;
+            this.FixDateOffset(yearCopy);
+            return(this.state.calendarYearClickedvalue.getUTCFullYear().toString());
+        }
+    }
     FixDateOffset(date: Date){
         date.setDate(date.getDate() + 1);      
     }
@@ -242,13 +261,12 @@ export class StatisticsPage extends React.Component<{}, StatisticsInterface> {
                 <div className="dropdown-menu dropdown-menu-bestellingen">
                 <button onClick={() => this.ReviewStatistics(false,0, "Hoogst gewaardeerde producten uit de huidige voorraad")}> Hoogst gewaardeerde producten uit de huidige voorraad </button> 
                 <button onClick={() => this.ReviewStatistics(false,1,"Minst gewaardeerde producten uit de huidige voorraad")}>  Minst gewaardeerde producten uit de huidige voorraad </button>  
-               <button onClick={() => this.ReviewStatistics(true,0,"Overall Reviews van producten per category")}>  Overall Reviews van producten per category</button>                        
-                </div>
+            </div>
             </div>
 
+           
             {this.state.calendarOptionClick?      
             [   
-                //TODO Find out why it starts at a wrong date
             <Calendar 
             showWeekNumbers={true} 
             locale={"nl-nl"}
@@ -256,18 +274,21 @@ export class StatisticsPage extends React.Component<{}, StatisticsInterface> {
             showNavigation={true}
             view={"decade"}
 
-            onClickDay={(e:any) => this.setState({calendarDayClickedvalue: e, calendarMonthClickedvalue:null, calendarYearClickedvalue:null})}
-            onClickMonth={(e:any) => this.setState({calendarMonthClickedvalue: e, calendarDayClickedvalue:null, calendarYearClickedvalue: null })}
-            onClickYear={(e: any) => this.setState({calendarYearClickedvalue: e, calendarDayClickedvalue: null, calendarMonthClickedvalue:null})}
+            onClickDay={(e:any) => this.setState({calendarDayClickedvalue: e, calendarMonthClickedvalue:null, calendarYearClickedvalue:null, currentSelectedDate: e})}
+            onClickMonth={(e:any) => this.setState({calendarMonthClickedvalue: e, calendarDayClickedvalue:null, calendarYearClickedvalue: null,  currentSelectedDate: e })}
+            onClickYear={(e: any) => this.setState({calendarYearClickedvalue: e, calendarDayClickedvalue: null, calendarMonthClickedvalue:null,  currentSelectedDate: e})}
             />,
             <button onClick={() => this.LineGraphStatistics(this.state.currentApiUrl, this.state.currentApiUrl + " Overzicht")}> Load the data </button>,          
             ]          
             :
             <div> </div>
 
-            }           
+            }                    
+             
             <h1> {this.state.titleAboveStatistics} </h1>
             {this.state.chartReadyForLoading ? 
+
+             
                     
                     this.state.choiceForChart == 1 ?
                     [this.loadPieChart(),
@@ -277,8 +298,9 @@ export class StatisticsPage extends React.Component<{}, StatisticsInterface> {
                     this.state.choiceForChart == 2 ?
                     this.LoadBarChart()
                     :
-                    this.state.choiceForChart == 3 ?
-                    this.LoadLineChart()
+                    this.state.choiceForChart == 3 ?[
+                    <h1> Selected Date: {this.SelectDateToShow()} </h1>,
+                    this.LoadLineChart()]
                     :
                     <div> </div>
                   :
