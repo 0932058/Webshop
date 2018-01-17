@@ -233,11 +233,11 @@ export class UsersPage extends React.Component<{}, UsersState>{
                                         
                                     
                                         <div className='col-md-7'>   
-                                            <h4>klant id:{" " + user.klantId } </h4>
-                                            <h4>Username: { user.username }  </h4>
+                                            <h4><b>Klant id: </b>{" " + user.klantId } </h4>
+                                            <h4><b>Username: </b> { user.username }  </h4>
                                             <h4><b>Voornaam: </b>{user.klantNaam}</h4>
                                             <h4><b>Achternaam: </b>{ user.klantAchternaam }  </h4>
-                                            <h4>E-Mail: { user.klantMail }  </h4>
+                                            <h4><b>E-Mail: </b>{ user.klantMail }  </h4>
                                             
 
                                             <button type="button" className={"btn btn-primary"} data-toggle="collapse" data-target="#userForm"  onClick={() => this.EditEntity(user)} > Bekijk / Pas Aan </button>

@@ -73,26 +73,28 @@ export class ReviewsPage extends React.Component<{}, ReviewPageState>{
 
     render(){
         return(
+            <div className='col-md-8'>
            <div>
                <button className={"btn btn-danger"} onClick={this.resetSearch}>verwijder zoekterm</button>
                <input onChange={this.onSearchChange} placeholder={"zoek naar comments"} value={this.state.search}></input>
 
                {this.state.loaded? 
                this.state.filteredReviews.map((review, index) => {
-                   return([
-                    <div> <h2> Comment: {index + 1} </h2> </div>,
-                    <div><strong> Product: </strong>  {review.productNaam}</div>,
-                    <div><strong> Klant:  </strong>{review.klantNaam}</div>,
-                    <div><strong> Rating:  </strong>{review.rating}</div>,
-                    <div><strong> Comment:  </strong>{review.comment}</div>,
-                    <button className={"btn btn-danger"} onClick={() => this.DeleteComment(review.reviewId)}> <strong> Delete comment </strong> </button> 
-                   ])
+                   return(
+                       <div>
+                     <h2> Comment: {index + 1} </h2> 
+                    <div><strong> Product: </strong>  {review.productNaam}</div>
+                    <div><strong> Klant:  </strong>{review.klantNaam}</div>
+                    <div><strong> Rating:  </strong>{review.rating}</div>
+                    <div><strong> Comment:  </strong>{review.comment}</div>
+                    <button className='btn btn-danger' onClick={() => this.DeleteComment(review.reviewId)}> <strong> Delete comment </strong> </button> 
+                   </div>)
                })
                :
                <div> Loading... </div>
                }
             </div>
 
-        )
+        </div>)
     }
 }

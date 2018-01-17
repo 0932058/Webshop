@@ -78,6 +78,7 @@ export class BestellingenPage extends React.Component<{}, BestellingenState> {
     }
     render(){
         return(
+            <div className='col-md-8'>
             <div>
                 {this.state.loaded ?
                 this.state.bestellingsets.map(
@@ -136,6 +137,6 @@ export class BestellingenPage extends React.Component<{}, BestellingenState> {
                 }
                 
          </div>
-        )}
+        </div>)}
 
 }
