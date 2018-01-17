@@ -20,7 +20,7 @@ export class Afrekenen extends AbstractStorage {
             customerID: loggedInUserPK, 
             isShoppingCart:true, 
             loaded:false, 
-            totalPrice: this.CalcPrice(),
+            totalPrice: this.CalcPrice().toFixed(2),
             ordered: false,
             formVoornaam: "",
             formAchternaam: "",
@@ -42,7 +42,8 @@ export class Afrekenen extends AbstractStorage {
     componentDidMount(){
         this.setState({
             products: this.GetCartData(),
-            loaded: true
+            loaded: true,
+            productdata: this.BuildItemStack()
         })
         console.log(this.GetCartData())
     }
@@ -62,6 +63,26 @@ export class Afrekenen extends AbstractStorage {
             res.push(order);
         })
         return res;
+    }
+
+    BuildItemStack(){
+        var cart = this.GetCartData();
+        var stacklist = [];
+        cart.forEach(cartproduct => {
+            var checkproduct = stacklist.find(stack => stack.product.id == cartproduct.id);
+            if (checkproduct == null){
+                var stack = {"product" : cartproduct, "amount" : 1};
+                stacklist.push(stack);
+            }
+            else{
+                stacklist.map(stack =>{
+                    if (stack.product.id == cartproduct.id){
+                        stack.amount += 1;
+                    }
+                });
+            }
+        })
+        return stacklist;
     }
     async PostOrderToDatabase(klantId){
         let apiUrl = 'api/Bestellingen/Post'
@@ -156,15 +177,17 @@ export class Afrekenen extends AbstractStorage {
                         </div>
                         <div className='col-md-6'>
                         <p><b>Bestel overzicht</b></p>
-                        {this.state.loaded?this.state.products.map(
+                        {this.state.loaded?this.state.productdata.map(
                             item =>{
                                 return(
                                     <div className={"Component"}>
                                     <div className='col-md-12'>
-                                    <div className='col-md-3'><img className="img-responsive" src={item.image}/></div>
-                                    <p><b>Product Naam:</b>{item.name}</p>
-                                    <p><b>Console type:</b>{item.console}</p>
-                                    <p><b>Stuk prijs:</b>{"€"+item.price}</p>
+                                    <div className='col-md-3'><img className="img-responsive" src={item.product.image}/></div>
+                                    <p><b>Product Naam:</b>{item.product.name}</p>
+                                    <p><b>Console type:</b>{item.product.console}</p>
+                                    <p><b>Aantal:</b>{item.amount}</p>
+                                    <p><b>Stuk prijs:</b>{"€"+item.product.price}</p>
+                                    <p><b>Prijs:</b>{"€"+(item.product.price*item.amount)}</p>
 
                                     </div>
                                     </div>
