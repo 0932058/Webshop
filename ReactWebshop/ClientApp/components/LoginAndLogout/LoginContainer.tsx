@@ -110,13 +110,14 @@ export class LoginContainer extends React.Component<RouteComponentProps<{}>, Log
             <div className="col-md-4">
                 <div className="input-group">
                     <span className="input-group-addon"> <i className="glyphicon glyphicon-user"> </i> </span> 
-                    <input type="text" name="username" className="form-control" id="usr" value={this.state.typedInUsername}/>
+                    <input type="text" name="username" className="form-control" id="usr" placeholder="Gebruikersnaam" value={this.state.typedInUsername}/>
                 </div>
 
                 <div className="input-group"> 
                     <span className="input-group-addon"><i className="glyphicon glyphicon-lock"></i></span>
-                    <input type="password" name="password" className="form-control" id="pwd" value={this.state.typedInPassword}/>    
+                    <input type="password" name="password" className="form-control" id="pwd" placeholder="Wachtwoord" value={this.state.typedInPassword}/>    
                 </div>
+                <br/>
             </div>
             </div>
 

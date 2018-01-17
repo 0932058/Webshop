@@ -14,6 +14,7 @@ export class User{
     private static password: string;
     private static streetname: string;
     private static streetnumber: string;
+    private static plaats: string;
     private static postcode: string;
     private static wishListFK: number;
     private static shoppingCartFK: number;
@@ -68,6 +69,7 @@ export class User{
         User.streetname = account.klantStraat;
         User.streetnumber = account.klantStraatnmr;
         User.postcode = account.klantPostcode;
+        User.plaats = account.klantPlaats;
 
     }
     public static LogUserOut(){
@@ -85,6 +87,9 @@ export class User{
     }
     public static GetEmail(){
         return User.email;
+    }
+    public static GetPlaats(){
+        return User.plaats;
     }
     public static GetUsername(){
         return User.username;
