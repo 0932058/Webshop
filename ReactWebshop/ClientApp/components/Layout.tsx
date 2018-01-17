@@ -369,16 +369,16 @@ const Footer = (
   <div className="row">
     <div className="col-lg-12">
         <ul className="nav nav-pills nav-justified">
-          <li><a href="About">About us</a></li>
-          <li><a href="/Policy">​Policy</a></li>
-          <li><a href="/ToS">Terms of Service</a></li>
+          <li><NavLink to="/About">About us</NavLink></li>
+          <li><NavLink to="/Policy">​Policy</NavLink></li>
+          <li><NavLink to="/ToS">Terms of Service</NavLink></li>
         </ul>
     </div>
   </div>
     <div className="row">
         <div className="col-lg-12">
             <ul className="nav nav-pills nav-justified">
-                <li><a href="/Normies">© 2017 Normies.</a></li>
+                <li><NavLink to="/Normies">© 2017 Normies.</NavLink></li>
             </ul>
         </div>
     </div>
