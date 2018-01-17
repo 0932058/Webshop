@@ -30,8 +30,10 @@ namespace reactTwo.Controllers
         }
         [HttpPost("Post")]
         public void Post([FromBody]Wenslijst list){
+            if (this._context.Wenslijsten.Find(list.wenslijstId) != null){
                 this._context.Wenslijsten.Add(list);
                 this._context.SaveChanges();
+            }
         } 
         [HttpDelete("Delete")]
         public void Delete([FromBody]Wenslijst list){
