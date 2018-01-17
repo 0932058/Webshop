@@ -73,7 +73,8 @@ export class BestellingenPage extends React.Component<{}, BestellingenState> {
                                         <p>Prijs: €{order.productId.productPrijs}</p>
                                         <p>Besteldatum: {order.bestellingDatum}</p>
                                         <p>Verstuurdatum: {order.verstuurDatum}</p>
-                                        <p>Bestelling Id: {order.bestellingId}</p> 
+                                        <p>Bestelling Id: {order.bestellingId}</p>
+                                        <p>Bestelling groep: {order.groepId}</p> 
                                         {
                                         order.klantId != null?
                                         <p>Klant: {order.klantId.username}</p>
