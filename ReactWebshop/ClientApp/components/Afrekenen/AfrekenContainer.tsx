@@ -28,7 +28,8 @@ export class Afrekenen extends AbstractStorage {
             formStraatnummer: "",
             formPostcode: "",
             formEmail: "",
-            productdata: []
+            productdata: [],
+            nieuweKlant: false,
         };
 
         this.EmptyShoppingCart = this.EmptyShoppingCart.bind(this);
@@ -194,6 +195,62 @@ export class Afrekenen extends AbstractStorage {
                 </div>
             )
         }
+        else if (User.IsUserLoggedIn() == false && this.state.nieuweKlant == false){
+            return (
+                <div>
+                    <div className="col-md-4 col-md-offset-2">
+                        <div className="afrekenContainer">
+                            <div className="row">
+                                <h3>
+                                    Login
+                                </h3>
+                                <h4>
+                                    Bestaande klanten
+                                </h4>
+                                <div className="col-md-9">
+                                    <label>Gebruikersnaam </label>
+                                    <div className="input-group">
+                                        <span className="input-group-addon"> <i className="glyphicon glyphicon-user"> </i> </span> 
+                                        <input required placeholder="Gebruikersnaam" className="form-control glyphicon glyphicon-user" type="text"/>
+                                    </div>
+                                    <label>Wachtwoord </label>
+                                    <div className="input-group">
+                                        <span className="input-group-addon"> <i className="glyphicon glyphicon-lock"> </i> </span> 
+                                        <input required placeholder="Wachtwoord" className="form-control glyphicon glyphicon-lock" type="password"/>
+                                    </div>
+                                    <h5>Nog geen account?</h5>
+                                    <NavLink to="/Registratie"><button className="btn btn-primary">Registreer nu!</button></NavLink>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="col-md-6">
+                        <div className="afrekenContainer">
+                            <div className="row">
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                                <h4>
+                                    <strong>Bestel je voor het eerst?</strong>
+                                </h4>
+                                <div className="col-md-6">
+                                    <label>Email</label>
+                                    <div className="input-group">
+                                        <span className="input-group-addon"> <i className="glyphicon glyphicon-envelope"> </i> </span>
+                                        <input required placeholder="email" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+[.]+[a-z]{2,3}$" 
+                                        title='zorg dat het een juist email is vb. characters@characters.domain'
+                                        type="text" name="email"className="form-control" onChange={(event: any) => {this.setState({formEmail: event.target.value})}}/>
+                                    </div>
+                                    <br/>
+                                    <button className="btn btn-primary" onClick={() => {this.setState({nieuweKlant: true})}}>Ga verder als nieuwe klant</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )
+        }
         else
             {return (
                 <div className="Container col-md-6">
@@ -242,16 +299,11 @@ export class Afrekenen extends AbstractStorage {
                             type="tel" name="phonenumber" className="form-control" required={true} />
                         </div>
                     </div>
-                    <div>
-                        <p>Email*</p>
-                        <input required placeholder="email" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+[.]+[a-z]{2,3}$" 
-                        title='zorg dat het een juist email is vb. characters@characters.domain'
-                        type="text" name="email"className="form-control" onChange={(event: any) => {this.setState({formEmail: event.target.value})}}/>
-                    </div>
                     <h6>
                         <strong>Velden met * zijn verplicht!</strong>
                     </h6>
-                    <input className="btn btn-success"placeholder="Afrekenen" type="submit" value="Bestellen"/>
+                    <button className="btn btn-default" onClick={() => {this.setState({nieuweKlant: false})}}>Terug</button>
+                    <input className="btn btn-success"placeholder="Afrekenen" type="submit" value="Bestellen"/> 
                     </form>
                     </ul>            
                 <p> Total Price: €{this.state.totalPrice}</p>

@@ -23,7 +23,9 @@ export class BestellingenContainer extends AbstractStorage {
             formStraatnummer: "",
             formPostcode: "",
             formEmail: "",
-            productdata: []}
+            productdata: [],
+            nieuweKlant: null,
+        }
     }
 
     componentDidMount(){
