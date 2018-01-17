@@ -21,6 +21,9 @@ interface ItemsContainerState{
     max : number,
     maxSet : number,
     page : number,
+    sort : (a : Product,b : Product) => number,
+    currentSort : string,
+
     averageReviewRating: number;
 }
 export class ItemsContainer extends React.Component<RouteComponentProps<{}>, ItemsContainerState> {
@@ -43,6 +46,7 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
         this.minAndMaxOkay = this.minAndMaxOkay.bind(this);
         this.onPrijsSubmit = this.onPrijsSubmit.bind(this);
         this.resetPriceFilter = this.resetPriceFilter.bind(this);
+        this.setSort = this.setSort.bind(this);
 
         this.months = ["Januari", "Februari", "Maart", "April", "May", "June",
         "July", "August", "September", "October", "November", "December"
@@ -64,6 +68,8 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
             max : 999,
             maxSet : 999,
             page : 20,
+            sort : (a, b) => this.getRating(b.productId) - this.getRating(a.productId),
+            currentSort : "beste reviews",
             averageReviewRating: 0
         };
     }
@@ -86,6 +92,7 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
         .then(response => response.json() as Promise<Product[]>)
         .then(data => {
             this.setState({ items : data, filteredItems : data, loaded : true});
+            this.filterItems()
         }).catch(
             error => {
                 this.setState({ loaded : false })
@@ -141,6 +148,17 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
         return false
     }
 
+    setSort(newSort, sortText){
+        let newSortedList = this.state.filteredItems
+        newSortedList.sort(newSort)
+
+        this.setState({
+            filteredItems : newSortedList,
+            sort : newSort,
+            currentSort : sortText,
+        })
+    }
+
     filterItems(){
         //we copy the items list
         let newFilteredList : Product[] = [];
@@ -162,7 +180,6 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
             if(this.itemPassesFilterList(this.state.ontwikkelaarFilter, product.productOntwikkelaar)  || this.state.ontwikkelaarFilter.length === 0){
                 correct[2] = true;
             }
-
             if( 
                 correct[0] === true && 
                 correct[1] === true &&
@@ -173,8 +190,17 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
                 newFilteredList.push(product)
             }
         }
+
+        console.log("through sort")
+        let newSortedList = newFilteredList
+        newSortedList.sort(this.state.sort)
+
+        newFilteredList = newSortedList
+        
+
         this.setState({
-            filteredItems : newFilteredList
+            filteredItems : newFilteredList,
+            page : 20
         })
 
     }
@@ -319,7 +345,7 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
                                 <a data-toggle="collapse" href="#collapsePrijs" >Prijs</a>
                             </h4>
                         </div>
-                        <div id="collapsePrijs" className="panel-collapse collapse">
+                        <div id="collapsePrijs" className="panel-collapse collapse in">
                             
                             <div className="checkbox">
                                 <input type="number" min="1" max="999" value={ this.state.min } placeholder="min 1"onChange={this.onMinChange} />
@@ -341,7 +367,7 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
                                 <a data-toggle="collapse" href="#collapse2" >Console</a>
                             </h4>
                         </div>
-                        <div id="collapse2" className="panel-collapse collapse">
+                        <div id="collapse2" className="panel-collapse collapse in">
                             <div className="checkbox">
                                 <label>
                                     <input type="checkbox" value="Playstation3" onClick={this.setConsoleFilter}/>Playstation 3
@@ -687,6 +713,20 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
                     <h3> { "Aantal producten: " + this.state.filteredItems.length } </h3>  
                     <h3> { "pagina: " + this.state.page / 20 } </h3>  
                     
+                    
+                    <li className="dropdown sort">
+                        <button className="btn btn-default dropdown-toggle" data-toggle="dropdown" > gesorteerd op: {this.state.currentSort}
+                            <span className="caret"></span>
+                        </button>
+                        <ul className="dropdown-menu">
+                            <li><button className={"btn btn-default"} onClick={() => this.setSort((a, b) => this.getRating(b.productId) - this.getRating(a.productId), "beste reviews")}>sorteer op beste review</button></li>
+                            <li><button className={"btn btn-default"} onClick={() => this.setSort((a, b) => a.productPrijs - b.productPrijs , "prijs laag naar hoog")}>laagste prijs eerst</button></li>
+                            <li><button className={"btn btn-default"} onClick={() => this.setSort((a, b) => b.productPrijs - a.productPrijs, "prijs hoog naar laag")}>hoogste prijs eerst</button></li>
+                            <li><button className={"btn btn-default"} onClick={() => this.setSort((a, b) => b.aantalInVooraad - a.aantalInVooraad , "hoogste in voorraad")}>hoogste in voorraad</button></li>
+                            <li><button className={"btn btn-default"} onClick={() => this.setSort((a, b) => a.aantalInVooraad - b.aantalInVooraad, "laagste in voorraad")}>laagste in voorraad</button></li>
+                        </ul>
+                    </li>
+
                     {this.state.filteredItems.map(
                         
                         (item, index) => {
