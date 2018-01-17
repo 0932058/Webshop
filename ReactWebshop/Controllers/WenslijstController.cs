@@ -30,7 +30,8 @@ namespace reactTwo.Controllers
         }
         [HttpPost("Post")]
         public void Post([FromBody]Wenslijst list){
-            if (this._context.Wenslijsten.Find(list.wenslijstId) != null){
+            var result = this._context.Wenslijsten.Where((w) => w.klantId == list.klantId && w.productNmr == list.productNmr).FirstOrDefault();
+            if(result == null){
                 this._context.Wenslijsten.Add(list);
                 this._context.SaveChanges();
             }
