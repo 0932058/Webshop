@@ -50,7 +50,7 @@ namespace Controllers
         public IActionResult GetComment(int productId){
             var comments = this._context.Review.
             Where(r => r.ProductId == productId)
-            .Join(this._context.Klanten, review => review.KlantId, klant => klant.KlantId,(r,k) => new {k.klantNaam, r.Rating,r.Comment});      
+            .Join(this._context.Klanten, review => review.KlantId, klant => klant.KlantId,(r,k) => new {k.klantNaam, k.KlantId, r.Rating,r.Comment});      
             return Ok(comments);
         }
         //Checks if user has already commented

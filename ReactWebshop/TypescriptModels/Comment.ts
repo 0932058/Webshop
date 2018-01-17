@@ -1,6 +1,7 @@
 export type Comment = {
     klantNaam: string,
     rating: number,
-    comment: string
+    comment: string,
+    klantId: number
 }
 export default Comment;

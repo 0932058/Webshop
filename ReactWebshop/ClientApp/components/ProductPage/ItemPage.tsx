@@ -122,7 +122,6 @@ export class ItemPage extends React.Component<RouteComponentProps<{}>, ItemPageS
         .then(average => this.setState({averageReviewRating: average}))
         .then(() => this.DrawAverageReviewStars())
         .then((stars =>  this.setState({averageReviewStars: stars})))
-        .then(_ => this.CheckIfUserHasAlreadyCommented())
         .then(() => this.GetCommentsFromApi())
         .then((comments => this.setState({comments :comments})))
         
@@ -149,13 +148,9 @@ export class ItemPage extends React.Component<RouteComponentProps<{}>, ItemPageS
         return responseConverted;
     }
     async CheckIfUserHasAlreadyCommented(){
-        if(User.IsUserLoggedIn()){
-            let apiUrl = 'api/Review/Get/User/' + User.GetPK() + "/" + this.state.product.productId;
-            let apiResponse = await fetch(apiUrl, {method: 'Get', headers: new Headers({'content-type' : 'application/json'})}); 
-            let responseConverted = apiResponse.json();
-            return responseConverted;
+        for(var c of this.state.comments){
+            
         }
-        return Promise.reject("User is not logged in");
     }
 
     setRating(event){

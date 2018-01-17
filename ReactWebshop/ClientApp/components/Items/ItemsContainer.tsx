@@ -684,7 +684,8 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
                 {this.state.loaded && this.state.reviewsLoaded? 
 
                     <div className='container' id='maingame'>      
-                    <h3> { "Aantal producten gevonden: " + this.state.filteredItems.length } </h3>  
+                    <h3> { "Aantal producten: " + this.state.filteredItems.length } </h3>  
+                    <h3> { "pagina: " + this.state.page / 20 } </h3>  
                     
                     {this.state.filteredItems.map(
                         
@@ -737,7 +738,7 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
                     
                     <div className='col-md-10'> 
                         <ul className="pagination">
-                        <li > <button className={"btn btn-default"} onClick={()=> this.setState({ page : this.state.page - 20 })} >{"<-"} vorige</button> </li>
+                        <li > <button className={"btn btn-default"} onClick={()=> this.state.page > 20?this.setState({ page : this.state.page - 20 }): null } >{"<-"} vorige</button> </li>
                         
 
                             {
@@ -745,12 +746,12 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
                                     (item, index) => {
                                         if( index % 20 == 0 && index < (this.state.page + 100) && index > (this.state.page - 100) && index != 0){
                                             return (
-                                                <li ><button className={"btn btn-primary"} onClick={() => this.setState({ page : index})}> {index / 20} </button></li>
+                                                <li ><button className={"btn btn-primary"} onClick={() => {this.setState({ page : index}); window.scrollTo(0, 0) }}> {index / 20} </button></li>
                                             )
                                         }else{
                                             if((index + 1) === this.state.filteredItems.length){
                                                 
-                                                    <li ><button className={"btn btn-primary"} onClick={() => this.setState({ page : index})}> laatste pagina </button></li>
+                                                    <li ><button className={"btn btn-primary"} onClick={() => {this.setState({ page : index}); window.scrollTo(0, 0) } }> laatste pagina </button></li>
                                                 
                                             }
                                         }
@@ -758,7 +759,7 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
                                 )
                             }
 
-                            <li > <button className={"btn btn-default"} onClick={()=> this.setState({ page : this.state.page + 20 })} >volgende -></button> </li>   
+                            <li > <button className={"btn btn-default"} onClick={()=> this.state.filteredItems.length - 20 > this.state.page? this.setState({ page : this.state.page + 20 }) && window.scrollTo(0, 0) : null } >volgende -></button> </li>   
                         </ul>
                     </div>
                     
