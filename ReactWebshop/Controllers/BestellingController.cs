@@ -24,6 +24,7 @@ namespace reactTwo.Controllers
         [HttpGet("GetAll")]
         public IActionResult GetAll(){
             List<JoinedBestelling> bestToRet = new List<JoinedBestelling>();
+            JoinedBestelling[] res;
 
             foreach(Bestelling bestelling in _context.Bestellingen.AsEnumerable()){
                 if (bestelling.productId != 0){
@@ -33,14 +34,16 @@ namespace reactTwo.Controllers
                         bestellingDatum = bestelling.bestellingDatum,
                         verstuurDatum = bestelling.verstuurDatum,
                         status = bestelling.status,
-                        klantId = _context.Klanten.Find(bestelling.klantId)
+                        klantId = _context.Klanten.Find(bestelling.klantId),
+                        groupId = bestelling.groupId
                     };
                     bestToRet.Add(newBest);
                 }
             }
 
             if(bestToRet != null){
-                return Ok( bestToRet.ToArray());
+                res = bestToRet.OrderByDescending((b) => b.groupId).ToArray();
+                return Ok(res);
 
             }
             else{
