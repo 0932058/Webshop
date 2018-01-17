@@ -29,8 +29,9 @@ interface UsersState{
     klantDatumRegistratie: string,
     username: string,
     password: string,
-    editUserClicked: boolean;
-    search:string
+    editUserClicked: boolean,
+    search :string,
+    showModal: boolean,
 }
 
 export class UsersPage extends React.Component<{}, UsersState>{
@@ -66,6 +67,7 @@ export class UsersPage extends React.Component<{}, UsersState>{
             klantDatumRegistratie: "",
 
             search: "",
+            showModal: false,
         }
         this.GetAllUsers();
 
@@ -213,7 +215,7 @@ export class UsersPage extends React.Component<{}, UsersState>{
         return(         
             
             <div className={"UsersComponent"} > 
-            <div className='col-md-10'>
+            <div className='col-md-8'>
                 <h1> Users </h1>
 
                 <input type="search" name="search" placeholder="Zoek een specifieke user"className="form-control" id="search" onChange={(e: any) => this.GetSpecificUser(e.target.value)} />  
@@ -232,16 +234,17 @@ export class UsersPage extends React.Component<{}, UsersState>{
                                 <div className={"Component"}>
                                         
                                     
-                                        <div className='col-md-10'>   
-                                            <h3>klant id:{" " + user.klantId } </h3>
-                                            <h3>Username: { user.username }  </h3>
-                                            <h3>Achternaam: { user.klantNaam }  </h3>
-                                            <h3>E-Mail: { user.klantMail }  </h3>
+                                        <div className='col-md-7'>   
+                                            <h4>klant id:{" " + user.klantId } </h4>
+                                            <h4>Username: { user.username }  </h4>
+                                            <h4>Achternaam: { user.klantNaam }  </h4>
+                                            <h4>E-Mail: { user.klantMail }  </h4>
                                             
-                                        
-                                          
+
                                             <button type="button" className={"btn btn-primary"} data-toggle="collapse" data-target="#userForm"  onClick={() => this.EditEntity(user)} > Bekijk / Pas Aan </button>
                                             <button className={"btn btn-primary"} onClick={() => this.DeleteEntity(user)} > Verwijder </button>
+                                            <br/>
+                                            <br/>
                                             </div>
                                             { console.log(this.state.change) }
                                             {
@@ -254,80 +257,74 @@ export class UsersPage extends React.Component<{}, UsersState>{
                                                         (event: any) => this.handleChangeSubmit(event, false))}>
 
                                                      <div id="userForm">
-                                                        <div className='col-md-6'>
-                                                        
-                                                                <p></p>
-                                                                <p>klantNaam</p>
-                                                                <input placeholder="klantNaam" pattern="[a-zA-Z /s]{1,15}" title="klantNaam moet bestaan uit 1 tot en met 15 letters"
-                                                                type="text" name="klantNaam" className="form-control" value={this.state.klantNaam} required={true}
+                                                        <div className='col-md-5'>
+                                                                <p>Voornaam</p>
+                                                                <input placeholder="Voornaam" pattern="[a-zA-Z /s]{1,15}" title="Naam moet bestaan uit 1 tot en met 15 letters"
+                                                                type="text" className="form-control" value={this.state.klantNaam} required={true}
                                                                 onChange={(event:any) => this.setState({klantNaam: event.target.value})}
                                                                  />
 
-                                                                <p>klantAchternaam</p>
-                                                                <input placeholder="klantAchternaam" pattern="[a-zA-Z /s]{1,30}" title="klantAchternaam moet bestaan uit 1 tot 30 letters" 
-                                                                type="text" name="klantAchternaam" className="form-control"  value={this.state.klantAchternaam} required={true} 
+                                                                <p>Achternaam</p>
+                                                                <input placeholder="Achternaam" pattern="[a-zA-Z /s]{1,30}" title="Achternaam moet bestaan uit 1 tot 30 letters" 
+                                                                type="text" className="form-control"  value={this.state.klantAchternaam} required={true} 
                                                                 onChange={(event:any) => this.setState({klantAchternaam: event.target.value})}
-                                                                
                                                                 />
 
-                                                                <p>klantTussenvoegsel</p>
-                                                                <input placeholder="klantTussenvoegsel"
-                                                                title='klantTussenvoegsel moet alleen uit letters bestaan'
-                                                                type="text" name="klantTussenvoegsel"className="form-control"  value={this.state.klantTussenvoegsel} required={false} 
+                                                                <p>Tussenvoegsel</p>
+                                                                <input placeholder="Tussenvoegsel"
+                                                                title='Tussenvoegsel mag alleen uit letters bestaan'
+                                                                type="text" className="form-control" pattern="[a-z]{1,6}" value={this.state.klantTussenvoegsel} required={false} 
                                                                 onChange={(event:any) => this.setState({klantTussenvoegsel: event.target.value})}
                                                                 />
 
-                                                                <p>klantTel</p>
-                                                                <input placeholder="klantTel" pattern="[0-9]{1,30}" title="gebruikers naam mag maximaal uit 8 tekens bestaan"
-                                                                type="text" name="klantTel"className="form-control"  value={this.state.klantTel} required={true}
+                                                                <p>Telefoonnummer</p>
+                                                                <input placeholder="Telefoonnummer" pattern="[0-9]{1,30}" title="gebruikers naam mag maximaal uit 8 tekens bestaan"
+                                                                type="text" className="form-control"  value={this.state.klantTel} required={true}
                                                                 onChange={(event:any) => this.setState({klantTel: event.target.value})}
                                                                 />
 
-                                                                <p>klantMail</p>
-                                                                <input placeholder="klantMail" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+[.]+[a-z]{2,3}$" title="klantMail moet minstens 6 waardes bevatten"
-                                                                type="klantMail" name="klantMail"className="form-control"  value={this.state.klantMail} required={true} 
+                                                                <p>Email adres</p>
+                                                                <input placeholder="Email" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+[.]+[a-zA-Z]{2,3}$" title="zorg dat het een juist email is vb. characters@characters.domain"
+                                                                type="text" className="form-control"  value={this.state.klantMail} required={true} 
                                                                 onChange={(event:any) => this.setState({klantMail: event.target.value})}
                                                                 /> 
 
-                                                                <p>klantStraat</p>
-                                                                <input placeholder='klantStraat' pattern="[a-zA-Z /s]{2,30}" title="vul een juist adres in"
-                                                                type="text" name="klantStraat"className="form-control"  value={this.state.klantStraat} required={true} 
+                                                                <p>Straatnaam</p>
+                                                                <input placeholder='Straatnaam' pattern="[a-zA-Z /s]{2,30}" title="vul een juist adres in"
+                                                                type="text" className="form-control"  value={this.state.klantStraat} required={true} 
                                                                 onChange={(event:any) => this.setState({klantStraat: event.target.value})}
-                                                                
                                                                 />
-                                                                    <p>KlantPlaats</p>
-                                                                <input placeholder="password" pattern=".{6,}"  title="klantStraatnmr moet uit 4 cijfers en 2 letters bestaan" 
-                                                                type="text" name="password"className="form-control"  value={this.state.klantPlaats} required={true} 
+
+                                                                <p>Plaatsnaam</p>
+                                                                <input placeholder="Plaatsnaam" pattern=".{6,}"  title="vul een geldige plaatsnaam in" 
+                                                                type="text" className="form-control"  value={this.state.klantPlaats} required={true} 
                                                                 onChange={(event:any) => this.setState({klantPlaats: event.target.value})} />
 
 
-                                                                <p>klantPostcode</p>
-                                                                <input placeholder='klantPostcode' pattern="[1-9][0-9]{3}\s?[a-zA-Z]{2}" title="vul een juist image in"
-                                                                type="text" name="klantPostcode"className="form-control"  value={this.state.klantPostcode} required={true} 
+                                                                <p>Postcode</p>
+                                                                <input placeholder='Postcode' pattern="[1-9][0-9]{3}\s?[a-zA-Z]{2}" title="vul een geldige postcode in"
+                                                                type="text" className="form-control"  value={this.state.klantPostcode} required={true} 
                                                                 onChange={(event:any) => this.setState({klantPostcode: event.target.value})}
-                                                                
                                                                 />
 
-                                                                <p>klantStraatnmr</p>
-                                                                <input placeholder="klantStraatnmr" pattern="[0-9]{0,5}" title="klantStraatnmr moet uit 4 cijfers en 2 letters bestaan" 
-                                                                type="text" name="klantStraatnmr"className="form-control"  value={this.state.klantStraatnmr} required={true} 
+                                                                <p>Straatnummer</p>
+                                                                <input placeholder="Straatnummer" pattern="[0-9]{0,5}" title="vul een geldige straatnummer in" 
+                                                                type="text" className="form-control"  value={this.state.klantStraatnmr} required={true} 
                                                                 onChange={(event:any) => this.setState({klantStraatnmr: event.target.value})} />
 
-                                                                <p>username</p>
-                                                                <input placeholder="username" pattern="[a-zA-Z0-9]{3,15}"  title="username moet uit 4 cijfers en 2 letters bestaan" 
-                                                                type="text" name="username"className="form-control"  value={this.state.username} required={true} 
+                                                                <p>Gebruikersnaam</p>
+                                                                <input placeholder="Gebruikersnaam" pattern="[a-zA-Z0-9]{3,15}"  title="username moet uit 4 cijfers en 2 letters bestaan" 
+                                                                type="text" className="form-control"  value={this.state.username} required={true} 
                                                                 onChange={(event:any) => this.setState({username: event.target.value})} />
 
-                                                                <p>password</p>
-                                                                <input placeholder="password" pattern=".{6,}"  title="klantStraatnmr moet uit 4 cijfers en 2 letters bestaan" 
-                                                                type="text" name="password"className="form-control"  value={this.state.password} required={true} 
+                                                                <p>Wachtwoord</p>
+                                                                <input placeholder="Wachtwoord" pattern=".{6,}"  title="klantStraatnmr moet uit 4 cijfers en 2 letters bestaan" 
+                                                                type="password" className="form-control"  value={this.state.password} required={true} 
                                                                 onChange={(event:any) => this.setState({password: event.target.value})} />
                                                                 
                                                                 <p>Datum registratie: { this.state.klantDatumRegistratie} </p>
-                                                          
-
                                                                 
-                                                            <li><input className="btn btn-primary" placeholder="Wijzigen" type="submit" value="Wijzigen"/> </li>
+                                                            <input className="btn btn-primary" placeholder="Wijzigen" type="submit" value="Wijzigen"/>
                                                             </div>
                                                             </div>
                                                             </form>
