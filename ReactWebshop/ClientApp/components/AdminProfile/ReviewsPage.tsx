@@ -66,7 +66,7 @@ export class ReviewsPage extends React.Component<{}, ReviewPageState>{
         }
 
         this.setState({
-            search : event.target.value,
+            search : this.state.search + event.target.value,
             filteredReviews : newReviews
         })
     }

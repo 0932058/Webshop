@@ -216,7 +216,7 @@ export class UsersPage extends React.Component<{}, UsersState>{
             <div className='col-md-8'>
                 <h1> Users </h1>
 
-                <input type="search" name="search" placeholder="Zoek een specifieke user"className="form-control" id="search" onChange={(e: any) => this.GetSpecificUser(e.target.value)} />  
+                <input type="search" name="search" placeholder="Zoek een specifieke user" className="form-control" id="search" onChange={(e: any) => this.GetSpecificUser(e.target.value)} />  
                 <h2> Nieuwe gebruiker </h2> 
                 <button className={"btn btn-primary"} onClick={() => this.CreateEntity()} > Maak een nieuwe gebruiker aan </button>
                 <h2> Gevonden gebruikers: {this.state.users.length} </h2> 

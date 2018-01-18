@@ -791,7 +791,7 @@ export class ItemsContainer extends React.Component<RouteComponentProps<{}>, Ite
                                         }else{
                                             if((index + 1) === this.state.filteredItems.length){
                                                 
-                                                    <li ><button className={"btn btn-primary"} onClick={() => {this.setState({ page : index}); window.scrollTo(0, 0) } }> laatste pagina </button></li>
+                                                    return(<li ><button className={"btn btn-primary"} onClick={() => {this.setState({ page : index}); window.scrollTo(0, 0) } }> laatste pagina </button></li>)
                                                 
                                             }
                                         }
