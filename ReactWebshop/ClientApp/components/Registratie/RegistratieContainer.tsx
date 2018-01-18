@@ -116,7 +116,7 @@ export class RegistratieContainer extends React.Component<RouteComponentProps<{}
                     <div className="row">
                         <div className="col-md-4 col-md-offset-4">
                         <p>Gebruikersnaam*</p>
-                        <input placeholder="gebruikersnaam" pattern="[a-zA-Z0-9]{3,15}" title="gebruikers naam mag maximaal uit 8 tekens bestaan"
+                        <input placeholder="gebruikersnaam" pattern="[a-zA-Z0-9]{3,16}" title="gebruikersnaam moet minimaal 3 en maximaal 16 tekens bestaan"
                         type="text" name="username"className="form-control"  value={this.state.username}  required={true}
                         onChange={(e:any) => this.setState({username: e.target.value})}
                          />

@@ -227,7 +227,7 @@ const topBar = (
               </form>
                 </ul>
                 <ul className="nav navbar-nav navbar-right">
-                    <li><NavLink to={"/Winkelmand"}>Winkelmand <span className="badge">{this.state.WMItems}</span> </NavLink></li>
+                    <li><NavLink to={"/Winkelmand"}> <p className='glyphicon glyphicon-shopping-cart'> </p> Winkelmand <span className="badge">{this.state.WMItems}</span> </NavLink></li>
                     <li><NavLink to={"/Registratie"}>Registreer</NavLink></li>
                     <li><NavLink to={"/Login"}><span className="glyphicon glyphicon-log-in"> </span>    Login</NavLink></li>
                 </ul>

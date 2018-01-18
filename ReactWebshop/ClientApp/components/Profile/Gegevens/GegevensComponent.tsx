@@ -32,7 +32,6 @@ export class GegevensComponent extends React.Component<{}, GegevensState> {
             plaats: this.state.plaats,
         }
         let apiResponse = await fetch("api/User/profile", {method: "PUT", body:JSON.stringify(klantToEdit), headers: new Headers({'content-type' : 'application/json'})});
-        alert("Je gegevens zijn gewijzigd, dit kan wat tijd in beslag nemen")
         this.setState({isGegevensWijzigenClicked: false})
         
     }
@@ -48,67 +47,59 @@ export class GegevensComponent extends React.Component<{}, GegevensState> {
             <p><b> Straat: </b>{User.GetStreetname()} {User.GetStreetnumber()} </p>
             <p><b> Plaats: </b>{User.GetPlaats()}</p>
             <p><b> Postcode: </b>{User.getPostcode()} </p>
-            <button onClick={() => this.setState({isGegevensWijzigenClicked: true})}> Gegevens Wijzigen </button>
-            
-            {this.state.isGegevensWijzigenClicked?
-            <div>
-                <div className="row">
-                    <div className="col-md-4 col-md-offset-4">
-                    <p>Email</p>
-                    <input placeholder="email" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+[.]+[a-zA-Z]{2,3}$" 
-                    title='zorg dat het een juist email is vb. characters@characters.domain'
-                    type="text" name="email"className="form-control"  value={this.state.email}  required={true}
-                    onChange={(e:any) => this.setState({email: e.target.value})}
-                    />
-                    </div>
-                </div>
-                <div className="row">    
-                    <div className="col-md-4 col-md-offset-4"> 
-                        <p>Straatnaam</p>
-                        <input placeholder='straatnaam' pattern="[a-zA-Z /s]{2,30}" title="vul een juist adres in"
-                        type="text" name="streetname"className="form-control"  value={this.state.straatNaam}  required={true}
-                        onChange={(e:any) => this.setState({straatNaam: e.target.value})}
+            <button className="btn btn-primary" data-toggle='collapse' data-target='#userForm'> Gegevens Wijzigen </button>
+
+            <div className="collapse" id='userForm'>
+                <form action="/action_page.php" onSubmit={() => this.ProcessEditedUser()} >
+                    <div className="row">
+                        <div className="col-md-4">
+                        <p>Email</p>
+                        <input placeholder="email" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+[.]+[a-zA-Z]{2,3}$" 
+                        title='zorg dat het een juist email is vb. characters@characters.domain'
+                        type="text" name="email"className="form-control"  value={this.state.email}  required={true}
+                        onChange={(e:any) => this.setState({email: e.target.value})}
                         />
+                        </div>
                     </div>
-                </div>
-                <div className="row">
-                    <div className="col-md-2 col-md-offset-4">
-                        <p>Straatnummer</p>
-                        <input placeholder='straatnummer' pattern="[0-9]{0,5}" title="vul een geldige huisnummer in"
-                        type="text" name="streetnumber"className="form-control"  value={this.state.straatNummer}  required={true}
-                        onChange={(e:any) => this.setState({straatNummer: e.target.value})}
-                        />
-                    </div>      
-                <div className="row">
-                    <div className="col-md-4 col-md-offset-4">
-                    <p>Postcode</p>
-                    <input placeholder="postcode" pattern="[1-9][0-9]{3}\s?[a-zA-Z]{2}" title="postcode moet uit 4 cijfers en 2 letters bestaan" 
-                    type="text" name="postcode"className="form-control"  value={this.state.postcode}  required={true}
-                    onChange={(e:any) => this.setState({postcode: e.target.value})}
-                        />
+                    <div className="row">    
+                        <div className="col-md-4"> 
+                            <p>Straatnaam</p>
+                            <input placeholder='straatnaam' pattern="[a-zA-Z /s]{2,30}" title="vul een juist adres in"
+                            type="text" name="streetname"className="form-control"  value={this.state.straatNaam}  required={true}
+                            onChange={(e:any) => this.setState({straatNaam: e.target.value})}
+                            />
+                        </div>
                     </div>
-                <div className="row">
-                    <div className="col-md-4 col-md-offset-4">
-                    <p>Plaats</p>
-                    <input placeholder='plaatsnaam' pattern="[a-zA-Z /s]{2,30}" title="vul een juist plaats in"
-                    type="text" name="postcode"className="form-control"  value={this.state.plaats}  required={true}
-                    onChange={(e:any) => this.setState({plaats: e.target.value})}
-                        />
+                    <div className="row">
+                        <div className="col-md-4">
+                            <p>Straatnummer</p>
+                            <input placeholder='straatnummer' pattern="[0-9]{0,5}" title="vul een geldige huisnummer in"
+                            type="text" name="streetnumber"className="form-control"  value={this.state.straatNummer}  required={true}
+                            onChange={(e:any) => this.setState({straatNummer: e.target.value})}
+                            />
+                        </div>     
+                    </div> 
+                    <div className="row">
+                        <div className="col-md-4">
+                        <p>Postcode</p>
+                        <input placeholder="postcode" pattern="[1-9][0-9]{3}\s?[a-zA-Z]{2}" title="postcode moet uit 4 cijfers en 2 letters bestaan" 
+                        type="text" name="postcode"className="form-control"  value={this.state.postcode}  required={true}
+                        onChange={(e:any) => this.setState({postcode: e.target.value})}
+                            />
+                        </div>
                     </div>
-                </div>    
-                
-                <div> </div>
-                <button onClick={() => this.ProcessEditedUser()}> Wijzig </button>
-        
-                </div>
-                </div>
-                </div>
-                :
-            
-                <div> </div>
-            }
-                    
-                 
+                    <div className="row">
+                        <div className="col-md-4">
+                        <p>Plaats</p>
+                        <input placeholder='plaatsnaam' pattern="[a-zA-Z /s]{2,30}" title="vul een juist plaats in"
+                        type="text" name="postcode"className="form-control"  value={this.state.plaats}  required={true}
+                        onChange={(e:any) => this.setState({plaats: e.target.value})}
+                            />
+                        </div>
+                    </div>    
+                    <input className="btn btn-primary" type="submit" value='Wijzigen'/>
+                    </form>
+                    </div>   
         </div>
     )
     }     
