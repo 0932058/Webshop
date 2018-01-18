@@ -176,7 +176,7 @@ export class WenslijstContainer extends AbstractStorage {
                                                     </div>
                                                 </div>
                                                 <p></p>
-                                                <button type="button" className="btn btn-primary" onClick={() => this.DeleteItem(listitem)}>Verwijderen</button>
+                                                <button type="button" className="btn btn-danger" onClick={() => this.DeleteItem(listitem)}>Verwijderen</button>
 
                                             </div>
                                         </div>

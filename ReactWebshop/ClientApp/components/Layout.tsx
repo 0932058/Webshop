@@ -244,7 +244,12 @@ const topBarLoggedIn = (
             <div className="navbar-header">
                 <NavLink to={"/"} className="navbar-brand" >Normies</NavLink>
             </div>
-            <div className="collapse navbar-collapse">
+                <button type="button" className="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span className="icon-bar"></span>
+                    <span className="icon-bar"></span>
+                    <span className="icon-bar"></span>                        
+                </button>
+            <div className="collapse navbar-collapse" id="myNavbar">
                 <ul className="nav navbar-nav">
                 <li className="dropdown">
                     <a className="dropdown-toggle" data-toggle="dropdown" href="#">Consoles
