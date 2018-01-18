@@ -106,16 +106,16 @@ export class BestellingenContainer extends AbstractStorage {
             </div>
             <div>
                 {this.state.loaded ?
-                this.state.productdata.map(
+                this.state.productdata.reverse().map(
                 set =>{
                     console.log(set.length)
                     if (set.length != 0){
 
                     return(
                         <div>
-                            <h1>Bestellingset: {set[0].groupId}</h1>
+                            <h1>BestellingId: {set[0].groupId}</h1>
                             {
-                            set.map(
+                            set.reverse().map(
                                 order =>{
                                 return(
                                     <div className={"Component"}>

@@ -123,9 +123,17 @@ export class Winkelmand extends AbstractStorage {
                 <div className='col-md-3'>
                 <h4> Aantal producten: {this.GetCartContent().length}</h4>
                 <h4> Totaal prijs: €{this.state.totalPrice.toFixed(2)}</h4>
-                <NavLink  to={ '/afrekenen' } className="btn btn-primary">
-                   Afrekenen
+                { this.GetCartContent().length == 0?
+                    null
+                    :
+                        <NavLink  to={ '/afrekenen' } className="btn btn-primary">
+                            Afrekenen
+                        </NavLink>
+                    }
+                <NavLink to={"/"}>
+                    <button className="btn btn-default">Verder winkelen</button>
                 </NavLink>
+                
                 </div>
             </div>
 
@@ -134,12 +142,10 @@ export class Winkelmand extends AbstractStorage {
                     { this.GetCartContent().length == 0?
                     <div>
                         <h4>Er staan geen artikelen in de winkelmand</h4>
-                        <NavLink to={"/"}>
-                            <button className="btn btn-primary">Verder winkelen</button>
-                        </NavLink>
                     </div>
                     :
-                    null}
+                        null
+                    }
                 {this.state.products.map(
                     stack =>{
                         return(
