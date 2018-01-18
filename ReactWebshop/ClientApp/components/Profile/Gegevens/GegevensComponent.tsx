@@ -22,7 +22,8 @@ export class GegevensComponent extends React.Component<{}, GegevensState> {
         postcode: User.getPostcode(), straatNummer: User.GetStreetnumber(), plaats: User.GetPlaats(), isGegevensWijzigenClicked: false}
 
     }
-    async ProcessEditedUser(){
+    async ProcessEditedUser(event){
+        event.preventDefault()
         var klantToEdit: any = {
             pk: User.GetPK(),
             email: this.state.email,
@@ -50,7 +51,7 @@ export class GegevensComponent extends React.Component<{}, GegevensState> {
             <button className="btn btn-primary" data-toggle='collapse' data-target='#userForm'> Gegevens Wijzigen </button>
 
             <div className="collapse" id='userForm'>
-                <form action="/action_page.php" onSubmit={() => this.ProcessEditedUser()} >
+                <form action="/action_page.php" onSubmit={this.ProcessEditedUser} >
                     <div className="row">
                         <div className="col-md-4">
                         <p>Email</p>
