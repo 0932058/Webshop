@@ -237,7 +237,7 @@ export class ProductsPage extends React.Component<{}, ProductsState> implements 
                                                             onChange={(event:any) => this.setState({aantalInVooraad: event.target.value})}
                                                             />
                                                         <p>productPrijs</p>
-                                                            <input placeholder="productPrijs" pattern="[0-9]{1,3}" title="productPrijs moet minstens 6 waardes bevatten"
+                                                            <input placeholder="productPrijs" pattern="[0-9]+(\\.[0-9][0-9]?)?" title="vul een juiste productPrijs in"
                                                             type="productPrijs" name="productPrijs"className="form-control"  value={this.state.productPrijs} required={true} 
                                                             onChange={(event:any) => this.setState({productPrijs: event.target.value})}
                                                             /> 
